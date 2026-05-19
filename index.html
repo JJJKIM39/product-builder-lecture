@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>행운의 로또 추첨기</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --container-bg: #ffffff;
+            --primary-color: #3498db;
+            --text-color: #2c3e50;
+            --ball-yellow: #f1c40f;
+            --ball-blue: #3498db;
+            --ball-red: #e74c3c;
+            --ball-gray: #95a5a6;
+            --ball-green: #2ecc71;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .lotto-numbers {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 2rem;
+            min-height: 60px;
+        }
+
+        .ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .ball:hover {
+            transform: scale(1.1);
+        }
+
+        .bonus-section {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ddd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bonus-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .btn-draw {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn-draw:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-draw:active {
+            transform: translateY(0);
+        }
+
+        /* Ball colors based on number ranges */
+        .color-1 { background-color: var(--ball-yellow); color: #000; } /* 1-10 */
+        .color-11 { background-color: var(--ball-blue); }   /* 11-20 */
+        .color-21 { background-color: var(--ball-red); }    /* 21-30 */
+        .color-31 { background-color: var(--ball-gray); }   /* 31-40 */
+        .color-41 { background-color: var(--ball-green); }  /* 41-45 */
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>로또 번호 추첨기</h1>
+        <div id="result" class="lotto-numbers">
+            <!-- Numbers will appear here -->
+        </div>
+        <div class="bonus-section">
+            <span class="bonus-label">보너스 번호</span>
+            <div id="bonus" class="lotto-numbers">
+                <!-- Bonus number will appear here -->
+            </div>
+        </div>
+        <button id="btn-draw" class="btn-draw">번호 추첨하기</button>
+    </div>
+
+    <script>
+        const btnDraw = document.getElementById('btn-draw');
+        const resultContainer = document.getElementById('result');
+        const bonusContainer = document.getElementById('bonus');
+
+        function getBallColorClass(num) {
+            if (num <= 10) return 'color-1';
+            if (num <= 20) return 'color-11';
+            if (num <= 30) return 'color-21';
+            if (num <= 40) return 'color-31';
+            return 'color-41';
+        }
+
+        function createBall(num, delay) {
+            const ball = document.createElement('div');
+            ball.className = `ball ${getBallColorClass(num)} fade-in`;
+            ball.textContent = num;
+            ball.style.animationDelay = `${delay}s`;
+            return ball;
+        }
+
+        function drawNumbers() {
+            // Reset containers
+            resultContainer.innerHTML = '';
+            bonusContainer.innerHTML = '';
+
+            // Create numbers 1-45
+            const numbers = Array.from({ length: 45 }, (_, i) => i + 1);
+            
+            // Shuffle (Fisher-Yates)
+            for (let i = numbers.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+            }
+
+            // Pick 6 winning numbers + 1 bonus
+            const winningNumbers = numbers.slice(0, 6).sort((a, b) => a - b);
+            const bonusNumber = numbers[6];
+
+            // Display winning numbers with delay
+            winningNumbers.forEach((num, index) => {
+                const ball = createBall(num, index * 0.1);
+                resultContainer.appendChild(ball);
+            });
+
+            // Display bonus number
+            const bonusBall = createBall(bonusNumber, 0.7);
+            bonusContainer.appendChild(bonusBall);
+        }
+
+        btnDraw.addEventListener('click', drawNumbers);
+    </script>
+</body>
+</html>
