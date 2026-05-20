@@ -545,6 +545,50 @@
       margin-top: 4px;
     }
 
+    /* Toss style Partnership Inquiry Form Styling */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-left: 2px;
+    }
+
+    .form-control {
+      width: 100%;
+      background-color: var(--grey-light);
+      border: 1.5px solid transparent;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      color: var(--text-color);
+      outline: none;
+      transition: all 0.2s ease;
+      font-family: var(--font-primary);
+    }
+
+    .form-control::placeholder {
+      color: var(--grey-dark);
+      opacity: 0.8;
+    }
+
+    .form-control:focus {
+      border-color: var(--toss-blue);
+      background-color: var(--card-bg);
+      box-shadow: 0 0 0 3px var(--toss-blue-light);
+    }
+
+    textarea.form-control {
+      resize: none;
+    }
+
     /* Transaction-style History List */
     .history-list {
       display: flex;
@@ -768,7 +812,7 @@
       </div>
     </div>
 
-    <!-- Lotto Simulation Checker (NEW sample feature) -->
+    <!-- Lotto Simulation Checker -->
     <div class="card" id="simulationCard" style="display: none;">
       <div class="card-title">
         <span>가상 당첨 확인 시뮬레이터</span>
@@ -843,6 +887,43 @@
         <!-- History items injected here -->
       </div>
     </div>
+
+    <!-- Partnership Inquiry Card (Formspree) -->
+    <div class="card">
+      <div class="card-title">
+        <span>제휴 문의</span>
+      </div>
+      <div class="card-subtitle" style="margin-bottom: 20px;">제안하고 싶은 제휴 내용이 있다면 문의해 주세요.</div>
+      
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="compName">회사명 / 이름</label>
+          <input type="text" id="compName" name="name" class="form-control" placeholder="회사명 또는 성함을 입력해 주세요" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="emailAddr">이메일 주소</label>
+          <input type="email" id="emailAddr" name="email" class="form-control" placeholder="답변받으실 이메일을 입력해 주세요" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="messageText">문의 내용</label>
+          <textarea id="messageText" name="message" class="form-control" rows="4" placeholder="제휴 제안 상세 내용을 적어주세요" required></textarea>
+        </div>
+
+        <button type="submit" id="formSubmitBtn" class="btn-draw" style="margin-top: 8px;">
+          문의 보내기
+        </button>
+      </form>
+      
+      <!-- Success State (Hidden by default) -->
+      <div id="formSuccessState" style="display: none; text-align: center; padding: 24px 0;">
+        <div style="font-size: 40px; margin-bottom: 12px;">✉️</div>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">문의가 소중히 접수되었습니다</h3>
+        <p style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">작성해 주신 이메일 주소로<br>빠른 시일 내에 답변해 드리겠습니다.</p>
+        <button id="formResetBtn" class="btn-secondary" style="margin-top: 16px; display: inline-flex; width: auto; font-size: 13px;">새로 문의하기</button>
+      </div>
+    </div>
   </div>
 
   <!-- Toast Notification System -->
@@ -884,6 +965,12 @@
     const winBonusBall = document.getElementById('winBonusBall');
     const simResultsOverview = document.getElementById('simResultsOverview');
 
+    // Formspree Elements
+    const contactForm = document.getElementById('contactForm');
+    const formSuccessState = document.getElementById('formSuccessState');
+    const formSubmitBtn = document.getElementById('formSubmitBtn');
+    const formResetBtn = document.getElementById('formResetBtn');
+
     // Init function
     function init() {
       // Setup Theme Mode
@@ -920,11 +1007,13 @@
 
       // Bind simulator logic
       simBtn.addEventListener('click', runSimulationDraw);
+
+      // Bind Formspree Submit handler
+      setupFormspree();
     }
 
     // Theme Setup & Toggle Logic
     function setupTheme() {
-      // Check localStorage or system theme preferences
       const savedTheme = localStorage.getItem('toss-lotto-theme');
       const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       
@@ -1058,7 +1147,6 @@
         return;
       }
 
-      // Hide simulator box until user clicks simulate again
       winningBox.style.display = 'none';
       simulationCard.style.display = 'none';
 
@@ -1088,7 +1176,6 @@
         row.classList.add('game-result-row');
         row.style.animationDelay = `${gameIdx * 100}ms`;
 
-        // Calculate analytics (NEW feature sample)
         const oddCount = game.filter(n => n % 2 !== 0).length;
         const evenCount = 6 - oddCount;
         const numberSum = game.reduce((sum, n) => sum + n, 0);
@@ -1111,17 +1198,15 @@
           const ball = document.createElement('div');
           ball.className = `ball ${getBallClass(num)}`;
           ball.textContent = num;
-          ball.dataset.number = num; // store for highlighting
+          ball.dataset.number = num;
           
           ball.style.animationDelay = `${(gameIdx * 350) + (ballIdx * 60)}ms`;
           ballsRow.appendChild(ball);
           
-          // Complete animation state trigger
           if (gameIdx === state.currentDrawnGames.length - 1 && ballIdx === game.length - 1) {
             setTimeout(() => {
               drawBtn.classList.remove('spinning');
               drawBtn.disabled = false;
-              // Make Simulator Card visible once draw completes
               simulationCard.style.display = 'block';
             }, (gameIdx * 350) + (ballIdx * 60) + 200);
           }
@@ -1134,14 +1219,12 @@
       saveToHistory(state.currentDrawnGames);
     }
 
-    // Simulation logic (NEW feature sample)
+    // Simulation logic
     function runSimulationDraw() {
       if (state.currentDrawnGames.length === 0) return;
 
-      // Draw winning numbers (6 normal, 1 bonus) from 1 to 45
       const pool = Array.from({ length: 45 }, (_, i) => i + 1);
       
-      // Shuffle
       for (let i = pool.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [pool[i], pool[j]] = [pool[j], pool[i]];
@@ -1150,7 +1233,6 @@
       const winningNumbers = pool.slice(0, 6).sort((a, b) => a - b);
       const bonusNumber = pool[6];
 
-      // Draw winning balls in UI
       winNormalBalls.innerHTML = '';
       winningNumbers.forEach((num, idx) => {
         const ball = document.createElement('div');
@@ -1163,7 +1245,6 @@
         winNormalBalls.appendChild(ball);
       });
 
-      // Draw bonus ball
       winBonusBall.innerHTML = '';
       const bBall = document.createElement('div');
       bBall.className = `ball ${getBallClass(bonusNumber)}`;
@@ -1174,14 +1255,12 @@
       bBall.style.animationDelay = `480ms`;
       winBonusBall.appendChild(bBall);
 
-      // Perform matching and calculate prize ranks
-      let bestRank = 6; // Default to no rank
+      let bestRank = 6;
       const winningSet = new Set(winningNumbers);
 
-      // Reset matched highlights on results container
       const allRowBalls = resultsContainer.querySelectorAll('.ball');
       allRowBalls.forEach(b => {
-        b.className = `ball ${getBallClass(parseInt(b.dataset.number))}`; // reset match styling
+        b.className = `ball ${getBallClass(parseInt(b.dataset.number))}`;
       });
 
       const matchStats = [];
@@ -1216,7 +1295,6 @@
           bestRank = currentRank;
         }
 
-        // Highlight matched balls in the result wrapper
         const row = resultsContainer.children[idx];
         const rowBalls = row.querySelectorAll('.ball');
         rowBalls.forEach(ballEl => {
@@ -1229,7 +1307,6 @@
         });
       });
 
-      // Display rank overview text
       let prizeSummary = '';
       if (bestRank === 6) {
         prizeSummary = '아쉽게도 모두 낙첨되었습니다. 다시 도전해 보세요!';
@@ -1246,6 +1323,67 @@
 
       winningBox.style.display = 'flex';
       showToast('가상 추첨 완료! 매칭된 번호를 확인하세요.');
+    }
+
+    // Formspree Integration Setup
+    function setupFormspree() {
+      if (!contactForm) return;
+
+      contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        formSubmitBtn.disabled = true;
+        formSubmitBtn.textContent = '보내는 중...';
+        
+        const formData = new FormData(contactForm);
+        
+        // **중요**: 실제 Formspree 사용 시 아래의 "YOUR_FORM_ID"를 본인의 폼 ID로 수정해 주세요.
+        // 예: const formspreeUrl = 'https://formspree.io/f/xbjnqjpv';
+        const formspreeUrl = 'https://formspree.io/f/YOUR_FORM_ID';
+        
+        try {
+          // 폼 ID를 설정하지 않은 경우 UI 작동 테스트를 위해 시뮬레이션 동작
+          if (formspreeUrl.includes('YOUR_FORM_ID')) {
+            setTimeout(() => {
+              contactForm.reset();
+              contactForm.style.display = 'none';
+              formSuccessState.style.display = 'block';
+              showToast('문의가 전송되었습니다 (테스트 모드)');
+              formSubmitBtn.disabled = false;
+              formSubmitBtn.textContent = '문의 보내기';
+            }, 1000);
+            return;
+          }
+
+          const response = await fetch(formspreeUrl, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          
+          if (response.ok) {
+            contactForm.reset();
+            contactForm.style.display = 'none';
+            formSuccessState.style.display = 'block';
+            showToast('문의가 정상적으로 전송되었습니다.');
+          } else {
+            const data = await response.json();
+            showToast(data.errors ? data.errors.map(err => err.message).join(', ') : '전송 실패. 다시 시도해 주세요.');
+          }
+        } catch (error) {
+          showToast('네트워크 오류가 발생했습니다. 다시 시도해 주세요.');
+        } finally {
+          formSubmitBtn.disabled = false;
+          formSubmitBtn.textContent = '문의 보내기';
+        }
+      });
+
+      formResetBtn.addEventListener('click', () => {
+        formSuccessState.style.display = 'none';
+        contactForm.style.display = 'block';
+      });
     }
 
     // Save drawn games into local storage history
