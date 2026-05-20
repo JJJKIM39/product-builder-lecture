@@ -8,7 +8,6 @@
   <!-- Preconnecting to Google Fonts for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Google Fonts - Toss uses similar sans-serif styled fonts like Pretendard or Inter/Outfit -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
@@ -17,17 +16,20 @@
       --toss-blue: #3182F6;
       --toss-blue-hover: #1B64DA;
       --toss-blue-light: #E8F3FF;
-      --toss-grey-50: #F9FAFB;
-      --toss-grey-100: #F2F4F6;
-      --toss-grey-200: #E5E8EB;
-      --toss-grey-300: #D1D6DB;
-      --toss-grey-600: #4E5968;
-      --toss-grey-900: #191F28;
-      --toss-white: #FFFFFF;
       --toss-red: #F04438;
       --toss-red-light: #FEE4E2;
       --toss-green: #12B76A;
       --toss-green-light: #D1FADF;
+      
+      /* Light Mode Colors */
+      --bg-color: #F3F4F6;
+      --card-bg: #FFFFFF;
+      --text-color: #191F28;
+      --text-sub: #4E5968;
+      --border-color: #E5E8EB;
+      --grey-light: #F2F4F6;
+      --grey-medium: #E5E8EB;
+      --grey-dark: #8A95A1;
       
       --font-primary: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       --font-outfit: 'Outfit', sans-serif;
@@ -40,6 +42,20 @@
       --ball-green: linear-gradient(135deg, #82C91E, #5C940D);
     }
 
+    /* Dark Mode variables override */
+    [data-theme="dark"] {
+      --bg-color: #111827;
+      --card-bg: #1F2937;
+      --text-color: #F9FAFB;
+      --text-sub: #9CA3AF;
+      --border-color: #374151;
+      --grey-light: #2D3748;
+      --grey-medium: #4B5563;
+      --toss-blue-light: rgba(49, 130, 246, 0.15);
+      --toss-green-light: rgba(18, 183, 106, 0.15);
+      --toss-red-light: rgba(240, 68, 56, 0.15);
+    }
+
     /* Basic Resets & Page Layout */
     * {
       box-sizing: border-box;
@@ -50,14 +66,15 @@
 
     body {
       font-family: var(--font-primary);
-      background-color: var(--toss-grey-50);
-      color: var(--toss-grey-900);
+      background-color: var(--bg-color);
+      color: var(--text-color);
       line-height: 1.5;
       display: flex;
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
       padding: 24px 16px;
+      transition: background-color 0.3s, color 0.3s;
     }
 
     /* Outer Container */
@@ -75,6 +92,29 @@
       text-align: center;
       margin-top: 16px;
       margin-bottom: 8px;
+      position: relative;
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: absolute;
+      right: 4px;
+      top: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-sub);
+      padding: 8px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--grey-light);
+      color: var(--text-color);
     }
 
     header .logo {
@@ -102,25 +142,25 @@
 
     header p {
       font-size: 14px;
-      color: var(--toss-grey-600);
+      color: var(--text-sub);
       font-weight: 400;
     }
 
     /* Premium Toss-style Card Base */
     .card {
-      background-color: var(--toss-white);
+      background-color: var(--card-bg);
       border-radius: 24px;
       padding: 24px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.02);
-      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--border-color);
+      transition: background-color 0.3s, border-color 0.3s, transform 0.2s, box-shadow 0.2s;
     }
 
     /* Card Titles */
     .card-title {
       font-size: 17px;
       font-weight: 700;
-      color: var(--toss-grey-900);
+      color: var(--text-color);
       margin-bottom: 16px;
       display: flex;
       justify-content: space-between;
@@ -129,7 +169,7 @@
 
     .card-subtitle {
       font-size: 13px;
-      color: var(--toss-grey-600);
+      color: var(--text-sub);
       margin-top: -12px;
       margin-bottom: 16px;
       font-weight: 400;
@@ -144,10 +184,10 @@
     }
 
     .btn-select {
-      background-color: var(--toss-grey-100);
+      background-color: var(--grey-light);
       border: none;
       outline: none;
-      color: var(--toss-grey-600);
+      color: var(--text-sub);
       padding: 12px 0;
       border-radius: 12px;
       font-size: 15px;
@@ -157,7 +197,7 @@
     }
 
     .btn-select:hover {
-      background-color: var(--toss-grey-200);
+      background-color: var(--grey-medium);
     }
 
     .btn-select.active {
@@ -170,7 +210,7 @@
     .btn-draw {
       width: 100%;
       background-color: var(--toss-blue);
-      color: var(--toss-white);
+      color: white;
       border: none;
       outline: none;
       padding: 16px;
@@ -213,18 +253,33 @@
       flex-direction: column;
       gap: 8px;
       padding: 16px;
-      background-color: var(--toss-grey-50);
+      background-color: var(--grey-light);
       border-radius: 16px;
-      border: 1px dashed var(--toss-grey-200);
+      border: 1px dashed var(--border-color);
       animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
     .game-header-row {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 12px;
       font-weight: 600;
-      color: var(--toss-grey-600);
+      color: var(--text-sub);
+    }
+
+    .analysis-badges {
+      display: flex;
+      gap: 6px;
+    }
+
+    .badge {
+      font-size: 10px;
+      background-color: var(--border-color);
+      padding: 2px 6px;
+      border-radius: 6px;
+      color: var(--text-sub);
+      font-weight: 500;
     }
 
     .balls-row {
@@ -257,6 +312,16 @@
     .ball.type-grey { background: var(--ball-grey); }
     .ball.type-green { background: var(--ball-green); }
 
+    /* Match states for the Winning Checker simulator */
+    .ball.matched {
+      box-shadow: 0 0 0 3px var(--toss-blue), 0 4px 12px rgba(49, 130, 246, 0.4);
+    }
+    .ball.dimmed {
+      opacity: 0.35;
+      transform: scale(0.9);
+      transition: all 0.3s ease;
+    }
+
     /* Action Buttons Row */
     .action-row {
       display: flex;
@@ -266,8 +331,8 @@
 
     .btn-secondary {
       flex: 1;
-      background-color: var(--toss-grey-100);
-      color: var(--toss-grey-900);
+      background-color: var(--grey-light);
+      color: var(--text-color);
       border: none;
       outline: none;
       padding: 12px 16px;
@@ -283,7 +348,7 @@
     }
 
     .btn-secondary:hover {
-      background-color: var(--toss-grey-200);
+      background-color: var(--grey-medium);
     }
 
     .btn-secondary:active {
@@ -307,7 +372,7 @@
     .accordion-header span {
       font-size: 15px;
       font-weight: 600;
-      color: var(--toss-grey-900);
+      color: var(--text-color);
     }
 
     .accordion-header .status-indicator {
@@ -324,7 +389,7 @@
 
     .accordion-header svg {
       transition: transform 0.25s ease;
-      color: var(--toss-grey-600);
+      color: var(--text-sub);
     }
 
     .accordion.open .accordion-header svg {
@@ -353,8 +418,9 @@
 
     .grid-cell {
       aspect-ratio: 1;
-      border: 1px solid var(--toss-grey-200);
-      background-color: var(--toss-white);
+      border: 1px solid var(--border-color);
+      background-color: var(--card-bg);
+      color: var(--text-color);
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -368,8 +434,8 @@
     }
 
     .grid-cell:hover {
-      background-color: var(--toss-grey-50);
-      border-color: var(--toss-grey-300);
+      background-color: var(--grey-light);
+      border-color: var(--grey-dark);
     }
 
     /* Selection States: Neutral -> Included (Green) -> Excluded (Red) */
@@ -389,13 +455,13 @@
 
     .filter-guide {
       font-size: 12px;
-      color: var(--toss-grey-600);
+      color: var(--text-sub);
       line-height: 1.6;
       display: flex;
       flex-direction: column;
       gap: 4px;
       padding: 12px;
-      background-color: var(--toss-grey-50);
+      background-color: var(--grey-light);
       border-radius: 12px;
     }
 
@@ -413,6 +479,72 @@
     .guide-dot.green { background-color: var(--toss-green); }
     .guide-dot.red { background-color: var(--toss-red); }
 
+    /* Winning Checker Simulator Styling */
+    .simulator-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .winning-numbers-box {
+      background-color: var(--grey-light);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .winning-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+
+    .winning-balls-flex {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .plus-sign {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-sub);
+      margin: 0 4px;
+    }
+
+    .bonus-ball-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .bonus-tag {
+      font-size: 9px;
+      background-color: var(--toss-blue);
+      color: white;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .simulation-result-badge {
+      background-color: var(--toss-blue-light);
+      color: var(--toss-blue);
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+      width: 100%;
+      margin-top: 4px;
+    }
+
     /* Transaction-style History List */
     .history-list {
       display: flex;
@@ -424,7 +556,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 0;
-      border-bottom: 1px solid var(--toss-grey-100);
+      border-bottom: 1px solid var(--border-color);
       animation: fadeIn 0.3s ease;
     }
 
@@ -441,7 +573,7 @@
 
     .history-meta {
       font-size: 12px;
-      color: var(--toss-grey-600);
+      color: var(--text-sub);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -470,17 +602,19 @@
     .btn-delete {
       background: none;
       border: none;
-      color: var(--toss-grey-300);
+      color: var(--text-sub);
       cursor: pointer;
       padding: 8px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      opacity: 0.6;
       transition: all 0.2s;
     }
 
     .btn-delete:hover {
+      opacity: 1;
       color: var(--toss-red);
       background-color: var(--toss-red-light);
     }
@@ -488,7 +622,7 @@
     .empty-state {
       text-align: center;
       padding: 32px 0;
-      color: var(--toss-grey-600);
+      color: var(--text-sub);
       font-size: 14px;
     }
 
@@ -499,7 +633,7 @@
       left: 50%;
       transform: translate(-50%, 20px);
       background-color: rgba(25, 31, 40, 0.95);
-      color: var(--toss-white);
+      color: white;
       padding: 14px 28px;
       border-radius: 24px;
       font-size: 14px;
@@ -571,9 +705,28 @@
   <div class="app-container">
     <!-- Header -->
     <header>
+      <button class="theme-toggle" id="themeToggle" aria-label="다크 모드 토글">
+        <!-- Sun icon (for dark mode) -->
+        <svg class="sun-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon (for light mode) -->
+        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      
       <div class="logo">L</div>
       <h1>토스 로또</h1>
-      <p>쉽고 깨끗한 번호 추점</p>
+      <p>쉽고 깨끗한 번호 추첨</p>
     </header>
 
     <!-- Main Generator Card -->
@@ -600,7 +753,7 @@
       <!-- Draw Results Space -->
       <div id="resultsWrapper" style="margin-top: 20px; display: none;">
         <div class="results-container" id="resultsContainer">
-          <!-- Rows will be injected here dynamicly -->
+          <!-- Rows will be injected here dynamically -->
         </div>
 
         <div class="action-row">
@@ -611,6 +764,39 @@
             </svg>
             번호 복사
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lotto Simulation Checker (NEW sample feature) -->
+    <div class="card" id="simulationCard" style="display: none;">
+      <div class="card-title">
+        <span>가상 당첨 확인 시뮬레이터</span>
+      </div>
+      <div class="card-subtitle">방금 생성한 번호들과 비교하여 모의 당첨 결과를 확인해 보세요.</div>
+      
+      <div class="simulator-container">
+        <button id="simBtn" class="btn-draw" style="background-color: var(--toss-green);">
+          가상 당첨 발표하기!
+        </button>
+
+        <div class="winning-numbers-box" id="winningBox" style="display: none;">
+          <div class="winning-label">모의 당첨 번호</div>
+          
+          <div class="winning-balls-flex">
+            <!-- 6 normal winning balls -->
+            <div id="winNormalBalls" style="display: flex; gap: 6px;"></div>
+            <div class="plus-sign">+</div>
+            <!-- 1 bonus ball -->
+            <div class="bonus-ball-container">
+              <div id="winBonusBall"></div>
+              <div class="bonus-tag">보너스</div>
+            </div>
+          </div>
+
+          <div class="simulation-result-badge" id="simResultsOverview">
+             등수 결과 표시부
+          </div>
         </div>
       </div>
     </div>
@@ -641,7 +827,7 @@
             <div class="guide-dot red"></div>
             <span>빨간색: <strong>제외할 번호</strong> (생성 결과에서 영구 제거, 최대 39개)</span>
           </div>
-          <div style="font-size: 11px; margin-top: 4px; color: var(--toss-grey-600);">* 한 번 더 터치하면 기본 상태(흰색)로 초기화됩니다.</div>
+          <div style="font-size: 11px; margin-top: 4px; color: var(--text-sub);">* 한 번 더 터치하면 기본 상태(흰색)로 초기화됩니다.</div>
         </div>
       </div>
     </div>
@@ -668,10 +854,16 @@
       gameCount: 1,
       includedNumbers: new Set(),
       excludedNumbers: new Set(),
-      history: []
+      history: [],
+      currentDrawnGames: [], // stores the most recent generator output
+      theme: 'light'
     };
 
     // Load elements
+    const themeToggle = document.getElementById('themeToggle');
+    const sunIcon = themeToggle.querySelector('.sun-icon');
+    const moonIcon = themeToggle.querySelector('.moon-icon');
+    
     const drawBtn = document.getElementById('drawBtn');
     const resultsWrapper = document.getElementById('resultsWrapper');
     const resultsContainer = document.getElementById('resultsContainer');
@@ -684,8 +876,19 @@
     const clearHistoryBtn = document.getElementById('clearHistoryBtn');
     const toast = document.getElementById('toast');
 
+    // Simulator Elements
+    const simulationCard = document.getElementById('simulationCard');
+    const simBtn = document.getElementById('simBtn');
+    const winningBox = document.getElementById('winningBox');
+    const winNormalBalls = document.getElementById('winNormalBalls');
+    const winBonusBall = document.getElementById('winBonusBall');
+    const simResultsOverview = document.getElementById('simResultsOverview');
+
     // Init function
     function init() {
+      // Setup Theme Mode
+      setupTheme();
+
       // Setup Game Selector Buttons
       document.querySelectorAll('.btn-select').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -714,6 +917,41 @@
 
       // Bind clear history
       clearHistoryBtn.addEventListener('click', clearHistory);
+
+      // Bind simulator logic
+      simBtn.addEventListener('click', runSimulationDraw);
+    }
+
+    // Theme Setup & Toggle Logic
+    function setupTheme() {
+      // Check localStorage or system theme preferences
+      const savedTheme = localStorage.getItem('toss-lotto-theme');
+      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+        setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+
+      themeToggle.addEventListener('click', () => {
+        const nextTheme = state.theme === 'light' ? 'dark' : 'light';
+        setTheme(nextTheme);
+      });
+    }
+
+    function setTheme(theme) {
+      state.theme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('toss-lotto-theme', theme);
+      
+      if (theme === 'dark') {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+      } else {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+      }
     }
 
     // Number Grid Builder (1 to 45)
@@ -728,14 +966,12 @@
       }
     }
 
-    // Toggle grid cell state: Neutral -> Included -> Excluded -> Neutral
+    // Toggle grid cell state
     function toggleNumberState(num, element) {
       if (element.classList.contains('included')) {
-        // Transition Included -> Excluded
         element.classList.remove('included');
         state.includedNumbers.delete(num);
         
-        // Excluded rule: check capacity (max 39)
         if (state.excludedNumbers.size >= 39) {
           showToast('제외 번호는 최대 39개까지 설정 가능합니다.');
           updateFilterUI();
@@ -745,14 +981,10 @@
         element.classList.add('excluded');
         state.excludedNumbers.add(num);
       } else if (element.classList.contains('excluded')) {
-        // Transition Excluded -> Neutral
         element.classList.remove('excluded');
         state.excludedNumbers.delete(num);
       } else {
-        // Transition Neutral -> Included
-        // Included rule: check capacity (max 5)
         if (state.includedNumbers.size >= 5) {
-          // If included is full, go directly to Exclude state
           if (state.excludedNumbers.size >= 39) {
             showToast('제외 번호는 최대 39개까지 설정 가능합니다.');
             return;
@@ -760,7 +992,6 @@
           element.classList.add('excluded');
           state.excludedNumbers.add(num);
         } else {
-          // If excluding, cannot include the same number
           element.classList.add('included');
           state.includedNumbers.add(num);
         }
@@ -793,39 +1024,31 @@
     function generateLottoSet() {
       const allNumbers = Array.from({ length: 45 }, (_, i) => i + 1);
       
-      // Filter based on inclusion / exclusion sets
       const pool = allNumbers.filter(num => {
-        // Must not be in excluded list
         if (state.excludedNumbers.has(num)) return false;
-        // Must not be pre-forced into included list (we handle them separately)
         if (state.includedNumbers.has(num)) return false;
         return true;
       });
 
-      // Safety check: check if pool has enough numbers to draw (6 minus included numbers)
       const numbersToDraw = 6 - state.includedNumbers.size;
       if (pool.length < numbersToDraw) {
         throw new Error('선택 조건이 올바르지 않습니다. 제외 또는 포함 숫자를 조정해 주세요.');
       }
 
-      // Shuffle logic
       const shuffled = [...pool];
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
 
-      // Pick selected pool count + force inclusions
       const drawn = shuffled.slice(0, numbersToDraw);
       const finalSet = [...state.includedNumbers, ...drawn];
       
-      // Sort in ascending order
       return finalSet.sort((a, b) => a - b);
     }
 
     // Handle Draw Button Press
     function handleDraw() {
-      // Validate inputs
       const numbersToDraw = 6 - state.includedNumbers.size;
       const totalAvailable = 45 - state.excludedNumbers.size - state.includedNumbers.size;
       
@@ -835,20 +1058,22 @@
         return;
       }
 
-      // Start Spin Icon Animation
+      // Hide simulator box until user clicks simulate again
+      winningBox.style.display = 'none';
+      simulationCard.style.display = 'none';
+
       drawBtn.classList.add('spinning');
       drawBtn.disabled = true;
 
-      // Reset previous results visual wrapper
       resultsContainer.innerHTML = '';
       resultsWrapper.style.display = 'block';
 
-      const currentGames = [];
+      state.currentDrawnGames = [];
 
       try {
         for (let i = 0; i < state.gameCount; i++) {
           const numbersSet = generateLottoSet();
-          currentGames.push(numbersSet);
+          state.currentDrawnGames.push(numbersSet);
         }
       } catch (err) {
         showToast(err.message);
@@ -857,44 +1082,47 @@
         return;
       }
 
-      // Render items with sequential stagger animations to feel high-premium
-      let delayOffset = 0;
-      currentGames.forEach((game, gameIdx) => {
-        // Create row
+      // Render items with sequential animations
+      state.currentDrawnGames.forEach((game, gameIdx) => {
         const row = document.createElement('div');
         row.classList.add('game-result-row');
         row.style.animationDelay = `${gameIdx * 100}ms`;
 
-        // Create header inside row
+        // Calculate analytics (NEW feature sample)
+        const oddCount = game.filter(n => n % 2 !== 0).length;
+        const evenCount = 6 - oddCount;
+        const numberSum = game.reduce((sum, n) => sum + n, 0);
+
         const headerRow = document.createElement('div');
         headerRow.classList.add('game-header-row');
         headerRow.innerHTML = `
           <span>게임 ${gameIdx + 1}</span>
-          <span style="font-family: var(--font-outfit); font-weight: 500;">자동</span>
+          <div class="analysis-badges">
+            <span class="badge">홀짝 ${oddCount}:${evenCount}</span>
+            <span class="badge">총합 ${numberSum}</span>
+          </div>
         `;
         row.appendChild(headerRow);
 
-        // Create balls container inside row
         const ballsRow = document.createElement('div');
         ballsRow.classList.add('balls-row');
 
-        // Draw balls inside container
         game.forEach((num, ballIdx) => {
           const ball = document.createElement('div');
           ball.className = `ball ${getBallClass(num)}`;
           ball.textContent = num;
+          ball.dataset.number = num; // store for highlighting
           
-          // Apply animation delay for beautiful popping effect
-          // It pops game-by-game, ball-by-ball
           ball.style.animationDelay = `${(gameIdx * 350) + (ballIdx * 60)}ms`;
-          
           ballsRow.appendChild(ball);
           
-          // Track end of animation to release loading state
-          if (gameIdx === currentGames.length - 1 && ballIdx === game.length - 1) {
+          // Complete animation state trigger
+          if (gameIdx === state.currentDrawnGames.length - 1 && ballIdx === game.length - 1) {
             setTimeout(() => {
               drawBtn.classList.remove('spinning');
               drawBtn.disabled = false;
+              // Make Simulator Card visible once draw completes
+              simulationCard.style.display = 'block';
             }, (gameIdx * 350) + (ballIdx * 60) + 200);
           }
         });
@@ -903,8 +1131,121 @@
         resultsContainer.appendChild(row);
       });
 
-      // Save drawn session to history
-      saveToHistory(currentGames);
+      saveToHistory(state.currentDrawnGames);
+    }
+
+    // Simulation logic (NEW feature sample)
+    function runSimulationDraw() {
+      if (state.currentDrawnGames.length === 0) return;
+
+      // Draw winning numbers (6 normal, 1 bonus) from 1 to 45
+      const pool = Array.from({ length: 45 }, (_, i) => i + 1);
+      
+      // Shuffle
+      for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+      }
+
+      const winningNumbers = pool.slice(0, 6).sort((a, b) => a - b);
+      const bonusNumber = pool[6];
+
+      // Draw winning balls in UI
+      winNormalBalls.innerHTML = '';
+      winningNumbers.forEach((num, idx) => {
+        const ball = document.createElement('div');
+        ball.className = `ball ${getBallClass(num)}`;
+        ball.textContent = num;
+        ball.style.width = '32px';
+        ball.style.height = '32px';
+        ball.style.fontSize = '12px';
+        ball.style.animationDelay = `${idx * 80}ms`;
+        winNormalBalls.appendChild(ball);
+      });
+
+      // Draw bonus ball
+      winBonusBall.innerHTML = '';
+      const bBall = document.createElement('div');
+      bBall.className = `ball ${getBallClass(bonusNumber)}`;
+      bBall.textContent = bonusNumber;
+      bBall.style.width = '32px';
+      bBall.style.height = '32px';
+      bBall.style.fontSize = '12px';
+      bBall.style.animationDelay = `480ms`;
+      winBonusBall.appendChild(bBall);
+
+      // Perform matching and calculate prize ranks
+      let bestRank = 6; // Default to no rank
+      const winningSet = new Set(winningNumbers);
+
+      // Reset matched highlights on results container
+      const allRowBalls = resultsContainer.querySelectorAll('.ball');
+      allRowBalls.forEach(b => {
+        b.className = `ball ${getBallClass(parseInt(b.dataset.number))}`; // reset match styling
+      });
+
+      const matchStats = [];
+
+      state.currentDrawnGames.forEach((game, idx) => {
+        const matchCount = game.filter(num => winningSet.has(num)).length;
+        const matchesBonus = game.includes(bonusNumber);
+        
+        let rankText = '낙첨';
+        let currentRank = 6;
+
+        if (matchCount === 6) {
+          rankText = '1등 🥇';
+          currentRank = 1;
+        } else if (matchCount === 5 && matchesBonus) {
+          rankText = '2등 🥈';
+          currentRank = 2;
+        } else if (matchCount === 5) {
+          rankText = '3등 🥉';
+          currentRank = 3;
+        } else if (matchCount === 4) {
+          rankText = '4등 💰';
+          currentRank = 4;
+        } else if (matchCount === 3) {
+          rankText = '5등 🍀';
+          currentRank = 5;
+        }
+
+        matchStats.push(`게임 ${idx+1}: ${matchCount}개 일치 (${rankText})`);
+        
+        if (currentRank < bestRank) {
+          bestRank = currentRank;
+        }
+
+        // Highlight matched balls in the result wrapper
+        const row = resultsContainer.children[idx];
+        const rowBalls = row.querySelectorAll('.ball');
+        rowBalls.forEach(ballEl => {
+          const val = parseInt(ballEl.dataset.number);
+          if (winningSet.has(val) || val === bonusNumber) {
+            ballEl.classList.add('matched');
+          } else {
+            ballEl.classList.add('dimmed');
+          }
+        });
+      });
+
+      // Display rank overview text
+      let prizeSummary = '';
+      if (bestRank === 6) {
+        prizeSummary = '아쉽게도 모두 낙첨되었습니다. 다시 도전해 보세요!';
+      } else {
+        prizeSummary = `축하합니다! 최고 성적은 **${bestRank}등**입니다.`;
+      }
+
+      simResultsOverview.innerHTML = `
+        <div style="font-weight: 700; margin-bottom: 6px; color: var(--text-color);">${prizeSummary}</div>
+        <div style="font-size: 11px; color: var(--text-sub); line-height: 1.5; text-align: left; padding: 4px 8px;">
+          ${matchStats.join('<br>')}
+        </div>
+      `;
+
+      winningBox.style.display = 'flex';
+      showToast('가상 추첨 완료! 매칭된 번호를 확인하세요.');
     }
 
     // Save drawn games into local storage history
@@ -918,7 +1259,6 @@
         games: games
       };
 
-      // Keep maximum of 10 records
       state.history.unshift(newRecord);
       if (state.history.length > 10) {
         state.history.pop();
@@ -963,13 +1303,12 @@
         const meta = document.createElement('div');
         meta.classList.add('history-meta');
         meta.innerHTML = `
-          <strong style="color: var(--toss-grey-900); font-size: 13px;">${record.games.length}개 게임 추첨</strong>
+          <strong style="color: var(--text-color); font-size: 13px;">${record.games.length}개 게임 추첨</strong>
           <span>·</span>
           <span>${record.time}</span>
         `;
         info.appendChild(meta);
 
-        // Nested lists for history numbers summary representation
         record.games.forEach((game, idx) => {
           const summary = document.createElement('div');
           summary.classList.add('history-balls-summary');
@@ -986,7 +1325,6 @@
 
         item.appendChild(info);
 
-        // Delete single item button
         const delBtn = document.createElement('button');
         delBtn.classList.add('btn-delete');
         delBtn.innerHTML = `
@@ -1020,7 +1358,6 @@
 
     // Copy current generation session numbers to device clipboard
     function copyNumbersToClipboard() {
-      // Find currently drawn games on screen
       const rows = resultsContainer.querySelectorAll('.game-result-row');
       if (rows.length === 0) return;
 
