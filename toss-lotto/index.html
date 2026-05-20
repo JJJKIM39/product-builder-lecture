@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>토스 로또 | 토스 스타일의 깔끔한 로또 번호 추첨</title>
+  
+  <!-- Preconnecting to Google Fonts for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Google Fonts - Toss uses similar sans-serif styled fonts like Pretendard or Inter/Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Design Tokens (Toss Style Guideline) */
+    :root {
+      --toss-blue: #3182F6;
+      --toss-blue-hover: #1B64DA;
+      --toss-blue-light: #E8F3FF;
+      --toss-grey-50: #F9FAFB;
+      --toss-grey-100: #F2F4F6;
+      --toss-grey-200: #E5E8EB;
+      --toss-grey-300: #D1D6DB;
+      --toss-grey-600: #4E5968;
+      --toss-grey-900: #191F28;
+      --toss-white: #FFFFFF;
+      --toss-red: #F04438;
+      --toss-red-light: #FEE4E2;
+      --toss-green: #12B76A;
+      --toss-green-light: #D1FADF;
+      
+      --font-primary: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-outfit: 'Outfit', sans-serif;
+      
+      /* Ball Gradient Colors */
+      --ball-yellow: linear-gradient(135deg, #FFD43B, #F59F00);
+      --ball-blue: linear-gradient(135deg, #54BEF5, #1274E7);
+      --ball-red: linear-gradient(135deg, #FF8787, #FA5252);
+      --ball-grey: linear-gradient(135deg, #CED4DA, #868E96);
+      --ball-green: linear-gradient(135deg, #82C91E, #5C940D);
+    }
+
+    /* Basic Resets & Page Layout */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background-color: var(--toss-grey-50);
+      color: var(--toss-grey-900);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    /* Outer Container */
+    .app-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Header Styling */
+    header {
+      text-align: center;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    header .logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background-color: var(--toss-blue);
+      color: white;
+      border-radius: 14px;
+      font-family: var(--font-outfit);
+      font-weight: 700;
+      font-size: 22px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(49, 130, 246, 0.25);
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      font-size: 14px;
+      color: var(--toss-grey-600);
+      font-weight: 400;
+    }
+
+    /* Premium Toss-style Card Base */
+    .card {
+      background-color: var(--toss-white);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.02);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    /* Card Titles */
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--toss-grey-900);
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--toss-grey-600);
+      margin-top: -12px;
+      margin-bottom: 16px;
+      font-weight: 400;
+    }
+
+    /* Game Count Buttons Styling */
+    .game-selector {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .btn-select {
+      background-color: var(--toss-grey-100);
+      border: none;
+      outline: none;
+      color: var(--toss-grey-600);
+      padding: 12px 0;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-select:hover {
+      background-color: var(--toss-grey-200);
+    }
+
+    .btn-select.active {
+      background-color: var(--toss-blue-light);
+      color: var(--toss-blue);
+      font-weight: 700;
+    }
+
+    /* Draw Button Style */
+    .btn-draw {
+      width: 100%;
+      background-color: var(--toss-blue);
+      color: var(--toss-white);
+      border: none;
+      outline: none;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-draw:hover {
+      background-color: var(--toss-blue-hover);
+    }
+
+    .btn-draw:active {
+      transform: scale(0.97);
+    }
+
+    .btn-draw svg {
+      transition: transform 0.5s ease;
+    }
+
+    .btn-draw.spinning svg {
+      transform: rotate(360deg);
+    }
+
+    /* Result Display Styling */
+    .results-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .game-result-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px;
+      background-color: var(--toss-grey-50);
+      border-radius: 16px;
+      border: 1px dashed var(--toss-grey-200);
+      animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .game-header-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--toss-grey-600);
+    }
+
+    .balls-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 100%;
+    }
+
+    /* Lotto Ball Styling */
+    .ball {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      color: white;
+      font-family: var(--font-outfit);
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+      transform: scale(0);
+      animation: ballPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .ball.type-yellow { background: var(--ball-yellow); }
+    .ball.type-blue { background: var(--ball-blue); }
+    .ball.type-red { background: var(--ball-red); }
+    .ball.type-grey { background: var(--ball-grey); }
+    .ball.type-green { background: var(--ball-green); }
+
+    /* Action Buttons Row */
+    .action-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      background-color: var(--toss-grey-100);
+      color: var(--toss-grey-900);
+      border: none;
+      outline: none;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--toss-grey-200);
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.98);
+    }
+
+    /* Accordion Custom Settings */
+    .accordion {
+      overflow: hidden;
+    }
+
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      padding: 4px 0;
+    }
+
+    .accordion-header span {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--toss-grey-900);
+    }
+
+    .accordion-header .status-indicator {
+      font-size: 12px;
+      color: var(--toss-blue);
+      background-color: var(--toss-blue-light);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+      margin-left: auto;
+      margin-right: 8px;
+      display: none;
+    }
+
+    .accordion-header svg {
+      transition: transform 0.25s ease;
+      color: var(--toss-grey-600);
+    }
+
+    .accordion.open .accordion-header svg {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    }
+
+    .accordion.open .accordion-content {
+      max-height: 380px;
+      opacity: 1;
+      margin-top: 16px;
+    }
+
+    /* 1-45 Number Selection Grid */
+    .number-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .grid-cell {
+      aspect-ratio: 1;
+      border: 1px solid var(--toss-grey-200);
+      background-color: var(--toss-white);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-outfit);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .grid-cell:hover {
+      background-color: var(--toss-grey-50);
+      border-color: var(--toss-grey-300);
+    }
+
+    /* Selection States: Neutral -> Included (Green) -> Excluded (Red) */
+    .grid-cell.included {
+      background-color: var(--toss-green-light);
+      border-color: var(--toss-green);
+      color: #0F7643;
+      font-weight: 700;
+    }
+
+    .grid-cell.excluded {
+      background-color: var(--toss-red-light);
+      border-color: var(--toss-red);
+      color: #B42318;
+      font-weight: 700;
+    }
+
+    .filter-guide {
+      font-size: 12px;
+      color: var(--toss-grey-600);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px;
+      background-color: var(--toss-grey-50);
+      border-radius: 12px;
+    }
+
+    .filter-guide-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .guide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .guide-dot.green { background-color: var(--toss-green); }
+    .guide-dot.red { background-color: var(--toss-red); }
+
+    /* Transaction-style History List */
+    .history-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--toss-grey-100);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .history-meta {
+      font-size: 12px;
+      color: var(--toss-grey-600);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .history-balls-summary {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .ball-sm {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      color: white;
+      font-family: var(--font-outfit);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .btn-delete {
+      background: none;
+      border: none;
+      color: var(--toss-grey-300);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .btn-delete:hover {
+      color: var(--toss-red);
+      background-color: var(--toss-red-light);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 32px 0;
+      color: var(--toss-grey-600);
+      font-size: 14px;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translate(-50%, 20px);
+      background-color: rgba(25, 31, 40, 0.95);
+      color: var(--toss-white);
+      padding: 14px 28px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .toast-container.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    /* Animations */
+    @keyframes ballPop {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+      80% {
+        transform: scale(1.15);
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive styles for very small screens */
+    @media (max-width: 375px) {
+      .ball {
+        width: 36px;
+        height: 36px;
+        font-size: 14px;
+      }
+      .number-grid {
+        grid-template-columns: repeat(9, 1fr);
+        gap: 4px;
+      }
+      .grid-cell {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="logo">L</div>
+      <h1>토스 로또</h1>
+      <p>쉽고 깨끗한 번호 추점</p>
+    </header>
+
+    <!-- Main Generator Card -->
+    <div class="card">
+      <div class="card-title">
+        <span>추첨 개수 설정</span>
+      </div>
+      
+      <div class="game-selector">
+        <button class="btn-select active" data-value="1">1개</button>
+        <button class="btn-select" data-value="2">2개</button>
+        <button class="btn-select" data-value="3">3개</button>
+        <button class="btn-select" data-value="4">4개</button>
+        <button class="btn-select" data-value="5">5개</button>
+      </div>
+
+      <button id="drawBtn" class="btn-draw">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+        </svg>
+        번호 추첨하기
+      </button>
+
+      <!-- Draw Results Space -->
+      <div id="resultsWrapper" style="margin-top: 20px; display: none;">
+        <div class="results-container" id="resultsContainer">
+          <!-- Rows will be injected here dynamicly -->
+        </div>
+
+        <div class="action-row">
+          <button id="copyBtn" class="btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            번호 복사
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced Settings (Inclusion/Exclusion) Card -->
+    <div class="card accordion" id="filterAccordion">
+      <div class="accordion-header" id="accordionHeader">
+        <span>번호 직접 설정 (필터)</span>
+        <span class="status-indicator" id="filterStatus">설정됨</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+      
+      <div class="accordion-content">
+        <div class="card-subtitle">번호를 탭하여 포함 또는 제외 설정해 보세요.</div>
+        
+        <div class="number-grid" id="numberGrid">
+          <!-- 1-45 Cells will be loaded here -->
+        </div>
+
+        <div class="filter-guide">
+          <div class="filter-guide-item">
+            <div class="guide-dot green"></div>
+            <span>초록색: <strong>포함할 번호</strong> (반드시 생성 결과에 포함, 최대 5개)</span>
+          </div>
+          <div class="filter-guide-item">
+            <div class="guide-dot red"></div>
+            <span>빨간색: <strong>제외할 번호</strong> (생성 결과에서 영구 제거, 최대 39개)</span>
+          </div>
+          <div style="font-size: 11px; margin-top: 4px; color: var(--toss-grey-600);">* 한 번 더 터치하면 기본 상태(흰색)로 초기화됩니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent History Card -->
+    <div class="card">
+      <div class="card-title">
+        <span>최근 추첨 내역</span>
+        <button id="clearHistoryBtn" class="btn-secondary" style="font-size: 12px; padding: 6px 12px; border-radius: 8px; flex: none; display: none;">전체 삭제</button>
+      </div>
+      
+      <div class="history-list" id="historyList">
+        <!-- History items injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-container" id="toast">복사 완료</div>
+
+  <script>
+    // State management
+    const state = {
+      gameCount: 1,
+      includedNumbers: new Set(),
+      excludedNumbers: new Set(),
+      history: []
+    };
+
+    // Load elements
+    const drawBtn = document.getElementById('drawBtn');
+    const resultsWrapper = document.getElementById('resultsWrapper');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const copyBtn = document.getElementById('copyBtn');
+    const filterAccordion = document.getElementById('filterAccordion');
+    const accordionHeader = document.getElementById('accordionHeader');
+    const filterStatus = document.getElementById('filterStatus');
+    const numberGrid = document.getElementById('numberGrid');
+    const historyList = document.getElementById('historyList');
+    const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+    const toast = document.getElementById('toast');
+
+    // Init function
+    function init() {
+      // Setup Game Selector Buttons
+      document.querySelectorAll('.btn-select').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.btn-select').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          state.gameCount = parseInt(e.target.dataset.value);
+        });
+      });
+
+      // Setup Accordion Toggle
+      accordionHeader.addEventListener('click', () => {
+        filterAccordion.classList.toggle('open');
+      });
+
+      // Build Number Grid (1-45)
+      buildNumberGrid();
+
+      // Load History from localStorage
+      loadHistory();
+
+      // Bind drawing logic
+      drawBtn.addEventListener('click', handleDraw);
+
+      // Bind copy logic
+      copyBtn.addEventListener('click', copyNumbersToClipboard);
+
+      // Bind clear history
+      clearHistoryBtn.addEventListener('click', clearHistory);
+    }
+
+    // Number Grid Builder (1 to 45)
+    function buildNumberGrid() {
+      numberGrid.innerHTML = '';
+      for (let i = 1; i <= 45; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('grid-cell');
+        cell.textContent = i;
+        cell.addEventListener('click', () => toggleNumberState(i, cell));
+        numberGrid.appendChild(cell);
+      }
+    }
+
+    // Toggle grid cell state: Neutral -> Included -> Excluded -> Neutral
+    function toggleNumberState(num, element) {
+      if (element.classList.contains('included')) {
+        // Transition Included -> Excluded
+        element.classList.remove('included');
+        state.includedNumbers.delete(num);
+        
+        // Excluded rule: check capacity (max 39)
+        if (state.excludedNumbers.size >= 39) {
+          showToast('제외 번호는 최대 39개까지 설정 가능합니다.');
+          updateFilterUI();
+          return;
+        }
+        
+        element.classList.add('excluded');
+        state.excludedNumbers.add(num);
+      } else if (element.classList.contains('excluded')) {
+        // Transition Excluded -> Neutral
+        element.classList.remove('excluded');
+        state.excludedNumbers.delete(num);
+      } else {
+        // Transition Neutral -> Included
+        // Included rule: check capacity (max 5)
+        if (state.includedNumbers.size >= 5) {
+          // If included is full, go directly to Exclude state
+          if (state.excludedNumbers.size >= 39) {
+            showToast('제외 번호는 최대 39개까지 설정 가능합니다.');
+            return;
+          }
+          element.classList.add('excluded');
+          state.excludedNumbers.add(num);
+        } else {
+          // If excluding, cannot include the same number
+          element.classList.add('included');
+          state.includedNumbers.add(num);
+        }
+      }
+      
+      updateFilterUI();
+    }
+
+    // Update Accordion Header Indicators
+    function updateFilterUI() {
+      const activeFiltersCount = state.includedNumbers.size + state.excludedNumbers.size;
+      if (activeFiltersCount > 0) {
+        filterStatus.textContent = `포함 ${state.includedNumbers.size} · 제외 ${state.excludedNumbers.size}`;
+        filterStatus.style.display = 'block';
+      } else {
+        filterStatus.style.display = 'none';
+      }
+    }
+
+    // Get color theme classification for standard lotto balls
+    function getBallClass(num) {
+      if (num >= 1 && num <= 10) return 'type-yellow';
+      if (num >= 11 && num <= 20) return 'type-blue';
+      if (num >= 21 && num <= 30) return 'type-red';
+      if (num >= 31 && num <= 40) return 'type-grey';
+      return 'type-green';
+    }
+
+    // Generate single lotto set containing 6 numbers
+    function generateLottoSet() {
+      const allNumbers = Array.from({ length: 45 }, (_, i) => i + 1);
+      
+      // Filter based on inclusion / exclusion sets
+      const pool = allNumbers.filter(num => {
+        // Must not be in excluded list
+        if (state.excludedNumbers.has(num)) return false;
+        // Must not be pre-forced into included list (we handle them separately)
+        if (state.includedNumbers.has(num)) return false;
+        return true;
+      });
+
+      // Safety check: check if pool has enough numbers to draw (6 minus included numbers)
+      const numbersToDraw = 6 - state.includedNumbers.size;
+      if (pool.length < numbersToDraw) {
+        throw new Error('선택 조건이 올바르지 않습니다. 제외 또는 포함 숫자를 조정해 주세요.');
+      }
+
+      // Shuffle logic
+      const shuffled = [...pool];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      // Pick selected pool count + force inclusions
+      const drawn = shuffled.slice(0, numbersToDraw);
+      const finalSet = [...state.includedNumbers, ...drawn];
+      
+      // Sort in ascending order
+      return finalSet.sort((a, b) => a - b);
+    }
+
+    // Handle Draw Button Press
+    function handleDraw() {
+      // Validate inputs
+      const numbersToDraw = 6 - state.includedNumbers.size;
+      const totalAvailable = 45 - state.excludedNumbers.size - state.includedNumbers.size;
+      
+      if (totalAvailable < numbersToDraw) {
+        showToast('유효하지 않은 조건입니다. 필터를 확인해 주세요.');
+        filterAccordion.classList.add('open');
+        return;
+      }
+
+      // Start Spin Icon Animation
+      drawBtn.classList.add('spinning');
+      drawBtn.disabled = true;
+
+      // Reset previous results visual wrapper
+      resultsContainer.innerHTML = '';
+      resultsWrapper.style.display = 'block';
+
+      const currentGames = [];
+
+      try {
+        for (let i = 0; i < state.gameCount; i++) {
+          const numbersSet = generateLottoSet();
+          currentGames.push(numbersSet);
+        }
+      } catch (err) {
+        showToast(err.message);
+        drawBtn.classList.remove('spinning');
+        drawBtn.disabled = false;
+        return;
+      }
+
+      // Render items with sequential stagger animations to feel high-premium
+      let delayOffset = 0;
+      currentGames.forEach((game, gameIdx) => {
+        // Create row
+        const row = document.createElement('div');
+        row.classList.add('game-result-row');
+        row.style.animationDelay = `${gameIdx * 100}ms`;
+
+        // Create header inside row
+        const headerRow = document.createElement('div');
+        headerRow.classList.add('game-header-row');
+        headerRow.innerHTML = `
+          <span>게임 ${gameIdx + 1}</span>
+          <span style="font-family: var(--font-outfit); font-weight: 500;">자동</span>
+        `;
+        row.appendChild(headerRow);
+
+        // Create balls container inside row
+        const ballsRow = document.createElement('div');
+        ballsRow.classList.add('balls-row');
+
+        // Draw balls inside container
+        game.forEach((num, ballIdx) => {
+          const ball = document.createElement('div');
+          ball.className = `ball ${getBallClass(num)}`;
+          ball.textContent = num;
+          
+          // Apply animation delay for beautiful popping effect
+          // It pops game-by-game, ball-by-ball
+          ball.style.animationDelay = `${(gameIdx * 350) + (ballIdx * 60)}ms`;
+          
+          ballsRow.appendChild(ball);
+          
+          // Track end of animation to release loading state
+          if (gameIdx === currentGames.length - 1 && ballIdx === game.length - 1) {
+            setTimeout(() => {
+              drawBtn.classList.remove('spinning');
+              drawBtn.disabled = false;
+            }, (gameIdx * 350) + (ballIdx * 60) + 200);
+          }
+        });
+
+        row.appendChild(ballsRow);
+        resultsContainer.appendChild(row);
+      });
+
+      // Save drawn session to history
+      saveToHistory(currentGames);
+    }
+
+    // Save drawn games into local storage history
+    function saveToHistory(games) {
+      const timestamp = new Date();
+      const timeStr = `${timestamp.getMonth() + 1}월 ${timestamp.getDate()}일 ${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
+      
+      const newRecord = {
+        id: Date.now(),
+        time: timeStr,
+        games: games
+      };
+
+      // Keep maximum of 10 records
+      state.history.unshift(newRecord);
+      if (state.history.length > 10) {
+        state.history.pop();
+      }
+
+      localStorage.setItem('toss-lotto-history', JSON.stringify(state.history));
+      renderHistory();
+    }
+
+    // Load History list from storage
+    function loadHistory() {
+      const stored = localStorage.getItem('toss-lotto-history');
+      if (stored) {
+        try {
+          state.history = JSON.parse(stored);
+        } catch (e) {
+          state.history = [];
+        }
+      }
+      renderHistory();
+    }
+
+    // Render history card rows
+    function renderHistory() {
+      historyList.innerHTML = '';
+      
+      if (state.history.length === 0) {
+        historyList.innerHTML = `<div class="empty-state">아직 최근 추첨 내역이 없습니다.</div>`;
+        clearHistoryBtn.style.display = 'none';
+        return;
+      }
+
+      clearHistoryBtn.style.display = 'block';
+
+      state.history.forEach(record => {
+        const item = document.createElement('div');
+        item.classList.add('history-item');
+
+        const info = document.createElement('div');
+        info.classList.add('history-info');
+
+        const meta = document.createElement('div');
+        meta.classList.add('history-meta');
+        meta.innerHTML = `
+          <strong style="color: var(--toss-grey-900); font-size: 13px;">${record.games.length}개 게임 추첨</strong>
+          <span>·</span>
+          <span>${record.time}</span>
+        `;
+        info.appendChild(meta);
+
+        // Nested lists for history numbers summary representation
+        record.games.forEach((game, idx) => {
+          const summary = document.createElement('div');
+          summary.classList.add('history-balls-summary');
+          
+          game.forEach(num => {
+            const ballSm = document.createElement('span');
+            ballSm.className = `ball-sm ${getBallClass(num)}`;
+            ballSm.textContent = num;
+            summary.appendChild(ballSm);
+          });
+          
+          info.appendChild(summary);
+        });
+
+        item.appendChild(info);
+
+        // Delete single item button
+        const delBtn = document.createElement('button');
+        delBtn.classList.add('btn-delete');
+        delBtn.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+        `;
+        delBtn.addEventListener('click', () => deleteHistoryRecord(record.id));
+        
+        item.appendChild(delBtn);
+        historyList.appendChild(item);
+      });
+    }
+
+    // Delete single history item
+    function deleteHistoryRecord(id) {
+      state.history = state.history.filter(item => item.id !== id);
+      localStorage.setItem('toss-lotto-history', JSON.stringify(state.history));
+      renderHistory();
+      showToast('추첨 내역이 삭제되었습니다.');
+    }
+
+    // Clear whole history logs
+    function clearHistory() {
+      state.history = [];
+      localStorage.removeItem('toss-lotto-history');
+      renderHistory();
+      showToast('전체 추첨 내역이 삭제되었습니다.');
+    }
+
+    // Copy current generation session numbers to device clipboard
+    function copyNumbersToClipboard() {
+      // Find currently drawn games on screen
+      const rows = resultsContainer.querySelectorAll('.game-result-row');
+      if (rows.length === 0) return;
+
+      let clipText = '';
+      rows.forEach((row, idx) => {
+        const gameLabel = row.querySelector('.game-header-row span').textContent;
+        const balls = Array.from(row.querySelectorAll('.ball')).map(b => b.textContent).join(', ');
+        clipText += `[${gameLabel}] ${balls}\n`;
+      });
+
+      navigator.clipboard.writeText(clipText.trim()).then(() => {
+        showToast('번호 복사가 완료되었습니다.');
+      }).catch(err => {
+        showToast('복사에 실패했습니다. 직접 복사해 주세요.');
+      });
+    }
+
+    // Trigger visual floating Toast notification
+    let toastTimeout;
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2500);
+    }
+
+    // Trigger Initial Setup
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
