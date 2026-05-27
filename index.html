@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" data-theme="dark">
+<html lang="ko" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -324,22 +324,9 @@
       margin-top: 4px;
     }
 
-    /* Theme Mode Trigger */
+    /* Theme Mode Trigger — 라이트 모드로 통일하면서 토글 자체를 숨김 */
     .theme-toggle {
-      background: var(--grey-light);
-      border: 1px solid var(--border-color);
-      color: var(--text-color);
-      cursor: pointer;
-      padding: 10px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      outline: none;
-    }
-    .theme-toggle:hover {
-      background-color: var(--grey-medium);
+      display: none !important;
     }
 
     /* Premium Toss-Style Cards */
@@ -2213,7 +2200,7 @@
     .btn-run-backtest.is-loading { background: #1d4ed8; }
 
     /* ─────────── Backtest Line Chart ─────────── */
-    .bt-chart-box { background: #030712; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 16px; }
+    .bt-chart-box { background: var(--grey-light); border: 1.5px solid var(--border-color); border-radius: 18px; padding: 16px; }
     .bt-chart-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
     .bt-chart-lbl { font-size: 10px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.4px; }
     .bt-chart-return { font-size: 24px; font-weight: 900; font-family: var(--font-outfit); line-height: 1; }
@@ -3496,7 +3483,7 @@
             </div>
 
             <!-- KPI Report -->
-            <div style="background:#030712;border:1.5px solid var(--border-color);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;">
+            <div style="background:var(--grey-light);border:1.5px solid var(--border-color);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;">
               <div style="font-size:11px;font-weight:700;color:var(--text-sub);text-transform:uppercase;border-bottom:1px solid var(--border-color);padding-bottom:4px;">Backtest Report</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
                 <div class="kpi-cell">
@@ -4258,17 +4245,10 @@
 
     // Set Default Dark Theme & Toggle Controls
     function setupTheme() {
-      const savedTheme = localStorage.getItem('x-invest-theme');
-      if (savedTheme === 'light') {
-        setTheme('light');
-      } else {
-        setTheme('dark');
-      }
-
-      themeToggle.addEventListener('click', () => {
-        const nextTheme = state.theme === 'light' ? 'dark' : 'light';
-        setTheme(nextTheme);
-      });
+      // 다크/라이트 듀얼 모드 제거 — 항상 라이트로 고정
+      try { localStorage.removeItem('x-invest-theme'); } catch (e) {}
+      setTheme('light');
+      // 토글 버튼은 hidden 처리 (CSS .theme-toggle { display:none })
     }
 
     function setTheme(theme) {
@@ -5448,16 +5428,16 @@
       const cW = W - pL - pR;
       const cH = H - pT - pB;
 
-      // Grid
-      c.strokeStyle = 'rgba(255,255,255,0.04)';
+      // Grid — 라이트 배경에 맞게 어두운 반투명 라인
+      c.strokeStyle = 'rgba(25,31,40,0.08)';
       c.lineWidth = 1;
       for (let i = 0; i <= 3; i++) {
         const y = pT + (cH / 3) * i;
         c.beginPath(); c.moveTo(pL, y); c.lineTo(W - pR, y); c.stroke();
       }
 
-      // X-axis year labels — 양 끝은 정렬을 바꿔 영역 안에 안전 배치
-      c.fillStyle  = 'rgba(144,155,176,0.55)';
+      // X-axis year labels — 라이트 배경에서 가독성 있는 진한 회색
+      c.fillStyle  = 'rgba(78,89,104,0.85)';
       c.font       = `9px Outfit, sans-serif`;
       for (let yr = 0; yr <= 10; yr++) {
         const x = pL + (yr / 10) * cW;
