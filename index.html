@@ -1042,7 +1042,7 @@
           <a href="#terminal" class="nav-link" data-tab="terminal">터미널</a>
           <a href="#allocator" class="nav-link" data-tab="allocator">포트폴리오</a>
           <a href="#signals" class="nav-link" data-tab="signals">AI 시그널</a>
-          <a href="#macro" class="nav-link" data-tab="macro">글로벌 지표</a>
+          <a href="#macro" class="nav-link" data-tab="macro">환율 · 거시지표</a>
         </div>
         
         <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" style="padding: 6px 10px; border-radius: 8px;">
@@ -1536,10 +1536,7 @@
 
     // Initialize application
     function init() {
-      // Setup Theme
-      setupTheme();
-
-      // Prepopulate mock price history arrays (30 ticks) and candles (30 candles) backwards
+      // 1. Prepopulate mock price history arrays (30 ticks) and candles (30 candles) backwards
       Object.keys(state.assets).forEach(key => {
         const currentPrice = state.assets[key].price;
         state.assets[key].history.push(currentPrice);
@@ -1565,12 +1562,15 @@
         }
       });
 
-      // Canvas setup
+      // 2. Canvas setup
       window.addEventListener('resize', () => {
         clearTimeout(chartResizeTimeout);
         chartResizeTimeout = setTimeout(resizeCanvas, 100);
       });
       resizeCanvas();
+
+      // 3. Setup Theme (Now safe as candles & resize are initialized)
+      setupTheme();
 
       // Connect tab selector buttons for live chart terminal
       document.querySelectorAll('#terminalAssetSelector .asset-tab').forEach(tab => {
