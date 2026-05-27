@@ -1470,6 +1470,44 @@
 
   <!-- JavaScript Interaction Logic Engine (Toss Stock Simulator) -->
   <script>
+    // Ultimate visual error overlay to diagnose runtime/rendering crashes on live clients immediately
+    window.onerror = function(message, source, lineno, colno, error) {
+      const errBanner = document.createElement('div');
+      errBanner.style.position = 'fixed';
+      errBanner.style.top = '0';
+      errBanner.style.left = '0';
+      errBanner.style.width = '100%';
+      errBanner.style.backgroundColor = '#FF3B30';
+      errBanner.style.color = '#FFFFFF';
+      errBanner.style.padding = '12px';
+      errBanner.style.fontSize = '12px';
+      errBanner.style.fontWeight = 'bold';
+      errBanner.style.zIndex = '99999';
+      errBanner.style.textAlign = 'center';
+      errBanner.style.wordBreak = 'break-all';
+      errBanner.textContent = `⚠️ [X-Invest 런타임 오류 포착] ${message} (위치: ${source}:${lineno}:${colno})`;
+      document.body.appendChild(errBanner);
+      return false;
+    };
+
+    window.onunhandledrejection = function(event) {
+      const errBanner = document.createElement('div');
+      errBanner.style.position = 'fixed';
+      errBanner.style.top = '40px';
+      errBanner.style.left = '0';
+      errBanner.style.width = '100%';
+      errBanner.style.backgroundColor = '#FF9500';
+      errBanner.style.color = '#000000';
+      errBanner.style.padding = '12px';
+      errBanner.style.fontSize = '12px';
+      errBanner.style.fontWeight = 'bold';
+      errBanner.style.zIndex = '99999';
+      errBanner.style.textAlign = 'center';
+      errBanner.style.wordBreak = 'break-all';
+      errBanner.textContent = `⚠️ [비동기 프로미스 예외 포착] ${event.reason}`;
+      document.body.appendChild(errBanner);
+    };
+
     // Live Asset Simulator State Management
     const state = {
       theme: 'dark',
