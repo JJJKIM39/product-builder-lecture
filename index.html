@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>토스 로또 | 토스 스타일의 깔끔한 로또 번호 추첨</title>
+  <title>X-Invest | 차세대 글로벌 투자 터미널 및 모의 트레이딩 시뮬레이터</title>
   
   <!-- Preconnecting to Google Fonts for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,17 +11,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* Design Tokens (Toss Style Guideline) */
+    /* Design Tokens (Toss & Hyperliquid Futuristic Premium Style Guide) */
     :root {
       --toss-blue: #3182F6;
       --toss-blue-hover: #1B64DA;
-      --toss-blue-light: #E8F3FF;
-      --toss-red: #F04438;
-      --toss-red-light: #FEE4E2;
-      --toss-green: #12B76A;
-      --toss-green-light: #D1FADF;
+      --toss-blue-light: rgba(49, 130, 246, 0.15);
+      --neon-green: #00F5A0;
+      --neon-green-light: rgba(0, 245, 160, 0.12);
+      --neon-red: #FF3B30;
+      --neon-red-light: rgba(255, 59, 48, 0.12);
       
-      /* Light Mode Colors */
+      /* Dark Theme Colors (Default) */
+      --bg-color: #0B0F19;
+      --card-bg: #161B26;
+      --text-color: #F9FAFB;
+      --text-sub: #8A95A1;
+      --border-color: #242B3A;
+      --grey-light: #1F2635;
+      --grey-medium: #2C3549;
+      --grey-dark: #6B7684;
+      
+      --font-primary: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-outfit: 'Outfit', sans-serif;
+    }
+
+    /* Light Theme override */
+    [data-theme="light"] {
       --bg-color: #F3F4F6;
       --card-bg: #FFFFFF;
       --text-color: #191F28;
@@ -30,33 +45,14 @@
       --grey-light: #F2F4F6;
       --grey-medium: #E5E8EB;
       --grey-dark: #8A95A1;
-      
-      --font-primary: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      --font-outfit: 'Outfit', sans-serif;
-      
-      /* Ball Gradient Colors */
-      --ball-yellow: linear-gradient(135deg, #FFD43B, #F59F00);
-      --ball-blue: linear-gradient(135deg, #54BEF5, #1274E7);
-      --ball-red: linear-gradient(135deg, #FF8787, #FA5252);
-      --ball-grey: linear-gradient(135deg, #CED4DA, #868E96);
-      --ball-green: linear-gradient(135deg, #82C91E, #5C940D);
+      --toss-blue-light: #E8F3FF;
+      --neon-green: #12B76A;
+      --neon-green-light: #D1FADF;
+      --neon-red: #F04438;
+      --neon-red-light: #FEE4E2;
     }
 
-    /* Dark Mode variables override */
-    [data-theme="dark"] {
-      --bg-color: #111827;
-      --card-bg: #1F2937;
-      --text-color: #F9FAFB;
-      --text-sub: #9CA3AF;
-      --border-color: #374151;
-      --grey-light: #2D3748;
-      --grey-medium: #4B5563;
-      --toss-blue-light: rgba(49, 130, 246, 0.15);
-      --toss-green-light: rgba(18, 183, 106, 0.15);
-      --toss-red-light: rgba(240, 68, 56, 0.15);
-    }
-
-    /* Basic Resets & Page Layout */
+    /* Basic Resets */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -69,694 +65,92 @@
       background-color: var(--bg-color);
       color: var(--text-color);
       line-height: 1.5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 24px 16px;
-      transition: background-color 0.3s, color 0.3s;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* Outer Container */
-    .app-container {
-      width: 100%;
-      max-width: 500px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    /* Scrollbar Style */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
     }
-
-    /* Header Styling */
-    header {
-      text-align: center;
-      margin-top: 16px;
-      margin-bottom: 8px;
-      position: relative;
+    ::-webkit-scrollbar-track {
+      background: var(--bg-color);
     }
-
-    /* Theme Toggle Button */
-    .theme-toggle {
-      position: absolute;
-      right: 4px;
-      top: 4px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--text-sub);
-      padding: 8px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.2s, color 0.2s;
-    }
-
-    .theme-toggle:hover {
-      background-color: var(--grey-light);
-      color: var(--text-color);
-    }
-
-    header .logo {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      background-color: var(--toss-blue);
-      color: white;
-      border-radius: 14px;
-      font-family: var(--font-outfit);
-      font-weight: 700;
-      font-size: 22px;
-      margin-bottom: 12px;
-      box-shadow: 0 4px 12px rgba(49, 130, 246, 0.25);
-    }
-
-    header h1 {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 6px;
-    }
-
-    header p {
-      font-size: 14px;
-      color: var(--text-sub);
-      font-weight: 400;
-    }
-
-    /* Premium Toss-style Card Base */
-    .card {
-      background-color: var(--card-bg);
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.04);
-      border: 1px solid var(--border-color);
-      transition: background-color 0.3s, border-color 0.3s, transform 0.2s, box-shadow 0.2s;
-    }
-
-    /* Card Titles */
-    .card-title {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--text-color);
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .card-subtitle {
-      font-size: 13px;
-      color: var(--text-sub);
-      margin-top: -12px;
-      margin-bottom: 16px;
-      font-weight: 400;
-    }
-
-    /* Game Count Buttons Styling */
-    .game-selector {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .btn-select {
-      background-color: var(--grey-light);
-      border: none;
-      outline: none;
-      color: var(--text-sub);
-      padding: 12px 0;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-select:hover {
-      background-color: var(--grey-medium);
-    }
-
-    .btn-select.active {
-      background-color: var(--toss-blue-light);
-      color: var(--toss-blue);
-      font-weight: 700;
-    }
-
-    /* Draw Button Style */
-    .btn-draw {
-      width: 100%;
-      background-color: var(--toss-blue);
-      color: white;
-      border: none;
-      outline: none;
-      padding: 16px;
-      border-radius: 16px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .btn-draw:hover {
-      background-color: var(--toss-blue-hover);
-    }
-
-    .btn-draw:active {
-      transform: scale(0.97);
-    }
-
-    .btn-draw svg {
-      transition: transform 0.5s ease;
-    }
-
-    .btn-draw.spinning svg {
-      transform: rotate(360deg);
-    }
-
-    /* Result Display Styling */
-    .results-container {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .game-result-row {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding: 16px;
-      background-color: var(--grey-light);
-      border-radius: 16px;
-      border: 1px dashed var(--border-color);
-      animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    .game-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-sub);
-    }
-
-    .analysis-badges {
-      display: flex;
-      gap: 6px;
-    }
-
-    .badge {
-      font-size: 10px;
-      background-color: var(--border-color);
-      padding: 2px 6px;
-      border-radius: 6px;
-      color: var(--text-sub);
-      font-weight: 500;
-    }
-
-    .balls-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 100%;
-    }
-
-    /* Lotto Ball Styling */
-    .ball {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      color: white;
-      font-family: var(--font-outfit);
-      font-weight: 700;
-      font-size: 16px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-      transform: scale(0);
-      animation: ballPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    }
-
-    .ball.type-yellow { background: var(--ball-yellow); }
-    .ball.type-blue { background: var(--ball-blue); }
-    .ball.type-red { background: var(--ball-red); }
-    .ball.type-grey { background: var(--ball-grey); }
-    .ball.type-green { background: var(--ball-green); }
-
-    /* Match states for the Winning Checker simulator */
-    .ball.matched {
-      box-shadow: 0 0 0 3px var(--toss-blue), 0 4px 12px rgba(49, 130, 246, 0.4);
-    }
-    .ball.dimmed {
-      opacity: 0.35;
-      transform: scale(0.9);
-      transition: all 0.3s ease;
-    }
-
-    /* Action Buttons Row */
-    .action-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .btn-secondary {
-      flex: 1;
-      background-color: var(--grey-light);
-      color: var(--text-color);
-      border: none;
-      outline: none;
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.2s;
-    }
-
-    .btn-secondary:hover {
-      background-color: var(--grey-medium);
-    }
-
-    .btn-secondary:active {
-      transform: scale(0.98);
-    }
-
-    /* Accordion Custom Settings */
-    .accordion {
-      overflow: hidden;
-    }
-
-    .accordion-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      padding: 4px 0;
-    }
-
-    .accordion-header span {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-color);
-    }
-
-    .accordion-header .status-indicator {
-      font-size: 12px;
-      color: var(--toss-blue);
-      background-color: var(--toss-blue-light);
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-weight: 500;
-      margin-left: auto;
-      margin-right: 8px;
-      display: none;
-    }
-
-    .accordion-header svg {
-      transition: transform 0.25s ease;
-      color: var(--text-sub);
-    }
-
-    .accordion.open .accordion-header svg {
-      transform: rotate(180deg);
-    }
-
-    .accordion-content {
-      max-height: 0;
-      opacity: 0;
-      transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
-    }
-
-    .accordion.open .accordion-content {
-      max-height: 380px;
-      opacity: 1;
-      margin-top: 16px;
-    }
-
-    /* 1-45 Number Selection Grid */
-    .number-grid {
-      display: grid;
-      grid-template-columns: repeat(9, 1fr);
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
-    .grid-cell {
-      aspect-ratio: 1;
-      border: 1px solid var(--border-color);
-      background-color: var(--card-bg);
-      color: var(--text-color);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-outfit);
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      user-select: none;
-    }
-
-    .grid-cell:hover {
-      background-color: var(--grey-light);
-      border-color: var(--grey-dark);
-    }
-
-    /* Selection States: Neutral -> Included (Green) -> Excluded (Red) */
-    .grid-cell.included {
-      background-color: var(--toss-green-light);
-      border-color: var(--toss-green);
-      color: #0F7643;
-      font-weight: 700;
-    }
-
-    .grid-cell.excluded {
-      background-color: var(--toss-red-light);
-      border-color: var(--toss-red);
-      color: #B42318;
-      font-weight: 700;
-    }
-
-    .filter-guide {
-      font-size: 12px;
-      color: var(--text-sub);
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 12px;
-      background-color: var(--grey-light);
-      border-radius: 12px;
-    }
-
-    .filter-guide-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .guide-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-    .guide-dot.green { background-color: var(--toss-green); }
-    .guide-dot.red { background-color: var(--toss-red); }
-
-    /* Winning Checker Simulator Styling */
-    .simulator-container {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    
-    .winning-numbers-box {
-      background-color: var(--grey-light);
-      border-radius: 16px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      align-items: center;
-    }
-
-    .winning-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-sub);
-    }
-
-    .winning-balls-flex {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .plus-sign {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-sub);
-      margin: 0 4px;
-    }
-
-    .bonus-ball-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .bonus-tag {
-      font-size: 9px;
-      background-color: var(--toss-blue);
-      color: white;
-      padding: 1px 4px;
+    ::-webkit-scrollbar-thumb {
+      background: var(--grey-medium);
       border-radius: 4px;
-      font-weight: 600;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--grey-dark);
     }
 
-    .simulation-result-badge {
-      background-color: var(--toss-blue-light);
-      color: var(--toss-blue);
-      padding: 4px 12px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 13px;
-      text-align: center;
-      width: 100%;
-      margin-top: 4px;
-    }
-
-    /* Toss style Partnership Inquiry Form Styling */
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-bottom: 16px;
-      text-align: left;
-    }
-
-    .form-group label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-sub);
-      margin-left: 2px;
-    }
-
-    .form-control {
-      width: 100%;
-      background-color: var(--grey-light);
-      border: 1.5px solid transparent;
-      padding: 14px;
-      border-radius: 14px;
-      font-size: 14px;
-      color: var(--text-color);
-      outline: none;
-      transition: all 0.2s ease;
-      font-family: var(--font-primary);
-    }
-
-    .form-control::placeholder {
-      color: var(--grey-dark);
-      opacity: 0.8;
-    }
-
-    .form-control:focus {
-      border-color: var(--toss-blue);
-      background-color: var(--card-bg);
-      box-shadow: 0 0 0 3px var(--toss-blue-light);
-    }
-
-    textarea.form-control {
-      resize: none;
-    }
-
-    /* Transaction-style History List */
-    .history-list {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .history-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 0;
+    /* Ticker Bar (Top Neon Banner) */
+    .ticker-bar {
+      background-color: #030712;
       border-bottom: 1px solid var(--border-color);
-      animation: fadeIn 0.3s ease;
-    }
-
-    .history-item:last-child {
-      border-bottom: none;
-    }
-
-    .history-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex: 1;
-    }
-
-    .history-meta {
-      font-size: 12px;
-      color: var(--text-sub);
+      height: 36px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      overflow: hidden;
+      position: relative;
+      z-index: 101;
     }
 
-    .history-balls-summary {
+    .ticker-wrapper {
       display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-      margin-top: 4px;
+      white-space: nowrap;
+      animation: tickerLoop 30s linear infinite;
     }
 
-    .ball-sm {
+    .ticker-item {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      color: white;
+      padding: 0 20px;
+      font-size: 11px;
+      font-weight: 600;
       font-family: var(--font-outfit);
-      font-size: 10px;
+      color: var(--text-sub);
+    }
+
+    .ticker-label {
+      margin-right: 6px;
+      color: var(--text-color);
+    }
+
+    .ticker-value {
+      margin-right: 6px;
+    }
+
+    .ticker-change {
       font-weight: 700;
     }
 
-    .btn-delete {
-      background: none;
-      border: none;
-      color: var(--text-sub);
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.6;
-      transition: all 0.2s;
+    .ticker-change.up { color: var(--neon-green); }
+    .ticker-change.down { color: var(--neon-red); }
+
+    @keyframes tickerLoop {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
     }
 
-    .btn-delete:hover {
-      opacity: 1;
-      color: var(--toss-red);
-      background-color: var(--toss-red-light);
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 32px 0;
-      color: var(--text-sub);
-      font-size: 14px;
-    }
-
-    /* Toast Notification */
-    .toast-container {
-      position: fixed;
-      bottom: 32px;
-      left: 50%;
-      transform: translate(-50%, 20px);
-      background-color: rgba(25, 31, 40, 0.95);
-      color: white;
-      padding: 14px 28px;
-      border-radius: 24px;
-      font-size: 14px;
-      font-weight: 600;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 1000;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    .toast-container.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-
-    /* Animations */
-    @keyframes ballPop {
-      0% {
-        transform: scale(0);
-        opacity: 0;
-      }
-      80% {
-        transform: scale(1.15);
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Responsive styles for very small screens */
-    @media (max-width: 375px) {
-      .ball {
-        width: 36px;
-        height: 36px;
-        font-size: 14px;
-      }
-      .number-grid {
-        grid-template-columns: repeat(9, 1fr);
-        gap: 4px;
-      }
-      .grid-cell {
-        font-size: 11px;
-      }
-    }
-
-    /* Sticky Navigation Bar */
+    /* Sticky Navigation Header */
     .nav-bar {
       position: sticky;
       top: 0;
       z-index: 100;
-      background-color: var(--card-bg);
+      background-color: rgba(22, 27, 38, 0.7);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-color);
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease;
+    }
+    [data-theme="light"] .nav-bar {
+      background-color: rgba(255, 255, 255, 0.7);
     }
 
     .nav-container {
-      max-width: 600px;
+      max-width: 680px;
       margin: 0 auto;
       height: 56px;
       display: flex;
@@ -766,19 +160,25 @@
     }
 
     .nav-logo {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--toss-blue);
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--text-color);
       text-decoration: none;
-      font-family: var(--font-primary);
+      font-family: var(--font-outfit);
+      letter-spacing: -0.5px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
+    .nav-logo span {
+      color: var(--toss-blue);
+      text-shadow: 0 0 10px rgba(49, 130, 246, 0.5);
+    }
+
     .nav-links {
       display: flex;
-      gap: 12px;
+      gap: 6px;
     }
 
     .nav-link {
@@ -792,11 +192,624 @@
     }
 
     .nav-link:hover {
-      color: var(--toss-blue);
+      color: var(--text-color);
       background-color: var(--grey-light);
     }
 
-    /* Privacy Policy Modal */
+    /* Main Container */
+    .app-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 16px 80px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Header Welcome Card */
+    header {
+      text-align: left;
+      position: relative;
+      padding: 16px 8px 8px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    header h1 {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--text-color);
+    }
+
+    header p {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    /* Theme Mode Trigger */
+    .theme-toggle {
+      background: var(--grey-light);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      outline: none;
+    }
+    .theme-toggle:hover {
+      background-color: var(--grey-medium);
+    }
+
+    /* Premium Toss-Style Cards */
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-top: -8px;
+      line-height: 1.5;
+    }
+
+    /* Grid Layout inside Cards */
+    .terminal-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 540px) {
+      .terminal-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Asset Chart Canvas Panel */
+    .chart-panel {
+      position: relative;
+      background-color: #030712;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chart-asset-name {
+      font-size: 15px;
+      font-weight: 700;
+      font-family: var(--font-outfit);
+    }
+
+    .chart-price-info {
+      text-align: right;
+    }
+
+    .chart-price {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: var(--font-outfit);
+    }
+
+    .chart-pct {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .chart-pct.up { color: var(--neon-green); }
+    .chart-pct.down { color: var(--neon-red); }
+
+    .live-canvas {
+      width: 100%;
+      height: 120px;
+      margin-top: 10px;
+      background: transparent;
+      display: block;
+    }
+
+    .chart-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--grey-dark);
+      margin-top: 4px;
+    }
+
+    /* Order Book Panel (Future Neon Book) */
+    .order-book-panel {
+      background-color: #030712;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-family: var(--font-outfit);
+    }
+
+    .book-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 4px;
+    }
+
+    .book-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      position: relative;
+      height: 18px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .book-depth-bar {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      opacity: 0.08;
+      z-index: 1;
+      transition: width 0.3s ease;
+    }
+
+    .book-depth-bar.ask { background-color: var(--neon-red); }
+    .book-depth-bar.bid { background-color: var(--neon-green); }
+
+    .book-price {
+      z-index: 2;
+      font-weight: 600;
+    }
+    .book-price.ask { color: var(--neon-red); }
+    .book-price.bid { color: var(--neon-green); }
+
+    .book-size {
+      z-index: 2;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    .book-spread {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--grey-dark);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 2px 0;
+      margin: 2px 0;
+    }
+
+    /* Market Sentiment (Fear & Greed) Gauge */
+    .sentiment-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .gauge-wrapper {
+      height: 12px;
+      background-color: var(--grey-light);
+      border-radius: 6px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .gauge-fill {
+      height: 100%;
+      border-radius: 6px;
+      width: 50%;
+      background: linear-gradient(90deg, var(--neon-red), #F59F00, var(--neon-green));
+      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .gauge-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--grey-dark);
+      font-weight: 600;
+    }
+
+    .sentiment-value {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--toss-blue);
+      text-shadow: 0 0 8px rgba(49, 130, 246, 0.2);
+    }
+
+    /* X-AI Signals System (Interactive feed) */
+    .signal-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .signal-card {
+      background-color: var(--grey-light);
+      border-radius: 16px;
+      padding: 12px 16px;
+      border-left: 4px solid var(--toss-blue);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      animation: signalFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .signal-card.buy { border-left-color: var(--neon-green); }
+    .signal-card.sell { border-left-color: var(--neon-red); }
+
+    .signal-header-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--grey-dark);
+      font-weight: 600;
+    }
+
+    .signal-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+
+    .signal-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    @keyframes signalFadeIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Mock Trading Panel (The Core Interaction Engine) */
+    .trading-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 560px) {
+      .trading-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .wallet-card-header {
+      background-color: var(--grey-light);
+      border-radius: 18px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+    }
+
+    .wallet-label {
+      font-size: 12px;
+      color: var(--grey-dark);
+      font-weight: 600;
+    }
+
+    .wallet-balance {
+      font-size: 20px;
+      font-weight: 900;
+      font-family: var(--font-outfit);
+      color: var(--text-color);
+    }
+
+    .wallet-pnl {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Asset selection tabs */
+    .asset-selector {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      background-color: var(--grey-light);
+      padding: 4px;
+      border-radius: 12px;
+    }
+
+    .asset-tab {
+      background: none;
+      border: none;
+      padding: 8px 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sub);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-outfit);
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .asset-tab.active {
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Trading Panel form controls */
+    .trade-control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .trade-control-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-left: 2px;
+    }
+
+    .trade-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .trade-input {
+      width: 100%;
+      background-color: var(--grey-light);
+      border: 1.5px solid transparent;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-color);
+      font-family: var(--font-outfit);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .trade-input:focus {
+      border-color: var(--toss-blue);
+      background-color: var(--card-bg);
+      box-shadow: 0 0 0 3px var(--toss-blue-light);
+    }
+
+    .trade-unit {
+      position: absolute;
+      right: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--grey-dark);
+      font-family: var(--font-outfit);
+    }
+
+    .trade-pct-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .btn-pct {
+      background-color: var(--grey-light);
+      border: none;
+      padding: 6px 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-sub);
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--font-outfit);
+      transition: all 0.15s;
+    }
+
+    .btn-pct:hover {
+      background-color: var(--grey-medium);
+      color: var(--text-color);
+    }
+
+    .trade-submit-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .btn-action {
+      border: none;
+      padding: 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-primary);
+    }
+
+    .btn-action.buy {
+      background-color: var(--neon-green);
+      color: #030712;
+    }
+    .btn-action.buy:hover {
+      background-color: #00E092;
+      box-shadow: 0 0 12px rgba(0, 245, 160, 0.45);
+    }
+
+    .btn-action.sell {
+      background-color: var(--neon-red);
+      color: #FFFFFF;
+    }
+    .btn-action.sell:hover {
+      background-color: #E03128;
+      box-shadow: 0 0 12px rgba(255, 59, 48, 0.45);
+    }
+
+    /* Portfolio Inventory Table */
+    .portfolio-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    .portfolio-table th, .portfolio-table td {
+      padding: 12px 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .portfolio-table th {
+      color: var(--grey-dark);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .portfolio-table td {
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
+    .portfolio-asset-tag {
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-outfit);
+      color: var(--text-color);
+    }
+
+    .portfolio-value-main {
+      font-family: var(--font-outfit);
+      font-weight: 600;
+    }
+
+    /* Guide Educational Articles (AdSense compliance) */
+    .guide-article-box {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+    }
+
+    .guide-section {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+
+    .guide-section:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .guide-section h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .guide-section p {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    /* Disqus Comments Card Wrapper */
+    .disqus-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    /* Footer and Privacy Modal Styles */
+    footer {
+      margin-top: 32px;
+      padding: 24px 16px 40px 16px;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--grey-dark);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .footer-link-item {
+      font-size: 12px;
+      color: var(--toss-blue);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .footer-link-item:hover {
+      text-decoration: underline;
+    }
+
+    .footer-notice {
+      font-size: 11px;
+      color: var(--grey-dark);
+      max-width: 480px;
+      line-height: 1.5;
+    }
+
+    /* Privacy Modal Overlay & Popup window */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -882,106 +895,30 @@
       margin-bottom: 8px;
     }
 
-    /* Lotto Guide Section Styles */
-    .guide-article-box {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      text-align: left;
-    }
-
-    .guide-section {
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 16px;
-    }
-
-    .guide-section:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .guide-section h3 {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-color);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .guide-section p {
-      font-size: 13px;
-      color: var(--text-sub);
-      line-height: 1.7;
-    }
-
-    .guide-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 12px;
-      background-color: var(--grey-light);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .guide-table th, .guide-table td {
-      padding: 8px 12px;
-      text-align: center;
-      border: 1px solid var(--border-color);
-    }
-
-    .guide-table th {
-      background-color: var(--grey-medium);
-      color: var(--text-color);
+    /* Toast Notification System */
+    .toast-container {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translate(-50%, 20px);
+      background-color: rgba(25, 31, 40, 0.95);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 24px;
+      font-size: 14px;
       font-weight: 600;
-    }
-
-    .guide-table td {
-      color: var(--text-sub);
-    }
-
-    /* Site Footer Styling */
-    footer {
-      margin-top: 32px;
-      padding: 24px 16px 40px 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1200;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
       text-align: center;
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      align-items: center;
+      white-space: nowrap;
     }
 
-    .footer-copy {
-      font-size: 12px;
-      color: var(--grey-dark);
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 16px;
-      margin-top: 4px;
-    }
-
-    .footer-link-item {
-      font-size: 12px;
-      color: var(--toss-blue);
-      text-decoration: none;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .footer-link-item:hover {
-      text-decoration: underline;
-    }
-
-    .footer-notice {
-      font-size: 11px;
-      color: var(--grey-dark);
-      max-width: 480px;
-      line-height: 1.5;
+    .toast-container.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
     }
   </style>
   <meta name="google-adsense-account" content="ca-pub-9832973303458105">
@@ -990,26 +927,52 @@
 </head>
 <body>
 
-  <!-- Sticky Navigation Bar (Toss Glassmorphism) -->
+  <!-- Top Real-Time Global Market Ticker Bar -->
+  <div class="ticker-bar">
+    <div class="ticker-wrapper" id="tickerWrapper">
+      <!-- Generated items will cycle here infinitely -->
+      <div class="ticker-item"><span class="ticker-label">NASDAQ</span><span class="ticker-value">16,211.50</span><span class="ticker-change up">+1.42%</span></div>
+      <div class="ticker-item"><span class="ticker-label">S&P 500</span><span class="ticker-value">5,190.20</span><span class="ticker-change up">+0.88%</span></div>
+      <div class="ticker-item"><span class="ticker-label">USDKRW</span><span class="ticker-value">1,364.50</span><span class="ticker-change down">-0.32%</span></div>
+      <div class="ticker-item"><span class="ticker-label">BTC/USD</span><span class="ticker-value">67,520.00</span><span class="ticker-change up">+2.15%</span></div>
+      <div class="ticker-item"><span class="ticker-label">NVDA</span><span class="ticker-value">920.50</span><span class="ticker-change up">+3.84%</span></div>
+      <div class="ticker-item"><span class="ticker-label">TSLA</span><span class="ticker-value">180.20</span><span class="ticker-change down">-1.25%</span></div>
+      <!-- Duplicate items for seamless continuous looping animation -->
+      <div class="ticker-item"><span class="ticker-label">NASDAQ</span><span class="ticker-value">16,211.50</span><span class="ticker-change up">+1.42%</span></div>
+      <div class="ticker-item"><span class="ticker-label">S&P 500</span><span class="ticker-value">5,190.20</span><span class="ticker-change up">+0.88%</span></div>
+      <div class="ticker-item"><span class="ticker-label">USDKRW</span><span class="ticker-value">1,364.50</span><span class="ticker-change down">-0.32%</span></div>
+      <div class="ticker-item"><span class="ticker-label">BTC/USD</span><span class="ticker-value">67,520.00</span><span class="ticker-change up">+2.15%</span></div>
+      <div class="ticker-item"><span class="ticker-label">NVDA</span><span class="ticker-value">920.50</span><span class="ticker-change up">+3.84%</span></div>
+      <div class="ticker-item"><span class="ticker-label">TSLA</span><span class="ticker-value">180.20</span><span class="ticker-change down">-1.25%</span></div>
+    </div>
+  </div>
+
+  <!-- Sticky Glassmorphic Navigation -->
   <nav class="nav-bar">
     <div class="nav-container">
       <a href="#" class="nav-logo">
-        <span style="font-size: 20px; color: var(--toss-blue);">⚡</span> xinvest
+        <span>X</span>INVEST
       </a>
       <div class="nav-links">
-        <a href="#drawBtn" class="nav-link">번호 추첨</a>
-        <a href="#simulationCard" class="nav-link">시뮬레이터</a>
-        <a href="#guideCard" class="nav-link">분석 가이드</a>
-        <a href="#disqus_thread" class="nav-link">의견 나누기</a>
+        <a href="#terminalCard" class="nav-link">터미널</a>
+        <a href="#signalsCard" class="nav-link">AI 시그널</a>
+        <a href="#tradingCard" class="nav-link">가상 투자</a>
+        <a href="#loungeCard" class="nav-link">토론</a>
       </div>
     </div>
   </nav>
 
   <div class="app-container">
-    <!-- Header -->
+    
+    <!-- Welcome Header Header -->
     <header>
-      <button class="theme-toggle" id="themeToggle" aria-label="다크 모드 토글">
-        <!-- Sun icon (for dark mode) -->
+      <div>
+        <h1>투자 터미널</h1>
+        <p>인공지능 시그널과 실시간 자산 시뮬레이션</p>
+      </div>
+      
+      <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+        <!-- Sun icon (shows in Dark theme to switch to Light) -->
         <svg class="sun-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5"/>
           <line x1="12" y1="1" x2="12" y2="3"/>
@@ -1021,204 +984,226 @@
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
-        <!-- Moon icon (for light mode) -->
+        <!-- Moon icon (shows in Light theme to switch to Dark) -->
         <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-      
-      <div class="logo">L</div>
-      <h1>토스 로또</h1>
-      <p>쉽고 깨끗한 번호 추첨</p>
     </header>
 
-    <!-- Main Generator Card -->
-    <div class="card">
+    <!-- 1. Real-Time Terminal Card -->
+    <div class="card" id="terminalCard">
       <div class="card-title">
-        <span>추첨 개수 설정</span>
+        <span>실시간 시세 & 오더북</span>
       </div>
+      <div class="card-subtitle">선택된 주요 글로벌 자산의 라이브 틱 차트와 호가 분포도입니다.</div>
       
-      <div class="game-selector">
-        <button class="btn-select active" data-value="1">1개</button>
-        <button class="btn-select" data-value="2">2개</button>
-        <button class="btn-select" data-value="3">3개</button>
-        <button class="btn-select" data-value="4">4개</button>
-        <button class="btn-select" data-value="5">5개</button>
+      <!-- Selection of charts -->
+      <div class="asset-selector" id="terminalAssetSelector">
+        <button class="asset-tab active" data-asset="TSLA">TSLA</button>
+        <button class="asset-tab" data-asset="NVDA">NVDA</button>
+        <button class="asset-tab" data-asset="AAPL">AAPL</button>
+        <button class="asset-tab" data-asset="BTC">BTC</button>
+        <button class="asset-tab" data-asset="ETH">ETH</button>
       </div>
 
-      <button id="drawBtn" class="btn-draw">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
-        </svg>
-        번호 추첨하기
-      </button>
-
-      <!-- Draw Results Space -->
-      <div id="resultsWrapper" style="margin-top: 20px; display: none;">
-        <div class="results-container" id="resultsContainer">
-          <!-- Rows will be injected here dynamically -->
+      <div class="terminal-grid">
+        <!-- HTML5 Live Canvas Chart -->
+        <div class="chart-panel">
+          <div class="chart-header">
+            <div class="chart-asset-name" id="liveChartTitle">TSLA / USD</div>
+            <div class="chart-price-info">
+              <div class="chart-price" id="liveChartPrice">$180.20</div>
+              <div class="chart-pct up" id="liveChartPct">+1.45%</div>
+            </div>
+          </div>
+          
+          <canvas class="live-canvas" id="liveChartCanvas"></canvas>
+          
+          <div class="chart-footer">
+            <span>LIVE TICK DATA</span>
+            <span id="chartUpdateTime">REAL-TIME</span>
+          </div>
         </div>
 
-        <div class="action-row">
-          <button id="copyBtn" class="btn-secondary">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-            </svg>
-            번호 복사
-          </button>
+        <!-- Real-Time Order Book (Hyperliquid style) -->
+        <div class="order-book-panel">
+          <div class="book-title">Order Book (Depth)</div>
+          
+          <!-- Asks (Red block) -->
+          <div class="book-row" id="askRow4"><div class="book-depth-bar ask" style="width: 40%;"></div><span class="book-price ask" id="askPrice4">180.60</span><span class="book-size" id="askSize4">1,402</span></div>
+          <div class="book-row" id="askRow3"><div class="book-depth-bar ask" style="width: 75%;"></div><span class="book-price ask" id="askPrice3">180.50</span><span class="book-size" id="askSize3">2,851</span></div>
+          <div class="book-row" id="askRow2"><div class="book-depth-bar ask" style="width: 25%;"></div><span class="book-price ask" id="askPrice2">180.40</span><span class="book-size" id="askSize2">812</span></div>
+          <div class="book-row" id="askRow1"><div class="book-depth-bar ask" style="width: 90%;"></div><span class="book-price ask" id="askPrice1">180.30</span><span class="book-size" id="askSize1">3,490</span></div>
+          
+          <!-- Spread -->
+          <div class="book-spread" id="bookSpread">SPREAD: 0.10 (0.05%)</div>
+          
+          <!-- Bids (Green block) -->
+          <div class="book-row" id="bidRow1"><div class="book-depth-bar bid" style="width: 85%;"></div><span class="book-price bid" id="bidPrice1">180.20</span><span class="book-size" id="bidSize1">2,990</span></div>
+          <div class="book-row" id="bidRow2"><div class="book-depth-bar bid" style="width: 30%;"></div><span class="book-price bid" id="bidPrice2">180.10</span><span class="book-size" id="bidSize2">1,120</span></div>
+          <div class="book-row" id="bidRow3"><div class="book-depth-bar bid" style="width: 60%;"></div><span class="book-price bid" id="bidPrice3">180.00</span><span class="book-size" id="bidSize3">2,201</span></div>
+          <div class="book-row" id="bidRow4"><div class="book-depth-bar bid" style="width: 15%;"></div><span class="book-price bid" id="bidPrice4">179.90</span><span class="book-size" id="bidSize4">501</span></div>
         </div>
       </div>
     </div>
 
-    <!-- Lotto Simulation Checker -->
-    <div class="card" id="simulationCard" style="display: none;">
+    <!-- 2. Market Sentiment Card -->
+    <div class="card sentiment-card">
       <div class="card-title">
-        <span>가상 당첨 확인 시뮬레이터</span>
+        <span>시장 공포 & 탐욕 지수</span>
+        <span class="sentiment-value" id="sentimentLabel">탐욕 (64)</span>
       </div>
-      <div class="card-subtitle">방금 생성한 번호들과 비교하여 모의 당첨 결과를 확인해 보세요.</div>
+      <div class="card-subtitle">AI가 산출한 시장의 투심 분위기입니다. 수치가 클수록 매수세가 강력합니다.</div>
       
-      <div class="simulator-container">
-        <button id="simBtn" class="btn-draw" style="background-color: var(--toss-green);">
-          가상 당첨 발표하기!
-        </button>
+      <div class="gauge-wrapper">
+        <div class="gauge-fill" id="sentimentGauge" style="width: 64%;"></div>
+      </div>
+      <div class="gauge-labels">
+        <span>극단적 공포 (0)</span>
+        <span>중립</span>
+        <span>극단적 탐욕 (100)</span>
+      </div>
+    </div>
 
-        <div class="winning-numbers-box" id="winningBox" style="display: none;">
-          <div class="winning-label">모의 당첨 번호</div>
-          
-          <div class="winning-balls-flex">
-            <!-- 6 normal winning balls -->
-            <div id="winNormalBalls" style="display: flex; gap: 6px;"></div>
-            <div class="plus-sign">+</div>
-            <!-- 1 bonus ball -->
-            <div class="bonus-ball-container">
-              <div id="winBonusBall"></div>
-              <div class="bonus-tag">보너스</div>
+    <!-- 3. AI Signals Feed Card -->
+    <div class="card" id="signalsCard">
+      <div class="card-title">
+        <span>X-AI 투자 분석 시그널</span>
+      </div>
+      <div class="card-subtitle">AI 신경망 분석 엔진이 감지한 주요 종목별 틱 실시간 매매 포착 피드입니다.</div>
+      
+      <div class="signal-timeline" id="signalTimeline">
+        <!-- Inserted dynamically -->
+        <div class="signal-card buy">
+          <div class="signal-header-row"><span>TSLA / USD</span><span>방금 전</span></div>
+          <div class="signal-label" style="color: var(--neon-green);">🤖 [AI 돌파 매수 시그널] 테슬라</div>
+          <div class="signal-desc">이동평균 수렴확산(MACD) 5분봉 기준 골든크로스 상승 패턴 포착. 단기 추세 반전 매수 진입 유리.</div>
+        </div>
+        <div class="signal-card">
+          <div class="signal-header-row"><span>NVDA / USD</span><span>2분 전</span></div>
+          <div class="signal-label">🤖 [AI 지지선 테스트] 엔비디아</div>
+          <div class="signal-desc">최근 주요 지지선 $918.00 구간의 터치 지지 거래대금 상승 포착. 분할 매수 적합 영역.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Interactive Mock Trading Simulator Card -->
+    <div class="card" id="tradingCard">
+      <div class="card-title">
+        <span>가상 모의 트레이딩 시뮬레이터</span>
+      </div>
+      <div class="card-subtitle">1.5초마다 출렁이는 실시간 가상 호가 시세에 즉시 무제한 모의 매수/매도를 할 수 있습니다.</div>
+      
+      <!-- User Virtual Wallet Info -->
+      <div class="wallet-card-header">
+        <div class="wallet-label">보유 가상 자산 (예수금 + 평가액)</div>
+        <div class="wallet-balance" id="totalAssetBalance">$10,000.00</div>
+        <div style="display: flex; justify-content: space-between; margin-top: 4px;">
+          <span class="wallet-label">보유 가상 현금 (Cash): <strong id="walletCash" style="color: var(--text-color); font-family: var(--font-outfit);">$10,000.00</strong></span>
+          <span class="wallet-pnl" id="totalPnlLabel">수익률: 0.00% (+$0.00)</span>
+        </div>
+      </div>
+
+      <!-- Asset selector for trading form -->
+      <div class="asset-selector" id="tradeFormAssetSelector">
+        <button class="asset-tab active" data-asset="TSLA">TSLA</button>
+        <button class="asset-tab" data-asset="NVDA">NVDA</button>
+        <button class="asset-tab" data-asset="AAPL">AAPL</button>
+        <button class="asset-tab" data-asset="BTC">BTC</button>
+        <button class="asset-tab" data-asset="ETH">ETH</button>
+      </div>
+
+      <div class="trading-grid">
+        <!-- Interactive trading input form -->
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="trade-control-group">
+            <div style="display: flex; justify-content: space-between;">
+              <label>매수/매도 수량 설정</label>
+              <label id="activeAssetOwnedLabel">현재 보유: 0.00 주</label>
+            </div>
+            <div class="trade-input-wrapper">
+              <input type="number" id="tradeQuantity" class="trade-input" value="1" min="0.0001" step="any">
+              <span class="trade-unit" id="tradeFormUnit">주 (TSLA)</span>
+            </div>
+            <!-- Percentage buttons -->
+            <div class="trade-pct-buttons">
+              <button class="btn-pct" data-pct="0.25">25%</button>
+              <button class="btn-pct" data-pct="0.50">50%</button>
+              <button class="btn-pct" data-pct="0.75">75%</button>
+              <button class="btn-pct" data-pct="1.00">100%</button>
             </div>
           </div>
 
-          <div class="simulation-result-badge" id="simResultsOverview">
-             등수 결과 표시부
+          <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--text-sub); font-weight: 500; padding: 2px;">
+            <span>1주 가격 (시세)</span>
+            <strong id="tradePriceLabel" style="color: var(--text-color); font-family: var(--font-outfit);">$180.20</strong>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--text-color); font-weight: 700; border-top: 1px solid var(--border-color); padding-top: 10px;">
+            <span>최종 평가 예상 금액</span>
+            <strong id="tradeEstTotalLabel" style="color: var(--toss-blue); font-family: var(--font-outfit);">$180.20</strong>
+          </div>
+
+          <div class="trade-submit-row">
+            <button id="btnOrderBuy" class="btn-action buy">가상 매수</button>
+            <button id="btnOrderSell" class="btn-action sell">가상 매도</button>
           </div>
         </div>
-      </div>
-    </div>
 
-    <!-- Advanced Settings (Inclusion/Exclusion) Card -->
-    <div class="card accordion" id="filterAccordion">
-      <div class="accordion-header" id="accordionHeader">
-        <span>번호 직접 설정 (필터)</span>
-        <span class="status-indicator" id="filterStatus">설정됨</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"/>
-        </svg>
-      </div>
-      
-      <div class="accordion-content">
-        <div class="card-subtitle">번호를 탭하여 포함 또는 제외 설정해 보세요.</div>
-        
-        <div class="number-grid" id="numberGrid">
-          <!-- 1-45 Cells will be loaded here -->
-        </div>
-
-        <div class="filter-guide">
-          <div class="filter-guide-item">
-            <div class="guide-dot green"></div>
-            <span>초록색: <strong>포함할 번호</strong> (반드시 생성 결과에 포함, 최대 5개)</span>
-          </div>
-          <div class="filter-guide-item">
-            <div class="guide-dot red"></div>
-            <span>빨간색: <strong>제외할 번호</strong> (생성 결과에서 영구 제거, 최대 39개)</span>
-          </div>
-          <div style="font-size: 11px; margin-top: 4px; color: var(--text-sub);">* 한 번 더 터치하면 기본 상태(흰색)로 초기화됩니다.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Recent History Card -->
-    <div class="card">
-      <div class="card-title">
-        <span>최근 추첨 내역</span>
-        <button id="clearHistoryBtn" class="btn-secondary" style="font-size: 12px; padding: 6px 12px; border-radius: 8px; flex: none; display: none;">전체 삭제</button>
-      </div>
-      
-      <div class="history-list" id="historyList">
-        <!-- History items injected here -->
-    </div>
-
-    <!-- Lotto Statistics and Guide Card (AdSense Value-Added Content) -->
-    <div class="card" id="guideCard">
-      <div class="card-title">
-        <span>로또 확률과 당첨 통계 가이드</span>
-      </div>
-      <div class="card-subtitle">로또 6/45의 수학적 확률과 통계적 필터링의 과학적 원리를 알아봅니다.</div>
-      
-      <div class="guide-article-box">
-        <div class="guide-section">
-          <h3>📊 로또 1등 당첨 확률의 수학적 분석</h3>
-          <p>
-            대한민국 나눔로또(동행복권) 6/45는 1부터 45까지의 숫자 중 서로 다른 6개의 숫자를 맞추는 게임입니다. 이때 나타날 수 있는 총 모든 경우의 수는 수학적 조합(Combination) 공식을 통해 산출할 수 있습니다. <strong>45C6 = (45 × 44 × 43 × 42 × 41 × 40) / (6 × 5 × 4 × 3 × 2 × 1) = 8,145,060</strong> 가지가 됩니다. 
-          </p>
-          <p style="margin-top: 8px;">
-            즉, 단 한 게임을 구매하여 1등에 당첨될 수학적 확률은 정확히 <strong>8,145,060분의 1 (약 0.0000123%)</strong> 입니다. 이는 벼락에 맞을 확률(약 50만분의 1)보다 훨씬 낮으며, 확률론적으로 극히 희박한 독립 사건에 해당합니다.
-          </p>
-        </div>
-
-        <div class="guide-section">
-          <h3>🎲 독립 시행의 법칙과 도박사의 오류</h3>
-          <p>
-            로또 추첨은 매 회차마다 완전히 새로운 조건에서 이루어지는 <strong>'독립 시행(Independent Trials)'</strong>입니다. 지난주에 1번이 나왔다고 해서 이번주에 1번이 또 나올 확률이 낮아지거나 높아지지 않습니다. 매 추첨 시 각각의 번호가 추출될 확률은 언제나 45분의 1로 공평합니다.
-          </p>
-          <p style="margin-top: 8px;">
-            일부 사람들은 "최근 10주 동안 나오지 않은 번호가 이제는 나올 때가 되었다"라고 믿는데, 이는 전형적인 <strong>'도박사의 오류(Gambler's Fallacy)'</strong>입니다. 로또 기계는 과거의 추첨 결과를 기억하지 못하므로, 모든 번호는 매주 완전히 동일한 원초적 당첨 확률을 가집니다.
-          </p>
-        </div>
-
-        <div class="guide-section">
-          <h3>📈 통계적으로 자주 출현하는 균형 분포</h3>
-          <p>
-            개별 숫자의 독립적 당첨 확률은 균등하지만, 6개 숫자의 '조합'으로 영역을 넓혀보면 대수의 법칙(Law of Large Numbers)에 의해 특정 균형 범위 안으로 수렴하는 경향이 뚜렷합니다. 가장 널리 활용되는 통계적 필터링 기준은 다음과 같습니다.
-          </p>
-          
-          <table class="guide-table">
+        <!-- Inventory List (Portfolio) -->
+        <div style="overflow-x: auto; background-color: #030712; border: 1px solid var(--border-color); border-radius: 16px; padding: 10px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px; padding: 4px; border-bottom: 1px solid var(--border-color);">실시간 보유 포트폴리오</div>
+          <table class="portfolio-table">
             <thead>
               <tr>
-                <th>분석 기준</th>
-                <th>균형 구간 (가장 높은 빈도)</th>
-                <th>전체 당첨 중 비율</th>
+                <th>자산</th>
+                <th>보유량</th>
+                <th>평단가</th>
+                <th>평가손익</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><strong>홀수 : 짝수 비율</strong></td>
-                <td>3 : 3 또는 2 : 4 또는 4 : 2</td>
-                <td>약 80.5%</td>
-              </tr>
-              <tr>
-                <td><strong>번호 합계 구간</strong></td>
-                <td>총합 100 이상 ~ 170 이하</td>
-                <td>약 78.2%</td>
-              </tr>
-              <tr>
-                <td><strong>연속 번호(연번)</strong></td>
-                <td>연번이 1쌍 이하로 존재</td>
-                <td>약 93.4%</td>
+            <tbody id="portfolioTableBody">
+              <!-- Dynamically injected rows -->
+              <tr id="emptyPortfolioRow">
+                <td colspan="4" style="text-align: center; color: var(--grey-dark); padding: 32px 0;">보유 중인 자산이 없습니다.</td>
               </tr>
             </tbody>
           </table>
-          <p style="margin-top: 10px;">
-            이처럼 홀수와 짝수가 조화롭게 섞이고, 번호들의 합이 너무 치우치지 않는 평균적인 조합이 수학적 통계 모델에서 높은 확률적 가치를 가집니다. 본 사이트의 <strong>[번호 직접 설정 (필터)]</strong> 기능을 활용해 이러한 균형 비율에 근접한 맞춤형 추천 번호를 즉시 시뮬레이션할 수 있습니다.
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. AdSense Compliance Educational Article Card -->
+    <div class="card" id="educationalCard">
+      <div class="card-title">
+        <span>글로벌 변동성과 리스크 관리 가이드</span>
+      </div>
+      <div class="card-subtitle">성공적인 투자를 위해 지켜야 할 리스크 분산 및 자산 구조 분석입니다.</div>
+      
+      <div class="guide-article-box">
+        <div class="guide-section">
+          <h3>📊 자산 배분의 수학적 기초 (Mpt 이론)</h3>
+          <p>
+            현대 포트폴리오 이론(Modern Portfolio Theory, MPT)의 창시자 해리 마코위츠는 "분산 투자는 투자 시장에서 얻을 수 있는 유일한 공짜 점심이다"라고 말했습니다. 상이한 변동성을 지닌 비상관성 자산(예: 미국 기술 주식과 암호화폐 자산)을 일정 비율로 조합하여 구성하면, 포트폴리오의 기대 수익률을 훼손하지 않으면서도 전체 투자 리스크(표준편차 변동성)를 획기적으로 낮출 수 있는 수학적 원리입니다.
+          </p>
+        </div>
+
+        <div class="guide-section">
+          <h3>🎲 투심과 감정에 휩쓸리지 않는 백테스팅</h3>
+          <p>
+            개인 투자자들이 흔히 겪는 실패 요인 중 하나는 '시장 공포와 탐욕 지수'의 양극단에 도달했을 때 감정적으로 뇌동 매매를 집행하는 것입니다. 이를 통제하기 위해 본 플랫폼의 <strong>X-AI 신경망 시그널 피드</strong>와 같은 기술적 계량 통계를 객관적으로 참고하고, 개인의 자산 대비 리스크 허용치(최대 낙폭 MDD) 한계를 사전에 계산하여 기계적 분할 매매 원칙을 철저히 고수하는 시스템 트레이딩 방식의 접근이 필수적입니다.
           </p>
         </div>
       </div>
     </div>
 
-    <!-- Disqus Comments Card -->
-    <div class="card">
-      <div class="card-title">
-        <span>댓글 및 의견</span>
+    <!-- 6. Forum Discussion Card (Disqus) -->
+    <div class="disqus-card" id="loungeCard">
+      <div class="card-title" style="margin-bottom: 8px;">
+        <span>실시간 주주 토론 라운지</span>
       </div>
-      <div class="card-subtitle">자유롭게 의견을 나누거나 피드백을 남겨주세요.</div>
+      <div class="card-subtitle" style="margin-bottom: 20px;">투자 아이디어와 시세 분석 의견을 자유롭게 나누어 보세요.</div>
       
       <div id="disqus_thread"></div>
       <script>
@@ -1226,7 +1211,7 @@
             this.page.url = window.location.href;
             this.page.identifier = window.location.pathname;
           };
-          (function() { // DON'T EDIT BELOW THIS LINE
+          (function() {
           var d = document, s = d.createElement('script');
           s.src = 'https://product-blider.disqus.com/embed.js';
           s.setAttribute('data-timestamp', +new Date());
@@ -1236,42 +1221,43 @@
       <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
 
-    <!-- Partnership Inquiry Card (Formspree) -->
+    <!-- 7. Partnership Formspree Inquiry Card -->
     <div class="card">
       <div class="card-title">
-        <span>제휴 문의</span>
+        <span>X-Invest 비즈니스 제휴 제안</span>
       </div>
-      <div class="card-subtitle" style="margin-bottom: 20px;">제안하고 싶은 제휴 내용이 있다면 문의해 주세요.</div>
+      <div class="card-subtitle" style="margin-bottom: 20px;">데이터 연동 및 전략적 비즈니스 파트너십 문의를 전달하실 수 있습니다.</div>
       
       <form id="contactForm">
-        <div class="form-group">
-          <label for="compName">회사명 / 이름</label>
-          <input type="text" id="compName" name="name" class="form-control" placeholder="회사명 또는 성함을 입력해 주세요" required>
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; text-align: left;">
+          <label style="font-size: 13px; font-weight: 600; color: var(--text-sub); margin-left: 2px;">제안자명 / 회사명</label>
+          <input type="text" id="compName" name="name" class="trade-input" placeholder="성함 또는 기업명을 입력해 주세요" required>
         </div>
         
-        <div class="form-group">
-          <label for="emailAddr">이메일 주소</label>
-          <input type="email" id="emailAddr" name="email" class="form-control" placeholder="답변받으실 이메일을 입력해 주세요" required>
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; text-align: left;">
+          <label style="font-size: 13px; font-weight: 600; color: var(--text-sub); margin-left: 2px;">회신받으실 이메일 주소</label>
+          <input type="email" id="emailAddr" name="email" class="trade-input" placeholder="이메일 주소를 입력해 주세요" required>
         </div>
         
-        <div class="form-group">
-          <label for="messageText">문의 내용</label>
-          <textarea id="messageText" name="message" class="form-control" rows="4" placeholder="제휴 제안 상세 내용을 적어주세요" required></textarea>
+        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; text-align: left;">
+          <label style="font-size: 13px; font-weight: 600; color: var(--text-sub); margin-left: 2px;">제안 및 문의 내용</label>
+          <textarea id="messageText" name="message" class="trade-input" rows="4" placeholder="상세 제안 내용을 적어주세요" style="resize: none;" required></textarea>
         </div>
 
-        <button type="submit" id="formSubmitBtn" class="btn-draw" style="margin-top: 8px;">
-          문의 보내기
+        <button type="submit" id="formSubmitBtn" class="btn-action buy" style="width: 100%; border-radius: 14px; margin-top: 8px;">
+          제휴 제안서 제출
         </button>
       </form>
       
       <!-- Success State (Hidden by default) -->
       <div id="formSuccessState" style="display: none; text-align: center; padding: 24px 0;">
         <div style="font-size: 40px; margin-bottom: 12px;">✉️</div>
-        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">문의가 소중히 접수되었습니다</h3>
-        <p style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">작성해 주신 이메일 주소로<br>빠른 시일 내에 답변해 드리겠습니다.</p>
-        <button id="formResetBtn" class="btn-secondary" style="margin-top: 16px; display: inline-flex; width: auto; font-size: 13px;">새로 문의하기</button>
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">소중한 제안이 전달되었습니다</h3>
+        <p style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">남겨주신 이메일 주소를 확인하여<br>최대한 빠른 시일 내에 성실히 답변해 드리겠습니다.</p>
+        <button id="formResetBtn" class="btn-pct" style="margin-top: 16px; display: inline-flex; width: auto; padding: 10px 20px; font-size: 13px;">새로 문의하기</button>
       </div>
     </div>
+
   </div>
 
   <!-- Compliance Footer System -->
@@ -1281,7 +1267,7 @@
       <span class="footer-link-item" id="openPrivacyBtn">개인정보처리방침</span>
     </div>
     <div class="footer-notice">
-      본 사이트는 모의 로또 번호 추첨 결과를 제공하는 비영리 교육용 웹 서비스입니다. 실제 복권 구매와는 무관하며 어떠한 사행성 행위도 조장하지 않습니다.
+      본 사이트는 실시간 자산 시세 시뮬레이션을 제공하는 가상 모의 투자 교육 서비스입니다. 실제 금융 투자 및 자금 거래와 무관하며, 어떠한 사행성 행위나 직접적인 금전적 투자도 매매 권유하지 않습니다.
     </div>
   </footer>
 
@@ -1298,23 +1284,23 @@
         </button>
       </div>
       <div class="modal-body">
-        <p><strong>xinvest.site</strong>(이하 '본 사이트')는 이용자의 개인정보를 중요시하며, 개인정보보호법에 관한 법률을 준수합니다.</p>
+        <p><strong>xinvest.site</strong>(이하 '본 사이트')는 이용자의 개인정보보호 요건을 매우 중요하게 생각하며, 대한민국의 개인정보보호법에 관한 규정을 준수합니다.</p>
         
-        <h4>1. 수집하는 개인정보 항목</h4>
-        <p>본 사이트는 회원가입 절차가 없으며, 원칙적으로 개인 식별이 가능한 정보를 직접 수집하거나 저장하지 않습니다. 다만 아래 서비스의 연동 시 간접적으로 정보가 유입될 수 있습니다.</p>
+        <h4>1. 개인정보 직접 수집 제한</h4>
+        <p>본 사이트는 별도의 회원 가입이나 개인 신원 식별 정보의 로그인을 원칙적으로 요구하지 않으며, 투자자 정보를 수집하거나 서버에 강제 기록하여 마케팅에 이용하지 않습니다.</p>
+        
+        <h4>2. 제휴 문의 및 외부 API 수집 정보</h4>
+        <p>일부 외부 연동 기능을 통하여 사용자가 기입 및 서명한 내용에 한해 간접 처리가 발생할 수 있습니다.</p>
         <ul>
-          <li><strong>제휴 문의 (Formspree)</strong>: 성함/회사명, 이메일 주소, 문의 내용 (답변 및 고객 관리 목적으로만 사용되며, 그 외 타인에게 제공되지 않습니다.)</li>
-          <li><strong>댓글 서비스 (Disqus)</strong>: 이용자가 작성한 댓글 내용, Disqus 계정 토큰 (Disqus 정책에 준하여 수집 및 처리됩니다.)</li>
+          <li><strong>비즈니스 제휴 문의 (Formspree)</strong>: 성함/회사명, 이메일 주소, 제안 사항 (파트너십 회신 용도로만 보관되며 회신 완료 시 파기됩니다.)</li>
+          <li><strong>주주 토론 댓글 (Disqus)</strong>: 소셜 댓글 게재 시 필요한 Disqus 계정 토큰 및 작성 코멘트 (Disqus의 안전한 개인정보 규정에 따릅니다.)</li>
         </ul>
 
-        <h4>2. 쿠키(Cookie) 및 웹 분석 도구 사용</h4>
-        <p>본 사이트는 구글 애드센스(Google AdSense) 및 Disqus 댓글 연동 등을 통해 사용자 브라우저에 쿠키를 생성하고 광고 서빙에 활용할 수 있습니다. 이용자는 웹 브라우저 설정을 변경하여 쿠키 수집을 거부할 수 있습니다.</p>
+        <h4>3. 구글 애드센스 쿠키 및 광고 광고 제공 지침</h4>
+        <p>본 서비스는 웹 브라우저에 타사 쿠키(Third-party Cookie)를 생성하여 사용자의 관심 지향형 광고를 서빙할 수 있도록 구글 애드센스 시스템을 연동하고 있습니다. 이용자는 이용하시는 기기 웹 브라우저 설정에서 쿠키 거부를 임의 지정하실 수 있습니다.</p>
 
-        <h4>3. 개인정보 제3자 제공</h4>
-        <p>이용자가 직접 Formspree나 Disqus를 통해 전송/게재한 정보를 제외하고, 본 사이트가 임의로 제3자에게 데이터를 판매하거나 제공하는 행위는 절대 없습니다.</p>
-
-        <h4>4. 문의 및 책임처</h4>
-        <p>개인정보 처리 및 제휴 문의와 관련된 사항은 사이트의 <strong>[제휴 문의]</strong> 폼을 통하거나 공식 관리 메일 주소를 통해 문의해 주시기 바랍니다.</p>
+        <h4>4. 문의 및 개인정보보호 책임처</h4>
+        <p>문의사항은 사이트 내부의 **[비즈니스 제휴 제안]** 양식을 작성하여 발송해 주시면 담당자에게 안전히 전달됩니다.</p>
       </div>
     </div>
   </div>
@@ -1322,89 +1308,161 @@
   <!-- Toast Notification System -->
   <div class="toast-container" id="toast">복사 완료</div>
 
+  <!-- JavaScript Interaction Logic Engine (Toss Stock Simulator) -->
   <script>
-    // State management
+    // Live Asset Simulator State Management
     const state = {
-      gameCount: 1,
-      includedNumbers: new Set(),
-      excludedNumbers: new Set(),
-      history: [],
-      currentDrawnGames: [], // stores the most recent generator output
-      theme: 'light'
+      theme: 'dark',
+      activeTerminalAsset: 'TSLA',
+      activeTradingAsset: 'TSLA',
+      wallet: {
+        cash: 10000.00,
+        portfolio: {
+          TSLA: { qty: 0, avgPrice: 0 },
+          NVDA: { qty: 0, avgPrice: 0 },
+          AAPL: { qty: 0, avgPrice: 0 },
+          BTC:  { qty: 0, avgPrice: 0 },
+          ETH:  { qty: 0, avgPrice: 0 }
+        }
+      },
+      assets: {
+        TSLA: { name: 'TSLA / USD', price: 180.20, startPrice: 180.20, pct: 0, history: [] },
+        NVDA: { name: 'NVDA / USD', price: 920.50, startPrice: 920.50, pct: 0, history: [] },
+        AAPL: { name: 'AAPL / USD', price: 172.80, startPrice: 172.80, pct: 0, history: [] },
+        BTC:  { name: 'BTC / USD',  price: 67500.00, startPrice: 67500.00, pct: 0, history: [] },
+        ETH:  { name: 'ETH / USD',  price: 3500.00, startPrice: 3500.00, pct: 0, history: [] }
+      },
+      sentiment: 64
     };
 
     // Load elements
     const themeToggle = document.getElementById('themeToggle');
     const sunIcon = themeToggle.querySelector('.sun-icon');
     const moonIcon = themeToggle.querySelector('.moon-icon');
-    
-    const drawBtn = document.getElementById('drawBtn');
-    const resultsWrapper = document.getElementById('resultsWrapper');
-    const resultsContainer = document.getElementById('resultsContainer');
-    const copyBtn = document.getElementById('copyBtn');
-    const filterAccordion = document.getElementById('filterAccordion');
-    const accordionHeader = document.getElementById('accordionHeader');
-    const filterStatus = document.getElementById('filterStatus');
-    const numberGrid = document.getElementById('numberGrid');
-    const historyList = document.getElementById('historyList');
-    const clearHistoryBtn = document.getElementById('clearHistoryBtn');
     const toast = document.getElementById('toast');
 
-    // Simulator Elements
-    const simulationCard = document.getElementById('simulationCard');
-    const simBtn = document.getElementById('simBtn');
-    const winningBox = document.getElementById('winningBox');
-    const winNormalBalls = document.getElementById('winNormalBalls');
-    const winBonusBall = document.getElementById('winBonusBall');
-    const simResultsOverview = document.getElementById('simResultsOverview');
+    // Chart Elements
+    const liveCanvas = document.getElementById('liveChartCanvas');
+    const ctx = liveCanvas.getContext('2d');
+    const liveChartTitle = document.getElementById('liveChartTitle');
+    const liveChartPrice = document.getElementById('liveChartPrice');
+    const liveChartPct = document.getElementById('liveChartPct');
 
-    // Formspree Elements
+    // Wallet/Trading Elements
+    const totalAssetBalanceEl = document.getElementById('totalAssetBalance');
+    const walletCashEl = document.getElementById('walletCash');
+    const totalPnlLabelEl = document.getElementById('totalPnlLabel');
+    const activeAssetOwnedLabelEl = document.getElementById('activeAssetOwnedLabel');
+    const tradePriceLabelEl = document.getElementById('tradePriceLabel');
+    const tradeQuantityInput = document.getElementById('tradeQuantity');
+    const tradeEstTotalLabelEl = document.getElementById('tradeEstTotalLabel');
+    const tradeFormUnitEl = document.getElementById('tradeFormUnit');
+    const btnOrderBuy = document.getElementById('btnOrderBuy');
+    const btnOrderSell = document.getElementById('btnOrderSell');
+    const portfolioTableBody = document.getElementById('portfolioTableBody');
+    const emptyPortfolioRow = document.getElementById('emptyPortfolioRow');
+
+    // Contact Form Elements
     const contactForm = document.getElementById('contactForm');
     const formSuccessState = document.getElementById('formSuccessState');
     const formSubmitBtn = document.getElementById('formSubmitBtn');
     const formResetBtn = document.getElementById('formResetBtn');
 
-    // Init function
+    // Chart drawing helpers
+    let chartResizeTimeout;
+
+    // Initialize application
     function init() {
-      // Setup Theme Mode
+      // Setup default-dark Theme Mode
       setupTheme();
 
-      // Setup Game Selector Buttons
-      document.querySelectorAll('.btn-select').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          document.querySelectorAll('.btn-select').forEach(b => b.classList.remove('active'));
-          e.target.classList.add('active');
-          state.gameCount = parseInt(e.target.dataset.value);
+      // Prepopulate mock price history arrays (30 ticks)
+      Object.keys(state.assets).forEach(key => {
+        let p = state.assets[key].price;
+        for (let i = 0; i < 30; i++) {
+          p = p * (1 + (Math.random() - 0.5) * 0.004);
+          state.assets[key].history.push(p);
+        }
+        state.assets[key].price = p; // set current to last pre-calculated price
+      });
+
+      // Layout Resize Canvas listener
+      window.addEventListener('resize', () => {
+        clearTimeout(chartResizeTimeout);
+        chartResizeTimeout = setTimeout(resizeCanvas, 100);
+      });
+      resizeCanvas();
+
+      // Connect tab selector buttons for live chart terminal
+      document.querySelectorAll('#terminalAssetSelector .asset-tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          document.querySelectorAll('#terminalAssetSelector .asset-tab').forEach(b => b.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+          state.activeTerminalAsset = e.currentTarget.dataset.asset;
+          updateChartDetails();
+          renderChart();
+          updateOrderBook();
         });
       });
 
-      // Setup Accordion Toggle
-      accordionHeader.addEventListener('click', () => {
-        filterAccordion.classList.toggle('open');
+      // Connect tab selector buttons for trading form
+      document.querySelectorAll('#tradeFormAssetSelector .asset-tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          document.querySelectorAll('#tradeFormAssetSelector .asset-tab').forEach(b => b.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+          state.activeTradingAsset = e.currentTarget.dataset.asset;
+          updateTradingFormDetails();
+        });
       });
 
-      // Build Number Grid (1-45)
-      buildNumberGrid();
+      // Trade quantity input change listener
+      tradeQuantityInput.addEventListener('input', updateEstimatedTradeTotal);
+      tradeQuantityInput.addEventListener('change', updateEstimatedTradeTotal);
 
-      // Load History from localStorage
-      loadHistory();
+      // Percentage shortcut buttons
+      document.querySelectorAll('.btn-pct').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const pct = parseFloat(e.currentTarget.dataset.pct);
+          const currentPrice = state.assets[state.activeTradingAsset].price;
+          
+          if (btn.closest('.card').querySelector('.btn-action.sell')) {
+            // Apply pct to owned quantity for sell or balance for buy
+          }
+          // Simple Toss style buying power helper
+          const maxBuyQuantity = state.wallet.cash / currentPrice;
+          const targetQty = (maxBuyQuantity * pct).toFixed(4);
+          tradeQuantityInput.value = targetQty > 0 ? targetQty : 1;
+          updateEstimatedTradeTotal();
+        });
+      });
 
-      // Bind drawing logic
-      drawBtn.addEventListener('click', handleDraw);
+      // Order executing handlers
+      btnOrderBuy.addEventListener('click', handleBuyOrder);
+      btnOrderSell.addEventListener('click', handleSellOrder);
 
-      // Bind copy logic
-      copyBtn.addEventListener('click', copyNumbersToClipboard);
+      // Start core live updates interval loop (every 1.5 seconds)
+      setInterval(tickLiveMarkets, 1500);
 
-      // Bind clear history
-      clearHistoryBtn.addEventListener('click', clearHistory);
+      // Start AI signals simulated feed interval loop (every 9 seconds)
+      setInterval(tickAiSignals, 9000);
 
-      // Bind simulator logic
-      simBtn.addEventListener('click', runSimulationDraw);
+      // Bind modal and navigation controls
+      bindLayoutElements();
 
-      // Bind Formspree Submit handler
+      // Formspree Setup
       setupFormspree();
 
-      // Bind Privacy Policy Modal controls
+      // First layout draw
+      updateChartDetails();
+      updateTradingFormDetails();
+      updatePortfolioUI();
+      updateOrderBook();
+      tickAiSignals(); // draw first signal immediately
+    }
+
+    // Bind theme, modal overlay, and scrolling
+    function bindLayoutElements() {
+      // Privacy Modal controls
       const privacyModal = document.getElementById('privacyModal');
       const openPrivacyBtn = document.getElementById('openPrivacyBtn');
       const closePrivacyBtn = document.getElementById('closePrivacyBtn');
@@ -1432,8 +1490,7 @@
           const targetId = link.getAttribute('href');
           const targetElement = document.querySelector(targetId);
           if (targetElement) {
-            // Offset for the sticky header (56px + margin = 70px)
-            const headerOffset = 70;
+            const headerOffset = 72;
             const elementPosition = targetElement.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -1446,15 +1503,15 @@
       });
     }
 
-    // Theme Setup & Toggle Logic
+    // Set Default Dark Theme & Toggle Controls
     function setupTheme() {
-      const savedTheme = localStorage.getItem('toss-lotto-theme');
-      const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const savedTheme = localStorage.getItem('x-invest-theme');
       
-      if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-        setTheme('dark');
-      } else {
+      // Default to dark if not set
+      if (savedTheme === 'light') {
         setTheme('light');
+      } else {
+        setTheme('dark');
       }
 
       themeToggle.addEventListener('click', () => {
@@ -1466,7 +1523,7 @@
     function setTheme(theme) {
       state.theme = theme;
       document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('toss-lotto-theme', theme);
+      localStorage.setItem('x-invest-theme', theme);
       
       if (theme === 'dark') {
         sunIcon.style.display = 'block';
@@ -1475,476 +1532,453 @@
         sunIcon.style.display = 'none';
         moonIcon.style.display = 'block';
       }
+      renderChart(); // redraw charts with theme sensitive color schemes
     }
 
-    // Number Grid Builder (1 to 45)
-    function buildNumberGrid() {
-      numberGrid.innerHTML = '';
-      for (let i = 1; i <= 45; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('grid-cell');
-        cell.textContent = i;
-        cell.addEventListener('click', () => toggleNumberState(i, cell));
-        numberGrid.appendChild(cell);
-      }
+    // Adjust high DPI canvas resolution
+    function resizeCanvas() {
+      const rect = liveCanvas.parentNode.getBoundingClientRect();
+      const width = rect.width - 28;
+      
+      liveCanvas.width = width * window.devicePixelRatio;
+      liveCanvas.height = 120 * window.devicePixelRatio;
+      liveCanvas.style.width = width + 'px';
+      liveCanvas.style.height = '120px';
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      renderChart();
     }
 
-    // Toggle grid cell state
-    function toggleNumberState(num, element) {
-      if (element.classList.contains('included')) {
-        element.classList.remove('included');
-        state.includedNumbers.delete(num);
+    // Tick Markets Simulator Algorithm (1.5 seconds intervals)
+    function tickLiveMarkets() {
+      // 1. Tick prices for all assets via Gaussian random walk
+      Object.keys(state.assets).forEach(key => {
+        const asset = state.assets[key];
+        const volatility = key === 'BTC' || key === 'ETH' ? 0.007 : 0.005; // crypto is more volatile
+        const delta = (Math.random() - 0.505) * 2 * volatility; // slight downward pressure to prevent runaway bubbles
         
-        if (state.excludedNumbers.size >= 39) {
-          showToast('제외 번호는 최대 39개까지 설정 가능합니다.');
-          updateFilterUI();
-          return;
+        asset.price = Math.max(0.01, asset.price * (1 + delta));
+        asset.history.push(asset.price);
+        if (asset.history.length > 40) {
+          asset.history.shift();
         }
         
-        element.classList.add('excluded');
-        state.excludedNumbers.add(num);
-      } else if (element.classList.contains('excluded')) {
-        element.classList.remove('excluded');
-        state.excludedNumbers.delete(num);
-      } else {
-        if (state.includedNumbers.size >= 5) {
-          if (state.excludedNumbers.size >= 39) {
-            showToast('제외 번호는 최대 39개까지 설정 가능합니다.');
-            return;
-          }
-          element.classList.add('excluded');
-          state.excludedNumbers.add(num);
-        } else {
-          element.classList.add('included');
-          state.includedNumbers.add(num);
-        }
-      }
-      
-      updateFilterUI();
-    }
-
-    // Update Accordion Header Indicators
-    function updateFilterUI() {
-      const activeFiltersCount = state.includedNumbers.size + state.excludedNumbers.size;
-      if (activeFiltersCount > 0) {
-        filterStatus.textContent = `포함 ${state.includedNumbers.size} · 제외 ${state.excludedNumbers.size}`;
-        filterStatus.style.display = 'block';
-      } else {
-        filterStatus.style.display = 'none';
-      }
-    }
-
-    // Get color theme classification for standard lotto balls
-    function getBallClass(num) {
-      if (num >= 1 && num <= 10) return 'type-yellow';
-      if (num >= 11 && num <= 20) return 'type-blue';
-      if (num >= 21 && num <= 30) return 'type-red';
-      if (num >= 31 && num <= 40) return 'type-grey';
-      return 'type-green';
-    }
-
-    // Generate single lotto set containing 6 numbers
-    function generateLottoSet() {
-      const allNumbers = Array.from({ length: 45 }, (_, i) => i + 1);
-      
-      const pool = allNumbers.filter(num => {
-        if (state.excludedNumbers.has(num)) return false;
-        if (state.includedNumbers.has(num)) return false;
-        return true;
+        // Calculate percentage change from session start
+        asset.pct = ((asset.price - asset.startPrice) / asset.startPrice) * 100;
       });
 
-      const numbersToDraw = 6 - state.includedNumbers.size;
-      if (pool.length < numbersToDraw) {
-        throw new Error('선택 조건이 올바르지 않습니다. 제외 또는 포함 숫자를 조정해 주세요.');
-      }
-
-      const shuffled = [...pool];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-
-      const drawn = shuffled.slice(0, numbersToDraw);
-      const finalSet = [...state.includedNumbers, ...drawn];
+      // 2. Randomly tick market sentiment indices
+      state.sentiment = Math.max(5, Math.min(95, state.sentiment + Math.floor((Math.random() - 0.49) * 3)));
+      const sentimentGauge = document.getElementById('sentimentGauge');
+      const sentimentLabel = document.getElementById('sentimentLabel');
       
-      return finalSet.sort((a, b) => a - b);
+      sentimentGauge.style.width = state.sentiment + '%';
+      if (state.sentiment >= 75) {
+        sentimentLabel.textContent = `극단적 탐욕 (${state.sentiment})`;
+        sentimentLabel.style.color = 'var(--neon-green)';
+      } else if (state.sentiment >= 55) {
+        sentimentLabel.textContent = `탐욕 (${state.sentiment})`;
+        sentimentLabel.style.color = 'var(--toss-blue)';
+      } else if (state.sentiment >= 45) {
+        sentimentLabel.textContent = `중립 (${state.sentiment})`;
+        sentimentLabel.style.color = 'var(--text-sub)';
+      } else if (state.sentiment >= 25) {
+        sentimentLabel.textContent = `공포 (${state.sentiment})`;
+        sentimentLabel.style.color = '#F59F00';
+      } else {
+        sentimentLabel.textContent = `극단적 공포 (${state.sentiment})`;
+        sentimentLabel.style.color = 'var(--neon-red)';
+      }
+
+      // 3. Update global top marquee ticker values
+      updateTopTickerUI();
+
+      // 4. Update core elements live
+      updateChartDetails();
+      renderChart();
+      updateOrderBook();
+      updateTradingFormDetails();
+      updatePortfolioUI();
     }
 
-    // Handle Draw Button Press
-    function handleDraw() {
-      const numbersToDraw = 6 - state.includedNumbers.size;
-      const totalAvailable = 45 - state.excludedNumbers.size - state.includedNumbers.size;
+    // Top Marquee continuous 시세 업데이트
+    function updateTopTickerUI() {
+      const tickerWrapper = document.getElementById('tickerWrapper');
+      let htmlContent = '';
       
-      if (totalAvailable < numbersToDraw) {
-        showToast('유효하지 않은 조건입니다. 필터를 확인해 주세요.');
-        filterAccordion.classList.add('open');
-        return;
-      }
+      const indices = [
+        { label: 'NASDAQ', price: 16211.5 * (state.assets.NVDA.price / 920.5), pct: state.assets.NVDA.pct * 0.4 },
+        { label: 'S&P 500', price: 5190.2 * (state.assets.AAPL.price / 172.8), pct: state.assets.AAPL.pct * 0.3 },
+        { label: 'USDKRW', price: 1364.5 * (1 + (state.assets.BTC.price - 67500) / 1000000), pct: -(state.assets.BTC.pct * 0.05) },
+        { label: 'BTC/USD', price: state.assets.BTC.price, pct: state.assets.BTC.pct },
+        { label: 'NVDA', price: state.assets.NVDA.price, pct: state.assets.NVDA.pct },
+        { label: 'TSLA', price: state.assets.TSLA.price, pct: state.assets.TSLA.pct }
+      ];
 
-      winningBox.style.display = 'none';
-      simulationCard.style.display = 'none';
-
-      drawBtn.classList.add('spinning');
-      drawBtn.disabled = true;
-
-      resultsContainer.innerHTML = '';
-      resultsWrapper.style.display = 'block';
-
-      state.currentDrawnGames = [];
-
-      try {
-        for (let i = 0; i < state.gameCount; i++) {
-          const numbersSet = generateLottoSet();
-          state.currentDrawnGames.push(numbersSet);
-        }
-      } catch (err) {
-        showToast(err.message);
-        drawBtn.classList.remove('spinning');
-        drawBtn.disabled = false;
-        return;
-      }
-
-      // Render items with sequential animations
-      state.currentDrawnGames.forEach((game, gameIdx) => {
-        const row = document.createElement('div');
-        row.classList.add('game-result-row');
-        row.style.animationDelay = `${gameIdx * 100}ms`;
-
-        const oddCount = game.filter(n => n % 2 !== 0).length;
-        const evenCount = 6 - oddCount;
-        const numberSum = game.reduce((sum, n) => sum + n, 0);
-
-        const headerRow = document.createElement('div');
-        headerRow.classList.add('game-header-row');
-        headerRow.innerHTML = `
-          <span>게임 ${gameIdx + 1}</span>
-          <div class="analysis-badges">
-            <span class="badge">홀짝 ${oddCount}:${evenCount}</span>
-            <span class="badge">총합 ${numberSum}</span>
-          </div>
-        `;
-        row.appendChild(headerRow);
-
-        const ballsRow = document.createElement('div');
-        ballsRow.classList.add('balls-row');
-
-        game.forEach((num, ballIdx) => {
-          const ball = document.createElement('div');
-          ball.className = `ball ${getBallClass(num)}`;
-          ball.textContent = num;
-          ball.dataset.number = num;
+      // Build HTML string twice to support loop
+      for (let repeat = 0; repeat < 2; repeat++) {
+        indices.forEach(idx => {
+          const isUp = idx.pct >= 0;
+          const sign = isUp ? '+' : '';
+          const cls = isUp ? 'up' : 'down';
+          const formattedVal = idx.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const formattedPct = idx.pct.toFixed(2);
           
-          ball.style.animationDelay = `${(gameIdx * 350) + (ballIdx * 60)}ms`;
-          ballsRow.appendChild(ball);
-          
-          if (gameIdx === state.currentDrawnGames.length - 1 && ballIdx === game.length - 1) {
-            setTimeout(() => {
-              drawBtn.classList.remove('spinning');
-              drawBtn.disabled = false;
-              simulationCard.style.display = 'block';
-            }, (gameIdx * 350) + (ballIdx * 60) + 200);
-          }
+          htmlContent += `
+            <div class="ticker-item">
+              <span class="ticker-label">${idx.label}</span>
+              <span class="ticker-value">${formattedVal}</span>
+              <span class="ticker-change ${cls}">${sign}${formattedPct}%</span>
+            </div>
+          `;
         });
-
-        row.appendChild(ballsRow);
-        resultsContainer.appendChild(row);
-      });
-
-      saveToHistory(state.currentDrawnGames);
+      }
+      tickerWrapper.innerHTML = htmlContent;
     }
 
-    // Simulation logic
-    function runSimulationDraw() {
-      if (state.currentDrawnGames.length === 0) return;
-
-      const pool = Array.from({ length: 45 }, (_, i) => i + 1);
+    // Update active Live chart panel data
+    function updateChartDetails() {
+      const asset = state.assets[state.activeTerminalAsset];
+      const isUp = asset.pct >= 0;
+      const sign = isUp ? '+' : '';
       
-      for (let i = pool.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [pool[i], pool[j]] = [pool[j], pool[i]];
-      }
-
-      const winningNumbers = pool.slice(0, 6).sort((a, b) => a - b);
-      const bonusNumber = pool[6];
-
-      winNormalBalls.innerHTML = '';
-      winningNumbers.forEach((num, idx) => {
-        const ball = document.createElement('div');
-        ball.className = `ball ${getBallClass(num)}`;
-        ball.textContent = num;
-        ball.style.width = '32px';
-        ball.style.height = '32px';
-        ball.style.fontSize = '12px';
-        ball.style.animationDelay = `${idx * 80}ms`;
-        winNormalBalls.appendChild(ball);
-      });
-
-      winBonusBall.innerHTML = '';
-      const bBall = document.createElement('div');
-      bBall.className = `ball ${getBallClass(bonusNumber)}`;
-      bBall.textContent = bonusNumber;
-      bBall.style.width = '32px';
-      bBall.style.height = '32px';
-      bBall.style.fontSize = '12px';
-      bBall.style.animationDelay = `480ms`;
-      winBonusBall.appendChild(bBall);
-
-      let bestRank = 6;
-      const winningSet = new Set(winningNumbers);
-
-      const allRowBalls = resultsContainer.querySelectorAll('.ball');
-      allRowBalls.forEach(b => {
-        b.className = `ball ${getBallClass(parseInt(b.dataset.number))}`;
-      });
-
-      const matchStats = [];
-
-      state.currentDrawnGames.forEach((game, idx) => {
-        const matchCount = game.filter(num => winningSet.has(num)).length;
-        const matchesBonus = game.includes(bonusNumber);
-        
-        let rankText = '낙첨';
-        let currentRank = 6;
-
-        if (matchCount === 6) {
-          rankText = '1등 🥇';
-          currentRank = 1;
-        } else if (matchCount === 5 && matchesBonus) {
-          rankText = '2등 🥈';
-          currentRank = 2;
-        } else if (matchCount === 5) {
-          rankText = '3등 🥉';
-          currentRank = 3;
-        } else if (matchCount === 4) {
-          rankText = '4등 💰';
-          currentRank = 4;
-        } else if (matchCount === 3) {
-          rankText = '5등 🍀';
-          currentRank = 5;
-        }
-
-        matchStats.push(`게임 ${idx+1}: ${matchCount}개 일치 (${rankText})`);
-        
-        if (currentRank < bestRank) {
-          bestRank = currentRank;
-        }
-
-        const row = resultsContainer.children[idx];
-        const rowBalls = row.querySelectorAll('.ball');
-        rowBalls.forEach(ballEl => {
-          const val = parseInt(ballEl.dataset.number);
-          if (winningSet.has(val) || val === bonusNumber) {
-            ballEl.classList.add('matched');
-          } else {
-            ballEl.classList.add('dimmed');
-          }
-        });
-      });
-
-      let prizeSummary = '';
-      if (bestRank === 6) {
-        prizeSummary = '아쉽게도 모두 낙첨되었습니다. 다시 도전해 보세요!';
+      liveChartTitle.textContent = asset.name;
+      liveChartPrice.textContent = '$' + asset.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      liveChartPct.textContent = `${sign}${asset.pct.toFixed(2)}%`;
+      
+      if (isUp) {
+        liveChartPct.className = 'chart-pct up';
+        liveChartPrice.style.color = 'var(--neon-green)';
       } else {
-        prizeSummary = `축하합니다! 최고 성적은 **${bestRank}등**입니다.`;
+        liveChartPct.className = 'chart-pct down';
+        liveChartPrice.style.color = 'var(--neon-red)';
       }
-
-      simResultsOverview.innerHTML = `
-        <div style="font-weight: 700; margin-bottom: 6px; color: var(--text-color);">${prizeSummary}</div>
-        <div style="font-size: 11px; color: var(--text-sub); line-height: 1.5; text-align: left; padding: 4px 8px;">
-          ${matchStats.join('<br>')}
-        </div>
-      `;
-
-      winningBox.style.display = 'flex';
-      showToast('가상 추첨 완료! 매칭된 번호를 확인하세요.');
     }
 
-    // Formspree Integration Setup
-    function setupFormspree() {
-      if (!contactForm) return;
+    // Draw custom smooth area chart inside Canvas
+    function renderChart() {
+      const asset = state.assets[state.activeTerminalAsset];
+      const history = asset.history;
+      if (history.length < 2) return;
 
-      contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        
-        formSubmitBtn.disabled = true;
-        formSubmitBtn.textContent = '보내는 중...';
-        
-        const formData = new FormData(contactForm);
-        
-        // **중요**: 실제 Formspree 사용 시 아래의 "YOUR_FORM_ID"를 본인의 폼 ID로 수정해 주세요.
-        // 예: const formspreeUrl = 'https://formspree.io/f/xbjnqjpv';
-        const formspreeUrl = 'https://formspree.io/f/mqejpppq';
-        
-        try {
-          // 폼 ID를 설정하지 않은 경우 UI 작동 테스트를 위해 시뮬레이션 동작
-          if (formspreeUrl.includes('YOUR_FORM_ID')) {
-            setTimeout(() => {
-              contactForm.reset();
-              contactForm.style.display = 'none';
-              formSuccessState.style.display = 'block';
-              showToast('문의가 전송되었습니다 (테스트 모드)');
-              formSubmitBtn.disabled = false;
-              formSubmitBtn.textContent = '문의 보내기';
-            }, 1000);
-            return;
-          }
-
-          const response = await fetch(formspreeUrl, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
-          });
-          
-          if (response.ok) {
-            contactForm.reset();
-            contactForm.style.display = 'none';
-            formSuccessState.style.display = 'block';
-            showToast('문의가 정상적으로 전송되었습니다.');
-          } else {
-            const data = await response.json();
-            showToast(data.errors ? data.errors.map(err => err.message).join(', ') : '전송 실패. 다시 시도해 주세요.');
-          }
-        } catch (error) {
-          showToast('네트워크 오류가 발생했습니다. 다시 시도해 주세요.');
-        } finally {
-          formSubmitBtn.disabled = false;
-          formSubmitBtn.textContent = '문의 보내기';
-        }
-      });
-
-      formResetBtn.addEventListener('click', () => {
-        formSuccessState.style.display = 'none';
-        contactForm.style.display = 'block';
-      });
-    }
-
-    // Save drawn games into local storage history
-    function saveToHistory(games) {
-      const timestamp = new Date();
-      const timeStr = `${timestamp.getMonth() + 1}월 ${timestamp.getDate()}일 ${timestamp.getHours().toString().padStart(2, '0')}:${timestamp.getMinutes().toString().padStart(2, '0')}`;
+      const w = liveCanvas.width / window.devicePixelRatio;
+      const h = 120;
       
-      const newRecord = {
-        id: Date.now(),
-        time: timeStr,
-        games: games
+      ctx.clearRect(0, 0, w, h);
+
+      // Calculate chart boundaries
+      const minVal = Math.min(...history) * 0.999;
+      const maxVal = Math.max(...history) * 1.001;
+      const range = maxVal - minVal;
+
+      // Coordinate converter helper
+      const getX = (idx) => (idx / (history.length - 1)) * w;
+      const getY = (val) => h - 15 - ((val - minVal) / range) * (h - 30);
+
+      // Determine colors based on last price movement compared to session start
+      const isUp = asset.price >= asset.startPrice;
+      const lineColor = isUp ? '#00F5A0' : '#FF3B30';
+      const gradientStart = isUp ? 'rgba(0, 245, 160, 0.22)' : 'rgba(255, 59, 48, 0.22)';
+      const shadowColor = isUp ? 'rgba(0, 245, 160, 0.4)' : 'rgba(255, 59, 48, 0.4)';
+
+      // 1. Draw smooth Bezier curve line
+      ctx.beginPath();
+      ctx.moveTo(getX(0), getY(history[0]));
+      
+      for (let i = 0; i < history.length - 1; i++) {
+        const x1 = getX(i);
+        const y1 = getY(history[i]);
+        const x2 = getX(i + 1);
+        const y2 = getY(history[i + 1]);
+        const xc = (x1 + x2) / 2;
+        const yc = (y1 + y2) / 2;
+        ctx.quadraticCurveTo(x1, y1, xc, yc);
+      }
+      ctx.lineTo(getX(history.length - 1), getY(history[history.length - 1]));
+      
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 2.5;
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = shadowColor;
+      ctx.stroke();
+      ctx.shadowBlur = 0; // reset shadow
+
+      // 2. Draw under-area gradient fill
+      ctx.lineTo(w, h);
+      ctx.lineTo(0, h);
+      ctx.closePath();
+      
+      const grad = ctx.createLinearGradient(0, 0, 0, h);
+      grad.addColorStop(0, gradientStart);
+      grad.addColorStop(1, 'rgba(11, 15, 25, 0)');
+      
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // 3. Draw highest/lowest horizontal dotted indicator lines
+      ctx.setLineDash([3, 4]);
+      ctx.strokeStyle = 'rgba(138, 149, 161, 0.3)';
+      ctx.lineWidth = 0.8;
+      
+      // Highest price line
+      ctx.beginPath();
+      ctx.moveTo(0, getY(Math.max(...history)));
+      ctx.lineTo(w, getY(Math.max(...history)));
+      ctx.stroke();
+      
+      // Lowest price line
+      ctx.beginPath();
+      ctx.moveTo(0, getY(Math.min(...history)));
+      ctx.lineTo(w, getY(Math.min(...history)));
+      ctx.stroke();
+      
+      ctx.setLineDash([]); // reset line dash
+    }
+
+    // Update Simulated Order Book depth sizes dynamically
+    function updateOrderBook() {
+      const asset = state.assets[state.activeTerminalAsset];
+      const p = asset.price;
+      const step = p > 1000 ? 5.00 : p > 100 ? 0.10 : 0.01;
+      
+      const asks = [
+        { price: p + step * 4, size: Math.floor(200 + Math.random() * 2500), pct: 15 + Math.random() * 45 },
+        { price: p + step * 3, size: Math.floor(500 + Math.random() * 4000), pct: 40 + Math.random() * 55 },
+        { price: p + step * 2, size: Math.floor(100 + Math.random() * 1500), pct: 10 + Math.random() * 30 },
+        { price: p + step * 1, size: Math.floor(1500 + Math.random() * 5000), pct: 50 + Math.random() * 45 }
+      ];
+
+      const bids = [
+        { price: p - step * 1, size: Math.floor(1200 + Math.random() * 4500), pct: 45 + Math.random() * 45 },
+        { price: p - step * 2, size: Math.floor(400 + Math.random() * 2000), pct: 20 + Math.random() * 35 },
+        { price: p - step * 3, size: Math.floor(900 + Math.random() * 3500), pct: 35 + Math.random() * 50 },
+        { price: p - step * 4, size: Math.floor(100 + Math.random() * 1000), pct: 5 + Math.random() * 20 }
+      ];
+
+      const formatPrice = (pr) => pr.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const formatSize = (sz) => sz.toLocaleString();
+
+      // Render Asks
+      asks.forEach((ask, idx) => {
+        const i = 4 - idx;
+        document.getElementById(`askPrice${i}`).textContent = formatPrice(ask.price);
+        document.getElementById(`askSize${i}`).textContent = formatSize(ask.size);
+        document.getElementById(`askRow${i}`).querySelector('.book-depth-bar').style.width = ask.pct + '%';
+      });
+
+      // Spread calculation
+      const spreadVal = asks[3].price - bids[0].price;
+      const spreadPct = (spreadVal / p) * 100;
+      document.getElementById('bookSpread').textContent = `SPREAD: ${spreadVal.toFixed(2)} (${spreadPct.toFixed(2)}%)`;
+
+      // Render Bids
+      bids.forEach((bid, idx) => {
+        const i = idx + 1;
+        document.getElementById(`bidPrice${i}`).textContent = formatPrice(bid.price);
+        document.getElementById(`bidSize${i}`).textContent = formatSize(bid.size);
+        document.getElementById(`bidRow${i}`).querySelector('.book-depth-bar').style.width = bid.pct + '%';
+      });
+    }
+
+    // Simulated AI neural analytics ticker signals feed (9 seconds intervals)
+    function tickAiSignals() {
+      const keys = Object.keys(state.assets);
+      const randomKey = keys[Math.floor(Math.random() * keys.length)];
+      const asset = state.assets[randomKey];
+      const isUp = Math.random() > 0.48; // slightly bullish biases
+      
+      const signals = {
+        buy: [
+          "5분봉 기준 볼린저밴드 하단 이탈 후 회귀 포착. 단기 지지선 반등 매수 전략 유효.",
+          "거래량 동반한 저항선 돌파 패턴 감지. 피보나치 되돌림 0.618 지지 성공 후 2차 파동 예상.",
+          "외국인 계좌의 대량 분할 순매수 신호 감지. 단기 목표가 도달 가능성 74% 예상.",
+          "RSI 과매도 영역 진입에 따른 공매도 숏커버링 유입 예측. 강력 매입 매력도 상승."
+        ],
+        sell: [
+          "상단 강한 저항선 저항 돌파 실패 후 음봉 거래대금 폭발. 리스크 관리 분할 매도 권고.",
+          "시간외 체결 및 선물 거래량 둔화 신호 포착. 지지선 하향 돌파 우려에 따른 보수적 관점 유지.",
+          "RSI 75% 이상 극단적 과매수 구간 진입 완료. 일시적 기술적 조정 파동 대비 필요.",
+          "이동평균선(EMA) 데드크로스 출현에 따른 지지 구간 붕괴 포착. 손절(Stop Loss) 기준선 확보 필요."
+        ]
       };
 
-      state.history.unshift(newRecord);
-      if (state.history.length > 10) {
-        state.history.pop();
-      }
+      const selectedTimeline = isUp ? signals.buy : signals.sell;
+      const randomDesc = selectedTimeline[Math.floor(Math.random() * selectedTimeline.length)];
+      const titleLabel = isUp ? `🤖 [AI 돌파 매수 시그널] ${randomKey}` : `🤖 [AI 지지 붕괴 매도 시그널] ${randomKey}`;
+      const borderClass = isUp ? 'signal-card buy' : 'signal-card sell';
+      const labelColor = isUp ? 'var(--neon-green)' : 'var(--neon-red)';
 
-      localStorage.setItem('toss-lotto-history', JSON.stringify(state.history));
-      renderHistory();
-    }
+      const timelineEl = document.getElementById('signalTimeline');
+      const newCard = document.createElement('div');
+      newCard.className = borderClass;
+      newCard.innerHTML = `
+        <div class="signal-header-row"><span>${asset.name}</span><span>방금 전</span></div>
+        <div class="signal-label" style="color: ${labelColor};">${titleLabel}</div>
+        <div class="signal-desc">${randomDesc}</div>
+      `;
 
-    // Load History list from storage
-    function loadHistory() {
-      const stored = localStorage.getItem('toss-lotto-history');
-      if (stored) {
-        try {
-          state.history = JSON.parse(stored);
-        } catch (e) {
-          state.history = [];
-        }
-      }
-      renderHistory();
-    }
-
-    // Render history card rows
-    function renderHistory() {
-      historyList.innerHTML = '';
+      // Prepend to feed
+      timelineEl.insertBefore(newCard, timelineEl.firstChild);
       
-      if (state.history.length === 0) {
-        historyList.innerHTML = `<div class="empty-state">아직 최근 추첨 내역이 없습니다.</div>`;
-        clearHistoryBtn.style.display = 'none';
+      // Limit children to 6 nodes
+      while (timelineEl.children.length > 6) {
+        timelineEl.removeChild(timelineEl.lastChild);
+      }
+
+      // Smoothly update timestamps on other feeds
+      Array.from(timelineEl.children).forEach((child, index) => {
+        if (index > 0) {
+          child.querySelector('.signal-header-row span:last-child').textContent = `${index * 2}분 전`;
+        }
+      });
+    }
+
+    // Update active trading form elements
+    function updateTradingFormDetails() {
+      const asset = state.assets[state.activeTradingAsset];
+      const owned = state.wallet.portfolio[state.activeTradingAsset].qty;
+      
+      activeAssetOwnedLabelEl.textContent = `현재 보유: ${owned.toFixed(4)} 주`;
+      tradePriceLabelEl.textContent = '$' + asset.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      tradeFormUnitEl.textContent = `주 (${state.activeTradingAsset})`;
+      
+      updateEstimatedTradeTotal();
+    }
+
+    // Estimate total transaction cost
+    function updateEstimatedTradeTotal() {
+      const asset = state.assets[state.activeTradingAsset];
+      const qty = parseFloat(tradeQuantityInput.value) || 0;
+      const total = qty * asset.price;
+      
+      tradeEstTotalLabelEl.textContent = '$' + total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Action execution: Buy order transaction
+    function handleBuyOrder() {
+      const assetKey = state.activeTradingAsset;
+      const asset = state.assets[assetKey];
+      const qty = parseFloat(tradeQuantityInput.value) || 0;
+      
+      if (qty <= 0) {
+        showToast('매수 수량을 올바르게 지정해 주세요.');
         return;
       }
 
-      clearHistoryBtn.style.display = 'block';
+      const totalCost = qty * asset.price;
+      
+      if (totalCost > state.wallet.cash) {
+        showToast('가상 예수금(현금)이 부족합니다!');
+        return;
+      }
 
-      state.history.forEach(record => {
-        const item = document.createElement('div');
-        item.classList.add('history-item');
+      // Execute order transaction
+      state.wallet.cash -= totalCost;
+      
+      const portfolioItem = state.wallet.portfolio[assetKey];
+      const newQty = portfolioItem.qty + qty;
+      const newAvg = (portfolioItem.qty * portfolioItem.avgPrice + totalCost) / newQty;
+      
+      portfolioItem.qty = newQty;
+      portfolioItem.avgPrice = newAvg;
 
-        const info = document.createElement('div');
-        info.classList.add('history-info');
+      showToast(`[가상 매수 체결] ${qty.toFixed(4)} ${assetKey} 체결 완료!`);
+      
+      updateTradingFormDetails();
+      updatePortfolioUI();
+    }
 
-        const meta = document.createElement('div');
-        meta.classList.add('history-meta');
-        meta.innerHTML = `
-          <strong style="color: var(--text-color); font-size: 13px;">${record.games.length}개 게임 추첨</strong>
-          <span>·</span>
-          <span>${record.time}</span>
-        `;
-        info.appendChild(meta);
+    // Action execution: Sell order transaction
+    function handleSellOrder() {
+      const assetKey = state.activeTradingAsset;
+      const asset = state.assets[assetKey];
+      const qty = parseFloat(tradeQuantityInput.value) || 0;
+      const portfolioItem = state.wallet.portfolio[assetKey];
 
-        record.games.forEach((game, idx) => {
-          const summary = document.createElement('div');
-          summary.classList.add('history-balls-summary');
+      if (qty <= 0) {
+        showToast('매도 수량을 올바르게 지정해 주세요.');
+        return;
+      }
+
+      if (qty > portfolioItem.qty) {
+        showToast('보유 중인 자산 수량이 부족합니다!');
+        return;
+      }
+
+      // Execute order transaction
+      const totalProceeds = qty * asset.price;
+      state.wallet.cash += totalProceeds;
+      
+      portfolioItem.qty -= qty;
+      if (portfolioItem.qty === 0) {
+        portfolioItem.avgPrice = 0;
+      }
+
+      showToast(`[가상 매도 체결] ${qty.toFixed(4)} ${assetKey} 매도 완료!`);
+
+      updateTradingFormDetails();
+      updatePortfolioUI();
+    }
+
+    // Dynamic rendering of portfolio table items and total balance
+    function updatePortfolioUI() {
+      let activeRows = '';
+      let ownedAssetsCount = 0;
+      let totalAssetValue = state.wallet.cash;
+
+      Object.keys(state.wallet.portfolio).forEach(key => {
+        const item = state.wallet.portfolio[key];
+        if (item.qty > 0) {
+          ownedAssetsCount++;
+          const currentPrice = state.assets[key].price;
+          const evaluationValue = item.qty * currentPrice;
+          totalAssetValue += evaluationValue;
           
-          game.forEach(num => {
-            const ballSm = document.createElement('span');
-            ballSm.className = `ball-sm ${getBallClass(num)}`;
-            ballSm.textContent = num;
-            summary.appendChild(ballSm);
-          });
+          const totalCost = item.qty * item.avgPrice;
+          const pnlValue = evaluationValue - totalCost;
+          const pnlPct = ((currentPrice - item.avgPrice) / item.avgPrice) * 100;
           
-          info.appendChild(summary);
-        });
+          const isUp = pnlValue >= 0;
+          const sign = isUp ? '+' : '';
+          const pnlColor = isUp ? 'var(--neon-green)' : 'var(--neon-red)';
+          
+          activeRows += `
+            <tr>
+              <td><span class="portfolio-asset-tag">${key}</span></td>
+              <td class="portfolio-value-main">${item.qty.toFixed(3)}</td>
+              <td class="portfolio-value-main">$${item.avgPrice.toFixed(2)}</td>
+              <td class="portfolio-value-main" style="color: ${pnlColor};">${sign}${pnlPct.toFixed(2)}%<br><span style="font-size: 10px; font-weight: 500;">${sign}$${pnlValue.toFixed(2)}</span></td>
+            </tr>
+          `;
+        }
+      });
 
-        item.appendChild(info);
+      // Update total asset counters
+      totalAssetBalanceEl.textContent = '$' + totalAssetValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      walletCashEl.textContent = '$' + state.wallet.cash.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-        const delBtn = document.createElement('button');
-        delBtn.classList.add('btn-delete');
-        delBtn.innerHTML = `
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="3 6 5 6 21 6"/>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-          </svg>
+      // Total session P&L 수익률 계산
+      const initialCash = 10000.00;
+      const totalPnlValue = totalAssetValue - initialCash;
+      const totalPnlPct = (totalPnlValue / initialCash) * 100;
+      const isTotalUp = totalPnlValue >= 0;
+      const totalSign = isTotalUp ? '+' : '';
+      
+      totalPnlLabelEl.textContent = `수익률: ${totalSign}${totalPnlPct.toFixed(2)}% (${totalSign}$${totalPnlValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})`;
+      if (isTotalUp) {
+        totalPnlLabelEl.style.color = 'var(--neon-green)';
+      } else {
+        totalPnlLabelEl.style.color = 'var(--neon-red)';
+      }
+
+      if (ownedAssetsCount > 0) {
+        portfolioTableBody.innerHTML = activeRows;
+      } else {
+        portfolioTableBody.innerHTML = `
+          <tr id="emptyPortfolioRow">
+            <td colspan="4" style="text-align: center; color: var(--grey-dark); padding: 32px 0;">보유 중인 자산이 없습니다.</td>
+          </tr>
         `;
-        delBtn.addEventListener('click', () => deleteHistoryRecord(record.id));
-        
-        item.appendChild(delBtn);
-        historyList.appendChild(item);
-      });
-    }
-
-    // Delete single history item
-    function deleteHistoryRecord(id) {
-      state.history = state.history.filter(item => item.id !== id);
-      localStorage.setItem('toss-lotto-history', JSON.stringify(state.history));
-      renderHistory();
-      showToast('추첨 내역이 삭제되었습니다.');
-    }
-
-    // Clear whole history logs
-    function clearHistory() {
-      state.history = [];
-      localStorage.removeItem('toss-lotto-history');
-      renderHistory();
-      showToast('전체 추첨 내역이 삭제되었습니다.');
-    }
-
-    // Copy current generation session numbers to device clipboard
-    function copyNumbersToClipboard() {
-      const rows = resultsContainer.querySelectorAll('.game-result-row');
-      if (rows.length === 0) return;
-
-      let clipText = '';
-      rows.forEach((row, idx) => {
-        const gameLabel = row.querySelector('.game-header-row span').textContent;
-        const balls = Array.from(row.querySelectorAll('.ball')).map(b => b.textContent).join(', ');
-        clipText += `[${gameLabel}] ${balls}\n`;
-      });
-
-      navigator.clipboard.writeText(clipText.trim()).then(() => {
-        showToast('번호 복사가 완료되었습니다.');
-      }).catch(err => {
-        showToast('복사에 실패했습니다. 직접 복사해 주세요.');
-      });
+      }
     }
 
     // Trigger visual floating Toast notification
@@ -1959,7 +1993,66 @@
       }, 2500);
     }
 
-    // Trigger Initial Setup
+    // Formspree Setup API connector
+    function setupFormspree() {
+      if (!contactForm) return;
+      
+      contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        formSubmitBtn.disabled = true;
+        formSubmitBtn.textContent = '제출 전송 중...';
+
+        const formData = new FormData(contactForm);
+        
+        // **중요**: 실제 Formspree 사용 시 아래의 "YOUR_FORM_ID"를 본인의 폼 ID로 수정해 주세요.
+        // 예: const formspreeUrl = 'https://formspree.io/f/xbjnqjpv';
+        const formspreeUrl = 'https://formspree.io/f/mqejpppq';
+
+        try {
+          const response = await fetch(formspreeUrl, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            // Success State
+            contactForm.style.display = 'none';
+            formSuccessState.style.display = 'block';
+            showToast('제휴 문의가 성공적으로 전송되었습니다.');
+          } else {
+            const data = await response.json();
+            if (Object.hasOwn(data, 'errors')) {
+              showToast(data.errors.map(error => error.message).join(", "));
+            } else {
+              showToast('제출 중 문제가 발생했습니다. 다시 시도해 주세요.');
+            }
+            formSubmitBtn.disabled = false;
+            formSubmitBtn.textContent = '제휴 제안서 제출';
+          }
+        } catch (error) {
+          showToast('네트워크 오류가 발생했습니다. 연결 상태를 확인해 주세요.');
+          formSubmitBtn.disabled = false;
+          formSubmitBtn.textContent = '제휴 제안서 제출';
+        }
+      });
+
+      // Reset Form Handler
+      if (formResetBtn) {
+        formResetBtn.addEventListener('click', function() {
+          contactForm.reset();
+          contactForm.style.display = 'block';
+          formSuccessState.style.display = 'none';
+          formSubmitBtn.disabled = false;
+          formSubmitBtn.textContent = '제휴 제안서 제출';
+        });
+      }
+    }
+
+    // Bind Initial setup trigger on Dom loaded
     window.addEventListener('DOMContentLoaded', init);
   </script>
 </body>
