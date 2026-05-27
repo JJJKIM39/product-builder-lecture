@@ -196,6 +196,35 @@
       background-color: var(--grey-light);
     }
 
+    .nav-link.active {
+      color: #FFFFFF !important;
+      background-color: var(--toss-blue);
+      box-shadow: 0 4px 12px rgba(49, 130, 246, 0.35);
+    }
+
+    /* SPA Page-View system rules */
+    .page-view {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+      animation: tabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .page-view.active {
+      display: flex;
+    }
+
+    @keyframes tabFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     /* Main Container */
     .app-container {
       max-width: 680px;
@@ -1005,45 +1034,48 @@
   <!-- Sticky Glassmorphic Navigation -->
   <nav class="nav-bar">
     <div class="nav-container">
-      <a href="#" class="nav-logo">
+      <a href="#terminal" class="nav-logo">
         <span>X</span>INVEST
       </a>
-      <div class="nav-links">
-        <a href="#terminalCard" class="nav-link">터미널</a>
-        <a href="#signalsCard" class="nav-link">AI 시그널</a>
-        <a href="#tradingCard" class="nav-link">가상 투자</a>
-        <a href="#forexCard" class="nav-link">실시간 환율</a> <!-- Added Exchange rate tab -->
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="nav-links">
+          <a href="#terminal" class="nav-link" data-tab="terminal">터미널</a>
+          <a href="#signals" class="nav-link" data-tab="signals">AI 시그널</a>
+          <a href="#trading" class="nav-link" data-tab="trading">가상 투자</a>
+          <a href="#forex" class="nav-link" data-tab="forex">실시간 환율</a>
+        </div>
+        
+        <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" style="padding: 6px 10px; border-radius: 8px;">
+          <!-- Sun icon -->
+          <svg class="sun-icon" style="display: none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <!-- Moon icon -->
+          <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
       </div>
     </div>
   </nav>
 
   <div class="app-container">
     
+    <div class="page-view active" id="view-terminal">
     <!-- Welcome Header -->
-    <header>
+    <header style="padding: 8px 8px; margin-bottom: -4px;">
       <div>
         <h1>투자 터미널</h1>
         <p>글로벌 마켓 실시간 시세 연동 대시보드</p>
       </div>
-      
-      <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
-        <!-- Sun icon -->
-        <svg class="sun-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"/>
-          <line x1="12" y1="1" x2="12" y2="3"/>
-          <line x1="12" y1="21" x2="12" y2="23"/>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-          <line x1="1" y1="12" x2="3" y2="12"/>
-          <line x1="21" y1="12" x2="23" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-        </svg>
-        <!-- Moon icon -->
-        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
     </header>
 
     <!-- 1. Real-Time Terminal Card -->
@@ -1120,6 +1152,7 @@
         <span>극단적 탐욕 (100)</span>
       </div>
     </div>
+    </div> <!-- /view-terminal -->
 
     <!-- 3. AI Signals Feed Card -->
     <div class="card" id="signalsCard">
@@ -1141,6 +1174,7 @@
         </div>
       </div>
     </div>
+    </div> <!-- /view-signals -->
 
     <!-- 4. Interactive Mock Trading Simulator Card -->
     <div class="card" id="tradingCard">
@@ -1226,6 +1260,7 @@
         </div>
       </div>
     </div>
+    </div> <!-- /view-trading -->
 
     <!-- 5. Real-Time Exchange Rate Card (Expanded to Single Column list, calculator removed) -->
     <div class="card" id="forexCard">
@@ -1303,6 +1338,7 @@
         </div>
       </div>
     </div>
+    </div> <!-- /view-forex -->
 
   </div>
 
@@ -1492,6 +1528,9 @@
       // Bind modal and navigation controls
       bindLayoutElements();
 
+      // Initialize SPA Hash-Router
+      initRouter();
+
       // First layout draw
       updateChartDetails();
       updateTradingFormDetails();
@@ -1574,7 +1613,52 @@
       // 최신 실시간 시장 시가와 근접하게 하이브리드로 정기 보정하여 사용합니다.
     }
 
-    // Bind layout theme, modal overlay, and scrolling
+    // SPA Router Engine to support dedicated page switching
+    function initRouter() {
+      window.addEventListener('hashchange', handleRouting);
+      handleRouting();
+    }
+
+    function handleRouting() {
+      let hash = window.location.hash.replace('#', '');
+      const validTabs = ['terminal', 'signals', 'trading', 'forex'];
+      
+      if (!hash || !validTabs.includes(hash)) {
+        window.location.hash = '#terminal';
+        return;
+      }
+      
+      switchTab(hash);
+    }
+
+    function switchTab(tabId) {
+      // 1. Hide all page views and show the active page view
+      document.querySelectorAll('.page-view').forEach(view => {
+        view.classList.remove('active');
+      });
+      const activeView = document.getElementById(`view-${tabId}`);
+      if (activeView) {
+        activeView.classList.add('active');
+      }
+      
+      // 2. De-highlight all navigation tabs and highlight the active one
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('data-tab') === tabId) {
+          link.classList.add('active');
+        }
+      });
+      
+      // 3. Reset scroll position to top for immersive multi-page experience
+      window.scrollTo(0, 0);
+      
+      // 4. Force high DPI canvas recalculation to prevent stretching when terminal view is display: block
+      if (tabId === 'terminal') {
+        setTimeout(resizeCanvas, 50);
+      }
+    }
+
+    // Bind layout theme and modal overlay controls
     function bindLayoutElements() {
       const privacyModal = document.getElementById('privacyModal');
       const openPrivacyBtn = document.getElementById('openPrivacyBtn');
@@ -1595,24 +1679,6 @@
           }
         });
       }
-
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetId = link.getAttribute('href');
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            const headerOffset = 72;
-            const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
     }
 
     // Set Default Dark Theme & Toggle Controls
