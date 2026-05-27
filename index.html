@@ -742,12 +742,268 @@
         font-size: 11px;
       }
     }
+
+    /* Sticky Navigation Bar */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 600px;
+      margin: 0 auto;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--toss-blue);
+      text-decoration: none;
+      font-family: var(--font-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-sub);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--toss-blue);
+      background-color: var(--grey-light);
+    }
+
+    /* Privacy Policy Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-window {
+      background-color: var(--card-bg);
+      width: 90%;
+      max-width: 480px;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-overlay.show .modal-window {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      padding-right: 4px;
+    }
+
+    .modal-body h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-color);
+      margin: 14px 0 6px 0;
+    }
+
+    .modal-body p {
+      margin-bottom: 8px;
+    }
+
+    /* Lotto Guide Section Styles */
+    .guide-article-box {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+    }
+
+    .guide-section {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+    }
+
+    .guide-section:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .guide-section h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .guide-section p {
+      font-size: 13px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .guide-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 12px;
+      background-color: var(--grey-light);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .guide-table th, .guide-table td {
+      padding: 8px 12px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+    }
+
+    .guide-table th {
+      background-color: var(--grey-medium);
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
+    .guide-table td {
+      color: var(--text-sub);
+    }
+
+    /* Site Footer Styling */
+    footer {
+      margin-top: 32px;
+      padding: 24px 16px 40px 16px;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--grey-dark);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .footer-link-item {
+      font-size: 12px;
+      color: var(--toss-blue);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .footer-link-item:hover {
+      text-decoration: underline;
+    }
+
+    .footer-notice {
+      font-size: 11px;
+      color: var(--grey-dark);
+      max-width: 480px;
+      line-height: 1.5;
+    }
   </style>
   <meta name="google-adsense-account" content="ca-pub-9832973303458105">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9832973303458105"
      crossorigin="anonymous"></script>
 </head>
 <body>
+
+  <!-- Sticky Navigation Bar (Toss Glassmorphism) -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span style="font-size: 20px; color: var(--toss-blue);">⚡</span> xinvest
+      </a>
+      <div class="nav-links">
+        <a href="#drawBtn" class="nav-link">번호 추첨</a>
+        <a href="#simulationCard" class="nav-link">시뮬레이터</a>
+        <a href="#guideCard" class="nav-link">분석 가이드</a>
+        <a href="#disqus_thread" class="nav-link">의견 나누기</a>
+      </div>
+    </div>
+  </nav>
 
   <div class="app-container">
     <!-- Header -->
@@ -888,6 +1144,72 @@
       
       <div class="history-list" id="historyList">
         <!-- History items injected here -->
+    </div>
+
+    <!-- Lotto Statistics and Guide Card (AdSense Value-Added Content) -->
+    <div class="card" id="guideCard">
+      <div class="card-title">
+        <span>로또 확률과 당첨 통계 가이드</span>
+      </div>
+      <div class="card-subtitle">로또 6/45의 수학적 확률과 통계적 필터링의 과학적 원리를 알아봅니다.</div>
+      
+      <div class="guide-article-box">
+        <div class="guide-section">
+          <h3>📊 로또 1등 당첨 확률의 수학적 분석</h3>
+          <p>
+            대한민국 나눔로또(동행복권) 6/45는 1부터 45까지의 숫자 중 서로 다른 6개의 숫자를 맞추는 게임입니다. 이때 나타날 수 있는 총 모든 경우의 수는 수학적 조합(Combination) 공식을 통해 산출할 수 있습니다. <strong>45C6 = (45 × 44 × 43 × 42 × 41 × 40) / (6 × 5 × 4 × 3 × 2 × 1) = 8,145,060</strong> 가지가 됩니다. 
+          </p>
+          <p style="margin-top: 8px;">
+            즉, 단 한 게임을 구매하여 1등에 당첨될 수학적 확률은 정확히 <strong>8,145,060분의 1 (약 0.0000123%)</strong> 입니다. 이는 벼락에 맞을 확률(약 50만분의 1)보다 훨씬 낮으며, 확률론적으로 극히 희박한 독립 사건에 해당합니다.
+          </p>
+        </div>
+
+        <div class="guide-section">
+          <h3>🎲 독립 시행의 법칙과 도박사의 오류</h3>
+          <p>
+            로또 추첨은 매 회차마다 완전히 새로운 조건에서 이루어지는 <strong>'독립 시행(Independent Trials)'</strong>입니다. 지난주에 1번이 나왔다고 해서 이번주에 1번이 또 나올 확률이 낮아지거나 높아지지 않습니다. 매 추첨 시 각각의 번호가 추출될 확률은 언제나 45분의 1로 공평합니다.
+          </p>
+          <p style="margin-top: 8px;">
+            일부 사람들은 "최근 10주 동안 나오지 않은 번호가 이제는 나올 때가 되었다"라고 믿는데, 이는 전형적인 <strong>'도박사의 오류(Gambler's Fallacy)'</strong>입니다. 로또 기계는 과거의 추첨 결과를 기억하지 못하므로, 모든 번호는 매주 완전히 동일한 원초적 당첨 확률을 가집니다.
+          </p>
+        </div>
+
+        <div class="guide-section">
+          <h3>📈 통계적으로 자주 출현하는 균형 분포</h3>
+          <p>
+            개별 숫자의 독립적 당첨 확률은 균등하지만, 6개 숫자의 '조합'으로 영역을 넓혀보면 대수의 법칙(Law of Large Numbers)에 의해 특정 균형 범위 안으로 수렴하는 경향이 뚜렷합니다. 가장 널리 활용되는 통계적 필터링 기준은 다음과 같습니다.
+          </p>
+          
+          <table class="guide-table">
+            <thead>
+              <tr>
+                <th>분석 기준</th>
+                <th>균형 구간 (가장 높은 빈도)</th>
+                <th>전체 당첨 중 비율</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>홀수 : 짝수 비율</strong></td>
+                <td>3 : 3 또는 2 : 4 또는 4 : 2</td>
+                <td>약 80.5%</td>
+              </tr>
+              <tr>
+                <td><strong>번호 합계 구간</strong></td>
+                <td>총합 100 이상 ~ 170 이하</td>
+                <td>약 78.2%</td>
+              </tr>
+              <tr>
+                <td><strong>연속 번호(연번)</strong></td>
+                <td>연번이 1쌍 이하로 존재</td>
+                <td>약 93.4%</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 10px;">
+            이처럼 홀수와 짝수가 조화롭게 섞이고, 번호들의 합이 너무 치우치지 않는 평균적인 조합이 수학적 통계 모델에서 높은 확률적 가치를 가집니다. 본 사이트의 <strong>[번호 직접 설정 (필터)]</strong> 기능을 활용해 이러한 균형 비율에 근접한 맞춤형 추천 번호를 즉시 시뮬레이션할 수 있습니다.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -948,6 +1270,51 @@
         <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">문의가 소중히 접수되었습니다</h3>
         <p style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">작성해 주신 이메일 주소로<br>빠른 시일 내에 답변해 드리겠습니다.</p>
         <button id="formResetBtn" class="btn-secondary" style="margin-top: 16px; display: inline-flex; width: auto; font-size: 13px;">새로 문의하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compliance Footer System -->
+  <footer>
+    <div class="footer-copy">© 2026 xinvest.site. All rights reserved.</div>
+    <div class="footer-links">
+      <span class="footer-link-item" id="openPrivacyBtn">개인정보처리방침</span>
+    </div>
+    <div class="footer-notice">
+      본 사이트는 모의 로또 번호 추첨 결과를 제공하는 비영리 교육용 웹 서비스입니다. 실제 복권 구매와는 무관하며 어떠한 사행성 행위도 조장하지 않습니다.
+    </div>
+  </footer>
+
+  <!-- Privacy Policy Toss-style Modal Pop-up -->
+  <div class="modal-overlay" id="privacyModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 class="modal-title">개인정보처리방침</h3>
+        <button class="modal-close-btn" id="closePrivacyBtn" aria-label="닫기">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><strong>xinvest.site</strong>(이하 '본 사이트')는 이용자의 개인정보를 중요시하며, 개인정보보호법에 관한 법률을 준수합니다.</p>
+        
+        <h4>1. 수집하는 개인정보 항목</h4>
+        <p>본 사이트는 회원가입 절차가 없으며, 원칙적으로 개인 식별이 가능한 정보를 직접 수집하거나 저장하지 않습니다. 다만 아래 서비스의 연동 시 간접적으로 정보가 유입될 수 있습니다.</p>
+        <ul>
+          <li><strong>제휴 문의 (Formspree)</strong>: 성함/회사명, 이메일 주소, 문의 내용 (답변 및 고객 관리 목적으로만 사용되며, 그 외 타인에게 제공되지 않습니다.)</li>
+          <li><strong>댓글 서비스 (Disqus)</strong>: 이용자가 작성한 댓글 내용, Disqus 계정 토큰 (Disqus 정책에 준하여 수집 및 처리됩니다.)</li>
+        </ul>
+
+        <h4>2. 쿠키(Cookie) 및 웹 분석 도구 사용</h4>
+        <p>본 사이트는 구글 애드센스(Google AdSense) 및 Disqus 댓글 연동 등을 통해 사용자 브라우저에 쿠키를 생성하고 광고 서빙에 활용할 수 있습니다. 이용자는 웹 브라우저 설정을 변경하여 쿠키 수집을 거부할 수 있습니다.</p>
+
+        <h4>3. 개인정보 제3자 제공</h4>
+        <p>이용자가 직접 Formspree나 Disqus를 통해 전송/게재한 정보를 제외하고, 본 사이트가 임의로 제3자에게 데이터를 판매하거나 제공하는 행위는 절대 없습니다.</p>
+
+        <h4>4. 문의 및 책임처</h4>
+        <p>개인정보 처리 및 제휴 문의와 관련된 사항은 사이트의 <strong>[제휴 문의]</strong> 폼을 통하거나 공식 관리 메일 주소를 통해 문의해 주시기 바랍니다.</p>
       </div>
     </div>
   </div>
@@ -1036,6 +1403,47 @@
 
       // Bind Formspree Submit handler
       setupFormspree();
+
+      // Bind Privacy Policy Modal controls
+      const privacyModal = document.getElementById('privacyModal');
+      const openPrivacyBtn = document.getElementById('openPrivacyBtn');
+      const closePrivacyBtn = document.getElementById('closePrivacyBtn');
+
+      if (openPrivacyBtn && closePrivacyBtn && privacyModal) {
+        openPrivacyBtn.addEventListener('click', () => {
+          privacyModal.classList.add('show');
+        });
+
+        closePrivacyBtn.addEventListener('click', () => {
+          privacyModal.classList.remove('show');
+        });
+
+        privacyModal.addEventListener('click', (e) => {
+          if (e.target === privacyModal) {
+            privacyModal.classList.remove('show');
+          }
+        });
+      }
+
+      // Smooth scroll navigation anchors
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // Offset for the sticky header (56px + margin = 70px)
+            const headerOffset = 70;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
     }
 
     // Theme Setup & Toggle Logic
