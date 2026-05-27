@@ -1479,13 +1479,16 @@
       errBanner.style.width = '100%';
       errBanner.style.backgroundColor = '#FF3B30';
       errBanner.style.color = '#FFFFFF';
-      errBanner.style.padding = '12px';
-      errBanner.style.fontSize = '12px';
+      errBanner.style.padding = '16px';
+      errBanner.style.fontSize = '13px';
       errBanner.style.fontWeight = 'bold';
       errBanner.style.zIndex = '99999';
       errBanner.style.textAlign = 'center';
       errBanner.style.wordBreak = 'break-all';
-      errBanner.textContent = `⚠️ [X-Invest 런타임 오류 포착] ${message} (위치: ${source}:${lineno}:${colno})`;
+      errBanner.style.boxShadow = '0 4px 20px rgba(0,0,0,0.5)';
+      
+      const stack = error && error.stack ? `\n[Stack]: ${error.stack.split('\n').slice(0, 3).join(' | ')}` : '';
+      errBanner.textContent = `⚠️ [X-Invest 런타임 오류 발생] ${message} (위치: ${source} L:${lineno} C:${colno})${stack}`;
       document.body.appendChild(errBanner);
       return false;
     };
@@ -1865,14 +1868,19 @@
 
     // Adjust high DPI canvas resolution
     function resizeCanvas() {
-      const rect = liveCanvas.parentNode.getBoundingClientRect();
-      const width = rect.width - 28;
+      if (!liveCanvas || !liveCanvas.parentNode) return;
+      const parent = liveCanvas.parentNode;
+      const rect = parent.getBoundingClientRect();
+      const width = rect && rect.width ? rect.width - 28 : 300; // Safe default width if layout is pending
       
-      liveCanvas.width = width * window.devicePixelRatio;
+      liveCanvas.width = Math.max(10, width) * window.devicePixelRatio;
       liveCanvas.height = 120 * window.devicePixelRatio;
-      liveCanvas.style.width = width + 'px';
+      liveCanvas.style.width = Math.max(10, width) + 'px';
       liveCanvas.style.height = '120px';
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      
+      if (ctx) {
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      }
       renderChart();
     }
 
