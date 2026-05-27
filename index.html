@@ -754,50 +754,49 @@
       font-weight: 600;
     }
 
-    /* Real-Time Forex layout (Expanded to single column) */
+    /* Real-Time Forex layout - full-width single column rows */
     .forex-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 3 currencies side-by-side */
-      gap: 16px;
-    }
-    @media (max-width: 580px) {
-      .forex-list {
-        grid-template-columns: 1fr; /* Stack vertically on small screens */
-      }
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .forex-item {
       background-color: var(--grey-light);
       border-radius: 16px;
-      padding: 16px;
+      padding: 18px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       border: 1.5px solid transparent;
       transition: all 0.2s;
+      min-height: 64px;
     }
     
     .forex-meta {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 14px;
     }
 
     .forex-flag {
-      font-size: 24px;
+      font-size: 28px;
+      flex-shrink: 0;
     }
 
     .forex-name {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--text-color);
+      white-space: nowrap;
     }
 
     .forex-code {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--grey-dark);
       font-family: var(--font-outfit);
       font-weight: 600;
+      margin-top: 2px;
     }
 
     .forex-rate-box {
@@ -805,17 +804,15 @@
     }
 
     .forex-price {
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 22px;
+      font-weight: 800;
       font-family: var(--font-outfit);
+      letter-spacing: -0.5px;
     }
 
     .forex-pct {
-      font-size: 11px;
-      font-weight: 700;
+      display: none; /* Hidden - only price displayed */
     }
-    .forex-pct.up { color: var(--neon-green); }
-    .forex-pct.down { color: var(--neon-red); }
 
     /* Guide Educational Articles */
     .guide-article-box {
@@ -1298,19 +1295,18 @@
         </div>
         <div class="card-subtitle">외환 시장의 주요 통화쌍별 현재 원화(KRW) 기준 실제 실시간 환율 정보입니다.</div>
         
-        <!-- Live Forex single row wide list -->
+        <!-- Live Forex single column list -->
         <div class="forex-list">
           <div class="forex-item">
             <div class="forex-meta">
               <span class="forex-flag">🇺🇸</span>
               <div>
-                <div class="forex-name">원/달러 환율</div>
-                <div class="forex-code">USD / KRW</div>
+                <div class="forex-name">원 / 달러 (USD/KRW)</div>
+                <div class="forex-code">미국 달러화 · 실시간 연동</div>
               </div>
             </div>
             <div class="forex-rate-box">
-              <div class="forex-price" id="forexPrice_USD">1,364.50</div>
-              <span class="forex-pct down" id="forexPct_USD">-0.32%</span>
+              <div class="forex-price" id="forexPrice_USD">1,364.50원</div>
             </div>
           </div>
 
@@ -1318,13 +1314,12 @@
             <div class="forex-meta">
               <span class="forex-flag">🇯🇵</span>
               <div>
-                <div class="forex-name">원/엔 환율 (100엔)</div>
-                <div class="forex-code">100 JPY / KRW</div>
+                <div class="forex-name">원 / 엔 (JPY/KRW · 100엔 기준)</div>
+                <div class="forex-code">일본 엔화 · 실시간 연동</div>
               </div>
             </div>
             <div class="forex-rate-box">
-              <div class="forex-price" id="forexPrice_JPY">868.20</div>
-              <span class="forex-pct up" id="forexPct_JPY">+0.14%</span>
+              <div class="forex-price" id="forexPrice_JPY">868.20원</div>
             </div>
           </div>
 
@@ -1332,13 +1327,12 @@
             <div class="forex-meta">
               <span class="forex-flag">🇪🇺</span>
               <div>
-                <div class="forex-name">원/유로 환율</div>
-                <div class="forex-code">EUR / KRW</div>
+                <div class="forex-name">원 / 유로 (EUR/KRW)</div>
+                <div class="forex-code">유로화 · 실시간 연동</div>
               </div>
             </div>
             <div class="forex-rate-box">
-              <div class="forex-price" id="forexPrice_EUR">1,482.40</div>
-              <span class="forex-pct up" id="forexPct_EUR">+0.22%</span>
+              <div class="forex-price" id="forexPrice_EUR">1,482.40원</div>
             </div>
           </div>
         </div>
@@ -2434,23 +2428,14 @@
       ctxPie.stroke();
     }
 
-    // Update Real-Time Forex Section UI
+    // Update Real-Time Forex Section UI - price only
     function updateForexUI() {
       const currencies = ['USD', 'JPY', 'EUR'];
       currencies.forEach(curr => {
         const item = state.forex[curr];
-        const isUp = item.change >= 0;
-        const sign = isUp ? '▲ +' : '▼ ';
-        const cls = isUp ? 'up' : 'down';
-        
         const priceEl = document.getElementById(`forexPrice_${curr}`);
-        const pctEl = document.getElementById(`forexPct_${curr}`);
-        
-        if (!priceEl || !pctEl) return;
-        
+        if (!priceEl) return;
         priceEl.textContent = item.price.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '원';
-        pctEl.textContent = `${sign}${Math.abs(item.change).toFixed(2)}원`;
-        pctEl.className = `forex-pct ${cls}`;
       });
     }
 
