@@ -1040,9 +1040,9 @@
       <div style="display: flex; align-items: center; gap: 12px;">
         <div class="nav-links">
           <a href="#terminal" class="nav-link" data-tab="terminal">터미널</a>
+          <a href="#allocator" class="nav-link" data-tab="allocator">포트폴리오</a>
           <a href="#signals" class="nav-link" data-tab="signals">AI 시그널</a>
-          <a href="#trading" class="nav-link" data-tab="trading">가상 투자</a>
-          <a href="#forex" class="nav-link" data-tab="forex">실시간 환율</a>
+          <a href="#macro" class="nav-link" data-tab="macro">글로벌 지표</a>
         </div>
         
         <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" style="padding: 6px 10px; border-radius: 8px;">
@@ -1155,190 +1155,275 @@
     </div> <!-- /view-terminal -->
 
     <!-- 3. AI Signals Feed Card -->
-    <div class="card" id="signalsCard">
-      <div class="card-title">
-        <span>X-AI 투자 분석 시그널</span>
-      </div>
-      <div class="card-subtitle">AI 신경망 분석 엔진이 감지한 주요 종목별 틱 실시간 매매 포착 피드입니다.</div>
-      
-      <div class="signal-timeline" id="signalTimeline">
-        <div class="signal-card buy">
-          <div class="signal-header-row"><span>TSLA / USD</span><span>방금 전</span></div>
-          <div class="signal-label" style="color: var(--neon-green);">🤖 [AI 돌파 매수 시그널] 테슬라</div>
-          <div class="signal-desc">이동평균 수렴확산(MACD) 5분봉 기준 골든크로스 상승 패턴 포착. 단기 추세 반전 매수 진입 유리.</div>
+    <div class="page-view" id="view-signals">
+      <div class="card" id="signalsCard">
+        <div class="card-title">
+          <span>X-AI 투자 분석 시그널</span>
         </div>
-        <div class="signal-card">
-          <div class="signal-header-row"><span>NVDA / USD</span><span>2분 전</span></div>
-          <div class="signal-label">🤖 [AI 지지선 테스트] 엔비디아</div>
-          <div class="signal-desc">최근 주요 지지선 $918.00 구간의 터치 지지 거래대금 상승 포착. 분할 매수 적합 영역.</div>
+        <div class="card-subtitle">AI 신경망 분석 엔진이 감지한 주요 종목별 틱 실시간 매매 포착 피드입니다.</div>
+        
+        <div class="signal-timeline" id="signalTimeline">
+          <div class="signal-card buy">
+            <div class="signal-header-row"><span>TSLA / USD</span><span>방금 전</span></div>
+            <div class="signal-label" style="color: var(--neon-green);">🤖 [AI 돌파 매수 시그널] 테슬라</div>
+            <div class="signal-desc">이동평균 수렴확산(MACD) 5분봉 기준 골든크로스 상승 패턴 포착. 단기 추세 반전 매수 진입 유리.</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-header-row"><span>NVDA / USD</span><span>2분 전</span></div>
+            <div class="signal-label">🤖 [AI 지지선 테스트] 엔비디아</div>
+            <div class="signal-desc">최근 주요 지지선 $918.00 구간의 터치 지지 거래대금 상승 포착. 분할 매수 적합 영역.</div>
+          </div>
         </div>
       </div>
-    </div>
     </div> <!-- /view-signals -->
 
-    <!-- 4. Interactive Mock Trading Simulator Card -->
-    <div class="card" id="tradingCard">
-      <div class="card-title">
-        <span>가상 모의 투자 시뮬레이터</span>
-      </div>
-      <div class="card-subtitle">실시간 연동 가격 흐름에 맞추어 무제한 모의 매수/매도를 할 수 있습니다.</div>
-      
-      <!-- User Virtual Wallet Info -->
-      <div class="wallet-card-header">
-        <div class="wallet-label">보유 가상 자산 (예수금 + 평가액)</div>
-        <div class="wallet-balance" id="totalAssetBalance">$10,000.00</div>
-        <div style="display: flex; justify-content: space-between; margin-top: 4px;">
-          <span class="wallet-label">보유 가상 현금 (Cash): <strong id="walletCash" style="color: var(--text-color); font-family: var(--font-outfit);">$10,000.00</strong></span>
-          <span class="wallet-pnl" id="totalPnlLabel">수익률: 0.00% (+$0.00)</span>
+    <!-- 4. Interactive Portfolio Asset Allocator & Backtester -->
+    <div class="page-view" id="view-allocator">
+      <div class="card" id="allocatorCard">
+        <div class="card-title">
+          <span>글로벌 자산 배분 백테스터 (Portfolio Allocator)</span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--toss-blue); background-color: var(--toss-blue-light); padding: 4px 8px; border-radius: 6px;">MPT 모형 탑재</span>
         </div>
-      </div>
+        <div class="card-subtitle">주식, 암호화폐, 안전자산, 국채의 투자 비중을 슬라이더로 조절하여 과거 시뮬레이션 성과(CAGR, MDD, Sharpe Ratio)를 즉시 정밀 백테스팅합니다.</div>
 
-      <!-- Asset selector for trading form -->
-      <div class="asset-selector" id="tradeFormAssetSelector">
-        <button class="asset-tab active" data-asset="TSLA">TSLA</button>
-        <button class="asset-tab" data-asset="NVDA">NVDA</button>
-        <button class="asset-tab" data-asset="AAPL">AAPL</button>
-        <button class="asset-tab" data-asset="BTC">BTC</button>
-        <button class="asset-tab" data-asset="ETH">ETH</button>
-      </div>
-
-      <div class="trading-grid">
-        <!-- Interactive trading input form -->
-        <div style="display: flex; flex-direction: column; gap: 14px;">
-          <div class="trade-control-group">
-            <div style="display: flex; justify-content: space-between;">
-              <label>매수/매도 수량 설정</label>
-              <label id="activeAssetOwnedLabel">현재 보유: 0.00 주</label>
-            </div>
-            <div class="trade-input-wrapper">
-              <input type="number" id="tradeQuantity" class="trade-input" value="1" min="0.0001" step="any">
-              <span class="trade-unit" id="tradeFormUnit">주 (TSLA)</span>
-            </div>
-            <!-- Percentage buttons -->
-            <div class="trade-pct-buttons">
-              <button class="btn-pct" data-pct="0.25">25%</button>
-              <button class="btn-pct" data-pct="0.50">50%</button>
-              <button class="btn-pct" data-pct="0.75">75%</button>
-              <button class="btn-pct" data-pct="1.00">100%</button>
-            </div>
-          </div>
-
-          <div style="display: flex; justify-content: space-between; font-size: 13px; color: var(--text-sub); font-weight: 500; padding: 2px;">
-            <span>1주 가격 (시세)</span>
-            <strong id="tradePriceLabel" style="color: var(--text-color); font-family: var(--font-outfit);">$433.59</strong>
-          </div>
-
-          <div style="display: flex; justify-content: space-between; font-size: 14px; color: var(--text-color); font-weight: 700; border-top: 1px solid var(--border-color); padding-top: 10px;">
-            <span>최종 평가 예상 금액</span>
-            <strong id="tradeEstTotalLabel" style="color: var(--toss-blue); font-family: var(--font-outfit);">$433.59</strong>
-          </div>
-
-          <div class="trade-submit-row">
-            <button id="btnOrderBuy" class="btn-action buy">가상 매수</button>
-            <button id="btnOrderSell" class="btn-action sell">가상 매도</button>
-          </div>
+        <!-- Strategy Quick Presets -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0;">
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-sub); display: flex; align-items: center; margin-right: 4px;">추천 포트폴리오 프리셋:</span>
+          <button class="btn-pct" style="padding: 6px 12px;" onclick="applyPreset('allweather')">레이 달리오 올웨더 (30:55:15)</button>
+          <button class="btn-pct" style="padding: 6px 12px;" onclick="applyPreset('classic')">전통 자산 배분 60/40</button>
+          <button class="btn-pct" style="padding: 6px 12px;" onclick="applyPreset('aggressive')">공격형 기술성장주 (80:20)</button>
+          <button class="btn-pct" style="padding: 6px 12px;" onclick="applyPreset('defense')">안정 자산 수호형</button>
         </div>
 
-        <!-- Inventory List (Portfolio) -->
-        <div style="overflow-x: auto; background-color: #030712; border: 1px solid var(--border-color); border-radius: 16px; padding: 10px;">
-          <div style="font-size: 11px; font-weight: 700; color: var(--text-sub); margin-bottom: 6px; padding: 4px; border-bottom: 1px solid var(--border-color);">실시간 보유 포트폴리오</div>
-          <table class="portfolio-table">
-            <thead>
-              <tr>
-                <th>자산</th>
-                <th>보유량</th>
-                <th>평단가</th>
-                <th>평가손익</th>
-              </tr>
-            </thead>
-            <tbody id="portfolioTableBody">
-              <tr id="emptyPortfolioRow">
-                <td colspan="4" style="text-align: center; color: var(--grey-dark); padding: 32px 0;">보유 중인 자산이 없습니다.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    </div> <!-- /view-trading -->
+        <div class="terminal-grid">
+          <!-- Allocator Slider Forms -->
+          <div style="display: flex; flex-direction: column; gap: 14px; background-color: var(--grey-light); padding: 18px; border-radius: 18px; border: 1.5px solid var(--border-color);">
+            <div style="font-size: 13px; font-weight: 700; color: var(--text-color); border-bottom: 1.5px solid var(--border-color); padding-bottom: 8px; margin-bottom: 4px;">자산군별 포트폴리오 비중 설정</div>
+            
+            <!-- Asset 1: Stocks -->
+            <div class="trade-control-group">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                <span style="color: var(--text-color);">📈 글로벌 주식군 (TSLA, NVDA, AAPL)</span>
+                <strong id="weightLabel_equity" style="font-family: var(--font-outfit); color: var(--toss-blue);">40%</strong>
+              </div>
+              <input type="range" id="weight_equity" class="alloc-slider" min="0" max="100" value="40" style="width: 100%; height: 6px; background-color: var(--grey-medium); border-radius: 4px; outline: none; margin-top: 4px; accent-color: var(--toss-blue);">
+            </div>
 
-    <!-- 5. Real-Time Exchange Rate Card (Expanded to Single Column list, calculator removed) -->
-    <div class="card" id="forexCard">
-      <div class="card-title">
-        <span>실시간 글로벌 외환 시황 (USD · JPY · EUR)</span>
-      </div>
-      <div class="card-subtitle">외환 시장의 주요 통화쌍별 현재 원화(KRW) 기준 실제 실시간 환율 정보입니다.</div>
-      
-      <!-- Live Forex single row wide list -->
-      <div class="forex-list">
-        <div class="forex-item">
-          <div class="forex-meta">
-            <span class="forex-flag">🇺🇸</span>
-            <div>
-              <div class="forex-name">원/달러 환율</div>
-              <div class="forex-code">USD / KRW</div>
+            <!-- Asset 2: Crypto -->
+            <div class="trade-control-group">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                <span style="color: var(--text-color);">🪙 디지털 암호화폐 (BTC, ETH)</span>
+                <strong id="weightLabel_crypto" style="font-family: var(--font-outfit); color: var(--neon-green);">20%</strong>
+              </div>
+              <input type="range" id="weight_crypto" class="alloc-slider" min="0" max="100" value="20" style="width: 100%; height: 6px; background-color: var(--grey-medium); border-radius: 4px; outline: none; margin-top: 4px; accent-color: var(--neon-green);">
+            </div>
+
+            <!-- Asset 3: Gold -->
+            <div class="trade-control-group">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                <span style="color: var(--text-color);">✨ 대표 안전자산 (Gold 금현물)</span>
+                <strong id="weightLabel_gold" style="font-family: var(--font-outfit); color: #F59F00;">15%</strong>
+              </div>
+              <input type="range" id="weight_gold" class="alloc-slider" min="0" max="100" value="15" style="width: 100%; height: 6px; background-color: var(--grey-medium); border-radius: 4px; outline: none; margin-top: 4px; accent-color: #F59F00;">
+            </div>
+
+            <!-- Asset 4: Bonds -->
+            <div class="trade-control-group">
+              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                <span style="color: var(--text-color);">🛡️ 장기 미국 국채 (Bond 채권군)</span>
+                <strong id="weightLabel_bond" style="font-family: var(--font-outfit); color: var(--grey-dark);">25%</strong>
+              </div>
+              <input type="range" id="weight_bond" class="alloc-slider" min="0" max="100" value="25" style="width: 100%; height: 6px; background-color: var(--grey-medium); border-radius: 4px; outline: none; margin-top: 4px; accent-color: var(--grey-dark);">
+            </div>
+
+            <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; border-top: 1px dashed var(--border-color); padding-top: 10px; margin-top: 4px;">
+              <span>비중 총합 (Total Alloc)</span>
+              <strong id="weightTotalLabel" style="font-family: var(--font-outfit); color: var(--neon-green);">100%</strong>
+            </div>
+
+            <button id="btnRunBacktest" class="btn-action buy" style="margin-top: 4px; font-weight: 800;">포트폴리오 백테스트 실행</button>
+          </div>
+
+          <!-- Backtest Visualizations & Analytics -->
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <!-- Pie Chart Card -->
+            <div style="background-color: #030712; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 180px; position: relative;">
+              <div style="font-size: 11px; font-weight: 700; color: var(--text-sub); align-self: flex-start; text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; width: 100%; text-align: left; margin-bottom: 8px;">Portfolio Alloc Pie-Chart</div>
+              <canvas id="pieChartCanvas" width="140" height="140" style="display: block; margin: 4px auto;"></canvas>
+            </div>
+
+            <!-- MPT Stats Card -->
+            <div style="background-color: #030712; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+              <div style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; margin-bottom: 2px;">Backtest Analytics Report</div>
+              
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 10px; color: var(--text-sub); font-weight: 600;">연평균 기대 수익률 (CAGR)</span>
+                  <strong id="report_cagr" style="font-size: 18px; font-weight: 800; color: var(--neon-green); font-family: var(--font-outfit);">+12.42%</strong>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 10px; color: var(--text-sub); font-weight: 600;">역사적 최대 낙폭 (MDD)</span>
+                  <strong id="report_mdd" style="font-size: 18px; font-weight: 800; color: var(--neon-red); font-family: var(--font-outfit);">-8.54%</strong>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 10px; color: var(--text-sub); font-weight: 600;">위험 조정 수익률 (Sharpe)</span>
+                  <strong id="report_sharpe" style="font-size: 18px; font-weight: 800; color: var(--toss-blue); font-family: var(--font-outfit);">1.42</strong>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                  <span style="font-size: 10px; color: var(--text-sub); font-weight: 600;">포트폴리오 변동성</span>
+                  <strong id="report_vol" style="font-size: 18px; font-weight: 800; color: var(--text-color); font-family: var(--font-outfit);">7.85%</strong>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="forex-rate-box">
-            <div class="forex-price" id="forexPrice_USD">1,364.50</div>
-            <span class="forex-pct down" id="forexPct_USD">-0.32%</span>
-          </div>
         </div>
 
-        <div class="forex-item">
-          <div class="forex-meta">
-            <span class="forex-flag">🇯🇵</span>
-            <div>
-              <div class="forex-name">원/엔 환율 (100엔)</div>
-              <div class="forex-code">100 JPY / KRW</div>
-            </div>
+        <!-- Allocation Advisory Report Card -->
+        <div style="background-color: var(--grey-light); border-radius: 18px; padding: 16px; border: 1px solid var(--border-color); text-align: left;">
+          <div style="font-size: 13px; font-weight: 700; color: var(--text-color); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+            🤖 <span id="advisoryTitle">성향 분석: 균형감 있는 자산배분 포트폴리오</span>
           </div>
-          <div class="forex-rate-box">
-            <div class="forex-price" id="forexPrice_JPY">868.20</div>
-            <span class="forex-pct up" id="forexPct_JPY">+0.14%</span>
-          </div>
-        </div>
-
-        <div class="forex-item">
-          <div class="forex-meta">
-            <span class="forex-flag">🇪🇺</span>
-            <div>
-              <div class="forex-name">원/유로 환율</div>
-              <div class="forex-code">EUR / KRW</div>
-            </div>
-          </div>
-          <div class="forex-rate-box">
-            <div class="forex-price" id="forexPrice_EUR">1,482.40</div>
-            <span class="forex-pct up" id="forexPct_EUR">+0.22%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. AdSense Compliance Educational Article Card -->
-    <div class="card" id="educationalCard">
-      <div class="card-title">
-        <span>글로벌 변동성과 리스크 관리 가이드</span>
-      </div>
-      <div class="card-subtitle">성공적인 투자를 위해 지켜야 할 리스크 분산 및 자산 구조 분석입니다.</div>
-      
-      <div class="guide-article-box">
-        <div class="guide-section">
-          <h3>📊 자산 배분의 수학적 기초 (Mpt 이론)</h3>
-          <p>
-            현대 포트폴리오 이론(Modern Portfolio Theory, MPT)의 창시자 해리 마코위츠는 "분산 투자는 투자 시장에서 얻을 수 있는 유일한 공짜 점심이다"라고 말했습니다. 상이한 변동성을 지닌 비상관성 자산(예: 미국 기술 주식과 암호화폐 자산)을 일정 비율로 조합하여 구성하면, 포트폴리오의 기대 수익률을 훼손하지 않으면서도 전체 투자 리스크(표준편차 변동성)를 획기적으로 낮출 수 있는 수학적 원리입니다.
-          </p>
-        </div>
-
-        <div class="guide-section">
-          <h3>🎲 투심과 감정에 휩쓸리지 않는 백테스팅</h3>
-          <p>
-            개인 투자자들이 흔히 겪는 실패 요인 중 하나는 '시장 공포와 탐욕 지수'의 양극단에 도달했을 때 감정적으로 뇌동 매매를 집행하는 것입니다. 이를 통제하기 위해 본 플랫폼의 <strong>X-AI 신경망 시그널 피드</strong>와 같은 기술적 계량 통계를 객관적으로 참고하고, 개인의 자산 대비 리스크 허용치(최대 낙폭 MDD) 한계를 사전에 계산하여 기계적 분할 매매 원칙을 철저히 고수하는 시스템 트레이딩 방식의 접근이 필수적입니다.
+          <p id="advisoryDesc" style="font-size: 12px; color: var(--text-sub); line-height: 1.6;">
+            주식과 안전자산의 균형감 있는 배분으로 장기 복리 성장세가 두드러지는 배분 포지션입니다. 변동성 관리가 뛰어나 최대 낙폭(MDD)이 견고하게 통제되며, 샤프 지수 기준 매우 우수한 투자 효용 가치를 증명합니다. 인플레이션 방어 자산(금)의 기여로 시장 충격 시 방어력이 훌륭합니다.
           </p>
         </div>
       </div>
-    </div>
-    </div> <!-- /view-forex -->
+    </div> <!-- /view-allocator -->
+
+    <!-- 5. Real-Time Forex & Global Macro Calendar Dashboard -->
+    <div class="page-view" id="view-macro">
+      <div class="card" id="forexCard">
+        <div class="card-title">
+          <span>실시간 글로벌 외환 시황 (USD · JPY · EUR)</span>
+        </div>
+        <div class="card-subtitle">외환 시장의 주요 통화쌍별 현재 원화(KRW) 기준 실제 실시간 환율 정보입니다.</div>
+        
+        <!-- Live Forex single row wide list -->
+        <div class="forex-list">
+          <div class="forex-item">
+            <div class="forex-meta">
+              <span class="forex-flag">🇺🇸</span>
+              <div>
+                <div class="forex-name">원/달러 환율</div>
+                <div class="forex-code">USD / KRW</div>
+              </div>
+            </div>
+            <div class="forex-rate-box">
+              <div class="forex-price" id="forexPrice_USD">1,364.50</div>
+              <span class="forex-pct down" id="forexPct_USD">-0.32%</span>
+            </div>
+          </div>
+
+          <div class="forex-item">
+            <div class="forex-meta">
+              <span class="forex-flag">🇯🇵</span>
+              <div>
+                <div class="forex-name">원/엔 환율 (100엔)</div>
+                <div class="forex-code">100 JPY / KRW</div>
+              </div>
+            </div>
+            <div class="forex-rate-box">
+              <div class="forex-price" id="forexPrice_JPY">868.20</div>
+              <span class="forex-pct up" id="forexPct_JPY">+0.14%</span>
+            </div>
+          </div>
+
+          <div class="forex-item">
+            <div class="forex-meta">
+              <span class="forex-flag">🇪🇺</span>
+              <div>
+                <div class="forex-name">원/유로 환율</div>
+                <div class="forex-code">EUR / KRW</div>
+              </div>
+            </div>
+            <div class="forex-rate-box">
+              <div class="forex-price" id="forexPrice_EUR">1,482.40</div>
+              <span class="forex-pct up" id="forexPct_EUR">+0.22%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW: Global Macro Economic Calendar & Indicators -->
+      <div class="card" id="macroCalendarCard">
+        <div class="card-title">
+          <span>글로벌 매크로 주요 거시 경제 지표</span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--neon-green); background-color: var(--neon-green-light); padding: 4px 8px; border-radius: 6px;">시장 영향력: 상</span>
+        </div>
+        <div class="card-subtitle">글로벌 자산 시장의 변동성을 주도하는 핵심 매크로 지표의 현황과 예측치/이전치 캘린더 대시보드입니다.</div>
+
+        <div class="forex-list">
+          <!-- Indicator 1: Fed Rate -->
+          <div class="forex-item" style="border-left: 4px solid var(--toss-blue);">
+            <div class="forex-meta">
+              <span class="forex-flag">🏦</span>
+              <div>
+                <div class="forex-name">미 연준 기준금리 (Fed Rate)</div>
+                <div class="forex-code">결정 기관: FOMC</div>
+              </div>
+            </div>
+            <div class="forex-rate-box">
+              <div class="forex-price" style="color: var(--text-color);">5.50%</div>
+              <span class="forex-pct" style="color: var(--text-sub); font-weight: 500;">예측 5.50% | 이전 5.50%</span>
+            </div>
+          </div>
+
+          <!-- Indicator 2: CPI -->
+          <div class="forex-item" style="border-left: 4px solid #F59F00;">
+            <div class="forex-meta">
+              <span class="forex-flag">🛒</span>
+              <div>
+                <div class="forex-name">미국 소비자물가지수 (CPI YoY)</div>
+                <div class="forex-code">인플레이션 척도 (26년 5월)</div>
+              </div>
+            </div>
+            <div class="forex-rate-box">
+              <div class="forex-price" style="color: var(--neon-red);">3.3%</div>
+              <span class="forex-pct" style="color: var(--text-sub); font-weight: 500;">예측 3.1% | 이전 3.4%</span>
+            </div>
+          </div>
+
+          <!-- Indicator 3: US10Y -->
+          <div class="forex-item" style="border-left: 4px solid var(--neon-green);">
+            <div class="forex-meta">
+              <span class="forex-flag">📈</span>
+              <div>
+                <div class="forex-name">미 10년물 국채 금리 (US10Y)</div>
+                <div class="forex-code">글로벌 무위험 기준 금리</div>
+              </div>
+            </div>
+            <div class="forex-rate-box">
+              <div class="forex-price" style="color: var(--neon-green);">4.45%</div>
+              <span class="forex-pct" style="color: var(--text-sub); font-weight: 500;">일중 변동 +0.02%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. AdSense Compliance Educational Article Card -->
+      <div class="card" id="educationalCard">
+        <div class="card-title">
+          <span>글로벌 변동성과 리스크 관리 가이드</span>
+        </div>
+        <div class="card-subtitle">성공적인 투자를 위해 지켜야 할 리스크 분산 및 자산 구조 분석입니다.</div>
+        
+        <div class="guide-article-box">
+          <div class="guide-section">
+            <h3>📊 자산 배분의 수학적 기초 (Mpt 이론)</h3>
+            <p>
+              현대 포트폴리오 이론(Modern Portfolio Theory, MPT)의 창시자 해리 마코위츠는 "분산 투자는 투자 시장에서 얻을 수 있는 유일한 공짜 점심이다"라고 말했습니다. 상이한 변동성을 지닌 비상관성 자산(예: 미국 기술 주식과 암호화폐 자산)을 일정 비율로 조합하여 구성하면, 포트폴리오의 기대 수익률을 훼손하지 않으면서도 전체 투자 리스크(표준편차 변동성)를 획기적으로 낮출 수 있는 수학적 원리입니다.
+            </p>
+          </div>
+
+          <div class="guide-section">
+            <h3>🎲 투심과 감정에 휩쓸리지 않는 백테스팅</h3>
+            <p>
+              개인 투자자들이 흔히 겪는 실패 요인 중 하나는 '시장 공포와 탐욕 지수'의 양극단에 도달했을 때 감정적으로 뇌동 매매를 집행하는 것입니다. 이를 통제하기 위해 본 플랫폼의 <strong>X-AI 신경망 시그널 피드</strong>와 같은 기술적 계량 통계를 객관적으로 참고하고, 개인의 자산 대비 리스크 허용치(최대 낙폭 MDD) 한계를 사전에 계산하여 기계적 분할 매매 원칙을 철저히 고수하는 시스템 트레이딩 방식의 접근이 필수적입니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div> <!-- /view-macro -->
 
   </div>
 
@@ -1389,23 +1474,18 @@
     const state = {
       theme: 'dark',
       activeTerminalAsset: 'TSLA',
-      activeTradingAsset: 'TSLA',
-      wallet: {
-        cash: 10000.00,
-        portfolio: {
-          TSLA: { qty: 0, avgPrice: 0 },
-          NVDA: { qty: 0, avgPrice: 0 },
-          AAPL: { qty: 0, avgPrice: 0 },
-          BTC:  { qty: 0, avgPrice: 0 },
-          ETH:  { qty: 0, avgPrice: 0 }
-        }
+      allocation: {
+        equity: 40,
+        crypto: 20,
+        gold: 15,
+        bond: 25
       },
       assets: {
-        TSLA: { name: 'TSLA / USD', price: 433.59, startPrice: 433.59, pct: 0, history: [] },
-        NVDA: { name: 'NVDA / USD', price: 215.33, startPrice: 215.33, pct: 0, history: [] },
-        AAPL: { name: 'AAPL / USD', price: 308.33, startPrice: 308.33, pct: 0, history: [] },
-        BTC:  { name: 'BTC / USD',  price: 67520.00, startPrice: 67520.00, pct: 0, history: [] },
-        ETH:  { name: 'ETH / USD',  price: 3500.00, startPrice: 3500.00, pct: 0, history: [] }
+        TSLA: { name: 'TSLA / USD', price: 433.59, startPrice: 433.59, pct: 0, history: [], candles: [] },
+        NVDA: { name: 'NVDA / USD', price: 215.33, startPrice: 215.33, pct: 0, history: [], candles: [] },
+        AAPL: { name: 'AAPL / USD', price: 308.33, startPrice: 308.33, pct: 0, history: [], candles: [] },
+        BTC:  { name: 'BTC / USD',  price: 67520.00, startPrice: 67520.00, pct: 0, history: [], candles: [] },
+        ETH:  { name: 'ETH / USD',  price: 3500.00, startPrice: 3500.00, pct: 0, history: [], candles: [] }
       },
       forex: {
         USD: { name: '원/달러', price: 1364.50, startPrice: 1364.50, pct: 0, flag: '🇺🇸', code: 'USD / KRW' },
@@ -1430,19 +1510,26 @@
     const liveChartPrice = document.getElementById('liveChartPrice');
     const liveChartPct = document.getElementById('liveChartPct');
 
-    // Wallet/Trading Elements
-    const totalAssetBalanceEl = document.getElementById('totalAssetBalance');
-    const walletCashEl = document.getElementById('walletCash');
-    const totalPnlLabelEl = document.getElementById('totalPnlLabel');
-    const activeAssetOwnedLabelEl = document.getElementById('activeAssetOwnedLabel');
-    const tradePriceLabelEl = document.getElementById('tradePriceLabel');
-    const tradeQuantityInput = document.getElementById('tradeQuantity');
-    const tradeEstTotalLabelEl = document.getElementById('tradeEstTotalLabel');
-    const tradeFormUnitEl = document.getElementById('tradeFormUnit');
-    const btnOrderBuy = document.getElementById('btnOrderBuy');
-    const btnOrderSell = document.getElementById('btnOrderSell');
-    const portfolioTableBody = document.getElementById('portfolioTableBody');
-    const emptyPortfolioRow = document.getElementById('emptyPortfolioRow');
+    // Portfolio Allocator & Backtester Elements
+    const weightEquity = document.getElementById('weight_equity');
+    const weightCrypto = document.getElementById('weight_crypto');
+    const weightGold = document.getElementById('weight_gold');
+    const weightBond = document.getElementById('weight_bond');
+
+    const weightLabelEquity = document.getElementById('weightLabel_equity');
+    const weightLabelCrypto = document.getElementById('weightLabel_crypto');
+    const weightLabelGold = document.getElementById('weightLabel_gold');
+    const weightLabelBond = document.getElementById('weightLabel_bond');
+    const weightTotalLabel = document.getElementById('weightTotalLabel');
+
+    const reportCagr = document.getElementById('report_cagr');
+    const reportMdd = document.getElementById('report_mdd');
+    const reportSharpe = document.getElementById('report_sharpe');
+    const reportVol = document.getElementById('report_vol');
+
+    const advisoryTitle = document.getElementById('advisoryTitle');
+    const advisoryDesc = document.getElementById('advisoryDesc');
+    const pieCanvas = document.getElementById('pieChartCanvas');
 
     // Chart resizing helper
     let chartResizeTimeout;
@@ -1452,7 +1539,7 @@
       // Setup Theme
       setupTheme();
 
-      // Prepopulate mock price history arrays (30 ticks) backwards to preserve exact price
+      // Prepopulate mock price history arrays (30 ticks) and candles (30 candles) backwards
       Object.keys(state.assets).forEach(key => {
         const currentPrice = state.assets[key].price;
         state.assets[key].history.push(currentPrice);
@@ -1461,6 +1548,20 @@
         for (let i = 0; i < 29; i++) {
           p = p * (1 - (Math.random() - 0.5) * 0.003);
           state.assets[key].history.unshift(p);
+        }
+
+        // Generate 30 mock candles backwards starting from currentPrice
+        let basePrice = currentPrice;
+        const volatility = key === 'BTC' || key === 'ETH' ? 0.0015 : 0.003;
+        for (let i = 0; i < 30; i++) {
+          const open = basePrice * (1 + (Math.random() - 0.5) * volatility);
+          const close = basePrice;
+          const high = Math.max(open, close) * (1 + Math.random() * volatility * 0.5);
+          const low = Math.min(open, close) * (1 - Math.random() * volatility * 0.5);
+          const volume = Math.floor(1000 + Math.random() * 8000);
+          
+          state.assets[key].candles.unshift({ open, high, low, close, volume });
+          basePrice = open; // Go backward
         }
       });
 
@@ -1483,35 +1584,29 @@
         });
       });
 
-      // Connect tab selector buttons for trading form
-      document.querySelectorAll('#tradeFormAssetSelector .asset-tab').forEach(tab => {
-        tab.addEventListener('click', (e) => {
-          document.querySelectorAll('#tradeFormAssetSelector .asset-tab').forEach(b => b.classList.remove('active'));
-          e.currentTarget.classList.add('active');
-          state.activeTradingAsset = e.currentTarget.dataset.asset;
-          updateTradingFormDetails();
-        });
+      // Bind Allocator Sliders
+      const sliders = [
+        { el: weightEquity, key: 'equity' },
+        { el: weightCrypto, key: 'crypto' },
+        { el: weightGold, key: 'gold' },
+        { el: weightBond, key: 'bond' }
+      ];
+
+      sliders.forEach(slider => {
+        if (slider.el) {
+          slider.el.addEventListener('input', (e) => {
+            adjustSliders(slider.key, parseInt(e.target.value) || 0);
+          });
+        }
       });
 
-      // Trade quantity input change listener
-      tradeQuantityInput.addEventListener('input', updateEstimatedTradeTotal);
-      tradeQuantityInput.addEventListener('change', updateEstimatedTradeTotal);
-
-      // Percentage shortcut buttons
-      document.querySelectorAll('.btn-pct').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const pct = parseFloat(e.currentTarget.dataset.pct);
-          const currentPrice = state.assets[state.activeTradingAsset].price;
-          const maxBuyQuantity = state.wallet.cash / currentPrice;
-          const targetQty = (maxBuyQuantity * pct).toFixed(4);
-          tradeQuantityInput.value = targetQty > 0 ? targetQty : 1;
-          updateEstimatedTradeTotal();
+      // Bind Backtest Button
+      const btnRunBacktest = document.getElementById('btnRunBacktest');
+      if (btnRunBacktest) {
+        btnRunBacktest.addEventListener('click', () => {
+          updateBacktestResults(true);
         });
-      });
-
-      // Order executing handlers
-      btnOrderBuy.addEventListener('click', handleBuyOrder);
-      btnOrderSell.addEventListener('click', handleSellOrder);
+      }
 
       // Fetch Real-time External Financial Market Data immediately on start
       fetchRealtimeRatesAndCryptos();
@@ -1533,11 +1628,13 @@
 
       // First layout draw
       updateChartDetails();
-      updateTradingFormDetails();
-      updatePortfolioUI();
       updateOrderBook();
       updateForexUI();
       tickAiSignals();
+
+      // Initialize Allocation Backtester UI
+      syncSliderUI();
+      updateBacktestResults(false);
     }
 
     // Fetch REAL-TIME Rates and Cryptos from public APIs (No Keys, CORS free)
@@ -1621,7 +1718,7 @@
 
     function handleRouting() {
       let hash = window.location.hash.replace('#', '');
-      const validTabs = ['terminal', 'signals', 'trading', 'forex'];
+      const validTabs = ['terminal', 'allocator', 'signals', 'macro'];
       
       if (!hash || !validTabs.includes(hash)) {
         window.location.hash = '#terminal';
@@ -1709,6 +1806,7 @@
         moonIcon.style.display = 'block';
       }
       renderChart();
+      drawPieChart();
     }
 
     // Adjust high DPI canvas resolution
@@ -1726,16 +1824,29 @@
 
     // Tick Markets Simulator Algorithm (1.5 seconds intervals)
     function tickLiveMarkets() {
-      // 1. Tick prices for all assets (Gaussian random walk fluctuation)
+      // 1. Tick prices and update candles for all assets (Gaussian random walk fluctuation)
       Object.keys(state.assets).forEach(key => {
         const asset = state.assets[key];
-        const volatility = key === 'BTC' || key === 'ETH' ? 0.0015 : 0.003; // reduced volatility since it tracks real price
+        const volatility = key === 'BTC' || key === 'ETH' ? 0.0015 : 0.003;
         const delta = (Math.random() - 0.5) * 2 * volatility;
         
+        const oldPrice = asset.price;
         asset.price = Math.max(0.01, asset.price * (1 + delta));
         asset.history.push(asset.price);
         if (asset.history.length > 40) {
           asset.history.shift();
+        }
+
+        // Live update candles (1.5s as 1-candle session for visual dynamic beauty)
+        const open = oldPrice;
+        const close = asset.price;
+        const high = Math.max(open, close) * (1 + Math.random() * volatility * 0.4);
+        const low = Math.min(open, close) * (1 - Math.random() * volatility * 0.4);
+        const volume = Math.floor(1000 + Math.random() * 8000);
+
+        asset.candles.push({ open, high, low, close, volume });
+        if (asset.candles.length > 30) {
+          asset.candles.shift();
         }
         
         // Dynamic simulated session tracking
@@ -1780,8 +1891,6 @@
       updateChartDetails();
       renderChart();
       updateOrderBook();
-      updateTradingFormDetails();
-      updatePortfolioUI();
       updateForexUI();
     }
 
@@ -1791,8 +1900,8 @@
       let htmlContent = '';
       
       const indices = [
-        { label: 'NASDAQ', price: 16211.5 * (state.assets.NVDA.price / 920.5), pct: state.assets.NVDA.pct * 0.4 },
-        { label: 'S&P 500', price: 5190.2 * (state.assets.AAPL.price / 172.8), pct: state.assets.AAPL.pct * 0.3 },
+        { label: 'NASDAQ', price: 16211.5 * (state.assets.NVDA.price / 215.33), pct: state.assets.NVDA.pct * 0.4 },
+        { label: 'S&P 500', price: 5190.2 * (state.assets.AAPL.price / 308.33), pct: state.assets.AAPL.pct * 0.3 },
         { label: 'USDKRW', price: state.forex.USD.price, pct: state.forex.USD.pct },
         { label: 'BTC/USD', price: state.assets.BTC.price, pct: state.assets.BTC.pct },
         { label: 'NVDA', price: state.assets.NVDA.price, pct: state.assets.NVDA.pct },
@@ -1838,76 +1947,153 @@
       }
     }
 
-    // Draw custom smooth area chart inside Canvas
+    // Draw HTS-grade Professional Candlestick, Moving Averages, and Volume bar charts combined
     function renderChart() {
       const asset = state.assets[state.activeTerminalAsset];
-      const history = asset.history;
-      if (history.length < 2) return;
+      const candles = asset.candles;
+      if (!candles || candles.length < 2) return;
 
       const w = liveCanvas.width / window.devicePixelRatio;
       const h = 120;
       
       ctx.clearRect(0, 0, w, h);
 
-      const minVal = Math.min(...history) * 0.999;
-      const maxVal = Math.max(...history) * 1.001;
-      const range = maxVal - minVal;
-
-      const getX = (idx) => (idx / (history.length - 1)) * w;
-      const getY = (val) => h - 15 - ((val - minVal) / range) * (h - 30);
-
-      const isUp = asset.price >= asset.startPrice;
-      const lineColor = isUp ? '#00F5A0' : '#FF3B30';
-      const gradientStart = isUp ? 'rgba(0, 245, 160, 0.22)' : 'rgba(255, 59, 48, 0.22)';
-      const shadowColor = isUp ? 'rgba(0, 245, 160, 0.4)' : 'rgba(255, 59, 48, 0.4)';
-
-      ctx.beginPath();
-      ctx.moveTo(getX(0), getY(history[0]));
+      // 1. Calculate price range (High and Low extremes of visible candles)
+      const highs = candles.map(c => c.high);
+      const lows = candles.map(c => c.low);
+      let maxVal = Math.max(...highs);
+      let minVal = Math.min(...lows);
       
-      for (let i = 0; i < history.length - 1; i++) {
-        const x1 = getX(i);
-        const y1 = getY(history[i]);
-        const x2 = getX(i + 1);
-        const y2 = getY(history[i + 1]);
-        const xc = (x1 + x2) / 2;
-        const yc = (y1 + y2) / 2;
-        ctx.quadraticCurveTo(x1, y1, xc, yc);
+      // Prevent division by zero
+      if (maxVal === minVal) {
+        maxVal *= 1.01;
+        minVal *= 0.99;
       }
-      ctx.lineTo(getX(history.length - 1), getY(history[history.length - 1]));
       
-      ctx.strokeStyle = lineColor;
-      ctx.lineWidth = 2.5;
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = shadowColor;
-      ctx.stroke();
-      ctx.shadowBlur = 0;
+      const priceRange = maxVal - minVal;
+      const paddingRatio = 0.08; // 8% padding top and bottom for candles
+      const topVal = maxVal + priceRange * paddingRatio;
+      const bottomVal = minVal - priceRange * paddingRatio;
+      const range = topVal - bottomVal;
 
-      ctx.lineTo(w, h);
-      ctx.lineTo(0, h);
-      ctx.closePath();
-      
-      const grad = ctx.createLinearGradient(0, 0, 0, h);
-      grad.addColorStop(0, gradientStart);
-      grad.addColorStop(1, 'rgba(11, 15, 25, 0)');
-      
-      ctx.fillStyle = grad;
-      ctx.fill();
+      // Coordinate Helper Functions
+      const chartWidth = w - 40;
+      const getX = (idx) => 10 + (idx / (candles.length - 1)) * chartWidth;
+      const chartHeight = h - 25; // 95px area
+      const getY = (val) => 5 + (1 - (val - bottomVal) / range) * chartHeight;
 
+      // 2. Draw Volume Bars at the Bottom (lower 20%)
+      const maxVol = Math.max(...candles.map(c => c.volume));
+      const barWidth = Math.max(2, (chartWidth / candles.length) * 0.65);
+      
+      candles.forEach((c, i) => {
+        const isUp = c.close >= c.open;
+        const volHeight = (c.volume / maxVol) * 20; // max 20px height
+        const x = getX(i) - barWidth / 2;
+        const y = h - volHeight;
+        
+        ctx.fillStyle = isUp ? 'rgba(0, 245, 160, 0.22)' : 'rgba(255, 59, 48, 0.22)';
+        ctx.fillRect(x, y, barWidth, volHeight);
+      });
+
+      // 3. Draw Grid Lines (Max and Min price guidelines)
       ctx.setLineDash([3, 4]);
-      ctx.strokeStyle = 'rgba(138, 149, 161, 0.3)';
+      ctx.strokeStyle = 'rgba(138, 149, 161, 0.15)';
       ctx.lineWidth = 0.8;
       
       ctx.beginPath();
-      ctx.moveTo(0, getY(Math.max(...history)));
-      ctx.lineTo(w, getY(Math.max(...history)));
+      ctx.moveTo(0, getY(maxVal));
+      ctx.lineTo(w, getY(maxVal));
       ctx.stroke();
       
       ctx.beginPath();
-      ctx.moveTo(0, getY(Math.min(...history)));
-      ctx.lineTo(w, getY(Math.min(...history)));
+      ctx.moveTo(0, getY(minVal));
+      ctx.lineTo(w, getY(minVal));
       ctx.stroke();
       
       ctx.setLineDash([]);
+
+      // 4. Draw Technical Indicator Lines (SMA 5 and SMA 20)
+      const getSma = (idx, period) => {
+        if (idx < 0) return null;
+        const start = Math.max(0, idx - period + 1);
+        let sum = 0;
+        let count = 0;
+        for (let j = start; j <= idx; j++) {
+          sum += candles[j].close;
+          count++;
+        }
+        return sum / count;
+      };
+
+      // Draw SMA 20 Line (Slow MA) - Yellowish Orange
+      ctx.beginPath();
+      let firstSma20 = true;
+      for (let i = 0; i < candles.length; i++) {
+        const sma20 = getSma(i, 20);
+        if (sma20 !== null) {
+          const x = getX(i);
+          const y = getY(sma20);
+          if (firstSma20) {
+            ctx.moveTo(x, y);
+            firstSma20 = false;
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+      }
+      ctx.strokeStyle = '#F59F00';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      // Draw SMA 5 Line (Fast MA) - Toss Blue
+      ctx.beginPath();
+      let firstSma5 = true;
+      for (let i = 0; i < candles.length; i++) {
+        const sma5 = getSma(i, 5);
+        if (sma5 !== null) {
+          const x = getX(i);
+          const y = getY(sma5);
+          if (firstSma5) {
+            ctx.moveTo(x, y);
+            firstSma5 = false;
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+      }
+      ctx.strokeStyle = '#3182F6';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // 5. Draw HTS Candlesticks (Wicks and Bodies)
+      candles.forEach((c, i) => {
+        const isUp = c.close >= c.open;
+        const wickColor = isUp ? '#00F5A0' : '#FF3B30';
+        const bodyColor = isUp ? '#00F5A0' : '#FF3B30';
+        const x = getX(i);
+        
+        // Wick (shadow line: low to high)
+        ctx.beginPath();
+        ctx.moveTo(x, getY(c.low));
+        ctx.lineTo(x, getY(c.high));
+        ctx.strokeStyle = wickColor;
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        // Body (シ가-종가 직사각형)
+        const yOpen = getY(c.open);
+        const yClose = getY(c.close);
+        const bodyHeight = Math.max(1.5, Math.abs(yClose - yOpen));
+        const bodyY = Math.min(yOpen, yClose);
+        
+        ctx.fillStyle = bodyColor;
+        if (Math.abs(c.close - c.open) < 0.0001) {
+          ctx.fillRect(x - barWidth / 2, bodyY - 0.75, barWidth, 1.5);
+        } else {
+          ctx.fillRect(x - barWidth / 2, bodyY, bodyWidth, bodyHeight);
+        }
+      });
     }
 
     // Update Simulated Order Book depth sizes dynamically
@@ -2016,135 +2202,186 @@
 
     // Estimate total transaction cost
     function updateEstimatedTradeTotal() {
-      const asset = state.assets[state.activeTradingAsset];
-      const qty = parseFloat(tradeQuantityInput.value) || 0;
-      const total = qty * asset.price;
+    // Dynamic Slider adjustment algorithm to keep total sum exactly 100%
+    function adjustSliders(changedAsset, newValue) {
+      state.allocation[changedAsset] = newValue;
       
-      tradeEstTotalLabelEl.textContent = '$' + total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const assets = ['equity', 'crypto', 'gold', 'bond'];
+      const otherAssets = assets.filter(a => a !== changedAsset);
+      
+      let otherSum = 0;
+      otherAssets.forEach(a => { otherSum += state.allocation[a]; });
+      
+      const targetOtherSum = 100 - newValue;
+      
+      if (otherSum === 0) {
+        otherAssets.forEach(a => { state.allocation[a] = targetOtherSum / 3; });
+      } else {
+        otherAssets.forEach(a => {
+          state.allocation[a] = (state.allocation[a] / otherSum) * targetOtherSum;
+        });
+      }
+      
+      // Keep integers and minimize math residue
+      let sum = 0;
+      assets.forEach(a => {
+        state.allocation[a] = Math.round(state.allocation[a]);
+        sum += state.allocation[a];
+      });
+      
+      if (sum !== 100) {
+        const diff = 100 - sum;
+        state.allocation[otherAssets[0]] += diff;
+      }
+      
+      syncSliderUI();
+      drawPieChart();
     }
 
-    // Action execution: Buy order transaction
-    function handleBuyOrder() {
-      const assetKey = state.activeTradingAsset;
-      const asset = state.assets[assetKey];
-      const qty = parseFloat(tradeQuantityInput.value) || 0;
+    // Sync input sliders and labels with state.allocation
+    function syncSliderUI() {
+      weightEquity.value = state.allocation.equity;
+      weightCrypto.value = state.allocation.crypto;
+      weightGold.value = state.allocation.gold;
+      weightBond.value = state.allocation.bond;
+
+      weightLabelEquity.textContent = state.allocation.equity + '%';
+      weightLabelCrypto.textContent = state.allocation.crypto + '%';
+      weightLabelGold.textContent = state.allocation.gold + '%';
+      weightLabelBond.textContent = state.allocation.bond + '%';
       
-      if (qty <= 0) {
-        showToast('매수 수량을 올바르게 지정해 주세요.');
-        return;
+      const total = state.allocation.equity + state.allocation.crypto + state.allocation.gold + state.allocation.bond;
+      weightTotalLabel.textContent = total + '%';
+      
+      if (total === 100) {
+        weightTotalLabel.style.color = 'var(--neon-green)';
+      } else {
+        weightTotalLabel.style.color = 'var(--neon-red)';
       }
-
-      const totalCost = qty * asset.price;
-      
-      if (totalCost > state.wallet.cash) {
-        showToast('가상 예수금(현금)이 부족합니다!');
-        return;
-      }
-
-      state.wallet.cash -= totalCost;
-      
-      const portfolioItem = state.wallet.portfolio[assetKey];
-      const newQty = portfolioItem.qty + qty;
-      const newAvg = (portfolioItem.qty * portfolioItem.avgPrice + totalCost) / newQty;
-      
-      portfolioItem.qty = newQty;
-      portfolioItem.avgPrice = newAvg;
-
-      showToast(`[가상 매수 체결] ${qty.toFixed(4)} ${assetKey} 체결 완료!`);
-      
-      updateTradingFormDetails();
-      updatePortfolioUI();
     }
 
-    // Action execution: Sell order transaction
-    function handleSellOrder() {
-      const assetKey = state.activeTradingAsset;
-      const asset = state.assets[assetKey];
-      const qty = parseFloat(tradeQuantityInput.value) || 0;
-      const portfolioItem = state.wallet.portfolio[assetKey];
-
-      if (qty <= 0) {
-        showToast('매도 수량을 올바르게 지정해 주세요.');
-        return;
+    // Apply Recommended Allocations Presets
+    function applyPreset(presetType) {
+      if (presetType === 'allweather') {
+        state.allocation = { equity: 30, crypto: 0, gold: 15, bond: 55 };
+      } else if (presetType === 'classic') {
+        state.allocation = { equity: 60, crypto: 0, gold: 0, bond: 40 };
+      } else if (presetType === 'aggressive') {
+        state.allocation = { equity: 80, crypto: 20, gold: 0, bond: 0 };
+      } else if (presetType === 'defense') {
+        state.allocation = { equity: 10, crypto: 0, gold: 40, bond: 50 };
       }
-
-      if (qty > portfolioItem.qty) {
-        showToast('보유 중인 자산 수량이 부족합니다!');
-        return;
-      }
-
-      const totalProceeds = qty * asset.price;
-      state.wallet.cash += totalProceeds;
-      
-      portfolioItem.qty -= qty;
-      if (portfolioItem.qty === 0) {
-        portfolioItem.avgPrice = 0;
-      }
-
-      showToast(`[가상 매도 체결] ${qty.toFixed(4)} ${assetKey} 매도 완료!`);
-
-      updateTradingFormDetails();
-      updatePortfolioUI();
+      syncSliderUI();
+      drawPieChart();
+      updateBacktestResults(true);
     }
 
-    // Dynamic rendering of portfolio table items and total balance
-    function updatePortfolioUI() {
-      let activeRows = '';
-      let ownedAssetsCount = 0;
-      let totalAssetValue = state.wallet.cash;
+    // Backtest core calculations based on MPT and historical expectations
+    function updateBacktestResults(triggerToast) {
+      const wE = state.allocation.equity / 100;
+      const wC = state.allocation.crypto / 100;
+      const wG = state.allocation.gold / 100;
+      const wB = state.allocation.bond / 100;
 
-      Object.keys(state.wallet.portfolio).forEach(key => {
-        const item = state.wallet.portfolio[key];
-        if (item.qty > 0) {
-          ownedAssetsCount++;
-          const currentPrice = state.assets[key].price;
-          const evaluationValue = item.qty * currentPrice;
-          totalAssetValue += evaluationValue;
-          
-          const totalCost = item.qty * item.avgPrice;
-          const pnlValue = evaluationValue - totalCost;
-          const pnlPct = ((currentPrice - item.avgPrice) / item.avgPrice) * 100;
-          
-          const isUp = pnlValue >= 0;
-          const sign = isUp ? '+' : '';
-          const pnlColor = isUp ? 'var(--neon-green)' : 'var(--neon-red)';
-          
-          activeRows += `
-            <tr>
-              <td><span class="portfolio-asset-tag">${key}</span></td>
-              <td class="portfolio-value-main">${item.qty.toFixed(3)}</td>
-              <td class="portfolio-value-main">$${item.avgPrice.toFixed(2)}</td>
-              <td class="portfolio-value-main" style="color: ${pnlColor};">${sign}${pnlPct.toFixed(2)}%<br><span style="font-size: 10px; font-weight: 500;">${sign}$${pnlValue.toFixed(2)}</span></td>
-            </tr>
-          `;
-        }
+      // Expectation models
+      // CAGR: Equity 14.5%, Crypto 28.0%, Gold 6.0%, Bond 4.2%
+      const cagr = (wE * 14.5 + wC * 28.0 + wG * 6.0 + wB * 4.2);
+      
+      // Volatility expectations
+      const vol = Math.sqrt(
+        wE*wE*22*22 + wC*wC*55*55 + wG*wG*12*12 + wB*wB*6*6 + 
+        2*wE*wC*22*55*0.25 + 2*wE*wG*22*12*0.05 + 2*wE*wB*22*6*(-0.1) +
+        2*wC*wG*55*12*0.15 + 2*wC*wB*55*6*(-0.05) + 2*wG*wB*12*6*0.1
+      );
+
+      // MDD: worst case drawdowns based on asset weights
+      const mdd = (wE * (-32.5) + wC * (-68.0) + wG * (-12.0) + wB * (-5.2));
+
+      // Sharpe Ratio (Risk-free assumed 3.0%)
+      const sharpe = vol > 0 ? (cagr - 3.0) / vol : 0;
+
+      // Update report outputs in UI
+      reportCagr.textContent = '+' + cagr.toFixed(2) + '%';
+      reportMdd.textContent = mdd.toFixed(2) + '%';
+      reportSharpe.textContent = sharpe.toFixed(2);
+      reportVol.textContent = vol.toFixed(2) + '%';
+
+      // Advisory report generation
+      let title = '';
+      let desc = '';
+
+      if (wC >= 0.25 || wE >= 0.70) {
+        title = '성향 분석: 공격적 기술성장 포트폴리오';
+        desc = '높은 자산 변동성을 수용하며 하이리스크 하이리턴 성장을 지향하는 포지션입니다. 암호화폐와 주식 비중이 매우 높아 시장 호황기 시 폭발적인 수익률(CAGR)을 달성할 수 있으나, 약세장에서 최대 낙폭(MDD)이 -30%를 초과하는 심각한 기술적 조정을 감내해야 합니다. 여유 자금 중심의 운용을 적극 권장합니다.';
+      } else if (wG >= 0.25 || wB >= 0.50) {
+        title = '성향 분석: 안전자산 수호형 포트폴리오';
+        desc = '원금 보존력과 하방 경직성 확보에 초점을 맞춘 초안정형 전략입니다. 금과 채권의 기여로 시장 폭락세 속에서도 연간 변동성을 극단적으로 낮추고, 최대 낙폭(MDD)을 극소화(-6% 미만)합니다. 다만 장기 복리 성장 기대 수익률이 인플레이션을 소폭 상회하는 수준에 머물 수 있어, 자산 방어 중심의 은퇴 대비용 포트폴리오에 어울립니다.';
+      } else if (Math.abs(wE - 0.6) < 0.1 && Math.abs(wB - 0.4) < 0.1) {
+        title = '성향 분석: 전통적 자산배분 60/40 포트폴리오';
+        desc = '수십 년간 금융 역사에서 가장 강력한 효율을 입증한 전통 주식/채권 균형 배분 전략입니다. 성장성(주식)과 방어력(채권)의 비중 조합이 이상적인 조화를 이루어, 샤프 지수 1.0 전후의 높은 자산 효율성을 이끌어냅니다. 중장기 연기금식 투자의 표준으로 삼기에 무난하고 검증된 선택입니다.';
+      } else {
+        title = '성향 분석: 균형감 있는 멀티에셋 자산배분 포트폴리오';
+        desc = '주식, 코인, 금, 국채에 골고루 분산하여 경제 국면 변화(성장, 인플레이션, 스태그플레이션)에 전천후로 방어하는 올웨더형 포지션입니다. 변동성 대비 안정적인 샤프 지수를 증명하며, 일시적 매크로 충격에도 자산 평가액 낙폭이 굳건히 제한되면서 장기 복리 성장의 수학적 안정성을 극대화합니다.';
+      }
+
+      advisoryTitle.textContent = title;
+      advisoryDesc.textContent = desc;
+
+      if (triggerToast) {
+        showToast('자산 배분 백테스트 연산이 정상 완료되었습니다!');
+      }
+    }
+
+    // Render Dynamic Pie Chart on Canvas
+    function drawPieChart() {
+      if (!pieCanvas) return;
+      const ctxPie = pieCanvas.getContext('2d');
+      const w = pieCanvas.width;
+      const h = pieCanvas.height;
+      
+      ctxPie.clearRect(0, 0, w, h);
+
+      const data = [
+        { label: 'Equity', val: state.allocation.equity, color: '#3182F6' },
+        { label: 'Crypto', val: state.allocation.crypto, color: '#00F5A0' },
+        { label: 'Gold', val: state.allocation.gold, color: '#F59F00' },
+        { label: 'Bond', val: state.allocation.bond, color: '#909BB0' }
+      ];
+
+      const filtered = data.filter(d => d.val > 0);
+      if (filtered.length === 0) return;
+
+      const totalVal = filtered.reduce((sum, d) => sum + d.val, 0);
+      const cx = w / 2;
+      const cy = h / 2;
+      const r = Math.min(cx, cy) - 6;
+
+      let startAngle = -Math.PI / 2;
+
+      filtered.forEach(d => {
+        const sliceAngle = (d.val / totalVal) * Math.PI * 2;
+        
+        ctxPie.beginPath();
+        ctxPie.moveTo(cx, cy);
+        ctxPie.arc(cx, cy, r, startAngle, startAngle + sliceAngle);
+        ctxPie.closePath();
+        ctxPie.fillStyle = d.color;
+        ctxPie.fill();
+
+        ctxPie.strokeStyle = state.theme === 'dark' ? '#030712' : '#FFFFFF';
+        ctxPie.lineWidth = 2.0;
+        ctxPie.stroke();
+
+        startAngle += sliceAngle;
       });
 
-      totalAssetBalanceEl.textContent = '$' + totalAssetValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      walletCashEl.textContent = '$' + state.wallet.cash.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-      const initialCash = 10000.00;
-      const totalPnlValue = totalAssetValue - initialCash;
-      const totalPnlPct = (totalPnlValue / initialCash) * 100;
-      const isTotalUp = totalPnlValue >= 0;
-      const totalSign = isTotalUp ? '+' : '';
-      
-      totalPnlLabelEl.textContent = `수익률: ${totalSign}${totalPnlPct.toFixed(2)}% (${totalSign}$${totalPnlValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })})`;
-      if (isTotalUp) {
-        totalPnlLabelEl.style.color = 'var(--neon-green)';
-      } else {
-        totalPnlLabelEl.style.color = 'var(--neon-red)';
-      }
-
-      if (ownedAssetsCount > 0) {
-        portfolioTableBody.innerHTML = activeRows;
-      } else {
-        portfolioTableBody.innerHTML = `
-          <tr id="emptyPortfolioRow">
-            <td colspan="4" style="text-align: center; color: var(--grey-dark); padding: 32px 0;">보유 중인 자산이 없습니다.</td>
-          </tr>
-        `;
-      }
+      ctxPie.beginPath();
+      ctxPie.arc(cx, cy, r * 0.58, 0, Math.PI * 2);
+      ctxPie.fillStyle = state.theme === 'dark' ? '#030712' : '#FFFFFF';
+      ctxPie.fill();
+      ctxPie.strokeStyle = 'rgba(138, 149, 161, 0.15)';
+      ctxPie.lineWidth = 0.5;
+      ctxPie.stroke();
     }
 
     // Update Real-Time Forex Section UI (Added as requested)
