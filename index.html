@@ -385,6 +385,12 @@
       }
     }
 
+    /* 포트폴리오(#allocatorCard)는 항상 세로 스택 — app-container가 680px로 제한돼 2열 분할은 항상 깨짐 */
+    #allocatorCard .terminal-grid {
+      grid-template-columns: 1fr !important;
+      gap: 14px;
+    }
+
     /* Asset Chart Canvas Panel */
     .chart-panel {
       position: relative;
@@ -2153,7 +2159,7 @@
     .alloc-progress-fill { height: 100%; border-radius: 5px; transition: width 0.3s cubic-bezier(0.16,1,0.3,1), background-color 0.3s; }
     .alloc-validation-msg { font-size: 12px; font-weight: 700; color: var(--neon-red); padding: 8px 12px; border-radius: 8px; background: rgba(255,59,48,0.08); border: 1px solid rgba(255,59,48,0.2); text-align: center; display: none; }
 
-    @media (max-width: 600px) {
+    @media (max-width: 720px) {
       /* 자산명을 1행에 꽉 채우고, 2행에 입력창을 배치 */
       .alloc-col-headers { display: none; }
       /* 부모 패딩 축소로 가로 공간 확보 */
