@@ -1529,9 +1529,9 @@
         ETH:  { name: 'ETH / USD',  price: 3500.00, startPrice: 3500.00, pct: 0, history: [], candles: [] }
       },
       forex: {
-        USD: { name: '원/달러', price: 1364.50, startPrice: 1364.50, pct: 0, flag: '🇺🇸', code: 'USD / KRW' },
-        JPY: { name: '원/엔 (100엔)', price: 868.20, startPrice: 868.20, pct: 0, flag: '🇯🇵', code: '100 JPY / KRW' },
-        EUR: { name: '원/유로', price: 1482.40, startPrice: 1482.40, pct: 0, flag: '🇪🇺', code: 'EUR / KRW' }
+        USD: { name: '원/달러', price: 1364.50, startPrice: 1364.50, prevPrice: 1364.50, pct: 0, change: 0, flag: '🇺🇸', code: 'USD / KRW' },
+        JPY: { name: '원/엔 (100엔)', price: 868.20, startPrice: 868.20, prevPrice: 868.20, pct: 0, change: 0, flag: '🇯🇵', code: '100 JPY / KRW' },
+        EUR: { name: '원/유로', price: 1482.40, startPrice: 1482.40, prevPrice: 1482.40, pct: 0, change: 0, flag: '🇪🇺', code: 'EUR / KRW' }
       },
       sentiment: 64,
       forexInitialized: false,
@@ -1918,8 +1918,10 @@
       // 2. Tick prices for Forex Exchange Rates
       Object.keys(state.forex).forEach(key => {
         const curr = state.forex[key];
+        curr.prevPrice = curr.price;
         const delta = (Math.random() - 0.5) * 2 * 0.0004;
         curr.price = Math.max(0.01, curr.price * (1 + delta));
+        curr.change = curr.price - curr.prevPrice; // Real-time absolute change in won
         curr.pct = ((curr.price - curr.startPrice) / curr.startPrice) * 100;
       });
 
@@ -2432,20 +2434,22 @@
       ctxPie.stroke();
     }
 
-    // Update Real-Time Forex Section UI (Added as requested)
+    // Update Real-Time Forex Section UI
     function updateForexUI() {
       const currencies = ['USD', 'JPY', 'EUR'];
       currencies.forEach(curr => {
         const item = state.forex[curr];
-        const isUp = item.pct >= 0;
-        const sign = isUp ? '+' : '';
+        const isUp = item.change >= 0;
+        const sign = isUp ? '▲ +' : '▼ ';
         const cls = isUp ? 'up' : 'down';
         
         const priceEl = document.getElementById(`forexPrice_${curr}`);
         const pctEl = document.getElementById(`forexPct_${curr}`);
         
-        priceEl.textContent = item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        pctEl.textContent = `${sign}${item.pct.toFixed(2)}%`;
+        if (!priceEl || !pctEl) return;
+        
+        priceEl.textContent = item.price.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '원';
+        pctEl.textContent = `${sign}${Math.abs(item.change).toFixed(2)}원`;
         pctEl.className = `forex-pct ${cls}`;
       });
     }
