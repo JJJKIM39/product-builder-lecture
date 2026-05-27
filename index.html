@@ -134,7 +134,7 @@
       100% { transform: translate3d(-50%, 0, 0); }
     }
 
-    /* Sticky Navigation Header */
+    /* Sticky Glassmorphic Navigation */
     .nav-bar {
       position: sticky;
       top: 0;
@@ -150,22 +150,22 @@
     }
 
     .nav-container {
-      max-width: 680px;
+      max-width: 720px; /* Wider padding for better spacing */
       margin: 0 auto;
-      height: 56px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 16px;
+      padding: 0 12px;
     }
 
     .nav-logo {
-      font-size: 18px;
-      font-weight: 900;
+      font-size: 22px; /* Bigger logo as requested */
+      font-weight: 950;
       color: var(--text-color);
       text-decoration: none;
       font-family: var(--font-outfit);
-      letter-spacing: -0.5px;
+      letter-spacing: -0.8px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -173,7 +173,7 @@
 
     .nav-logo span {
       color: var(--toss-blue);
-      text-shadow: 0 0 10px rgba(49, 130, 246, 0.5);
+      text-shadow: 0 0 10px rgba(49, 130, 246, 0.6);
     }
 
     .nav-links {
@@ -182,11 +182,11 @@
     }
 
     .nav-link {
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 15px; /* Larger category menus as requested */
+      font-weight: 700;
       color: var(--text-sub);
       text-decoration: none;
-      padding: 6px 10px;
+      padding: 6px 12px;
       border-radius: 8px;
       transition: all 0.2s ease;
     }
@@ -457,7 +457,7 @@
       text-shadow: 0 0 8px rgba(49, 130, 246, 0.2);
     }
 
-    /* X-AI Signals System (Interactive feed) */
+    /* X-AI Signals System */
     .signal-timeline {
       display: flex;
       flex-direction: column;
@@ -506,7 +506,7 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    /* Mock Trading Panel (The Core Interaction Engine) */
+    /* Mock Trading Panel */
     .trading-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -725,7 +725,112 @@
       font-weight: 600;
     }
 
-    /* Guide Educational Articles (AdSense compliance) */
+    /* Premium Forex (환율) Section layout */
+    .forex-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 560px) {
+      .forex-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .forex-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .forex-item {
+      background-color: var(--grey-light);
+      border-radius: 14px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+    
+    .forex-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .forex-flag {
+      font-size: 20px;
+    }
+
+    .forex-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+
+    .forex-code {
+      font-size: 10px;
+      color: var(--grey-dark);
+      font-family: var(--font-outfit);
+      font-weight: 600;
+    }
+
+    .forex-rate-box {
+      text-align: right;
+    }
+
+    .forex-price {
+      font-size: 14px;
+      font-weight: 700;
+      font-family: var(--font-outfit);
+    }
+
+    .forex-pct {
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .forex-pct.up { color: var(--neon-green); }
+    .forex-pct.down { color: var(--neon-red); }
+
+    /* Forex Calculator 위젯 */
+    .forex-calc-panel {
+      background-color: #030712;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .calc-currency-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      background-color: var(--grey-light);
+      padding: 3px;
+      border-radius: 8px;
+    }
+
+    .calc-currency-tab {
+      background: none;
+      border: none;
+      padding: 6px 0;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sub);
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .calc-currency-tab.active {
+      background-color: var(--card-bg);
+      color: var(--text-color);
+    }
+
+    /* Guide Educational Articles */
     .guide-article-box {
       display: flex;
       flex-direction: column;
@@ -757,14 +862,6 @@
       font-size: 13px;
       color: var(--text-sub);
       line-height: 1.7;
-    }
-
-    /* Disqus Comments Card Wrapper */
-    .disqus-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 24px;
     }
 
     /* Footer and Privacy Modal Styles */
@@ -957,7 +1054,7 @@
         <a href="#terminalCard" class="nav-link">터미널</a>
         <a href="#signalsCard" class="nav-link">AI 시그널</a>
         <a href="#tradingCard" class="nav-link">가상 투자</a>
-        <a href="#loungeCard" class="nav-link">토론</a>
+        <a href="#forexCard" class="nav-link">실시간 환율</a> <!-- Added Exchange rate tab -->
       </div>
     </div>
   </nav>
@@ -972,7 +1069,7 @@
       </div>
       
       <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
-        <!-- Sun icon (shows in Dark theme to switch to Light) -->
+        <!-- Sun icon -->
         <svg class="sun-icon" style="display: none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5"/>
           <line x1="12" y1="1" x2="12" y2="3"/>
@@ -984,7 +1081,7 @@
           <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
           <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
-        <!-- Moon icon (shows in Light theme to switch to Dark) -->
+        <!-- Moon icon -->
         <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
@@ -1026,11 +1123,11 @@
           </div>
         </div>
 
-        <!-- Real-Time Order Book (Hyperliquid style) -->
+        <!-- Real-Time Order Book -->
         <div class="order-book-panel">
           <div class="book-title">Order Book (Depth)</div>
           
-          <!-- Asks (Red block) -->
+          <!-- Asks -->
           <div class="book-row" id="askRow4"><div class="book-depth-bar ask" style="width: 40%;"></div><span class="book-price ask" id="askPrice4">180.60</span><span class="book-size" id="askSize4">1,402</span></div>
           <div class="book-row" id="askRow3"><div class="book-depth-bar ask" style="width: 75%;"></div><span class="book-price ask" id="askPrice3">180.50</span><span class="book-size" id="askSize3">2,851</span></div>
           <div class="book-row" id="askRow2"><div class="book-depth-bar ask" style="width: 25%;"></div><span class="book-price ask" id="askPrice2">180.40</span><span class="book-size" id="askSize2">812</span></div>
@@ -1039,7 +1136,7 @@
           <!-- Spread -->
           <div class="book-spread" id="bookSpread">SPREAD: 0.10 (0.05%)</div>
           
-          <!-- Bids (Green block) -->
+          <!-- Bids -->
           <div class="book-row" id="bidRow1"><div class="book-depth-bar bid" style="width: 85%;"></div><span class="book-price bid" id="bidPrice1">180.20</span><span class="book-size" id="bidSize1">2,990</span></div>
           <div class="book-row" id="bidRow2"><div class="book-depth-bar bid" style="width: 30%;"></div><span class="book-price bid" id="bidPrice2">180.10</span><span class="book-size" id="bidSize2">1,120</span></div>
           <div class="book-row" id="bidRow3"><div class="book-depth-bar bid" style="width: 60%;"></div><span class="book-price bid" id="bidPrice3">180.00</span><span class="book-size" id="bidSize3">2,201</span></div>
@@ -1074,7 +1171,6 @@
       <div class="card-subtitle">AI 신경망 분석 엔진이 감지한 주요 종목별 틱 실시간 매매 포착 피드입니다.</div>
       
       <div class="signal-timeline" id="signalTimeline">
-        <!-- Inserted dynamically -->
         <div class="signal-card buy">
           <div class="signal-header-row"><span>TSLA / USD</span><span>방금 전</span></div>
           <div class="signal-label" style="color: var(--neon-green);">🤖 [AI 돌파 매수 시그널] 테슬라</div>
@@ -1091,7 +1187,7 @@
     <!-- 4. Interactive Mock Trading Simulator Card -->
     <div class="card" id="tradingCard">
       <div class="card-title">
-        <span>가상 모의 트레이딩 시뮬레이터</span>
+        <span>가상 모의 투자 시뮬레이터</span>
       </div>
       <div class="card-subtitle">1.5초마다 출렁이는 실시간 가상 호가 시세에 즉시 무제한 모의 매수/매도를 할 수 있습니다.</div>
       
@@ -1164,7 +1260,6 @@
               </tr>
             </thead>
             <tbody id="portfolioTableBody">
-              <!-- Dynamically injected rows -->
               <tr id="emptyPortfolioRow">
                 <td colspan="4" style="text-align: center; color: var(--grey-dark); padding: 32px 0;">보유 중인 자산이 없습니다.</td>
               </tr>
@@ -1174,7 +1269,92 @@
       </div>
     </div>
 
-    <!-- 5. AdSense Compliance Educational Article Card -->
+    <!-- 5. Real-Time Exchange Rate Card (Added as requested) -->
+    <div class="card" id="forexCard">
+      <div class="card-title">
+        <span>실시간 글로벌 환율 시황</span>
+      </div>
+      <div class="card-subtitle">외환 시장의 주요 통화쌍 가상 실시간 환율 정보와 토스 스타일 가상 환전 계산기입니다.</div>
+      
+      <div class="forex-grid">
+        <!-- Live Forex Table -->
+        <div class="forex-list">
+          <div class="forex-item">
+            <div class="forex-meta">
+              <span class="forex-flag">🇺🇸</span>
+              <div>
+                <div class="forex-name">원/달러 환율</div>
+                <div class="forex-code">USD / KRW</div>
+              </div>
+            </div>
+            <div class="forex-rate-box">
+              <div class="forex-price" id="forexPrice_USD">1,364.50</div>
+              <span class="forex-pct down" id="forexPct_USD">-0.32%</span>
+            </div>
+          </div>
+
+          <div class="forex-item">
+            <div class="forex-meta">
+              <span class="forex-flag">🇯🇵</span>
+              <div>
+                <div class="forex-name">원/엔 환율 (100엔)</div>
+                <div class="forex-code">100 JPY / KRW</div>
+              </div>
+            </div>
+            <div class="forex-rate-box">
+              <div class="forex-price" id="forexPrice_JPY">868.20</div>
+              <span class="forex-pct up" id="forexPct_JPY">+0.14%</span>
+            </div>
+          </div>
+
+          <div class="forex-item">
+            <div class="forex-meta">
+              <span class="forex-flag">🇪🇺</span>
+              <div>
+                <div class="forex-name">원/유로 환율</div>
+                <div class="forex-code">EUR / KRW</div>
+              </div>
+            </div>
+            <div class="forex-rate-box">
+              <div class="forex-price" id="forexPrice_EUR">1,482.40</div>
+              <span class="forex-pct up" id="forexPct_EUR">+0.22%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Forex Interactive Calculator Widget -->
+        <div class="forex-calc-panel">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-sub); margin-bottom: 2px;">가상 외환 환전 계산기</div>
+          
+          <div class="calc-currency-selector" id="calcCurrencySelector">
+            <button class="calc-currency-tab active" data-curr="USD">USD ($)</button>
+            <button class="calc-currency-tab" data-curr="JPY">JPY (¥)</button>
+            <button class="calc-currency-tab" data-curr="EUR">EUR (€)</button>
+          </div>
+
+          <div class="trade-control-group">
+            <label>원화(KRW) 보낼 금액 입력</label>
+            <div class="trade-input-wrapper">
+              <input type="number" id="calcKrwInput" class="trade-input" value="100000" min="1000">
+              <span class="trade-unit">원</span>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 4px;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-sub);">
+              <span>적용 기준 환율</span>
+              <strong id="calcExchangeRateLabel" style="color: var(--text-color); font-family: var(--font-outfit);">1,364.50 KRW</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 15px; color: var(--text-color); font-weight: 700; margin-top: 2px;">
+              <span>예상 외화 수령액</span>
+              <strong id="calcEstimatedForeignLabel" style="color: var(--toss-blue); font-family: var(--font-outfit);">$73.28</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. AdSense Compliance Educational Article Card -->
     <div class="card" id="educationalCard">
       <div class="card-title">
         <span>글로벌 변동성과 리스크 관리 가이드</span>
@@ -1195,66 +1375,6 @@
             개인 투자자들이 흔히 겪는 실패 요인 중 하나는 '시장 공포와 탐욕 지수'의 양극단에 도달했을 때 감정적으로 뇌동 매매를 집행하는 것입니다. 이를 통제하기 위해 본 플랫폼의 <strong>X-AI 신경망 시그널 피드</strong>와 같은 기술적 계량 통계를 객관적으로 참고하고, 개인의 자산 대비 리스크 허용치(최대 낙폭 MDD) 한계를 사전에 계산하여 기계적 분할 매매 원칙을 철저히 고수하는 시스템 트레이딩 방식의 접근이 필수적입니다.
           </p>
         </div>
-      </div>
-    </div>
-
-    <!-- 6. Forum Discussion Card (Disqus) -->
-    <div class="disqus-card" id="loungeCard">
-      <div class="card-title" style="margin-bottom: 8px;">
-        <span>실시간 주주 토론 라운지</span>
-      </div>
-      <div class="card-subtitle" style="margin-bottom: 20px;">투자 아이디어와 시세 분석 의견을 자유롭게 나누어 보세요.</div>
-      
-      <div id="disqus_thread"></div>
-      <script>
-          var disqus_config = function () {
-            this.page.url = window.location.href;
-            this.page.identifier = window.location.pathname;
-          };
-          (function() {
-          var d = document, s = d.createElement('script');
-          s.src = 'https://product-blider.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
-          })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
-
-    <!-- 7. Partnership Formspree Inquiry Card -->
-    <div class="card">
-      <div class="card-title">
-        <span>X-Invest 비즈니스 제휴 제안</span>
-      </div>
-      <div class="card-subtitle" style="margin-bottom: 20px;">데이터 연동 및 전략적 비즈니스 파트너십 문의를 전달하실 수 있습니다.</div>
-      
-      <form id="contactForm">
-        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; text-align: left;">
-          <label style="font-size: 13px; font-weight: 600; color: var(--text-sub); margin-left: 2px;">제안자명 / 회사명</label>
-          <input type="text" id="compName" name="name" class="trade-input" placeholder="성함 또는 기업명을 입력해 주세요" required>
-        </div>
-        
-        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; text-align: left;">
-          <label style="font-size: 13px; font-weight: 600; color: var(--text-sub); margin-left: 2px;">회신받으실 이메일 주소</label>
-          <input type="email" id="emailAddr" name="email" class="trade-input" placeholder="이메일 주소를 입력해 주세요" required>
-        </div>
-        
-        <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; text-align: left;">
-          <label style="font-size: 13px; font-weight: 600; color: var(--text-sub); margin-left: 2px;">제안 및 문의 내용</label>
-          <textarea id="messageText" name="message" class="trade-input" rows="4" placeholder="상세 제안 내용을 적어주세요" style="resize: none;" required></textarea>
-        </div>
-
-        <button type="submit" id="formSubmitBtn" class="btn-action buy" style="width: 100%; border-radius: 14px; margin-top: 8px;">
-          제휴 제안서 제출
-        </button>
-      </form>
-      
-      <!-- Success State (Hidden by default) -->
-      <div id="formSuccessState" style="display: none; text-align: center; padding: 24px 0;">
-        <div style="font-size: 40px; margin-bottom: 12px;">✉️</div>
-        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">소중한 제안이 전달되었습니다</h3>
-        <p style="font-size: 13px; color: var(--text-sub); line-height: 1.5;">남겨주신 이메일 주소를 확인하여<br>최대한 빠른 시일 내에 성실히 답변해 드리겠습니다.</p>
-        <button id="formResetBtn" class="btn-pct" style="margin-top: 16px; display: inline-flex; width: auto; padding: 10px 20px; font-size: 13px;">새로 문의하기</button>
       </div>
     </div>
 
@@ -1288,19 +1408,12 @@
         
         <h4>1. 개인정보 직접 수집 제한</h4>
         <p>본 사이트는 별도의 회원 가입이나 개인 신원 식별 정보의 로그인을 원칙적으로 요구하지 않으며, 투자자 정보를 수집하거나 서버에 강제 기록하여 마케팅에 이용하지 않습니다.</p>
-        
-        <h4>2. 제휴 문의 및 외부 API 수집 정보</h4>
-        <p>일부 외부 연동 기능을 통하여 사용자가 기입 및 서명한 내용에 한해 간접 처리가 발생할 수 있습니다.</p>
-        <ul>
-          <li><strong>비즈니스 제휴 문의 (Formspree)</strong>: 성함/회사명, 이메일 주소, 제안 사항 (파트너십 회신 용도로만 보관되며 회신 완료 시 파기됩니다.)</li>
-          <li><strong>주주 토론 댓글 (Disqus)</strong>: 소셜 댓글 게재 시 필요한 Disqus 계정 토큰 및 작성 코멘트 (Disqus의 안전한 개인정보 규정에 따릅니다.)</li>
-        </ul>
 
-        <h4>3. 구글 애드센스 쿠키 및 광고 광고 제공 지침</h4>
+        <h4>2. 구글 애드센스 쿠키 및 광고 제공 지침</h4>
         <p>본 서비스는 웹 브라우저에 타사 쿠키(Third-party Cookie)를 생성하여 사용자의 관심 지향형 광고를 서빙할 수 있도록 구글 애드센스 시스템을 연동하고 있습니다. 이용자는 이용하시는 기기 웹 브라우저 설정에서 쿠키 거부를 임의 지정하실 수 있습니다.</p>
 
-        <h4>4. 문의 및 개인정보보호 책임처</h4>
-        <p>문의사항은 사이트 내부의 **[비즈니스 제휴 제안]** 양식을 작성하여 발송해 주시면 담당자에게 안전히 전달됩니다.</p>
+        <h4>3. 개인정보보호 책임처</h4>
+        <p>문의사항이나 개인정보 관련 피드백은 사이트 내부 담당자 공식 관리 메일 주소를 통해 문의해 주시기 바랍니다.</p>
       </div>
     </div>
   </div>
@@ -1315,6 +1428,7 @@
       theme: 'dark',
       activeTerminalAsset: 'TSLA',
       activeTradingAsset: 'TSLA',
+      activeCalcCurrency: 'USD',
       wallet: {
         cash: 10000.00,
         portfolio: {
@@ -1331,6 +1445,11 @@
         AAPL: { name: 'AAPL / USD', price: 172.80, startPrice: 172.80, pct: 0, history: [] },
         BTC:  { name: 'BTC / USD',  price: 67500.00, startPrice: 67500.00, pct: 0, history: [] },
         ETH:  { name: 'ETH / USD',  price: 3500.00, startPrice: 3500.00, pct: 0, history: [] }
+      },
+      forex: {
+        USD: { name: '원/달러', price: 1364.50, startPrice: 1364.50, pct: 0, flag: '🇺🇸', code: 'USD / KRW' },
+        JPY: { name: '원/엔 (100엔)', price: 868.20, startPrice: 868.20, pct: 0, flag: '🇯🇵', code: '100 JPY / KRW' },
+        EUR: { name: '원/유로', price: 1482.40, startPrice: 1482.40, pct: 0, flag: '🇪🇺', code: 'EUR / KRW' }
       },
       sentiment: 64
     };
@@ -1362,11 +1481,10 @@
     const portfolioTableBody = document.getElementById('portfolioTableBody');
     const emptyPortfolioRow = document.getElementById('emptyPortfolioRow');
 
-    // Contact Form Elements
-    const contactForm = document.getElementById('contactForm');
-    const formSuccessState = document.getElementById('formSuccessState');
-    const formSubmitBtn = document.getElementById('formSubmitBtn');
-    const formResetBtn = document.getElementById('formResetBtn');
+    // Forex Calculator Elements
+    const calcExchangeRateLabel = document.getElementById('calcExchangeRateLabel');
+    const calcEstimatedForeignLabel = document.getElementById('calcEstimatedForeignLabel');
+    const calcKrwInput = document.getElementById('calcKrwInput');
 
     // Chart drawing helpers
     let chartResizeTimeout;
@@ -1383,7 +1501,7 @@
           p = p * (1 + (Math.random() - 0.5) * 0.004);
           state.assets[key].history.push(p);
         }
-        state.assets[key].price = p; // set current to last pre-calculated price
+        state.assets[key].price = p;
       });
 
       // Layout Resize Canvas listener
@@ -1415,6 +1533,20 @@
         });
       });
 
+      // Connect Forex Calculator Currency tab selector
+      document.querySelectorAll('#calcCurrencySelector .calc-currency-tab').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          document.querySelectorAll('#calcCurrencySelector .calc-currency-tab').forEach(b => b.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+          state.activeCalcCurrency = e.currentTarget.dataset.curr;
+          updateForexCalculator();
+        });
+      });
+
+      // Input changes for Forex Calculator
+      calcKrwInput.addEventListener('input', updateForexCalculator);
+      calcKrwInput.addEventListener('change', updateForexCalculator);
+
       // Trade quantity input change listener
       tradeQuantityInput.addEventListener('input', updateEstimatedTradeTotal);
       tradeQuantityInput.addEventListener('change', updateEstimatedTradeTotal);
@@ -1424,11 +1556,6 @@
         btn.addEventListener('click', (e) => {
           const pct = parseFloat(e.currentTarget.dataset.pct);
           const currentPrice = state.assets[state.activeTradingAsset].price;
-          
-          if (btn.closest('.card').querySelector('.btn-action.sell')) {
-            // Apply pct to owned quantity for sell or balance for buy
-          }
-          // Simple Toss style buying power helper
           const maxBuyQuantity = state.wallet.cash / currentPrice;
           const targetQty = (maxBuyQuantity * pct).toFixed(4);
           tradeQuantityInput.value = targetQty > 0 ? targetQty : 1;
@@ -1449,15 +1576,14 @@
       // Bind modal and navigation controls
       bindLayoutElements();
 
-      // Formspree Setup
-      setupFormspree();
-
       // First layout draw
       updateChartDetails();
       updateTradingFormDetails();
       updatePortfolioUI();
       updateOrderBook();
-      tickAiSignals(); // draw first signal immediately
+      updateForexUI();
+      updateForexCalculator();
+      tickAiSignals();
     }
 
     // Bind theme, modal overlay, and scrolling
@@ -1506,8 +1632,6 @@
     // Set Default Dark Theme & Toggle Controls
     function setupTheme() {
       const savedTheme = localStorage.getItem('x-invest-theme');
-      
-      // Default to dark if not set
       if (savedTheme === 'light') {
         setTheme('light');
       } else {
@@ -1532,7 +1656,7 @@
         sunIcon.style.display = 'none';
         moonIcon.style.display = 'block';
       }
-      renderChart(); // redraw charts with theme sensitive color schemes
+      renderChart();
     }
 
     // Adjust high DPI canvas resolution
@@ -1553,8 +1677,8 @@
       // 1. Tick prices for all assets via Gaussian random walk
       Object.keys(state.assets).forEach(key => {
         const asset = state.assets[key];
-        const volatility = key === 'BTC' || key === 'ETH' ? 0.007 : 0.005; // crypto is more volatile
-        const delta = (Math.random() - 0.505) * 2 * volatility; // slight downward pressure to prevent runaway bubbles
+        const volatility = key === 'BTC' || key === 'ETH' ? 0.007 : 0.005;
+        const delta = (Math.random() - 0.505) * 2 * volatility;
         
         asset.price = Math.max(0.01, asset.price * (1 + delta));
         asset.history.push(asset.price);
@@ -1562,11 +1686,18 @@
           asset.history.shift();
         }
         
-        // Calculate percentage change from session start
         asset.pct = ((asset.price - asset.startPrice) / asset.startPrice) * 100;
       });
 
-      // 2. Randomly tick market sentiment indices
+      // 2. Tick prices for Forex Exchange Rates (much less volatile)
+      Object.keys(state.forex).forEach(key => {
+        const curr = state.forex[key];
+        const delta = (Math.random() - 0.502) * 2 * 0.0018; // 0.18% max swing
+        curr.price = Math.max(0.01, curr.price * (1 + delta));
+        curr.pct = ((curr.price - curr.startPrice) / curr.startPrice) * 100;
+      });
+
+      // 3. Randomly tick market sentiment indices
       state.sentiment = Math.max(5, Math.min(95, state.sentiment + Math.floor((Math.random() - 0.49) * 3)));
       const sentimentGauge = document.getElementById('sentimentGauge');
       const sentimentLabel = document.getElementById('sentimentLabel');
@@ -1589,15 +1720,17 @@
         sentimentLabel.style.color = 'var(--neon-red)';
       }
 
-      // 3. Update global top marquee ticker values
+      // 4. Update global top marquee ticker values
       updateTopTickerUI();
 
-      // 4. Update core elements live
+      // 5. Update core elements live
       updateChartDetails();
       renderChart();
       updateOrderBook();
       updateTradingFormDetails();
       updatePortfolioUI();
+      updateForexUI();
+      updateForexCalculator();
     }
 
     // Top Marquee continuous 시세 업데이트
@@ -1608,13 +1741,12 @@
       const indices = [
         { label: 'NASDAQ', price: 16211.5 * (state.assets.NVDA.price / 920.5), pct: state.assets.NVDA.pct * 0.4 },
         { label: 'S&P 500', price: 5190.2 * (state.assets.AAPL.price / 172.8), pct: state.assets.AAPL.pct * 0.3 },
-        { label: 'USDKRW', price: 1364.5 * (1 + (state.assets.BTC.price - 67500) / 1000000), pct: -(state.assets.BTC.pct * 0.05) },
+        { label: 'USDKRW', price: state.forex.USD.price, pct: state.forex.USD.pct },
         { label: 'BTC/USD', price: state.assets.BTC.price, pct: state.assets.BTC.pct },
         { label: 'NVDA', price: state.assets.NVDA.price, pct: state.assets.NVDA.pct },
         { label: 'TSLA', price: state.assets.TSLA.price, pct: state.assets.TSLA.pct }
       ];
 
-      // Build HTML string twice to support loop
       for (let repeat = 0; repeat < 2; repeat++) {
         indices.forEach(idx => {
           const isUp = idx.pct >= 0;
@@ -1665,22 +1797,18 @@
       
       ctx.clearRect(0, 0, w, h);
 
-      // Calculate chart boundaries
       const minVal = Math.min(...history) * 0.999;
       const maxVal = Math.max(...history) * 1.001;
       const range = maxVal - minVal;
 
-      // Coordinate converter helper
       const getX = (idx) => (idx / (history.length - 1)) * w;
       const getY = (val) => h - 15 - ((val - minVal) / range) * (h - 30);
 
-      // Determine colors based on last price movement compared to session start
       const isUp = asset.price >= asset.startPrice;
       const lineColor = isUp ? '#00F5A0' : '#FF3B30';
       const gradientStart = isUp ? 'rgba(0, 245, 160, 0.22)' : 'rgba(255, 59, 48, 0.22)';
       const shadowColor = isUp ? 'rgba(0, 245, 160, 0.4)' : 'rgba(255, 59, 48, 0.4)';
 
-      // 1. Draw smooth Bezier curve line
       ctx.beginPath();
       ctx.moveTo(getX(0), getY(history[0]));
       
@@ -1700,9 +1828,8 @@
       ctx.shadowBlur = 10;
       ctx.shadowColor = shadowColor;
       ctx.stroke();
-      ctx.shadowBlur = 0; // reset shadow
+      ctx.shadowBlur = 0;
 
-      // 2. Draw under-area gradient fill
       ctx.lineTo(w, h);
       ctx.lineTo(0, h);
       ctx.closePath();
@@ -1714,24 +1841,21 @@
       ctx.fillStyle = grad;
       ctx.fill();
 
-      // 3. Draw highest/lowest horizontal dotted indicator lines
       ctx.setLineDash([3, 4]);
       ctx.strokeStyle = 'rgba(138, 149, 161, 0.3)';
       ctx.lineWidth = 0.8;
       
-      // Highest price line
       ctx.beginPath();
       ctx.moveTo(0, getY(Math.max(...history)));
       ctx.lineTo(w, getY(Math.max(...history)));
       ctx.stroke();
       
-      // Lowest price line
       ctx.beginPath();
       ctx.moveTo(0, getY(Math.min(...history)));
       ctx.lineTo(w, getY(Math.min(...history)));
       ctx.stroke();
       
-      ctx.setLineDash([]); // reset line dash
+      ctx.setLineDash([]);
     }
 
     // Update Simulated Order Book depth sizes dynamically
@@ -1757,7 +1881,6 @@
       const formatPrice = (pr) => pr.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const formatSize = (sz) => sz.toLocaleString();
 
-      // Render Asks
       asks.forEach((ask, idx) => {
         const i = 4 - idx;
         document.getElementById(`askPrice${i}`).textContent = formatPrice(ask.price);
@@ -1765,12 +1888,10 @@
         document.getElementById(`askRow${i}`).querySelector('.book-depth-bar').style.width = ask.pct + '%';
       });
 
-      // Spread calculation
       const spreadVal = asks[3].price - bids[0].price;
       const spreadPct = (spreadVal / p) * 100;
       document.getElementById('bookSpread').textContent = `SPREAD: ${spreadVal.toFixed(2)} (${spreadPct.toFixed(2)}%)`;
 
-      // Render Bids
       bids.forEach((bid, idx) => {
         const i = idx + 1;
         document.getElementById(`bidPrice${i}`).textContent = formatPrice(bid.price);
@@ -1779,12 +1900,12 @@
       });
     }
 
-    // Simulated AI neural analytics ticker signals feed (9 seconds intervals)
+    // Simulated AI neural analytics ticker signals feed
     function tickAiSignals() {
       const keys = Object.keys(state.assets);
       const randomKey = keys[Math.floor(Math.random() * keys.length)];
       const asset = state.assets[randomKey];
-      const isUp = Math.random() > 0.48; // slightly bullish biases
+      const isUp = Math.random() > 0.48;
       
       const signals = {
         buy: [
@@ -1816,15 +1937,12 @@
         <div class="signal-desc">${randomDesc}</div>
       `;
 
-      // Prepend to feed
       timelineEl.insertBefore(newCard, timelineEl.firstChild);
       
-      // Limit children to 6 nodes
       while (timelineEl.children.length > 6) {
         timelineEl.removeChild(timelineEl.lastChild);
       }
 
-      // Smoothly update timestamps on other feeds
       Array.from(timelineEl.children).forEach((child, index) => {
         if (index > 0) {
           child.querySelector('.signal-header-row span:last-child').textContent = `${index * 2}분 전`;
@@ -1871,7 +1989,6 @@
         return;
       }
 
-      // Execute order transaction
       state.wallet.cash -= totalCost;
       
       const portfolioItem = state.wallet.portfolio[assetKey];
@@ -1904,7 +2021,6 @@
         return;
       }
 
-      // Execute order transaction
       const totalProceeds = qty * asset.price;
       state.wallet.cash += totalProceeds;
       
@@ -1952,11 +2068,9 @@
         }
       });
 
-      // Update total asset counters
       totalAssetBalanceEl.textContent = '$' + totalAssetValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       walletCashEl.textContent = '$' + state.wallet.cash.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-      // Total session P&L 수익률 계산
       const initialCash = 10000.00;
       const totalPnlValue = totalAssetValue - initialCash;
       const totalPnlPct = (totalPnlValue / initialCash) * 100;
@@ -1981,6 +2095,52 @@
       }
     }
 
+    // Update Real-Time Forex Section UI (Added as requested)
+    function updateForexUI() {
+      const currencies = ['USD', 'JPY', 'EUR'];
+      currencies.forEach(curr => {
+        const item = state.forex[curr];
+        const isUp = item.pct >= 0;
+        const sign = isUp ? '+' : '';
+        const cls = isUp ? 'up' : 'down';
+        
+        const priceEl = document.getElementById(`forexPrice_${curr}`);
+        const pctEl = document.getElementById(`forexPct_${curr}`);
+        
+        priceEl.textContent = item.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        pctEl.textContent = `${sign}${item.pct.toFixed(2)}%`;
+        pctEl.className = `forex-pct ${cls}`;
+      });
+    }
+
+    // Real-time Forex Calculator 위젯 연산 로직
+    function updateForexCalculator() {
+      const activeCurr = state.activeCalcCurrency;
+      const rateItem = state.forex[activeCurr];
+      const inputKrw = parseFloat(calcKrwInput.value) || 0;
+      
+      // JPY는 100엔 기준이므로 연산 시 100으로 나눔
+      const rate = rateItem.price;
+      let result = 0;
+      let symbol = '$';
+
+      if (activeCurr === 'USD') {
+        result = inputKrw / rate;
+        symbol = '$';
+        calcExchangeRateLabel.textContent = `${rate.toFixed(2)} KRW / USD`;
+      } else if (activeCurr === 'JPY') {
+        result = (inputKrw / rate) * 100;
+        symbol = '¥';
+        calcExchangeRateLabel.textContent = `${rate.toFixed(2)} KRW / 100 JPY`;
+      } else if (activeCurr === 'EUR') {
+        result = inputKrw / rate;
+        symbol = '€';
+        calcExchangeRateLabel.textContent = `${rate.toFixed(2)} KRW / EUR`;
+      }
+
+      calcEstimatedForeignLabel.textContent = symbol + result.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
     // Trigger visual floating Toast notification
     let toastTimeout;
     function showToast(msg) {
@@ -1991,65 +2151,6 @@
       toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
       }, 2500);
-    }
-
-    // Formspree Setup API connector
-    function setupFormspree() {
-      if (!contactForm) return;
-      
-      contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        formSubmitBtn.disabled = true;
-        formSubmitBtn.textContent = '제출 전송 중...';
-
-        const formData = new FormData(contactForm);
-        
-        // **중요**: 실제 Formspree 사용 시 아래의 "YOUR_FORM_ID"를 본인의 폼 ID로 수정해 주세요.
-        // 예: const formspreeUrl = 'https://formspree.io/f/xbjnqjpv';
-        const formspreeUrl = 'https://formspree.io/f/mqejpppq';
-
-        try {
-          const response = await fetch(formspreeUrl, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              'Accept': 'application/json'
-            }
-          });
-
-          if (response.ok) {
-            // Success State
-            contactForm.style.display = 'none';
-            formSuccessState.style.display = 'block';
-            showToast('제휴 문의가 성공적으로 전송되었습니다.');
-          } else {
-            const data = await response.json();
-            if (Object.hasOwn(data, 'errors')) {
-              showToast(data.errors.map(error => error.message).join(", "));
-            } else {
-              showToast('제출 중 문제가 발생했습니다. 다시 시도해 주세요.');
-            }
-            formSubmitBtn.disabled = false;
-            formSubmitBtn.textContent = '제휴 제안서 제출';
-          }
-        } catch (error) {
-          showToast('네트워크 오류가 발생했습니다. 연결 상태를 확인해 주세요.');
-          formSubmitBtn.disabled = false;
-          formSubmitBtn.textContent = '제휴 제안서 제출';
-        }
-      });
-
-      // Reset Form Handler
-      if (formResetBtn) {
-        formResetBtn.addEventListener('click', function() {
-          contactForm.reset();
-          contactForm.style.display = 'block';
-          formSuccessState.style.display = 'none';
-          formSubmitBtn.disabled = false;
-          formSubmitBtn.textContent = '제휴 제안서 제출';
-        });
-      }
     }
 
     // Bind Initial setup trigger on Dom loaded
