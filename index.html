@@ -1719,6 +1719,272 @@
       .etf-mini-val { font-size: 12px; }
     }
 
+    /* ─────────── Portfolio Wizard ─────────── */
+    .wizard-progress {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .wizard-progress-bar {
+      flex: 1;
+      height: 4px;
+      border-radius: 4px;
+      background: var(--grey-medium);
+      transition: background 0.3s;
+    }
+    .wizard-progress-bar.done { background: var(--toss-blue); }
+
+    .wizard-step { display: none; flex-direction: column; gap: 16px; }
+    .wizard-step.active { display: flex; }
+
+    .wizard-question {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-color);
+      letter-spacing: -0.4px;
+      line-height: 1.35;
+    }
+    .wizard-sub {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-top: -8px;
+    }
+
+    .wizard-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 480px) {
+      .wizard-options { grid-template-columns: 1fr; gap: 8px; }
+      .wizard-question { font-size: 16px; }
+    }
+
+    .wizard-option {
+      background: var(--grey-light);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 16px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      font-family: var(--font-primary);
+      text-align: center;
+    }
+    .wizard-option:hover { background: var(--grey-medium); }
+    .wizard-option.selected {
+      border-color: var(--toss-blue);
+      background: var(--toss-blue-light);
+      transform: scale(1.03);
+    }
+    .wizard-option-emoji { font-size: 28px; }
+    .wizard-option-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-color);
+      line-height: 1.3;
+    }
+    .wizard-option-sub {
+      font-size: 11px;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    .wizard-result-banner {
+      background: linear-gradient(135deg, rgba(49,130,246,0.12), rgba(0,245,160,0.10));
+      border: 1.5px solid var(--toss-blue);
+      border-radius: 18px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .wizard-result-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--toss-blue);
+      letter-spacing: 0.3px;
+    }
+    .wizard-result-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--text-color);
+      letter-spacing: -0.5px;
+    }
+    .wizard-result-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+    .wizard-result-weights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .wizard-weight-chip {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+    .wizard-weight-chip-label { font-weight: 600; color: var(--text-sub); }
+    .wizard-weight-chip-val   { font-weight: 900; font-family: var(--font-outfit); color: var(--text-color); }
+
+    .wizard-action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .btn-wizard-secondary {
+      border: 1.5px solid var(--border-color);
+      background: transparent;
+      color: var(--text-sub);
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-primary);
+    }
+    .btn-wizard-secondary:hover { background: var(--grey-light); color: var(--text-color); }
+    .btn-wizard-primary {
+      background: var(--toss-blue);
+      color: #FFF;
+      border: none;
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-primary);
+      box-shadow: 0 4px 12px rgba(49,130,246,0.35);
+    }
+    .btn-wizard-primary:hover { background: var(--toss-blue-hover); }
+
+    /* ─────────── KPI Tooltip ─────────── */
+    .kpi-cell {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .kpi-label-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      color: var(--text-sub);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .kpi-tooltip-btn {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--grey-medium);
+      color: var(--grey-dark);
+      border: none;
+      font-size: 9px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s;
+      font-family: var(--font-outfit);
+    }
+    .kpi-tooltip-btn:hover { background: var(--toss-blue); color: #FFF; }
+    .kpi-tooltip-popup {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 0;
+      width: 200px;
+      background: #1F2635;
+      color: #E5E8EB;
+      font-size: 11px;
+      line-height: 1.55;
+      font-weight: 500;
+      padding: 10px 12px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      z-index: 50;
+      pointer-events: none;
+    }
+    .kpi-tooltip-popup::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 14px;
+      border: 6px solid transparent;
+      border-top-color: #1F2635;
+    }
+    .kpi-cell:hover .kpi-tooltip-popup,
+    .kpi-cell.tooltip-open .kpi-tooltip-popup { display: block; }
+
+    /* ─────────── Easy Interpretation Box ─────────── */
+    .easy-interpret-box {
+      background: linear-gradient(135deg, rgba(0,245,160,0.08), rgba(49,130,246,0.08));
+      border: 1.5px solid rgba(0,245,160,0.3);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+    .easy-interpret-box strong { color: var(--text-color); }
+    .easy-interpret-box .ei-amount { color: var(--neon-green); font-weight: 900; font-family: var(--font-outfit); font-size: 15px; }
+    .easy-interpret-box .ei-loss   { color: var(--neon-red);   font-weight: 800; font-family: var(--font-outfit); }
+
+    /* ─────────── Pro Mode Toggle (Order Book) ─────────── */
+    .pro-mode-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--grey-light);
+      border-radius: 12px;
+      margin-top: 4px;
+    }
+    .pro-mode-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pro-mode-label span { color: var(--toss-blue); }
+    .pro-toggle-btn {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-color);
+      background: var(--card-bg);
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-primary);
+    }
+    .pro-toggle-btn.active {
+      background: var(--toss-blue);
+      border-color: var(--toss-blue);
+      color: #FFF;
+    }
+    .order-book-panel { transition: opacity 0.25s, max-height 0.3s; }
+    .order-book-panel.hidden { display: none; }
+
     /* Guide Educational Articles */
     .guide-article-box {
       display: flex;
@@ -2218,7 +2484,13 @@
         <button class="asset-tab" data-asset="ETH">ETH</button>
       </div>
 
-      <div class="terminal-grid">
+      <!-- Pro Mode Toggle Row -->
+      <div class="pro-mode-toggle-row">
+        <div class="pro-mode-label">📖 오더북은 <span>Pro Mode</span>에서 확인할 수 있어요</div>
+        <button class="pro-toggle-btn" id="proModeToggleBtn" onclick="toggleProMode()">오더북 보기</button>
+      </div>
+
+      <div class="terminal-grid" id="terminalGrid">
         <!-- HTML5 Live Canvas Chart -->
         <div class="chart-panel">
           <div class="chart-header">
@@ -2237,8 +2509,8 @@
           </div>
         </div>
 
-        <!-- Real-Time Order Book -->
-        <div class="order-book-panel">
+        <!-- Real-Time Order Book (Pro Mode — hidden by default) -->
+        <div class="order-book-panel hidden" id="orderBookPanel">
           <div class="book-title">Order Book (Depth)</div>
           
           <!-- Asks -->
@@ -2392,115 +2664,187 @@
       </div>
     </div> <!-- /view-signals -->
 
-    <!-- 4. Interactive Portfolio Asset Allocator & Backtester -->
+    <!-- 4. Portfolio Page — Wizard + Allocator -->
     <div class="page-view" id="view-allocator">
+      <header style="padding: 8px 8px; margin-bottom: -4px;">
+        <div>
+          <h1>포트폴리오 만들기</h1>
+          <p>내 투자 성향에 맞는 자산 배분을 찾아드려요</p>
+        </div>
+      </header>
+
+      <!-- ── Wizard Card ── -->
+      <div class="card" id="wizardCard">
+        <div class="card-title">
+          <span>✨ 투자 성향 진단</span>
+          <span id="wizardStepIndicator" style="font-size: 12px; font-weight: 700; color: var(--text-sub);">1 / 2</span>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="wizard-progress">
+          <div class="wizard-progress-bar" id="wbar1"></div>
+          <div class="wizard-progress-bar" id="wbar2"></div>
+        </div>
+
+        <!-- Step 1: 투자 기간 -->
+        <div class="wizard-step active" id="wizardStep1">
+          <div class="wizard-question">얼마나 오래 투자할 생각이에요?</div>
+          <div class="wizard-sub">투자 기간이 길수록 더 공격적인 배분이 유리해요</div>
+          <div class="wizard-options">
+            <button class="wizard-option" data-step="1" data-value="short">
+              <span class="wizard-option-emoji">🐰</span>
+              <span class="wizard-option-label">1~2년</span>
+              <span class="wizard-option-sub">단기 저축 목적</span>
+            </button>
+            <button class="wizard-option" data-step="1" data-value="mid">
+              <span class="wizard-option-emoji">🚶</span>
+              <span class="wizard-option-label">3~5년</span>
+              <span class="wizard-option-sub">목돈 마련</span>
+            </button>
+            <button class="wizard-option" data-step="1" data-value="long">
+              <span class="wizard-option-emoji">🌳</span>
+              <span class="wizard-option-label">10년 이상</span>
+              <span class="wizard-option-sub">장기 자산 증식</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: 위험 감수 -->
+        <div class="wizard-step" id="wizardStep2">
+          <div class="wizard-question">투자한 돈이 -20% 빠지면 어떠세요?</div>
+          <div class="wizard-sub">솔직하게 골라주세요. 맞춤 포트폴리오가 달라져요</div>
+          <div class="wizard-options">
+            <button class="wizard-option" data-step="2" data-value="safe">
+              <span class="wizard-option-emoji">😱</span>
+              <span class="wizard-option-label">참을 수 없어요</span>
+              <span class="wizard-option-sub">원금 보존 최우선</span>
+            </button>
+            <button class="wizard-option" data-step="2" data-value="balanced">
+              <span class="wizard-option-emoji">😐</span>
+              <span class="wizard-option-label">좀 불안하지만..</span>
+              <span class="wizard-option-sub">수익과 안정 균형</span>
+            </button>
+            <button class="wizard-option" data-step="2" data-value="growth">
+              <span class="wizard-option-emoji">😎</span>
+              <span class="wizard-option-label">오히려 기회!</span>
+              <span class="wizard-option-sub">성장 최우선</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: 결과 -->
+        <div class="wizard-step" id="wizardStep3">
+          <div class="wizard-result-banner" id="wizardResultBanner"></div>
+          <div class="wizard-action-row">
+            <button class="btn-wizard-secondary" id="wizardRetryBtn">↩ 다시 진단</button>
+            <button class="btn-wizard-primary" id="wizardApplyBtn">이 포트폴리오로 시작 →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Allocator Card ── -->
       <div class="card" id="allocatorCard">
         <div class="card-title">
-          <span>글로벌 자산 배분 백테스터 (Portfolio Allocator)</span>
-          <span style="font-size: 11px; font-weight: 700; color: var(--toss-blue); background-color: var(--toss-blue-light); padding: 4px 8px; border-radius: 6px;">MPT 모형 탑재</span>
+          <span>자산 배분 조정 & 백테스트</span>
+          <span style="font-size: 11px; font-weight: 700; color: var(--toss-blue); background-color: var(--toss-blue-light); padding: 4px 8px; border-radius: 6px;">MPT 모형</span>
         </div>
-        <div class="card-subtitle">주식, 암호화폐, 안전자산, 국채의 투자 비중을 슬라이더로 조절하여 과거 시뮬레이션 성과(CAGR, MDD, Sharpe Ratio)를 즉시 정밀 백테스팅합니다.</div>
+        <div class="card-subtitle">슬라이더로 비중을 바꾸면 백테스트 결과가 즉시 업데이트돼요.</div>
 
-        <!-- Strategy Quick Presets -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0;">
-          <span style="font-size: 12px; font-weight: 600; color: var(--text-sub); display: flex; align-items: center; margin-right: 4px;">추천 포트폴리오 프리셋:</span>
-          <button class="btn-pct" style="padding: 6px 12px;" onclick="applyPreset('allweather')">레이 달리오 올웨더 (30:55:15)</button>
-          <button class="btn-pct" style="padding: 6px 12px;" onclick="applyPreset('classic')">전통 자산 배분 60/40</button>
-          <button class="btn-pct" style="padding: 6px 12px;" onclick="applyPreset('aggressive')">공격형 기술성장주 (80:20)</button>
-          <button class="btn-pct" style="padding: 6px 12px;" onclick="applyPreset('defense')">안정 자산 수호형</button>
+        <!-- Quick Presets -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+          <span style="font-size: 12px; font-weight: 600; color: var(--text-sub);">프리셋:</span>
+          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('allweather')">🌤 올웨더</button>
+          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('classic')">⚖️ 60/40</button>
+          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('aggressive')">🚀 공격형</button>
+          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('defense')">🛡️ 방어형</button>
         </div>
 
         <div class="terminal-grid">
-          <!-- Allocator Slider Forms -->
-          <div style="display: flex; flex-direction: column; gap: 14px; background-color: var(--grey-light); padding: 18px; border-radius: 18px; border: 1.5px solid var(--border-color);">
-            <div style="font-size: 13px; font-weight: 700; color: var(--text-color); border-bottom: 1.5px solid var(--border-color); padding-bottom: 8px; margin-bottom: 4px;">자산군별 포트폴리오 비중 설정</div>
-            
-            <!-- Asset 1: Stocks -->
+          <!-- Sliders -->
+          <div style="display:flex;flex-direction:column;gap:14px;background-color:var(--grey-light);padding:18px;border-radius:18px;border:1.5px solid var(--border-color);">
+            <div style="font-size:13px;font-weight:700;color:var(--text-color);border-bottom:1.5px solid var(--border-color);padding-bottom:8px;margin-bottom:4px;">자산군별 비중 설정</div>
             <div class="trade-control-group">
-              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
-                <span style="color: var(--text-color);">📈 글로벌 주식군 (TSLA, NVDA, AAPL)</span>
-                <strong id="weightLabel_equity" style="font-family: var(--font-outfit); color: var(--toss-blue);">40%</strong>
+              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
+                <span style="color:var(--text-color);">📈 글로벌 주식 (TSLA, NVDA, AAPL)</span>
+                <strong id="weightLabel_equity" style="font-family:var(--font-outfit);color:var(--toss-blue);">40%</strong>
               </div>
-              <input type="range" id="weight_equity" class="alloc-slider" min="0" max="100" value="40" style="width: 100%; height: 6px; background-color: var(--grey-medium); border-radius: 4px; outline: none; margin-top: 4px; accent-color: var(--toss-blue);">
+              <input type="range" id="weight_equity" class="alloc-slider" min="0" max="100" value="40" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:var(--toss-blue);">
             </div>
-
-            <!-- Asset 2: Crypto -->
             <div class="trade-control-group">
-              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
-                <span style="color: var(--text-color);">🪙 디지털 암호화폐 (BTC, ETH)</span>
-                <strong id="weightLabel_crypto" style="font-family: var(--font-outfit); color: var(--neon-green);">20%</strong>
+              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
+                <span style="color:var(--text-color);">🪙 암호화폐 (BTC, ETH)</span>
+                <strong id="weightLabel_crypto" style="font-family:var(--font-outfit);color:var(--neon-green);">20%</strong>
               </div>
-              <input type="range" id="weight_crypto" class="alloc-slider" min="0" max="100" value="20" style="width: 100%; height: 6px; background-color: var(--grey-medium); border-radius: 4px; outline: none; margin-top: 4px; accent-color: var(--neon-green);">
+              <input type="range" id="weight_crypto" class="alloc-slider" min="0" max="100" value="20" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:var(--neon-green);">
             </div>
-
-            <!-- Asset 3: Gold -->
             <div class="trade-control-group">
-              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
-                <span style="color: var(--text-color);">✨ 대표 안전자산 (Gold 금현물)</span>
-                <strong id="weightLabel_gold" style="font-family: var(--font-outfit); color: #F59F00;">15%</strong>
+              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
+                <span style="color:var(--text-color);">✨ 금 (Gold 현물)</span>
+                <strong id="weightLabel_gold" style="font-family:var(--font-outfit);color:#F59F00;">15%</strong>
               </div>
-              <input type="range" id="weight_gold" class="alloc-slider" min="0" max="100" value="15" style="width: 100%; height: 6px; background-color: var(--grey-medium); border-radius: 4px; outline: none; margin-top: 4px; accent-color: #F59F00;">
+              <input type="range" id="weight_gold" class="alloc-slider" min="0" max="100" value="15" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:#F59F00;">
             </div>
-
-            <!-- Asset 4: Bonds -->
             <div class="trade-control-group">
-              <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
-                <span style="color: var(--text-color);">🛡️ 장기 미국 국채 (Bond 채권군)</span>
-                <strong id="weightLabel_bond" style="font-family: var(--font-outfit); color: var(--grey-dark);">25%</strong>
+              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
+                <span style="color:var(--text-color);">🛡️ 미국 국채 (Bond)</span>
+                <strong id="weightLabel_bond" style="font-family:var(--font-outfit);color:var(--grey-dark);">25%</strong>
               </div>
-              <input type="range" id="weight_bond" class="alloc-slider" min="0" max="100" value="25" style="width: 100%; height: 6px; background-color: var(--grey-medium); border-radius: 4px; outline: none; margin-top: 4px; accent-color: var(--grey-dark);">
+              <input type="range" id="weight_bond" class="alloc-slider" min="0" max="100" value="25" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:var(--grey-dark);">
             </div>
-
-            <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; border-top: 1px dashed var(--border-color); padding-top: 10px; margin-top: 4px;">
-              <span>비중 총합 (Total Alloc)</span>
-              <strong id="weightTotalLabel" style="font-family: var(--font-outfit); color: var(--neon-green);">100%</strong>
+            <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;border-top:1px dashed var(--border-color);padding-top:10px;margin-top:4px;">
+              <span>비중 총합</span>
+              <strong id="weightTotalLabel" style="font-family:var(--font-outfit);color:var(--neon-green);">100%</strong>
             </div>
-
-            <button id="btnRunBacktest" class="btn-action buy" style="margin-top: 4px; font-weight: 800;">포트폴리오 백테스트 실행</button>
+            <button id="btnRunBacktest" class="btn-action buy" style="margin-top:4px;font-weight:800;">백테스트 실행</button>
           </div>
 
-          <!-- Backtest Visualizations & Analytics -->
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <!-- Pie Chart Card -->
-            <div style="background-color: #030712; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 180px; position: relative;">
-              <div style="font-size: 11px; font-weight: 700; color: var(--text-sub); align-self: flex-start; text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; width: 100%; text-align: left; margin-bottom: 8px;">Portfolio Alloc Pie-Chart</div>
-              <canvas id="pieChartCanvas" width="140" height="140" style="display: block; margin: 4px auto;"></canvas>
+          <!-- KPI + Pie -->
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="background-color:#030712;border:1.5px solid var(--border-color);border-radius:18px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text-sub);align-self:flex-start;text-transform:uppercase;border-bottom:1px solid var(--border-color);padding-bottom:4px;width:100%;margin-bottom:8px;">Portfolio Pie-Chart</div>
+              <canvas id="pieChartCanvas" width="140" height="140" style="display:block;margin:4px auto;"></canvas>
             </div>
 
-            <!-- MPT Stats Card -->
-            <div style="background-color: #030712; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 16px; display: flex; flex-direction: column; gap: 10px;">
-              <div style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; margin-bottom: 2px;">Backtest Analytics Report</div>
-              
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                <div style="display: flex; flex-direction: column;">
-                  <span style="font-size: 10px; color: var(--text-sub); font-weight: 600;">연평균 기대 수익률 (CAGR)</span>
-                  <strong id="report_cagr" style="font-size: 18px; font-weight: 800; color: var(--neon-green); font-family: var(--font-outfit);">+12.42%</strong>
+            <!-- KPI with tooltips -->
+            <div style="background-color:#030712;border:1.5px solid var(--border-color);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text-sub);text-transform:uppercase;border-bottom:1px solid var(--border-color);padding-bottom:4px;">Backtest Report</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                <div class="kpi-cell">
+                  <div class="kpi-label-row">연평균 수익률 (CAGR) <button class="kpi-tooltip-btn" onclick="toggleTooltip('ttCagr')">?</button></div>
+                  <strong id="report_cagr" style="font-size:18px;font-weight:800;color:var(--neon-green);font-family:var(--font-outfit);">+12.42%</strong>
+                  <div class="kpi-tooltip-popup" id="ttCagr">매년 평균 복리로 기대할 수 있는 수익률이에요. 은행 이자와 달리 복리라서 기간이 길수록 효과가 크게 늘어납니다.</div>
                 </div>
-                <div style="display: flex; flex-direction: column;">
-                  <span style="font-size: 10px; color: var(--text-sub); font-weight: 600;">역사적 최대 낙폭 (MDD)</span>
-                  <strong id="report_mdd" style="font-size: 18px; font-weight: 800; color: var(--neon-red); font-family: var(--font-outfit);">-8.54%</strong>
+                <div class="kpi-cell">
+                  <div class="kpi-label-row">최대 손실폭 (MDD) <button class="kpi-tooltip-btn" onclick="toggleTooltip('ttMdd')">?</button></div>
+                  <strong id="report_mdd" style="font-size:18px;font-weight:800;color:var(--neon-red);font-family:var(--font-outfit);">-8.54%</strong>
+                  <div class="kpi-tooltip-popup" id="ttMdd">과거 가장 안 좋았던 시기에 일시적으로 본 최대 손실이에요. MDD -20%면 1,000만원이 800만원까지 줄어든 적이 있다는 뜻입니다.</div>
                 </div>
-                <div style="display: flex; flex-direction: column;">
-                  <span style="font-size: 10px; color: var(--text-sub); font-weight: 600;">위험 조정 수익률 (Sharpe)</span>
-                  <strong id="report_sharpe" style="font-size: 18px; font-weight: 800; color: var(--toss-blue); font-family: var(--font-outfit);">1.42</strong>
+                <div class="kpi-cell">
+                  <div class="kpi-label-row">투자 효율 (Sharpe) <button class="kpi-tooltip-btn" onclick="toggleTooltip('ttSharpe')">?</button></div>
+                  <strong id="report_sharpe" style="font-size:18px;font-weight:800;color:var(--toss-blue);font-family:var(--font-outfit);">1.42</strong>
+                  <div class="kpi-tooltip-popup" id="ttSharpe">감수한 위험 대비 수익 효율을 0~3점으로 나타낸 점수예요. 1.0 이상이면 우수, 2.0 이상이면 매우 우수합니다.</div>
                 </div>
-                <div style="display: flex; flex-direction: column;">
-                  <span style="font-size: 10px; color: var(--text-sub); font-weight: 600;">포트폴리오 변동성</span>
-                  <strong id="report_vol" style="font-size: 18px; font-weight: 800; color: var(--text-color); font-family: var(--font-outfit);">7.85%</strong>
+                <div class="kpi-cell">
+                  <div class="kpi-label-row">연간 변동성 <button class="kpi-tooltip-btn" onclick="toggleTooltip('ttVol')">?</button></div>
+                  <strong id="report_vol" style="font-size:18px;font-weight:800;color:var(--text-color);font-family:var(--font-outfit);">7.85%</strong>
+                  <div class="kpi-tooltip-popup" id="ttVol">1년 동안 가격이 얼마나 출렁이는지 나타내요. 숫자가 클수록 단기 등락이 심해 마음이 불안할 수 있습니다.</div>
                 </div>
+              </div>
+              <!-- Easy Interpretation Box -->
+              <div class="easy-interpret-box">
+                💡 <strong>1,000만원 투자 시</strong> 10년 후 약 <span class="ei-amount" id="eiAmount">3,220만원</span>으로 성장할 수 있어요.<br>
+                최악의 해엔 <span class="ei-loss" id="eiLoss">약 85만원</span> 손실 가능성이 있어요.
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Allocation Advisory Report Card -->
-        <div style="background-color: var(--grey-light); border-radius: 18px; padding: 16px; border: 1px solid var(--border-color); text-align: left;">
-          <div style="font-size: 13px; font-weight: 700; color: var(--text-color); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+        <!-- Advisory -->
+        <div style="background-color:var(--grey-light);border-radius:18px;padding:16px;border:1px solid var(--border-color);">
+          <div style="font-size:13px;font-weight:700;color:var(--text-color);margin-bottom:6px;display:flex;align-items:center;gap:6px;">
             🤖 <span id="advisoryTitle">성향 분석: 균형감 있는 자산배분 포트폴리오</span>
           </div>
-          <p id="advisoryDesc" style="font-size: 12px; color: var(--text-sub); line-height: 1.6;">
-            주식과 안전자산의 균형감 있는 배분으로 장기 복리 성장세가 두드러지는 배분 포지션입니다. 변동성 관리가 뛰어나 최대 낙폭(MDD)이 견고하게 통제되며, 샤프 지수 기준 매우 우수한 투자 효용 가치를 증명합니다. 인플레이션 방어 자산(금)의 기여로 시장 충격 시 방어력이 훌륭합니다.
-          </p>
+          <p id="advisoryDesc" style="font-size:12px;color:var(--text-sub);line-height:1.6;">주식과 안전자산의 균형감 있는 배분으로 장기 복리 성장세가 두드러지는 배분 포지션입니다.</p>
         </div>
       </div>
     </div> <!-- /view-allocator -->
@@ -3005,6 +3349,13 @@
       renderVolumeSurges();
       renderThemeChips();
       renderEtfList();
+
+      // Portfolio wizard
+      initWizard();
+
+      // Pro mode: chart takes full width by default (order book hidden)
+      const initGrid = document.getElementById('terminalGrid');
+      if (initGrid) initGrid.style.gridTemplateColumns = '1fr';
 
       // Initialize Allocation Backtester UI
       syncSliderUI();
@@ -4002,8 +4353,16 @@
       advisoryTitle.textContent = title;
       advisoryDesc.textContent = desc;
 
+      // Easy Interpretation Box
+      const futureValue = Math.round(1000 * Math.pow(1 + cagr / 100, 10));
+      const maxLoss = Math.round(1000 * Math.abs(mdd) / 100);
+      const eiAmountEl = document.getElementById('eiAmount');
+      const eiLossEl   = document.getElementById('eiLoss');
+      if (eiAmountEl) eiAmountEl.textContent = futureValue.toLocaleString('ko-KR') + '만원';
+      if (eiLossEl)   eiLossEl.textContent   = '약 ' + maxLoss.toLocaleString('ko-KR') + '만원';
+
       if (triggerToast) {
-        showToast('자산 배분 백테스트 연산이 정상 완료되었습니다!');
+        showToast('백테스트 완료! 슬라이더를 움직여 비중을 바꿔보세요 📊');
       }
     }
 
@@ -4067,6 +4426,127 @@
         const priceEl = document.getElementById(`forexPrice_${curr}`);
         if (!priceEl) return;
         priceEl.textContent = item.price.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '원';
+      });
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // KPI Tooltip toggle (click to open/close on mobile)
+    // ─────────────────────────────────────────────────────────
+    function toggleTooltip(id) {
+      const cell = document.getElementById(id).closest('.kpi-cell');
+      const isOpen = cell.classList.contains('tooltip-open');
+      document.querySelectorAll('.kpi-cell.tooltip-open').forEach(c => c.classList.remove('tooltip-open'));
+      if (!isOpen) cell.classList.add('tooltip-open');
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Pro Mode — Order Book toggle
+    // ─────────────────────────────────────────────────────────
+    let proModeOn = false;
+    function toggleProMode() {
+      proModeOn = !proModeOn;
+      const panel = document.getElementById('orderBookPanel');
+      const btn   = document.getElementById('proModeToggleBtn');
+      const grid  = document.getElementById('terminalGrid');
+      if (proModeOn) {
+        panel.classList.remove('hidden');
+        btn.classList.add('active');
+        btn.textContent = '오더북 닫기';
+        if (grid) grid.style.gridTemplateColumns = '1.5fr 1fr';
+      } else {
+        panel.classList.add('hidden');
+        btn.classList.remove('active');
+        btn.textContent = '오더북 보기';
+        if (grid) grid.style.gridTemplateColumns = '1fr';
+      }
+      setTimeout(resizeCanvas, 60);
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Portfolio Wizard
+    // ─────────────────────────────────────────────────────────
+    const WIZARD_PRESETS = {
+      'long-growth':    { preset: 'aggressive', label: '🚀 공격형 성장 포트폴리오',   desc: '장기 투자 + 높은 위험 감수 → 가장 공격적인 배분이에요. 암호화폐·주식 비중이 높아 호황 시 폭발적 수익이 기대되지만, 단기 -30% 이상 낙폭도 감수해야 합니다.' },
+      'long-balanced':  { preset: 'classic',    label: '⚖️ 클래식 60/40 포트폴리오', desc: '장기 + 균형 성향에 딱 맞는 수십 년 검증 전략이에요. 주식 60%, 채권 40%로 성장성과 안정성을 균형 있게 추구합니다.' },
+      'long-safe':      { preset: 'allweather', label: '🌤 올웨더 포트폴리오',        desc: '장기 투자지만 안정을 우선해요. 레이 달리오의 올웨더 전략으로 어떤 경제 환경에서도 방어력을 유지합니다.' },
+      'mid-growth':     { preset: 'aggressive', label: '🚀 공격형 성장 포트폴리오',   desc: '중기 + 성장 성향. 변동성을 감수하고 적극적인 수익을 추구합니다.' },
+      'mid-balanced':   { preset: 'classic',    label: '⚖️ 클래식 60/40 포트폴리오', desc: '중기 + 균형 성향. 주식과 채권의 균형 잡힌 배분으로 안정적인 수익을 노려요.' },
+      'mid-safe':       { preset: 'defense',    label: '🛡️ 안정 자산 수호형',         desc: '중기 + 안전 우선. 금과 채권 비중을 높여 원금 보존에 집중합니다.' },
+      'short-growth':   { preset: 'classic',    label: '⚖️ 클래식 60/40 포트폴리오', desc: '단기지만 성장을 원하신다면 균형형을 추천해요. 단기에 너무 공격적인 배분은 위험할 수 있거든요.' },
+      'short-balanced': { preset: 'defense',    label: '🛡️ 안정 자산 수호형',         desc: '단기 + 균형. 단기 투자에서는 안정성이 중요해요. 방어형 배분을 추천드려요.' },
+      'short-safe':     { preset: 'defense',    label: '🛡️ 안정 자산 수호형',         desc: '단기 + 안전 최우선. 원금 보존에 집중하는 방어형 배분이에요.' },
+    };
+
+    const PRESET_WEIGHTS = {
+      'allweather': { equity: 30, crypto: 0,  gold: 15, bond: 55 },
+      'classic':    { equity: 60, crypto: 0,  gold: 0,  bond: 40 },
+      'aggressive': { equity: 80, crypto: 20, gold: 0,  bond: 0  },
+      'defense':    { equity: 10, crypto: 0,  gold: 40, bond: 50 },
+    };
+
+    function initWizard() {
+      const ws = { step: 1, horizon: null, risk: null };
+
+      document.querySelectorAll('.wizard-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const step  = parseInt(btn.getAttribute('data-step'));
+          const value = btn.getAttribute('data-value');
+
+          document.querySelectorAll(`.wizard-option[data-step="${step}"]`).forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+
+          if (step === 1) {
+            ws.horizon = value;
+            setTimeout(() => {
+              document.getElementById('wizardStep1').classList.remove('active');
+              document.getElementById('wizardStep2').classList.add('active');
+              document.getElementById('wizardStepIndicator').textContent = '2 / 2';
+              document.getElementById('wbar1').classList.add('done');
+            }, 320);
+          } else if (step === 2) {
+            ws.risk = value;
+            setTimeout(() => {
+              document.getElementById('wizardStep2').classList.remove('active');
+              document.getElementById('wizardStep3').classList.add('active');
+              document.getElementById('wizardStepIndicator').textContent = '완료 ✓';
+              document.getElementById('wbar2').classList.add('done');
+
+              const key     = `${ws.horizon}-${ws.risk}`;
+              const result  = WIZARD_PRESETS[key] || WIZARD_PRESETS['mid-balanced'];
+              const weights = PRESET_WEIGHTS[result.preset];
+
+              document.getElementById('wizardResultBanner').innerHTML = `
+                <div class="wizard-result-tag">✅ 진단 완료 · 추천 포트폴리오</div>
+                <div class="wizard-result-title">${result.label}</div>
+                <div class="wizard-result-desc">${result.desc}</div>
+                <div class="wizard-result-weights">
+                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">📈 주식</span><span class="wizard-weight-chip-val">${weights.equity}%</span></div>
+                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">🪙 코인</span><span class="wizard-weight-chip-val">${weights.crypto}%</span></div>
+                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">✨ 금</span><span class="wizard-weight-chip-val">${weights.gold}%</span></div>
+                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">🛡️ 채권</span><span class="wizard-weight-chip-val">${weights.bond}%</span></div>
+                </div>`;
+
+              document.getElementById('wizardApplyBtn').setAttribute('data-preset', result.preset);
+            }, 320);
+          }
+        });
+      });
+
+      document.getElementById('wizardApplyBtn').addEventListener('click', () => {
+        const presetKey = document.getElementById('wizardApplyBtn').getAttribute('data-preset') || 'classic';
+        applyPreset(presetKey);
+        document.getElementById('allocatorCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showToast('포트폴리오 적용 완료! 슬라이더로 미세조정 해보세요 👍');
+      });
+
+      document.getElementById('wizardRetryBtn').addEventListener('click', () => {
+        ws.step = 1; ws.horizon = null; ws.risk = null;
+        document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.wizard-option').forEach(b => b.classList.remove('selected'));
+        document.getElementById('wizardStep1').classList.add('active');
+        document.getElementById('wizardStepIndicator').textContent = '1 / 2';
+        document.getElementById('wbar1').classList.remove('done');
+        document.getElementById('wbar2').classList.remove('done');
       });
     }
 
