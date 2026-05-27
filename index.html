@@ -2188,20 +2188,6 @@
       });
     }
 
-    // Update active trading form elements
-    function updateTradingFormDetails() {
-      const asset = state.assets[state.activeTradingAsset];
-      const owned = state.wallet.portfolio[state.activeTradingAsset].qty;
-      
-      activeAssetOwnedLabelEl.textContent = `현재 보유: ${owned.toFixed(4)} 주`;
-      tradePriceLabelEl.textContent = '$' + asset.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      tradeFormUnitEl.textContent = `주 (${state.activeTradingAsset})`;
-      
-      updateEstimatedTradeTotal();
-    }
-
-    // Estimate total transaction cost
-    function updateEstimatedTradeTotal() {
     // Dynamic Slider adjustment algorithm to keep total sum exactly 100%
     function adjustSliders(changedAsset, newValue) {
       state.allocation[changedAsset] = newValue;
