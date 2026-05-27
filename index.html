@@ -2102,6 +2102,82 @@
     .easy-interpret-box .ei-amount { color: var(--neon-green); font-weight: 900; font-family: var(--font-outfit); font-size: 15px; }
     .easy-interpret-box .ei-loss   { color: var(--neon-red);   font-weight: 800; font-family: var(--font-outfit); }
 
+    /* ─────────── 3-Axis Segmented Diagnosis ─────────── */
+    .diag-section { display: flex; flex-direction: column; gap: 22px; }
+    .diag-axis { display: flex; flex-direction: column; gap: 8px; }
+    .diag-axis-tag { font-size: 10px; font-weight: 800; color: var(--toss-blue); letter-spacing: 0.6px; text-transform: uppercase; }
+    .diag-axis-q { font-size: 15px; font-weight: 800; color: var(--text-color); letter-spacing: -0.3px; line-height: 1.3; }
+    .seg-ctrl { display: flex; background: var(--grey-medium); border-radius: 12px; padding: 3px; gap: 2px; }
+    .seg-btn { flex: 1; padding: 9px 6px; border: none; background: transparent; border-radius: 9px; font-family: var(--font-primary); font-size: 12px; font-weight: 600; color: var(--text-sub); cursor: pointer; transition: all 0.2s; text-align: center; line-height: 1.35; word-break: keep-all; }
+    .seg-btn small { font-size: 10px; display: block; opacity: 0.75; margin-top: 1px; }
+    .seg-btn.active { background: var(--card-bg); color: var(--text-color); font-weight: 800; box-shadow: 0 1px 6px rgba(0,0,0,0.28); }
+    .seg-btn:hover:not(.active) { color: var(--text-color); background: rgba(255,255,255,0.05); }
+    .diag-result { background: linear-gradient(135deg, rgba(49,130,246,0.10), rgba(0,245,160,0.07)); border: 1.5px solid var(--toss-blue); border-radius: 16px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .diag-result-type { font-size: 10px; font-weight: 800; color: var(--toss-blue); letter-spacing: 0.5px; text-transform: uppercase; }
+    .diag-result-title { font-size: 16px; font-weight: 900; color: var(--text-color); letter-spacing: -0.4px; line-height: 1.3; }
+    .diag-result-rec { font-size: 12px; color: var(--text-sub); line-height: 1.65; }
+    .diag-apply-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; background: var(--toss-blue); border: none; border-radius: 10px; font-size: 12px; font-weight: 800; color: #fff; cursor: pointer; font-family: var(--font-primary); transition: all 0.2s; box-shadow: 0 3px 10px rgba(49,130,246,0.35); margin-top: 2px; }
+    .diag-apply-btn:hover { background: var(--toss-blue-hover); transform: translateY(-1px); }
+    @media (max-width: 600px) {
+      .seg-btn { font-size: 11px; padding: 8px 4px; }
+    }
+
+    /* ─────────── Allocation Amount/Pct Inputs ─────────── */
+    .alloc-total-wrap { display: flex; align-items: center; gap: 10px; background: var(--grey-light); border-radius: 14px; padding: 12px 16px; border: 1.5px solid var(--border-color); }
+    .alloc-total-label { font-size: 13px; font-weight: 700; color: var(--text-color); white-space: nowrap; }
+    .alloc-total-input { flex: 1; background: transparent; border: none; border-bottom: 2px solid var(--border-color); font-family: var(--font-outfit); font-size: 18px; font-weight: 900; color: var(--text-color); text-align: right; outline: none; padding: 2px 6px; min-width: 0; transition: border-color 0.2s; }
+    .alloc-total-input:focus { border-bottom-color: var(--toss-blue); }
+    .alloc-total-unit { font-size: 13px; font-weight: 700; color: var(--text-sub); white-space: nowrap; }
+    .alloc-col-headers { display: grid; grid-template-columns: 1fr 108px 82px 52px; gap: 6px; padding: 2px 14px; }
+    .alloc-col-hdr { font-size: 10px; font-weight: 700; color: var(--text-sub); text-align: right; text-transform: uppercase; letter-spacing: 0.3px; }
+    .alloc-col-hdr:first-child { text-align: left; }
+    .alloc-asset-list { display: flex; flex-direction: column; gap: 6px; }
+    .alloc-asset-row { display: grid; grid-template-columns: 1fr 108px 82px 52px; gap: 6px; align-items: center; background: var(--card-bg); border-radius: 12px; padding: 10px 14px; border: 1.5px solid var(--border-color); transition: border-color 0.2s; }
+    .alloc-asset-row:focus-within { border-color: var(--toss-blue); }
+    .alloc-asset-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .alloc-asset-name { font-size: 13px; font-weight: 800; color: var(--text-color); display: flex; align-items: center; gap: 5px; }
+    .alloc-asset-sub { font-size: 10px; color: var(--text-sub); font-weight: 500; padding-left: 13px; }
+    .alloc-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .alloc-input-cell { display: flex; align-items: center; gap: 3px; background: var(--grey-light); border: 1.5px solid var(--border-color); border-radius: 8px; padding: 6px 8px; transition: border-color 0.2s; }
+    .alloc-input-cell:focus-within { border-color: var(--toss-blue); background: rgba(49,130,246,0.05); }
+    .alloc-input-cell input { background: transparent; border: none; outline: none; font-family: var(--font-outfit); font-size: 13px; font-weight: 700; color: var(--text-color); text-align: right; width: 100%; min-width: 0; }
+    .alloc-input-unit { font-size: 10px; color: var(--text-sub); font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+    .alloc-quick-wrap { display: flex; flex-direction: column; gap: 3px; }
+    .alloc-quick-btn { border: 1px solid var(--border-color); background: var(--grey-light); border-radius: 6px; padding: 3px 5px; font-size: 10px; font-weight: 700; color: var(--text-sub); cursor: pointer; font-family: var(--font-primary); transition: all 0.15s; white-space: nowrap; text-align: center; line-height: 1.2; }
+    .alloc-quick-btn:hover { background: var(--toss-blue); border-color: var(--toss-blue); color: #fff; }
+    .alloc-bar-section { margin-top: 4px; display: flex; flex-direction: column; gap: 5px; }
+    .alloc-bar-label-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; }
+    .alloc-bar-label { color: var(--text-sub); }
+    .alloc-bar-val { font-family: var(--font-outfit); }
+    .alloc-progress-track { height: 5px; border-radius: 5px; background: var(--grey-medium); overflow: hidden; }
+    .alloc-progress-fill { height: 100%; border-radius: 5px; transition: width 0.3s cubic-bezier(0.16,1,0.3,1), background-color 0.3s; }
+    .alloc-validation-msg { font-size: 12px; font-weight: 700; color: var(--neon-red); padding: 8px 12px; border-radius: 8px; background: rgba(255,59,48,0.08); border: 1px solid rgba(255,59,48,0.2); text-align: center; display: none; }
+
+    @media (max-width: 520px) {
+      .alloc-asset-row, .alloc-col-headers { grid-template-columns: 1fr 92px 68px 44px; gap: 4px; }
+      .alloc-asset-row { padding: 10px 10px; }
+      .alloc-input-cell { padding: 5px 6px; }
+      .alloc-input-cell input { font-size: 12px; }
+      .alloc-quick-btn { font-size: 9px; padding: 3px 3px; }
+      .alloc-col-headers { padding: 2px 10px; }
+    }
+
+    /* ─────────── Backtest Run Button & Spinner ─────────── */
+    @keyframes btn-spin { to { transform: rotate(360deg); } }
+    .btn-spin-icon { width: 14px; height: 14px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: btn-spin 0.7s linear infinite; display: inline-block; flex-shrink: 0; }
+    .btn-run-backtest { width: 100%; padding: 14px 20px; border: none; border-radius: 14px; background: var(--toss-blue); color: #fff; font-family: var(--font-primary); font-size: 14px; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(49,130,246,0.35); display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-run-backtest:hover:not(:disabled) { background: var(--toss-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(49,130,246,0.4); }
+    .btn-run-backtest:disabled { background: var(--grey-medium); color: var(--grey-dark); box-shadow: none; cursor: not-allowed; transform: none; }
+    .btn-run-backtest.is-loading { background: #1d4ed8; }
+
+    /* ─────────── Backtest Line Chart ─────────── */
+    .bt-chart-box { background: #030712; border: 1.5px solid var(--border-color); border-radius: 18px; padding: 16px; }
+    .bt-chart-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .bt-chart-lbl { font-size: 10px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.4px; }
+    .bt-chart-return { font-size: 24px; font-weight: 900; font-family: var(--font-outfit); line-height: 1; }
+    .bt-chart-sub { font-size: 10px; color: var(--text-sub); margin-top: 3px; }
+    #btLineCanvas { display: block; width: 100%; }
+
     /* ─────────── Pro Mode Toggle (Order Book) ─────────── */
     .pro-mode-toggle-row {
       display: flex;
@@ -3173,69 +3249,57 @@
       <header style="padding: 8px 8px; margin-bottom: -4px;">
         <div>
           <h1>포트폴리오 만들기</h1>
-          <p>내 투자 성향에 맞는 자산 배분을 찾아드려요</p>
+          <p>3축 성향 진단부터 과거 10년 시뮬레이션까지</p>
         </div>
       </header>
 
-      <!-- ── Wizard Card ── -->
-      <div class="card" id="wizardCard">
+      <!-- ── Diagnosis Card ── -->
+      <div class="card" id="diagCard">
         <div class="card-title">
           <span>투자 성향 진단</span>
-          <span id="wizardStepIndicator" style="font-size: 12px; font-weight: 700; color: var(--text-sub);">1 / 2</span>
+          <span style="font-size:11px;font-weight:800;color:var(--toss-blue);background:var(--toss-blue-light);padding:4px 8px;border-radius:6px;">3축 분석</span>
         </div>
+        <div class="card-subtitle">경력 · 지식 · 손실 감내도 세 가지 축으로 나만의 투자 유형을 정밀 진단합니다</div>
 
-        <!-- Progress Bar -->
-        <div class="wizard-progress">
-          <div class="wizard-progress-bar" id="wbar1"></div>
-          <div class="wizard-progress-bar" id="wbar2"></div>
-        </div>
-
-        <!-- Step 1: 투자 기간 -->
-        <div class="wizard-step active" id="wizardStep1">
-          <div class="wizard-question">얼마나 오래 투자할 생각이에요?</div>
-          <div class="wizard-sub">투자 기간이 길수록 더 공격적인 배분이 유리해요</div>
-          <div class="wizard-options">
-            <button class="wizard-option" data-step="1" data-value="short">
-              <span class="wizard-option-label">1~2년</span>
-              <span class="wizard-option-sub">단기 저축 목적</span>
-            </button>
-            <button class="wizard-option" data-step="1" data-value="mid">
-              <span class="wizard-option-label">3~5년</span>
-              <span class="wizard-option-sub">목돈 마련</span>
-            </button>
-            <button class="wizard-option" data-step="1" data-value="long">
-              <span class="wizard-option-label">10년 이상</span>
-              <span class="wizard-option-sub">장기 자산 증식</span>
-            </button>
+        <div class="diag-section">
+          <!-- Axis 1: Experience -->
+          <div class="diag-axis">
+            <div class="diag-axis-tag">축 01 · 투자 경력</div>
+            <div class="diag-axis-q">투자를 시작한 지 얼마나 됐나요?</div>
+            <div class="seg-ctrl">
+              <button class="seg-btn active" data-axis="exp" data-val="novice">1년 미만</button>
+              <button class="seg-btn" data-axis="exp" data-val="mid">1~3년</button>
+              <button class="seg-btn" data-axis="exp" data-val="expert">3년 이상</button>
+            </div>
           </div>
-        </div>
 
-        <!-- Step 2: 위험 감수 -->
-        <div class="wizard-step" id="wizardStep2">
-          <div class="wizard-question">투자한 돈이 -20% 빠지면 어떠세요?</div>
-          <div class="wizard-sub">솔직하게 골라주세요. 맞춤 포트폴리오가 달라져요</div>
-          <div class="wizard-options">
-            <button class="wizard-option" data-step="2" data-value="safe">
-              <span class="wizard-option-label">참을 수 없어요</span>
-              <span class="wizard-option-sub">원금 보존 최우선</span>
-            </button>
-            <button class="wizard-option" data-step="2" data-value="balanced">
-              <span class="wizard-option-label">좀 불안하지만..</span>
-              <span class="wizard-option-sub">수익과 안정 균형</span>
-            </button>
-            <button class="wizard-option" data-step="2" data-value="growth">
-              <span class="wizard-option-label">오히려 기회!</span>
-              <span class="wizard-option-sub">성장 최우선</span>
-            </button>
+          <!-- Axis 2: Knowledge -->
+          <div class="diag-axis">
+            <div class="diag-axis-tag">축 02 · 금융 지식</div>
+            <div class="diag-axis-q">나의 금융 이해 수준은?</div>
+            <div class="seg-ctrl">
+              <button class="seg-btn active" data-axis="know" data-val="basic">기초 수준<small>예적금·주식 위주</small></button>
+              <button class="seg-btn" data-axis="know" data-val="advanced">전문 이해<small>채권·파생·매크로</small></button>
+            </div>
           </div>
-        </div>
 
-        <!-- Step 3: 결과 -->
-        <div class="wizard-step" id="wizardStep3">
-          <div class="wizard-result-banner" id="wizardResultBanner"></div>
-          <div class="wizard-action-row">
-            <button class="btn-wizard-secondary" id="wizardRetryBtn">↩ 다시 진단</button>
-            <button class="btn-wizard-primary" id="wizardApplyBtn">이 포트폴리오로 시작 →</button>
+          <!-- Axis 3: MDD Tolerance -->
+          <div class="diag-axis">
+            <div class="diag-axis-tag">축 03 · 감내 손실률 (MDD)</div>
+            <div class="diag-axis-q">투자금이 얼마나 빠지면 잠을 못 자나요?</div>
+            <div class="seg-ctrl">
+              <button class="seg-btn active" data-axis="mdd" data-val="low">원금 보존<small>-5% 미만</small></button>
+              <button class="seg-btn" data-axis="mdd" data-val="mid">중간 감내<small>-15% 내외</small></button>
+              <button class="seg-btn" data-axis="mdd" data-val="high">고위험 감내<small>-30% 이상</small></button>
+            </div>
+          </div>
+
+          <!-- Result -->
+          <div class="diag-result">
+            <div class="diag-result-type">INVESTOR TYPE ANALYSIS</div>
+            <div class="diag-result-title" id="diagResultTitle">안전을 추구하는 초보 투자자형</div>
+            <div class="diag-result-rec" id="diagResultRec">원금 보존에 집중하는 방어형 배분이 적합합니다. 채권·금 비중을 높인 올웨더 전략을 추천드려요.</div>
+            <button class="diag-apply-btn" id="diagApplyBtn">이 배분으로 백테스트 →</button>
           </div>
         </div>
       </div>
@@ -3244,93 +3308,181 @@
       <div class="card" id="allocatorCard">
         <div class="card-title">
           <span>자산 배분 조정 & 백테스트</span>
-          <span style="font-size: 11px; font-weight: 700; color: var(--toss-blue); background-color: var(--toss-blue-light); padding: 4px 8px; border-radius: 6px;">MPT 모형</span>
+          <span style="font-size:11px;font-weight:700;color:var(--toss-blue);background:var(--toss-blue-light);padding:4px 8px;border-radius:6px;">MPT 모형</span>
         </div>
-        <div class="card-subtitle">슬라이더로 비중을 바꾸면 백테스트 결과가 즉시 업데이트돼요.</div>
+        <div class="card-subtitle">금액 또는 비율을 직접 입력하거나 프리셋을 골라 배분 후, 10년 시뮬레이션으로 성과를 확인하세요.</div>
 
-        <!-- Quick Presets -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-          <span style="font-size: 12px; font-weight: 600; color: var(--text-sub);">프리셋:</span>
-          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('allweather')">올웨더</button>
-          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('classic')">60/40</button>
-          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('aggressive')">공격형</button>
-          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('defense')">방어형</button>
+        <!-- Total Amount + Presets -->
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div class="alloc-total-wrap">
+            <span class="alloc-total-label">총 투자금</span>
+            <input type="text" class="alloc-total-input" id="totalAmountInput" value="10,000,000" inputmode="numeric">
+            <span class="alloc-total-unit">원</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+            <span style="font-size:12px;font-weight:600;color:var(--text-sub);">프리셋:</span>
+            <button class="btn-pct" style="padding:5px 11px;" onclick="applyPreset('allweather')">올웨더</button>
+            <button class="btn-pct" style="padding:5px 11px;" onclick="applyPreset('classic')">60/40</button>
+            <button class="btn-pct" style="padding:5px 11px;" onclick="applyPreset('aggressive')">공격형</button>
+            <button class="btn-pct" style="padding:5px 11px;" onclick="applyPreset('defense')">방어형</button>
+          </div>
         </div>
 
         <div class="terminal-grid">
-          <!-- Sliders -->
-          <div style="display:flex;flex-direction:column;gap:14px;background-color:var(--grey-light);padding:18px;border-radius:18px;border:1.5px solid var(--border-color);">
-            <div style="font-size:13px;font-weight:700;color:var(--text-color);border-bottom:1.5px solid var(--border-color);padding-bottom:8px;margin-bottom:4px;">자산군별 비중 설정</div>
-            <div class="trade-control-group">
-              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
-                <span style="color:var(--text-color);">글로벌 주식 (TSLA, NVDA, AAPL)</span>
-                <strong id="weightLabel_equity" style="font-family:var(--font-outfit);color:var(--toss-blue);">40%</strong>
+          <!-- Left: Allocation input panel -->
+          <div style="display:flex;flex-direction:column;gap:10px;background:var(--grey-light);padding:18px;border-radius:18px;border:1.5px solid var(--border-color);">
+            <div style="font-size:13px;font-weight:700;color:var(--text-color);border-bottom:1.5px solid var(--border-color);padding-bottom:8px;margin-bottom:2px;">자산군별 배분 설정</div>
+
+            <!-- Column headers -->
+            <div class="alloc-col-headers">
+              <div class="alloc-col-hdr">자산군</div>
+              <div class="alloc-col-hdr">금액 (원)</div>
+              <div class="alloc-col-hdr">비율 (%)</div>
+              <div class="alloc-col-hdr">조정</div>
+            </div>
+
+            <!-- Asset rows -->
+            <div class="alloc-asset-list">
+              <!-- Equity -->
+              <div class="alloc-asset-row">
+                <div class="alloc-asset-info">
+                  <div class="alloc-asset-name"><span class="alloc-dot" style="background:#3182F6;"></span>글로벌 주식</div>
+                  <div class="alloc-asset-sub">TSLA · NVDA · AAPL</div>
+                </div>
+                <div class="alloc-input-cell">
+                  <input type="text" id="amt_equity" value="4,000,000" inputmode="numeric">
+                  <span class="alloc-input-unit">원</span>
+                </div>
+                <div class="alloc-input-cell">
+                  <input type="number" id="pct_equity" value="40" min="0" max="100" step="1">
+                  <span class="alloc-input-unit">%</span>
+                </div>
+                <div class="alloc-quick-wrap">
+                  <button class="alloc-quick-btn" onclick="quickAdjust('equity',5)">+5%</button>
+                  <button class="alloc-quick-btn" onclick="quickAdjust('equity',-5)">−5%</button>
+                </div>
               </div>
-              <input type="range" id="weight_equity" class="alloc-slider" min="0" max="100" value="40" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:var(--toss-blue);">
-            </div>
-            <div class="trade-control-group">
-              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
-                <span style="color:var(--text-color);">암호화폐 (BTC, ETH)</span>
-                <strong id="weightLabel_crypto" style="font-family:var(--font-outfit);color:var(--neon-green);">20%</strong>
+              <!-- Crypto -->
+              <div class="alloc-asset-row">
+                <div class="alloc-asset-info">
+                  <div class="alloc-asset-name"><span class="alloc-dot" style="background:#00F5A0;"></span>암호화폐</div>
+                  <div class="alloc-asset-sub">BTC · ETH</div>
+                </div>
+                <div class="alloc-input-cell">
+                  <input type="text" id="amt_crypto" value="2,000,000" inputmode="numeric">
+                  <span class="alloc-input-unit">원</span>
+                </div>
+                <div class="alloc-input-cell">
+                  <input type="number" id="pct_crypto" value="20" min="0" max="100" step="1">
+                  <span class="alloc-input-unit">%</span>
+                </div>
+                <div class="alloc-quick-wrap">
+                  <button class="alloc-quick-btn" onclick="quickAdjust('crypto',5)">+5%</button>
+                  <button class="alloc-quick-btn" onclick="quickAdjust('crypto',-5)">−5%</button>
+                </div>
               </div>
-              <input type="range" id="weight_crypto" class="alloc-slider" min="0" max="100" value="20" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:var(--neon-green);">
-            </div>
-            <div class="trade-control-group">
-              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
-                <span style="color:var(--text-color);">금 (Gold 현물)</span>
-                <strong id="weightLabel_gold" style="font-family:var(--font-outfit);color:#F59F00;">15%</strong>
+              <!-- Gold -->
+              <div class="alloc-asset-row">
+                <div class="alloc-asset-info">
+                  <div class="alloc-asset-name"><span class="alloc-dot" style="background:#F59F00;"></span>금 (Gold)</div>
+                  <div class="alloc-asset-sub">GLD · IAU</div>
+                </div>
+                <div class="alloc-input-cell">
+                  <input type="text" id="amt_gold" value="1,500,000" inputmode="numeric">
+                  <span class="alloc-input-unit">원</span>
+                </div>
+                <div class="alloc-input-cell">
+                  <input type="number" id="pct_gold" value="15" min="0" max="100" step="1">
+                  <span class="alloc-input-unit">%</span>
+                </div>
+                <div class="alloc-quick-wrap">
+                  <button class="alloc-quick-btn" onclick="quickAdjust('gold',5)">+5%</button>
+                  <button class="alloc-quick-btn" onclick="quickAdjust('gold',-5)">−5%</button>
+                </div>
               </div>
-              <input type="range" id="weight_gold" class="alloc-slider" min="0" max="100" value="15" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:#F59F00;">
-            </div>
-            <div class="trade-control-group">
-              <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
-                <span style="color:var(--text-color);">미국 국채 (Bond)</span>
-                <strong id="weightLabel_bond" style="font-family:var(--font-outfit);color:var(--grey-dark);">25%</strong>
+              <!-- Bond -->
+              <div class="alloc-asset-row">
+                <div class="alloc-asset-info">
+                  <div class="alloc-asset-name"><span class="alloc-dot" style="background:#909BB0;"></span>미국 국채</div>
+                  <div class="alloc-asset-sub">TLT · AGG</div>
+                </div>
+                <div class="alloc-input-cell">
+                  <input type="text" id="amt_bond" value="2,500,000" inputmode="numeric">
+                  <span class="alloc-input-unit">원</span>
+                </div>
+                <div class="alloc-input-cell">
+                  <input type="number" id="pct_bond" value="25" min="0" max="100" step="1">
+                  <span class="alloc-input-unit">%</span>
+                </div>
+                <div class="alloc-quick-wrap">
+                  <button class="alloc-quick-btn" onclick="quickAdjust('bond',5)">+5%</button>
+                  <button class="alloc-quick-btn" onclick="quickAdjust('bond',-5)">−5%</button>
+                </div>
               </div>
-              <input type="range" id="weight_bond" class="alloc-slider" min="0" max="100" value="25" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:var(--grey-dark);">
             </div>
-            <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;border-top:1px dashed var(--border-color);padding-top:10px;margin-top:4px;">
-              <span>비중 총합</span>
-              <strong id="weightTotalLabel" style="font-family:var(--font-outfit);color:var(--neon-green);">100%</strong>
+
+            <!-- Progress bar & validation -->
+            <div class="alloc-bar-section">
+              <div class="alloc-bar-label-row">
+                <span class="alloc-bar-label">비중 총합</span>
+                <strong class="alloc-bar-val" id="allocTotalPctLabel" style="color:var(--neon-green);font-family:var(--font-outfit);">100%</strong>
+              </div>
+              <div class="alloc-progress-track">
+                <div class="alloc-progress-fill" id="allocProgressFill" style="width:100%;background-color:var(--neon-green);"></div>
+              </div>
             </div>
-            <button id="btnRunBacktest" class="btn-action buy" style="margin-top:4px;font-weight:800;">백테스트 실행</button>
+            <div class="alloc-validation-msg" id="allocValidationMsg"></div>
+
+            <button class="btn-run-backtest" id="btnRunBacktest">백테스트 실행 (과거 10년)</button>
           </div>
 
-          <!-- KPI + Pie -->
+          <!-- Right: Pie + Line Chart + KPI -->
           <div style="display:flex;flex-direction:column;gap:14px;">
-            <div style="background-color:#030712;border:1.5px solid var(--border-color);border-radius:18px;padding:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:180px;">
-              <div style="font-size:11px;font-weight:700;color:var(--text-sub);align-self:flex-start;text-transform:uppercase;border-bottom:1px solid var(--border-color);padding-bottom:4px;width:100%;margin-bottom:8px;">Portfolio Pie-Chart</div>
-              <canvas id="pieChartCanvas" width="140" height="140" style="display:block;margin:4px auto;"></canvas>
+            <!-- Pie Chart -->
+            <div style="background:#030712;border:1.5px solid var(--border-color);border-radius:18px;padding:14px;display:flex;flex-direction:column;align-items:center;min-height:160px;">
+              <div style="font-size:11px;font-weight:700;color:var(--text-sub);align-self:flex-start;text-transform:uppercase;border-bottom:1px solid var(--border-color);padding-bottom:4px;width:100%;margin-bottom:8px;">Portfolio Allocation</div>
+              <canvas id="pieChartCanvas" width="130" height="130" style="display:block;margin:4px auto;"></canvas>
             </div>
 
-            <!-- KPI with tooltips -->
-            <div style="background-color:#030712;border:1.5px solid var(--border-color);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;">
+            <!-- Line Chart -->
+            <div class="bt-chart-box">
+              <div class="bt-chart-top">
+                <div>
+                  <div class="bt-chart-lbl">10년 시뮬레이션 수익 곡선</div>
+                  <div class="bt-chart-sub" id="btChartSub">백테스트 실행 후 업데이트</div>
+                </div>
+                <div class="bt-chart-return" id="btChartReturn" style="color:var(--text-sub);">—</div>
+              </div>
+              <canvas id="btLineCanvas" height="110"></canvas>
+            </div>
+
+            <!-- KPI Report -->
+            <div style="background:#030712;border:1.5px solid var(--border-color);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px;">
               <div style="font-size:11px;font-weight:700;color:var(--text-sub);text-transform:uppercase;border-bottom:1px solid var(--border-color);padding-bottom:4px;">Backtest Report</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
                 <div class="kpi-cell">
                   <div class="kpi-label-row">연평균 수익률 (CAGR) <button class="kpi-tooltip-btn" onclick="toggleTooltip('ttCagr')">?</button></div>
                   <strong id="report_cagr" style="font-size:18px;font-weight:800;color:var(--neon-green);font-family:var(--font-outfit);">+12.42%</strong>
-                  <div class="kpi-tooltip-popup" id="ttCagr">매년 평균 복리로 기대할 수 있는 수익률이에요. 은행 이자와 달리 복리라서 기간이 길수록 효과가 크게 늘어납니다.</div>
+                  <div class="kpi-tooltip-popup" id="ttCagr">매년 평균 복리로 기대할 수 있는 수익률이에요. 기간이 길수록 복리 효과가 크게 늘어납니다.</div>
                 </div>
                 <div class="kpi-cell">
                   <div class="kpi-label-row">최대 손실폭 (MDD) <button class="kpi-tooltip-btn" onclick="toggleTooltip('ttMdd')">?</button></div>
                   <strong id="report_mdd" style="font-size:18px;font-weight:800;color:var(--neon-red);font-family:var(--font-outfit);">-8.54%</strong>
-                  <div class="kpi-tooltip-popup" id="ttMdd">과거 가장 안 좋았던 시기에 일시적으로 본 최대 손실이에요. MDD -20%면 1,000만원이 800만원까지 줄어든 적이 있다는 뜻입니다.</div>
+                  <div class="kpi-tooltip-popup" id="ttMdd">과거 가장 안 좋았던 시기에 일시적으로 본 최대 손실이에요.</div>
                 </div>
                 <div class="kpi-cell">
                   <div class="kpi-label-row">투자 효율 (Sharpe) <button class="kpi-tooltip-btn" onclick="toggleTooltip('ttSharpe')">?</button></div>
                   <strong id="report_sharpe" style="font-size:18px;font-weight:800;color:var(--toss-blue);font-family:var(--font-outfit);">1.42</strong>
-                  <div class="kpi-tooltip-popup" id="ttSharpe">감수한 위험 대비 수익 효율을 0~3점으로 나타낸 점수예요. 1.0 이상이면 우수, 2.0 이상이면 매우 우수합니다.</div>
+                  <div class="kpi-tooltip-popup" id="ttSharpe">감수한 위험 대비 수익 효율. 1.0 이상이면 우수합니다.</div>
                 </div>
                 <div class="kpi-cell">
                   <div class="kpi-label-row">연간 변동성 <button class="kpi-tooltip-btn" onclick="toggleTooltip('ttVol')">?</button></div>
                   <strong id="report_vol" style="font-size:18px;font-weight:800;color:var(--text-color);font-family:var(--font-outfit);">7.85%</strong>
-                  <div class="kpi-tooltip-popup" id="ttVol">1년 동안 가격이 얼마나 출렁이는지 나타내요. 숫자가 클수록 단기 등락이 심해 마음이 불안할 수 있습니다.</div>
+                  <div class="kpi-tooltip-popup" id="ttVol">1년 동안 가격이 얼마나 출렁이는지 나타내요.</div>
                 </div>
               </div>
-              <!-- Easy Interpretation Box -->
               <div class="easy-interpret-box">
-                💡 <strong>1,000만원 투자 시</strong> 10년 후 약 <span class="ei-amount" id="eiAmount">3,220만원</span>으로 성장할 수 있어요.<br>
+                💡 <strong><span id="eiTotalDisplay">1,000만원</span> 투자 시</strong> 10년 후 약 <span class="ei-amount" id="eiAmount">3,220만원</span>으로 성장할 수 있어요.<br>
                 최악의 해엔 <span class="ei-loss" id="eiLoss">약 85만원</span> 손실 가능성이 있어요.
               </div>
             </div>
@@ -3338,8 +3490,8 @@
         </div>
 
         <!-- Advisory -->
-        <div style="background-color:var(--grey-light);border-radius:18px;padding:16px;border:1px solid var(--border-color);">
-          <div style="font-size:13px;font-weight:700;color:var(--text-color);margin-bottom:6px;display:flex;align-items:center;gap:6px;">
+        <div style="background:var(--grey-light);border-radius:18px;padding:16px;border:1px solid var(--border-color);">
+          <div style="font-size:13px;font-weight:700;color:var(--text-color);margin-bottom:6px;">
             <span id="advisoryTitle">성향 분석: 균형감 있는 자산배분 포트폴리오</span>
           </div>
           <p id="advisoryDesc" style="font-size:12px;color:var(--text-sub);line-height:1.6;">주식과 안전자산의 균형감 있는 배분으로 장기 복리 성장세가 두드러지는 배분 포지션입니다.</p>
@@ -3742,11 +3894,13 @@
     // Global Element Declarations (Late-bound on DOMContentLoaded to guarantee zero runtime NullPointer crashes)
     let themeToggle, sunIcon, moonIcon, toast;
     let liveCanvas, ctx, liveChartTitle, liveChartPrice, liveChartPct;
-    let weightEquity, weightCrypto, weightGold, weightBond;
-    let weightLabelEquity, weightLabelCrypto, weightLabelGold, weightLabelBond, weightTotalLabel;
     let reportCagr, reportMdd, reportSharpe, reportVol;
     let advisoryTitle, advisoryDesc, pieCanvas;
     let chartResizeTimeout;
+    let backtestAnimFrame = null;
+    let btLineData = [];
+    let diagAnswers = { exp: 'novice', know: 'basic', mdd: 'low' };
+    let allocTotalAmount = 10000000;
 
     // Initialize application
     function init() {
@@ -3761,17 +3915,6 @@
       liveChartTitle = document.getElementById('liveChartTitle');
       liveChartPrice = document.getElementById('liveChartPrice');
       liveChartPct = document.getElementById('liveChartPct');
-
-      weightEquity = document.getElementById('weight_equity');
-      weightCrypto = document.getElementById('weight_crypto');
-      weightGold = document.getElementById('weight_gold');
-      weightBond = document.getElementById('weight_bond');
-
-      weightLabelEquity = document.getElementById('weightLabel_equity');
-      weightLabelCrypto = document.getElementById('weightLabel_crypto');
-      weightLabelGold = document.getElementById('weightLabel_gold');
-      weightLabelBond = document.getElementById('weightLabel_bond');
-      weightTotalLabel = document.getElementById('weightTotalLabel');
 
       reportCagr = document.getElementById('report_cagr');
       reportMdd = document.getElementById('report_mdd');
@@ -3866,28 +4009,13 @@
         });
       });
 
-      // Bind Allocator Sliders
-      const sliders = [
-        { el: weightEquity, key: 'equity' },
-        { el: weightCrypto, key: 'crypto' },
-        { el: weightGold, key: 'gold' },
-        { el: weightBond, key: 'bond' }
-      ];
-
-      sliders.forEach(slider => {
-        if (slider.el) {
-          slider.el.addEventListener('input', (e) => {
-            adjustSliders(slider.key, parseInt(e.target.value) || 0);
-          });
-        }
-      });
+      // Bind Allocation Inputs (amount ↔ pct two-way sync)
+      initAllocInputs();
 
       // Bind Backtest Button
       const btnRunBacktest = document.getElementById('btnRunBacktest');
       if (btnRunBacktest) {
-        btnRunBacktest.addEventListener('click', () => {
-          updateBacktestResults(true);
-        });
+        btnRunBacktest.addEventListener('click', runBacktest);
       }
 
       // Fetch Real-time External Financial Market Data immediately on start
@@ -3926,15 +4054,17 @@
       renderEcoCalendar();
       renderThemeRankings();
 
-      // Portfolio wizard
-      initWizard();
+      // Portfolio diagnosis (3-axis segmented control)
+      initDiagnosis();
 
       // Pro mode: chart takes full width by default (order book hidden)
       const initGrid = document.getElementById('terminalGrid');
       if (initGrid) initGrid.style.gridTemplateColumns = '1fr';
 
       // Initialize Allocation Backtester UI
-      syncSliderUI();
+      syncAllocUI();
+      validateAlloc();
+      drawPieChart();
       updateBacktestResults(false);
     }
 
@@ -4804,142 +4934,192 @@
       });
     }
 
-    // Dynamic Slider adjustment algorithm to keep total sum exactly 100%
-    function adjustSliders(changedAsset, newValue) {
-      state.allocation[changedAsset] = newValue;
-      
-      const assets = ['equity', 'crypto', 'gold', 'bond'];
-      const otherAssets = assets.filter(a => a !== changedAsset);
-      
-      let otherSum = 0;
-      otherAssets.forEach(a => { otherSum += state.allocation[a]; });
-      
-      const targetOtherSum = 100 - newValue;
-      
-      if (otherSum === 0) {
-        otherAssets.forEach(a => { state.allocation[a] = targetOtherSum / 3; });
-      } else {
-        otherAssets.forEach(a => {
-          state.allocation[a] = (state.allocation[a] / otherSum) * targetOtherSum;
+    // ─────────────────────────────────────────────────────────
+    // Allocation Input Two-way Binding
+    // ─────────────────────────────────────────────────────────
+    const ALLOC_KEYS = ['equity', 'crypto', 'gold', 'bond'];
+
+    function initAllocInputs() {
+      // Total amount input
+      const totalInput = document.getElementById('totalAmountInput');
+      if (totalInput) {
+        totalInput.addEventListener('input', () => {
+          const raw = totalInput.value.replace(/[^0-9]/g, '');
+          allocTotalAmount = parseInt(raw) || 0;
+          // Reformat with commas
+          totalInput.value = allocTotalAmount.toLocaleString('ko-KR');
+          syncAllAmountsFromPct();
+          validateAlloc();
+        });
+        totalInput.addEventListener('blur', () => {
+          totalInput.value = allocTotalAmount.toLocaleString('ko-KR');
         });
       }
-      
-      // Keep integers and minimize math residue
-      let sum = 0;
-      assets.forEach(a => {
-        state.allocation[a] = Math.round(state.allocation[a]);
-        sum += state.allocation[a];
+
+      // Per-asset: amount input → update pct
+      ALLOC_KEYS.forEach(key => {
+        const amtEl = document.getElementById('amt_' + key);
+        const pctEl = document.getElementById('pct_' + key);
+        if (!amtEl || !pctEl) return;
+
+        amtEl.addEventListener('focus', () => {
+          amtEl.value = amtEl.value.replace(/,/g, '');
+        });
+        amtEl.addEventListener('input', () => {
+          const raw = amtEl.value.replace(/[^0-9]/g, '');
+          const amount = parseInt(raw) || 0;
+          const pct = allocTotalAmount > 0 ? Math.round((amount / allocTotalAmount) * 1000) / 10 : 0;
+          state.allocation[key] = Math.round(pct);
+          pctEl.value = pct;
+          validateAlloc();
+          drawPieChart();
+        });
+        amtEl.addEventListener('blur', () => {
+          const raw = amtEl.value.replace(/[^0-9]/g, '');
+          amtEl.value = Number(raw).toLocaleString('ko-KR');
+        });
+
+        // Per-asset: pct input → update amount
+        pctEl.addEventListener('input', () => {
+          const pct = parseFloat(pctEl.value) || 0;
+          state.allocation[key] = Math.round(pct);
+          const amount = Math.round(allocTotalAmount * pct / 100);
+          amtEl.value = amount.toLocaleString('ko-KR');
+          validateAlloc();
+          drawPieChart();
+        });
       });
-      
-      if (sum !== 100) {
-        const diff = 100 - sum;
-        state.allocation[otherAssets[0]] += diff;
-      }
-      
-      syncSliderUI();
-      drawPieChart();
     }
 
-    // Sync input sliders and labels with state.allocation
-    function syncSliderUI() {
-      weightEquity.value = state.allocation.equity;
-      weightCrypto.value = state.allocation.crypto;
-      weightGold.value = state.allocation.gold;
-      weightBond.value = state.allocation.bond;
+    function syncAllAmountsFromPct() {
+      ALLOC_KEYS.forEach(key => {
+        const amtEl = document.getElementById('amt_' + key);
+        if (amtEl) {
+          const amount = Math.round(allocTotalAmount * state.allocation[key] / 100);
+          amtEl.value = amount.toLocaleString('ko-KR');
+        }
+      });
+    }
 
-      weightLabelEquity.textContent = state.allocation.equity + '%';
-      weightLabelCrypto.textContent = state.allocation.crypto + '%';
-      weightLabelGold.textContent = state.allocation.gold + '%';
-      weightLabelBond.textContent = state.allocation.bond + '%';
-      
-      const total = state.allocation.equity + state.allocation.crypto + state.allocation.gold + state.allocation.bond;
-      weightTotalLabel.textContent = total + '%';
-      
-      if (total === 100) {
-        weightTotalLabel.style.color = 'var(--neon-green)';
-      } else {
-        weightTotalLabel.style.color = 'var(--neon-red)';
+    function syncAllocUI() {
+      ALLOC_KEYS.forEach(key => {
+        const pctEl = document.getElementById('pct_' + key);
+        const amtEl = document.getElementById('amt_' + key);
+        if (pctEl) pctEl.value = state.allocation[key];
+        if (amtEl) amtEl.value = Math.round(allocTotalAmount * state.allocation[key] / 100).toLocaleString('ko-KR');
+      });
+      validateAlloc();
+    }
+
+    function validateAlloc() {
+      const total = ALLOC_KEYS.reduce((s, k) => s + (state.allocation[k] || 0), 0);
+      const pctEl  = document.getElementById('allocTotalPctLabel');
+      const fill   = document.getElementById('allocProgressFill');
+      const msg    = document.getElementById('allocValidationMsg');
+      const btn    = document.getElementById('btnRunBacktest');
+
+      if (pctEl) {
+        pctEl.textContent = total + '%';
+        pctEl.style.color = total === 100 ? 'var(--neon-green)' : 'var(--neon-red)';
       }
+      if (fill) {
+        fill.style.width = Math.min(100, total) + '%';
+        fill.style.backgroundColor = total === 100 ? 'var(--neon-green)' : total > 100 ? 'var(--neon-red)' : 'var(--toss-blue)';
+      }
+      if (total === 100) {
+        if (msg) msg.style.display = 'none';
+        if (btn && !btn.classList.contains('is-loading')) btn.disabled = false;
+      } else {
+        if (msg) {
+          msg.textContent = `현재 설정 비율: ${total}% — 100%를 맞춰야 백테스트가 가능합니다`;
+          msg.style.display = 'block';
+        }
+        if (btn) btn.disabled = true;
+      }
+    }
+
+    function quickAdjust(assetKey, deltaPct) {
+      const cur = state.allocation[assetKey] || 0;
+      state.allocation[assetKey] = Math.max(0, Math.min(100, cur + deltaPct));
+      syncAllocUI();
+      drawPieChart();
     }
 
     // Apply Recommended Allocations Presets
     function applyPreset(presetType) {
-      if (presetType === 'allweather') {
-        state.allocation = { equity: 30, crypto: 0, gold: 15, bond: 55 };
-      } else if (presetType === 'classic') {
-        state.allocation = { equity: 60, crypto: 0, gold: 0, bond: 40 };
-      } else if (presetType === 'aggressive') {
-        state.allocation = { equity: 80, crypto: 20, gold: 0, bond: 0 };
-      } else if (presetType === 'defense') {
-        state.allocation = { equity: 10, crypto: 0, gold: 40, bond: 50 };
+      const presets = {
+        allweather: { equity: 30, crypto: 0,  gold: 15, bond: 55 },
+        classic:    { equity: 60, crypto: 0,  gold: 0,  bond: 40 },
+        aggressive: { equity: 80, crypto: 20, gold: 0,  bond: 0  },
+        defense:    { equity: 10, crypto: 0,  gold: 40, bond: 50 },
+      };
+      if (presets[presetType]) {
+        state.allocation = { ...presets[presetType] };
+        syncAllocUI();
+        drawPieChart();
+        updateBacktestResults(false);
+        showToast('프리셋 배분이 적용됐습니다');
       }
-      syncSliderUI();
-      drawPieChart();
-      updateBacktestResults(true);
     }
 
-    // Backtest core calculations based on MPT and historical expectations
-    function updateBacktestResults(triggerToast) {
+    // ─────────────────────────────────────────────────────────
+    // Backtest Core Calculation (MPT)
+    // ─────────────────────────────────────────────────────────
+    function calcBacktest() {
       const wE = state.allocation.equity / 100;
       const wC = state.allocation.crypto / 100;
       const wG = state.allocation.gold / 100;
       const wB = state.allocation.bond / 100;
-
-      // Expectation models
-      // CAGR: Equity 14.5%, Crypto 28.0%, Gold 6.0%, Bond 4.2%
-      const cagr = (wE * 14.5 + wC * 28.0 + wG * 6.0 + wB * 4.2);
-      
-      // Volatility expectations
+      const cagr = wE * 14.5 + wC * 28.0 + wG * 6.0 + wB * 4.2;
       const vol = Math.sqrt(
-        wE*wE*22*22 + wC*wC*55*55 + wG*wG*12*12 + wB*wB*6*6 + 
+        wE*wE*22*22 + wC*wC*55*55 + wG*wG*12*12 + wB*wB*6*6 +
         2*wE*wC*22*55*0.25 + 2*wE*wG*22*12*0.05 + 2*wE*wB*22*6*(-0.1) +
         2*wC*wG*55*12*0.15 + 2*wC*wB*55*6*(-0.05) + 2*wG*wB*12*6*0.1
       );
-
-      // MDD: worst case drawdowns based on asset weights
-      const mdd = (wE * (-32.5) + wC * (-68.0) + wG * (-12.0) + wB * (-5.2));
-
-      // Sharpe Ratio (Risk-free assumed 3.0%)
+      const mdd    = wE * (-32.5) + wC * (-68.0) + wG * (-12.0) + wB * (-5.2);
       const sharpe = vol > 0 ? (cagr - 3.0) / vol : 0;
+      return { cagr, vol, mdd, sharpe, wE, wC, wG, wB };
+    }
 
-      // Update report outputs in UI
-      reportCagr.textContent = '+' + cagr.toFixed(2) + '%';
-      reportMdd.textContent = mdd.toFixed(2) + '%';
-      reportSharpe.textContent = sharpe.toFixed(2);
-      reportVol.textContent = vol.toFixed(2) + '%';
+    // Update KPIs and advisory text directly (no animation — for preset/init updates)
+    function updateBacktestResults(triggerToast) {
+      const { cagr, vol, mdd, sharpe, wE, wC, wG, wB } = calcBacktest();
 
-      // Advisory report generation
-      let title = '';
-      let desc = '';
+      if (reportCagr) reportCagr.textContent = '+' + cagr.toFixed(2) + '%';
+      if (reportMdd)  reportMdd.textContent  = mdd.toFixed(2) + '%';
+      if (reportSharpe) reportSharpe.textContent = sharpe.toFixed(2);
+      if (reportVol)  reportVol.textContent  = vol.toFixed(2) + '%';
 
-      if (wC >= 0.25 || wE >= 0.70) {
-        title = '성향 분석: 공격적 기술성장 포트폴리오';
-        desc = '높은 자산 변동성을 수용하며 하이리스크 하이리턴 성장을 지향하는 포지션입니다. 암호화폐와 주식 비중이 매우 높아 시장 호황기 시 폭발적인 수익률(CAGR)을 달성할 수 있으나, 약세장에서 최대 낙폭(MDD)이 -30%를 초과하는 심각한 기술적 조정을 감내해야 합니다. 여유 자금 중심의 운용을 적극 권장합니다.';
-      } else if (wG >= 0.25 || wB >= 0.50) {
-        title = '성향 분석: 안전자산 수호형 포트폴리오';
-        desc = '원금 보존력과 하방 경직성 확보에 초점을 맞춘 초안정형 전략입니다. 금과 채권의 기여로 시장 폭락세 속에서도 연간 변동성을 극단적으로 낮추고, 최대 낙폭(MDD)을 극소화(-6% 미만)합니다. 다만 장기 복리 성장 기대 수익률이 인플레이션을 소폭 상회하는 수준에 머물 수 있어, 자산 방어 중심의 은퇴 대비용 포트폴리오에 어울립니다.';
-      } else if (Math.abs(wE - 0.6) < 0.1 && Math.abs(wB - 0.4) < 0.1) {
-        title = '성향 분석: 전통적 자산배분 60/40 포트폴리오';
-        desc = '수십 년간 금융 역사에서 가장 강력한 효율을 입증한 전통 주식/채권 균형 배분 전략입니다. 성장성(주식)과 방어력(채권)의 비중 조합이 이상적인 조화를 이루어, 샤프 지수 1.0 전후의 높은 자산 효율성을 이끌어냅니다. 중장기 연기금식 투자의 표준으로 삼기에 무난하고 검증된 선택입니다.';
-      } else {
-        title = '성향 분석: 균형감 있는 멀티에셋 자산배분 포트폴리오';
-        desc = '주식, 코인, 금, 국채에 골고루 분산하여 경제 국면 변화(성장, 인플레이션, 스태그플레이션)에 전천후로 방어하는 올웨더형 포지션입니다. 변동성 대비 안정적인 샤프 지수를 증명하며, 일시적 매크로 충격에도 자산 평가액 낙폭이 굳건히 제한되면서 장기 복리 성장의 수학적 안정성을 극대화합니다.';
-      }
+      updateAdvisory(wE, wC, wG, wB);
 
-      advisoryTitle.textContent = title;
-      advisoryDesc.textContent = desc;
-
-      // Easy Interpretation Box
-      const futureValue = Math.round(1000 * Math.pow(1 + cagr / 100, 10));
-      const maxLoss = Math.round(1000 * Math.abs(mdd) / 100);
+      const totalM = allocTotalAmount / 10000;
+      const futureM = Math.round(totalM * Math.pow(1 + cagr / 100, 10));
+      const lossM   = Math.round(totalM * Math.abs(mdd) / 100);
       const eiAmountEl = document.getElementById('eiAmount');
       const eiLossEl   = document.getElementById('eiLoss');
-      if (eiAmountEl) eiAmountEl.textContent = futureValue.toLocaleString('ko-KR') + '만원';
-      if (eiLossEl)   eiLossEl.textContent   = '약 ' + maxLoss.toLocaleString('ko-KR') + '만원';
+      const eiTotalEl  = document.getElementById('eiTotalDisplay');
+      if (eiTotalEl)  eiTotalEl.textContent  = Math.round(totalM).toLocaleString('ko-KR') + '만원';
+      if (eiAmountEl) eiAmountEl.textContent = futureM.toLocaleString('ko-KR') + '만원';
+      if (eiLossEl)   eiLossEl.textContent   = '약 ' + lossM.toLocaleString('ko-KR') + '만원';
+    }
 
-      if (triggerToast) {
-        showToast('백테스트 완료! 슬라이더를 움직여 비중을 바꿔보세요');
+    function updateAdvisory(wE, wC, wG, wB) {
+      let title, desc;
+      if (wC >= 0.25 || wE >= 0.70) {
+        title = '성향 분석: 공격적 기술성장 포트폴리오';
+        desc  = '암호화폐·주식 비중이 매우 높아 호황 시 폭발적 수익이 기대되지만, 약세장에서 MDD -30% 이상의 낙폭을 감내해야 합니다. 여유 자금 중심 운용을 권장합니다.';
+      } else if (wG >= 0.25 || wB >= 0.50) {
+        title = '성향 분석: 안전자산 수호형 포트폴리오';
+        desc  = '금·채권 비중이 높아 시장 충격 시 낙폭을 최소화하는 초안정형 전략입니다. 복리 성장 기대치는 낮지만 원금 보존력이 탁월합니다.';
+      } else if (Math.abs(wE - 0.6) < 0.1 && Math.abs(wB - 0.4) < 0.1) {
+        title = '성향 분석: 전통적 60/40 자산배분 포트폴리오';
+        desc  = '수십 년간 검증된 주식 60%, 채권 40% 균형 전략입니다. 샤프 지수 1.0 전후의 높은 효율성으로 중장기 연기금 수준의 일관성을 보여줍니다.';
+      } else {
+        title = '성향 분석: 균형감 있는 멀티에셋 배분 포트폴리오';
+        desc  = '주식·코인·금·채권에 분산해 경제 국면 변화에 전천후로 대응하는 올웨더형 포지션입니다. 변동성 대비 안정적인 샤프 지수가 강점입니다.';
       }
+      if (advisoryTitle) advisoryTitle.textContent = title;
+      if (advisoryDesc)  advisoryDesc.textContent  = desc;
     }
 
     // Render Dynamic Pie Chart on Canvas
@@ -5039,91 +5219,243 @@
     }
 
     // ─────────────────────────────────────────────────────────
-    // Portfolio Wizard
+    // 3-Axis Investment Diagnosis
     // ─────────────────────────────────────────────────────────
-    const WIZARD_PRESETS = {
-      'long-growth':    { preset: 'aggressive', label: '공격형 성장 포트폴리오',   desc: '장기 투자 + 높은 위험 감수 → 가장 공격적인 배분이에요. 암호화폐·주식 비중이 높아 호황 시 폭발적 수익이 기대되지만, 단기 -30% 이상 낙폭도 감수해야 합니다.' },
-      'long-balanced':  { preset: 'classic',    label: '클래식 60/40 포트폴리오', desc: '장기 + 균형 성향에 딱 맞는 수십 년 검증 전략이에요. 주식 60%, 채권 40%로 성장성과 안정성을 균형 있게 추구합니다.' },
-      'long-safe':      { preset: 'allweather', label: '올웨더 포트폴리오',        desc: '장기 투자지만 안정을 우선해요. 레이 달리오의 올웨더 전략으로 어떤 경제 환경에서도 방어력을 유지합니다.' },
-      'mid-growth':     { preset: 'aggressive', label: '공격형 성장 포트폴리오',   desc: '중기 + 성장 성향. 변동성을 감수하고 적극적인 수익을 추구합니다.' },
-      'mid-balanced':   { preset: 'classic',    label: '클래식 60/40 포트폴리오', desc: '중기 + 균형 성향. 주식과 채권의 균형 잡힌 배분으로 안정적인 수익을 노려요.' },
-      'mid-safe':       { preset: 'defense',    label: '안정 자산 수호형',         desc: '중기 + 안전 우선. 금과 채권 비중을 높여 원금 보존에 집중합니다.' },
-      'short-growth':   { preset: 'classic',    label: '클래식 60/40 포트폴리오', desc: '단기지만 성장을 원하신다면 균형형을 추천해요. 단기에 너무 공격적인 배분은 위험할 수 있거든요.' },
-      'short-balanced': { preset: 'defense',    label: '안정 자산 수호형',         desc: '단기 + 균형. 단기 투자에서는 안정성이 중요해요. 방어형 배분을 추천드려요.' },
-      'short-safe':     { preset: 'defense',    label: '안정 자산 수호형',         desc: '단기 + 안전 최우선. 원금 보존에 집중하는 방어형 배분이에요.' },
+    const DIAG_MAP = {
+      'novice-basic-low':     { title: '안전을 추구하는 초보 투자자형',            preset: 'allweather', rec: '원금 보존에 집중하는 방어형 배분이 적합합니다. 채권·금 비중을 높인 올웨더 전략을 추천드려요.' },
+      'novice-basic-mid':     { title: '균형을 배워가는 입문자형',                 preset: 'classic',    rec: '주식과 채권을 균형 있게 담는 클래식 60/40이 입문자에게 가장 검증된 시작점입니다.' },
+      'novice-basic-high':    { title: '용기 있는 초보 투자자형',                  preset: 'classic',    rec: '고수익을 원하지만 경험이 부족한 만큼, 균형형으로 시작 후 점진적으로 공격 비중을 늘려가세요.' },
+      'novice-advanced-low':  { title: '지식은 충분하지만 신중한 연구자형',        preset: 'allweather', rec: '시장 이해도는 높지만 실전 경험이 적으니, 방어형 배분으로 포트폴리오 감각을 익혀가세요.' },
+      'novice-advanced-mid':  { title: '이론과 실전을 연결하는 성장형',            preset: 'classic',    rec: '탄탄한 금융 지식을 활용해 클래식 균형 배분으로 포트폴리오 경험을 쌓아가기 좋은 단계입니다.' },
+      'novice-advanced-high': { title: '지식 기반의 도전적 신진 투자자형',         preset: 'aggressive', rec: '파생상품·매크로 이해를 바탕으로 공격적 배분에 도전해볼 수 있습니다. 포지션 규모 관리를 철저히 하세요.' },
+      'mid-basic-low':        { title: '안전을 추구하는 중급 투자자형',            preset: 'allweather', rec: '다년간 경험으로 변동성을 체감했고, 이제는 원금 보존 중심의 방어형 포트폴리오가 적합합니다.' },
+      'mid-basic-mid':        { title: '균형감 있는 중급 자산배분가형',            preset: 'classic',    rec: '경험과 감내 수준이 균형을 이루는 이상적인 투자자입니다. 수십 년 검증된 60/40 전략이 딱 맞습니다.' },
+      'mid-basic-high':       { title: '성장을 추구하는 중급 투자자형',            preset: 'aggressive', rec: '실전 경험을 바탕으로 공격적 배분에 도전할 수 있는 시점입니다. 암호화폐·성장주 비중을 늘려보세요.' },
+      'mid-advanced-low':     { title: '전문 지식으로 리스크를 관리하는 안전 추구형', preset: 'allweather', rec: '매크로 분석 능력과 안전 선호의 조합. 금리·환율을 활용한 정교한 채권·금 배분 전략이 어울립니다.' },
+      'mid-advanced-mid':     { title: '검증된 전략을 구사하는 중견 배분가형',     preset: 'classic',    rec: '경험과 지식이 조화로운 이상적인 투자자입니다. 60/40 기반에 소량의 대안자산을 추가해 알파를 추구해보세요.' },
+      'mid-advanced-high':    { title: '공격적 배분을 이해하는 중급 전문가형',     preset: 'aggressive', rec: '시장 메커니즘을 이해한 상태에서 고위험 배분에 도전하는 준비된 투자자입니다.' },
+      'expert-basic-low':     { title: '경험이 풍부하지만 안전을 추구하는 자산배분가형', preset: 'allweather', rec: '수년간의 경험으로 시장 사이클을 체감했고, 이제는 원금 보존 중심의 성숙한 배분을 선택한 투자자입니다.' },
+      'expert-basic-mid':     { title: '냉정한 균형을 유지하는 베테랑형',          preset: 'classic',    rec: '오랜 투자 경험이 주는 냉정함으로 60/40 균형 전략을 일관되게 유지하는 투자자입니다.' },
+      'expert-basic-high':    { title: '실전 경험 기반의 고수익 추구형',           preset: 'aggressive', rec: '시장 폭락도 겪어본 베테랑으로서, 고위험 배분의 실체를 알고 도전하는 공격 투자자입니다.' },
+      'expert-advanced-low':  { title: '시장을 꿰뚫는 전략적 안전자산 전문가형',   preset: 'defense',    rec: '전문가급 지식과 경험을 갖췄지만 자본 보전을 최우선으로 하는 기관 투자자 스타일입니다.' },
+      'expert-advanced-mid':  { title: '기관급 사고를 갖춘 균형 배분 전문가형',    preset: 'classic',    rec: '매크로·파생 이해와 오랜 경험의 시너지. MPT 이론 기반의 정교한 멀티에셋 배분을 구현할 수 있습니다.' },
+      'expert-advanced-high': { title: '시장의 흐름을 읽는 공격적 배분 전문가형',  preset: 'aggressive', rec: '최고 수준의 지식·경험·고위험 감내까지 갖춘 전문 투자자 수준입니다. 레버리지·대안자산 활용도 가능합니다.' },
     };
 
-    const PRESET_WEIGHTS = {
-      'allweather': { equity: 30, crypto: 0,  gold: 15, bond: 55 },
-      'classic':    { equity: 60, crypto: 0,  gold: 0,  bond: 40 },
-      'aggressive': { equity: 80, crypto: 20, gold: 0,  bond: 0  },
-      'defense':    { equity: 10, crypto: 0,  gold: 40, bond: 50 },
-    };
+    const PRESET_NAMES = { allweather: '올웨더', classic: '60/40 클래식', aggressive: '공격형', defense: '방어형' };
 
-    function initWizard() {
-      const ws = { step: 1, horizon: null, risk: null };
-
-      document.querySelectorAll('.wizard-option').forEach(btn => {
+    function initDiagnosis() {
+      document.querySelectorAll('.seg-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          const step  = parseInt(btn.getAttribute('data-step'));
-          const value = btn.getAttribute('data-value');
-
-          document.querySelectorAll(`.wizard-option[data-step="${step}"]`).forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-
-          if (step === 1) {
-            ws.horizon = value;
-            setTimeout(() => {
-              document.getElementById('wizardStep1').classList.remove('active');
-              document.getElementById('wizardStep2').classList.add('active');
-              document.getElementById('wizardStepIndicator').textContent = '2 / 2';
-              document.getElementById('wbar1').classList.add('done');
-            }, 320);
-          } else if (step === 2) {
-            ws.risk = value;
-            setTimeout(() => {
-              document.getElementById('wizardStep2').classList.remove('active');
-              document.getElementById('wizardStep3').classList.add('active');
-              document.getElementById('wizardStepIndicator').textContent = '완료 ✓';
-              document.getElementById('wbar2').classList.add('done');
-
-              const key     = `${ws.horizon}-${ws.risk}`;
-              const result  = WIZARD_PRESETS[key] || WIZARD_PRESETS['mid-balanced'];
-              const weights = PRESET_WEIGHTS[result.preset];
-
-              document.getElementById('wizardResultBanner').innerHTML = `
-                <div class="wizard-result-tag">진단 완료 · 추천 포트폴리오</div>
-                <div class="wizard-result-title">${result.label}</div>
-                <div class="wizard-result-desc">${result.desc}</div>
-                <div class="wizard-result-weights">
-                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">주식</span><span class="wizard-weight-chip-val">${weights.equity}%</span></div>
-                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">코인</span><span class="wizard-weight-chip-val">${weights.crypto}%</span></div>
-                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">금</span><span class="wizard-weight-chip-val">${weights.gold}%</span></div>
-                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">채권</span><span class="wizard-weight-chip-val">${weights.bond}%</span></div>
-                </div>`;
-
-              document.getElementById('wizardApplyBtn').setAttribute('data-preset', result.preset);
-            }, 320);
-          }
+          const axis = btn.dataset.axis;
+          const val  = btn.dataset.val;
+          btn.closest('.seg-ctrl').querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          diagAnswers[axis] = val;
+          updateDiagResult();
         });
       });
 
-      document.getElementById('wizardApplyBtn').addEventListener('click', () => {
-        const presetKey = document.getElementById('wizardApplyBtn').getAttribute('data-preset') || 'classic';
-        applyPreset(presetKey);
-        document.getElementById('allocatorCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        showToast('포트폴리오 적용 완료! 슬라이더로 미세조정 해보세요');
-      });
+      const applyBtn = document.getElementById('diagApplyBtn');
+      if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+          const key    = `${diagAnswers.exp}-${diagAnswers.know}-${diagAnswers.mdd}`;
+          const result = DIAG_MAP[key] || DIAG_MAP['mid-basic-mid'];
+          applyPreset(result.preset);
+          document.getElementById('allocatorCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
 
-      document.getElementById('wizardRetryBtn').addEventListener('click', () => {
-        ws.step = 1; ws.horizon = null; ws.risk = null;
-        document.querySelectorAll('.wizard-step').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.wizard-option').forEach(b => b.classList.remove('selected'));
-        document.getElementById('wizardStep1').classList.add('active');
-        document.getElementById('wizardStepIndicator').textContent = '1 / 2';
-        document.getElementById('wbar1').classList.remove('done');
-        document.getElementById('wbar2').classList.remove('done');
+      updateDiagResult();
+    }
+
+    function updateDiagResult() {
+      const key    = `${diagAnswers.exp}-${diagAnswers.know}-${diagAnswers.mdd}`;
+      const result = DIAG_MAP[key] || DIAG_MAP['mid-basic-mid'];
+      const titleEl = document.getElementById('diagResultTitle');
+      const recEl   = document.getElementById('diagResultRec');
+      const applyBtn = document.getElementById('diagApplyBtn');
+      if (titleEl) titleEl.textContent = result.title;
+      if (recEl)   recEl.textContent   = result.rec;
+      if (applyBtn) applyBtn.textContent = `${PRESET_NAMES[result.preset]} 배분으로 백테스트 →`;
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Backtest Run Button — Animation Sequence
+    // ─────────────────────────────────────────────────────────
+    function runBacktest() {
+      const btn = document.getElementById('btnRunBacktest');
+      if (!btn || btn.disabled) return;
+
+      // Loading state
+      btn.classList.add('is-loading');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="btn-spin-icon"></span> 과거 10년 데이터 시뮬레이션 중...';
+
+      setTimeout(() => {
+        const { cagr, vol, mdd, sharpe, wE, wC, wG, wB } = calcBacktest();
+
+        // Restore button
+        btn.classList.remove('is-loading');
+        btn.disabled = false;
+        btn.innerHTML = '백테스트 재실행';
+
+        // Generate & animate line chart
+        btLineData = generateBtData(cagr, vol);
+        animateBtLine(btLineData);
+
+        // Count-up KPI
+        countUp(document.getElementById('report_cagr'),   cagr,          '+', '%', 800, 2);
+        countUp(document.getElementById('report_mdd'),    Math.abs(mdd), '−', '%', 800, 2);
+        countUp(document.getElementById('report_sharpe'), sharpe,        '',  '',  800, 2);
+        countUp(document.getElementById('report_vol'),    vol,           '',  '%', 800, 2);
+
+        // Update chart header
+        const returnEl = document.getElementById('btChartReturn');
+        const subEl    = document.getElementById('btChartSub');
+        const finalRet = ((btLineData[btLineData.length-1] / 100 - 1) * 100).toFixed(1);
+        if (returnEl) { returnEl.textContent = '+' + finalRet + '%'; returnEl.style.color = 'var(--neon-green)'; }
+        if (subEl)    subEl.textContent = '누적 수익률 · 10년 시뮬레이션';
+
+        // Update advisory + interpretation
+        updateAdvisory(wE, wC, wG, wB);
+        const totalM  = allocTotalAmount / 10000;
+        const futureM = Math.round(totalM * Math.pow(1 + cagr / 100, 10));
+        const lossM   = Math.round(totalM * Math.abs(mdd) / 100);
+        const eiAmountEl = document.getElementById('eiAmount');
+        const eiLossEl   = document.getElementById('eiLoss');
+        const eiTotalEl  = document.getElementById('eiTotalDisplay');
+        if (eiTotalEl)  eiTotalEl.textContent  = Math.round(totalM).toLocaleString('ko-KR') + '만원';
+        if (eiAmountEl) eiAmountEl.textContent = futureM.toLocaleString('ko-KR') + '만원';
+        if (eiLossEl)   eiLossEl.textContent   = '약 ' + lossM.toLocaleString('ko-KR') + '만원';
+
+        showToast('시뮬레이션 완료! 포트폴리오 성과를 확인하세요');
+      }, 1050);
+    }
+
+    // Generate monthly data points over 10 years (deterministic pseudo-random)
+    function generateBtData(cagr, vol) {
+      let seed = Math.floor(cagr * 317 + vol * 149 + 42);
+      const rand = () => {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        return (seed >>> 16) / 65535;
+      };
+      let v = 100;
+      const data = [v];
+      for (let m = 0; m < 120; m++) {
+        const r = (cagr / 100 / 12) + (vol / 100 / Math.sqrt(12)) * (rand() * 2 - 1);
+        v = Math.max(v * (1 + r), 10);
+        data.push(v);
+      }
+      return data;
+    }
+
+    // Progressive line chart drawing animation
+    function animateBtLine(data) {
+      const canvas = document.getElementById('btLineCanvas');
+      if (!canvas) return;
+      if (backtestAnimFrame) { cancelAnimationFrame(backtestAnimFrame); backtestAnimFrame = null; }
+      const startTime = performance.now();
+      const DURATION  = 900;
+      function frame(now) {
+        const prog   = Math.min(1, (now - startTime) / DURATION);
+        const eased  = 1 - Math.pow(1 - prog, 3);
+        drawBtLinePart(canvas, data, eased);
+        if (prog < 1) backtestAnimFrame = requestAnimationFrame(frame);
+      }
+      backtestAnimFrame = requestAnimationFrame(frame);
+    }
+
+    function drawBtLinePart(canvas, data, progress) {
+      const dpr   = window.devicePixelRatio || 1;
+      const rect  = canvas.getBoundingClientRect();
+      const W     = rect.width  || canvas.offsetWidth || 200;
+      const H     = parseInt(canvas.getAttribute('height')) || 110;
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      const c = canvas.getContext('2d');
+      c.scale(dpr, dpr);
+
+      const count   = Math.max(2, Math.floor(data.length * progress));
+      const visible = data.slice(0, count);
+      const minV    = Math.min(...visible);
+      const maxV    = Math.max(...visible);
+      const range   = maxV - minV || 1;
+      const pL = 4, pR = 8, pT = 12, pB = 22;
+      const cW = W - pL - pR;
+      const cH = H - pT - pB;
+
+      // Grid
+      c.strokeStyle = 'rgba(255,255,255,0.04)';
+      c.lineWidth = 1;
+      for (let i = 0; i <= 3; i++) {
+        const y = pT + (cH / 3) * i;
+        c.beginPath(); c.moveTo(pL, y); c.lineTo(W - pR, y); c.stroke();
+      }
+
+      // X-axis year labels
+      c.fillStyle  = 'rgba(144,155,176,0.55)';
+      c.font       = `9px Outfit, sans-serif`;
+      c.textAlign  = 'center';
+      for (let yr = 0; yr <= 10; yr++) {
+        const x = pL + (yr / 10) * cW;
+        c.fillText(yr === 0 ? '시작' : yr + 'Y', x, H - 5);
+      }
+
+      if (visible.length < 2) return;
+
+      // Gradient line
+      const endX = pL + ((count - 1) / (data.length - 1)) * cW;
+      const grad = c.createLinearGradient(pL, 0, endX, 0);
+      grad.addColorStop(0, '#3182F6');
+      grad.addColorStop(1, '#00F5A0');
+
+      // Fill area
+      const areaGrad = c.createLinearGradient(0, pT, 0, pT + cH);
+      areaGrad.addColorStop(0, 'rgba(49,130,246,0.15)');
+      areaGrad.addColorStop(1, 'rgba(0,245,160,0.02)');
+      c.beginPath();
+      visible.forEach((v, i) => {
+        const x = pL + (i / (data.length - 1)) * cW;
+        const y = pT + cH - ((v - minV) / range) * cH;
+        i === 0 ? c.moveTo(x, y) : c.lineTo(x, y);
       });
+      c.lineTo(endX, pT + cH); c.lineTo(pL, pT + cH); c.closePath();
+      c.fillStyle = areaGrad; c.fill();
+
+      // Line
+      c.beginPath();
+      visible.forEach((v, i) => {
+        const x = pL + (i / (data.length - 1)) * cW;
+        const y = pT + cH - ((v - minV) / range) * cH;
+        i === 0 ? c.moveTo(x, y) : c.lineTo(x, y);
+      });
+      c.strokeStyle = grad; c.lineWidth = 2; c.lineJoin = 'round'; c.stroke();
+
+      // End dot + label
+      const lastV = visible[visible.length - 1];
+      const dotX  = pL + ((count - 1) / (data.length - 1)) * cW;
+      const dotY  = pT + cH - ((lastV - minV) / range) * cH;
+      c.beginPath(); c.arc(dotX, dotY, 3.5, 0, Math.PI * 2);
+      c.fillStyle = '#00F5A0'; c.fill();
+      const retPct = ((lastV / 100 - 1) * 100).toFixed(1);
+      const labelX = Math.min(dotX + 2, W - pR - 2);
+      c.fillStyle = '#00F5A0'; c.font = 'bold 9px Outfit, sans-serif'; c.textAlign = 'right';
+      c.fillText((lastV >= 100 ? '+' : '') + retPct + '%', labelX, dotY - 6);
+    }
+
+    // Count-up animation for KPI numbers
+    function countUp(el, target, prefix, suffix, duration, decimals) {
+      if (!el) return;
+      const start = performance.now();
+      function frame(now) {
+        const prog  = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - prog, 3);
+        el.textContent = prefix + (target * eased).toFixed(decimals) + suffix;
+        if (prog < 1) requestAnimationFrame(frame);
+        else el.textContent = prefix + target.toFixed(decimals) + suffix;
+      }
+      requestAnimationFrame(frame);
     }
 
     // Trigger visual floating Toast notification
