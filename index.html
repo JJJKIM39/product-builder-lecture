@@ -261,19 +261,6 @@
       .app-container {
         padding-bottom: 90px;
       }
-
-      /* forex-item font size scaling on mobile */
-      .forex-item {
-        padding: 14px 16px;
-        min-height: 54px;
-      }
-      .forex-name {
-        font-size: 13px;
-        white-space: normal;
-      }
-      .forex-price {
-        font-size: 18px;
-      }
     }
 
     /* SPA Page-View system rules */
@@ -1000,6 +987,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      overflow: hidden;
     }
 
     .forex-item {
@@ -1012,12 +1000,16 @@
       border: 1.5px solid transparent;
       transition: all 0.2s;
       min-height: 64px;
+      overflow: hidden;
+      gap: 12px;
     }
     
     .forex-meta {
       display: flex;
       align-items: center;
       gap: 14px;
+      min-width: 0;
+      flex-shrink: 1;
     }
 
     .forex-flag {
@@ -1029,7 +1021,8 @@
       font-size: 15px;
       font-weight: 700;
       color: var(--text-color);
-      white-space: nowrap;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     .forex-code {
@@ -1042,6 +1035,7 @@
 
     .forex-rate-box {
       text-align: right;
+      flex-shrink: 0;
     }
 
     .forex-price {
@@ -1049,10 +1043,47 @@
       font-weight: 800;
       font-family: var(--font-outfit);
       letter-spacing: -0.5px;
+      white-space: nowrap;
     }
 
     .forex-pct {
-      display: none; /* Hidden - only price displayed */
+      display: none;
+    }
+
+    /* ── Macro indicator sub-text: force visible with smaller font ── */
+    .macro-sub-pct {
+      display: block !important;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--text-sub);
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 600px) {
+      .forex-item {
+        padding: 12px 14px;
+        min-height: auto;
+        gap: 8px;
+      }
+      .forex-flag {
+        font-size: 24px;
+      }
+      .forex-name {
+        font-size: 13px;
+      }
+      .forex-code {
+        font-size: 10px;
+      }
+      .forex-price {
+        font-size: 17px;
+      }
+      .forex-meta {
+        gap: 10px;
+      }
+      .macro-sub-pct {
+        font-size: 9px;
+      }
     }
 
     /* Guide Educational Articles */
@@ -1668,8 +1699,8 @@
             <div class="forex-meta">
               <span class="forex-flag">🇺🇸</span>
               <div>
-                <div class="forex-name">원 / 달러 (USD/KRW)</div>
-                <div class="forex-code">미국 달러화 · 실시간 연동</div>
+                <div class="forex-name">원/달러</div>
+                <div class="forex-code">USD/KRW · 실시간</div>
               </div>
             </div>
             <div class="forex-rate-box">
@@ -1681,8 +1712,8 @@
             <div class="forex-meta">
               <span class="forex-flag">🇯🇵</span>
               <div>
-                <div class="forex-name">원 / 엔 (JPY/KRW · 100엔 기준)</div>
-                <div class="forex-code">일본 엔화 · 실시간 연동</div>
+                <div class="forex-name">원/엔 (100엔)</div>
+                <div class="forex-code">JPY/KRW · 실시간</div>
               </div>
             </div>
             <div class="forex-rate-box">
@@ -1694,8 +1725,8 @@
             <div class="forex-meta">
               <span class="forex-flag">🇪🇺</span>
               <div>
-                <div class="forex-name">원 / 유로 (EUR/KRW)</div>
-                <div class="forex-code">유로화 · 실시간 연동</div>
+                <div class="forex-name">원/유로</div>
+                <div class="forex-code">EUR/KRW · 실시간</div>
               </div>
             </div>
             <div class="forex-rate-box">
@@ -1719,13 +1750,13 @@
             <div class="forex-meta">
               <span class="forex-flag">🏦</span>
               <div>
-                <div class="forex-name">미 연준 기준금리 (Fed Rate)</div>
-                <div class="forex-code">결정 기관: FOMC</div>
+                <div class="forex-name">미 연준 기준금리</div>
+                <div class="forex-code">Fed Rate · FOMC</div>
               </div>
             </div>
             <div class="forex-rate-box">
               <div class="forex-price" style="color: var(--text-color);">5.50%</div>
-              <span class="forex-pct" style="color: var(--text-sub); font-weight: 500;">예측 5.50% | 이전 5.50%</span>
+              <div class="macro-sub-pct">예측 5.50% | 이전 5.50%</div>
             </div>
           </div>
 
@@ -1734,13 +1765,13 @@
             <div class="forex-meta">
               <span class="forex-flag">🛒</span>
               <div>
-                <div class="forex-name">미국 소비자물가지수 (CPI YoY)</div>
-                <div class="forex-code">인플레이션 척도 (26년 5월)</div>
+                <div class="forex-name">소비자물가지수 (CPI)</div>
+                <div class="forex-code">YoY · 인플레이션 척도</div>
               </div>
             </div>
             <div class="forex-rate-box">
               <div class="forex-price" style="color: var(--neon-red);">3.3%</div>
-              <span class="forex-pct" style="color: var(--text-sub); font-weight: 500;">예측 3.1% | 이전 3.4%</span>
+              <div class="macro-sub-pct">예측 3.1% | 이전 3.4%</div>
             </div>
           </div>
 
@@ -1749,13 +1780,13 @@
             <div class="forex-meta">
               <span class="forex-flag">📈</span>
               <div>
-                <div class="forex-name">미 10년물 국채 금리 (US10Y)</div>
-                <div class="forex-code">글로벌 무위험 기준 금리</div>
+                <div class="forex-name">10년물 국채 금리</div>
+                <div class="forex-code">US10Y · 무위험 기준</div>
               </div>
             </div>
             <div class="forex-rate-box">
               <div class="forex-price" style="color: var(--neon-green);">4.45%</div>
-              <span class="forex-pct" style="color: var(--text-sub); font-weight: 500;">일중 변동 +0.02%</span>
+              <div class="macro-sub-pct">일중 변동 +0.02%</div>
             </div>
           </div>
         </div>
