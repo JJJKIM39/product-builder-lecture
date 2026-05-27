@@ -2153,13 +2153,41 @@
     .alloc-progress-fill { height: 100%; border-radius: 5px; transition: width 0.3s cubic-bezier(0.16,1,0.3,1), background-color 0.3s; }
     .alloc-validation-msg { font-size: 12px; font-weight: 700; color: var(--neon-red); padding: 8px 12px; border-radius: 8px; background: rgba(255,59,48,0.08); border: 1px solid rgba(255,59,48,0.2); text-align: center; display: none; }
 
-    @media (max-width: 520px) {
-      .alloc-asset-row, .alloc-col-headers { grid-template-columns: 1fr 92px 68px 44px; gap: 4px; }
-      .alloc-asset-row { padding: 10px 10px; }
-      .alloc-input-cell { padding: 5px 6px; }
-      .alloc-input-cell input { font-size: 12px; }
-      .alloc-quick-btn { font-size: 9px; padding: 3px 3px; }
-      .alloc-col-headers { padding: 2px 10px; }
+    @media (max-width: 600px) {
+      /* 자산명을 1행에 꽉 채우고, 2행에 입력창을 배치 */
+      .alloc-col-headers { display: none; }
+      .alloc-asset-row {
+        grid-template-columns: 1fr 1fr 42px;
+        grid-template-rows: auto auto;
+        gap: 6px 5px;
+        padding: 12px 12px;
+      }
+      /* 자산 이름 → 상단 전체 폭 (1번째 자식) */
+      .alloc-asset-row > :nth-child(1) {
+        grid-column: 1 / -1;
+        grid-row: 1;
+      }
+      /* 금액 입력 → 2행 col1 (2번째 자식) */
+      .alloc-asset-row > :nth-child(2) {
+        grid-column: 1;
+        grid-row: 2;
+      }
+      /* 비율 입력 → 2행 col2 (3번째 자식) */
+      .alloc-asset-row > :nth-child(3) {
+        grid-column: 2;
+        grid-row: 2;
+      }
+      /* 퀵버튼 → 2행 col3 (4번째 자식) */
+      .alloc-asset-row > :nth-child(4) {
+        grid-column: 3;
+        grid-row: 2;
+        justify-self: end;
+      }
+      .alloc-input-cell { padding: 5px 8px; }
+      .alloc-input-cell input { font-size: 13px; }
+      .alloc-quick-btn { font-size: 10px; padding: 4px 5px; }
+      .alloc-asset-name { font-size: 14px; }
+      .alloc-asset-sub { padding-left: 13px; }
     }
 
     /* ─────────── Backtest Run Button & Spinner ─────────── */
