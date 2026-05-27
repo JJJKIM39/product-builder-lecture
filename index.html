@@ -1239,8 +1239,87 @@
       .hero-stat-val { font-size: 16px; }
       .feature-blocks { grid-template-columns: 1fr; gap: 10px; }
       .feature-block-card { padding: 16px 16px 14px 16px; flex-direction: row; align-items: flex-start; gap: 12px; }
-      .feature-block-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+      .feature-block-icon { flex-shrink: 0; margin-top: 2px; }
+      .feature-block-title { font-size: 13px; white-space: normal; word-break: keep-all; }
     }
+
+    /* ─── Economic Calendar Date Strip ────────────────────── */
+    .cal-strip-wrap {
+      margin-bottom: 12px;
+    }
+    .cal-strip-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .cal-nav-btn {
+      background: var(--grey-light);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-sub);
+      font-size: 13px;
+      padding: 5px 12px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      font-family: var(--font-primary);
+    }
+    .cal-nav-btn:hover { background: var(--grey-medium); color: var(--text-color); }
+    .cal-week-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-color);
+      font-family: var(--font-outfit);
+    }
+    .cal-strip {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+    .cal-day-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      padding: 8px 4px 6px 4px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .cal-day-cell:hover { background: var(--grey-light); }
+    .cal-day-cell.active {
+      background: var(--toss-blue-light);
+      border-color: var(--toss-blue);
+    }
+    .cal-day-cell.today .cal-day-num { color: var(--toss-blue); font-weight: 900; }
+    .cal-day-name {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-sub);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .cal-day-num {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-color);
+      font-family: var(--font-outfit);
+      line-height: 1;
+    }
+    .cal-event-dots {
+      display: flex;
+      gap: 2px;
+      min-height: 6px;
+    }
+    .cal-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+    .cal-dot.high { background: #FF5252; }
+    .cal-dot.med  { background: #FFD600; }
+    .cal-dot.low  { background: var(--grey-dark); }
 
     /* Category card grid */
     .category-grid {
@@ -1429,27 +1508,33 @@
     .section-header {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      padding: 0 4px;
-      margin-bottom: -4px;
+      align-items: flex-start;
+      padding: 0 2px;
+      margin-bottom: -2px;
+      gap: 10px;
     }
     .section-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 800;
       color: var(--text-color);
-      letter-spacing: -0.4px;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
     }
     .section-sub {
       font-size: 12px;
       color: var(--text-sub);
-      margin-top: 4px;
+      margin-top: 5px;
+      line-height: 1.5;
     }
     .section-tag-pill {
       font-size: 10px;
       font-weight: 800;
-      padding: 3px 10px;
+      padding: 4px 10px;
       border-radius: 20px;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 2px;
     }
     .section-tag-pill.hot {
       color: #FF3B30;
@@ -2328,7 +2413,7 @@
     }
     .eco-header-row {
       display: grid;
-      grid-template-columns: 48px 26px 1fr 56px 50px 50px 54px;
+      grid-template-columns: 50px 26px 1fr 58px 52px 52px 58px;
       gap: 6px;
       padding: 8px 14px;
       background: rgba(255,255,255,0.02);
@@ -2341,12 +2426,13 @@
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
     .eco-row { border-bottom: 1px solid rgba(36,43,58,0.5); }
     .eco-row:last-child { border-bottom: none; }
     .eco-row-main {
       display: grid;
-      grid-template-columns: 48px 26px 1fr 56px 50px 50px 54px;
+      grid-template-columns: 50px 26px 1fr 58px 52px 52px 58px;
       gap: 6px;
       padding: 11px 14px;
       align-items: center;
@@ -2384,7 +2470,7 @@
     .eco-val.actual-up   { color: var(--neon-green); }
     .eco-val.actual-down { color: var(--neon-red); }
     .eco-val.actual-neutral { color: var(--text-color); }
-    .eco-unpublished { font-size: 11px; color: var(--grey-dark); text-align: right; }
+    .eco-unpublished { font-size: 11px; color: var(--grey-dark); text-align: right; white-space: nowrap; }
     .eco-guide-wrap {
       max-height: 0;
       overflow: hidden;
@@ -2410,13 +2496,18 @@
       flex-shrink: 0;
     }
     .eco-row.open .eco-expand-icon { transform: rotate(180deg); }
-    @media (max-width: 600px) {
+    @media (max-width: 680px) {
       .eco-header-row,
       .eco-row-main {
-        grid-template-columns: 42px 22px 1fr 48px 0 0 46px;
+        grid-template-columns: 42px 22px 1fr 42px 50px;
+        gap: 4px;
+        padding-left: 10px;
+        padding-right: 10px;
       }
       .eco-col-label.hide-m,
       .eco-val.hide-m { display: none; }
+      .eco-name { font-size: 11px; }
+      .eco-time { font-size: 11px; }
     }
 
     /* ─── Theme Volume Rankings ───────────────────────────── */
@@ -2622,17 +2713,23 @@
       <!-- ─────────── 3-Column Feature Blocks ─────────── -->
       <div class="feature-blocks">
         <div class="feature-block-card">
-          <div class="feature-block-icon">⚡</div>
+          <div class="feature-block-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--toss-blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
           <div class="feature-block-title">실시간 시장 큐레이션</div>
           <p class="feature-block-desc">단순 거래량이 아닌, 당일 전일 대비 거래량 폭증 종목과 글로벌 주도 테마를 실시간으로 캐치합니다.</p>
         </div>
         <div class="feature-block-card">
-          <div class="feature-block-icon">📊</div>
+          <div class="feature-block-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
           <div class="feature-block-title">글로벌 테마 & ETF 매핑</div>
           <p class="feature-block-desc">복잡한 티커를 몰라도 괜찮습니다. #AI반도체, #미국월배당 등 키워드 기반으로 묶인 핵심 ETF를 탐색하세요.</p>
         </div>
         <div class="feature-block-card">
-          <div class="feature-block-icon">📈</div>
+          <div class="feature-block-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59F00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
           <div class="feature-block-title">포트폴리오 백테스터</div>
           <p class="feature-block-desc">내가 담은 종목들의 자산 비중을 조절하고, 과거 데이터 기반의 시뮬레이션을 통해 리스크를 검증하세요.</p>
         </div>
@@ -2642,7 +2739,7 @@
       <section>
         <div class="section-header">
           <div>
-            <div class="section-title">🔥 오늘 시장의 관심사</div>
+            <div class="section-title">오늘 시장의 관심사</div>
             <div class="section-sub">전일 대비 거래량이 폭증한 종목입니다</div>
           </div>
           <span class="section-tag-pill hot">HOT</span>
@@ -2656,7 +2753,7 @@
       <section>
         <div class="section-header">
           <div>
-            <div class="section-title">📡 기술적 분석 요약</div>
+            <div class="section-title">기술적 분석 요약</div>
             <div class="section-sub">이동평균선 + 오실레이터 종합 신호 · 탭으로 봉 단위 전환</div>
           </div>
           <span class="section-tag-pill" style="background:rgba(49,130,246,0.15);color:var(--toss-blue);">SIGNAL</span>
@@ -2687,7 +2784,7 @@
       <section>
         <div class="section-header">
           <div>
-            <div class="section-title">💰 오늘의 테마별 거래대금 순위</div>
+            <div class="section-title">테마별 거래대금 순위</div>
             <div class="section-sub">돈이 몰리는 섹터와 대장주를 한눈에</div>
           </div>
           <span class="section-tag-pill" style="background:rgba(0,245,160,0.1);color:var(--neon-green);">FLOW</span>
@@ -2699,10 +2796,19 @@
       <section>
         <div class="section-header">
           <div>
-            <div class="section-title">📅 오늘의 경제 지표 캘린더</div>
-            <div class="section-sub">★★★ 지표를 탭하면 시장 영향 가이드가 펼쳐져요</div>
+            <div class="section-title">경제 지표 캘린더</div>
+            <div class="section-sub">별 3개 지표를 탭하면 시장 영향 가이드가 펼쳐집니다</div>
           </div>
           <span class="section-tag-pill" style="background:rgba(255,112,67,0.12);color:#FF7043;">MACRO</span>
+        </div>
+        <!-- 날짜 스트립 -->
+        <div class="cal-strip-wrap">
+          <div class="cal-strip-nav">
+            <button class="cal-nav-btn" onclick="shiftCalWeek(-1)">← 이전</button>
+            <span class="cal-week-label" id="calWeekLabel">—</span>
+            <button class="cal-nav-btn" onclick="shiftCalWeek(1)">다음 →</button>
+          </div>
+          <div class="cal-strip" id="calStrip"><!-- renderCalStrip() --></div>
         </div>
         <div class="eco-calendar-card">
           <div class="eco-header-row">
@@ -2722,7 +2828,7 @@
       <section>
         <div class="section-header">
           <div>
-            <div class="section-title">🏷️ 테마로 골라보는 ETF</div>
+            <div class="section-title">테마로 골라보는 ETF</div>
             <div class="section-sub">티커를 몰라도 OK. 관심있는 주제로 시작하세요</div>
           </div>
           <span class="section-tag-pill curated">초보 추천</span>
@@ -2847,7 +2953,7 @@
 
       <!-- Quick Start Banner -->
       <div class="quick-start-banner">
-        <div class="quick-start-icon">🚀</div>
+        <div class="quick-start-icon" style="display:none"></div>
         <div class="quick-start-text">
           <div class="quick-start-title">처음이세요? 포트폴리오부터 시작해보세요</div>
           <div class="quick-start-sub">슬라이더로 자산 비중을 정하면 자동으로 백테스트가 돌아갑니다.</div>
@@ -2964,16 +3070,16 @@
               <span class="signal-live-dot">LIVE</span>
             </div>
             <div class="signal-title-row">
-              <div class="signal-label">🤖 추세 돌파 매수 시그널 &mdash; 테슬라</div>
+              <div class="signal-label">추세 돌파 매수 시그널 &mdash; 테슬라</div>
               <span class="signal-badge buy">▲ BUY</span>
             </div>
             <div class="signal-reason">
-              <div class="signal-reason-title">📌 시그널 근거 (ICT)</div>
+              <div class="signal-reason-title">시그널 근거 (ICT)</div>
               <div class="signal-desc">5분봉 Order Block(OB) 상단 돌파 + Fair Value Gap(하방 빈고) 소멸 확인. Bullish 인가마로 위치한 FVG 기준 매수 매력도 상승.</div>
             </div>
             <div class="signal-ict-plan">
               <div class="signal-ict-header">
-                <span class="signal-ict-label">💰 ICT 매매 계획</span>
+                <span class="signal-ict-label">ICT 매매 계획</span>
                 <span class="signal-confidence">
                   <span>신뢰도 81%</span>
                   <span class="confidence-bar-bg"><span class="confidence-bar-fill" style="width:81%"></span></span>
@@ -2986,12 +3092,12 @@
                   <div class="signal-price-cell-sub">OB 상단 기준</div>
                 </div>
                 <div class="signal-price-cell target">
-                  <div class="signal-price-cell-label">🎯 목표가</div>
+                  <div class="signal-price-cell-label">목표가</div>
                   <div class="signal-price-cell-val">$252.80</div>
                   <div class="signal-price-cell-sub">+3.5% · EQH 레벨</div>
                 </div>
                 <div class="signal-price-cell stop">
-                  <div class="signal-price-cell-label">⚠️ 손절가</div>
+                  <div class="signal-price-cell-label">손절가</div>
                   <div class="signal-price-cell-val">$240.10</div>
                   <div class="signal-price-cell-sub">−1.7% · OB 하단</div>
                 </div>
@@ -3002,8 +3108,8 @@
               </div>
             </div>
             <div class="signal-tags">
-              <span class="signal-tag">📍 달러 약세 구간</span>
-              <span class="signal-tag">📍 위험선호</span>
+              <span class="signal-tag">달러 약세 구간</span>
+              <span class="signal-tag">위험선호</span>
               <span class="signal-tag">15분봉 확인 권고</span>
             </div>
           </div>
@@ -3015,16 +3121,16 @@
               <span>2분 전</span>
             </div>
             <div class="signal-title-row">
-              <div class="signal-label">🤖 저항선 붕괴 매도 시그널 &mdash; 엔비디아</div>
+              <div class="signal-label">저항선 붕괴 매도 시그널 &mdash; 엔비디아</div>
               <span class="signal-badge sell">▼ SELL</span>
             </div>
             <div class="signal-reason">
-              <div class="signal-reason-title">📌 시그널 근거 (ICT)</div>
+              <div class="signal-reason-title">시그널 근거 (ICT)</div>
               <div class="signal-desc">Bearish Order Block 하단 이탈 + RSI 78 과매수 구역. 세션 높은 거래량에서 매도 OB 상단 저항 확인. EQL(Equal Lows) 목표가 하방 위치.</div>
             </div>
             <div class="signal-ict-plan">
               <div class="signal-ict-header">
-                <span class="signal-ict-label">💰 ICT 매매 계획</span>
+                <span class="signal-ict-label">ICT 매매 계획</span>
                 <span class="signal-confidence">
                   <span>신뢰도 74%</span>
                   <span class="confidence-bar-bg"><span class="confidence-bar-fill" style="width:74%"></span></span>
@@ -3037,12 +3143,12 @@
                   <div class="signal-price-cell-sub">Bearish OB 기준</div>
                 </div>
                 <div class="signal-price-cell target">
-                  <div class="signal-price-cell-label">🎯 목표가</div>
+                  <div class="signal-price-cell-label">목표가</div>
                   <div class="signal-price-cell-val">$893.20</div>
                   <div class="signal-price-cell-sub">−3.1% · EQL 레벨</div>
                 </div>
                 <div class="signal-price-cell stop">
-                  <div class="signal-price-cell-label">⚠️ 손절가</div>
+                  <div class="signal-price-cell-label">손절가</div>
                   <div class="signal-price-cell-val">$934.90</div>
                   <div class="signal-price-cell-sub">+1.5% · OB 상단</div>
                 </div>
@@ -3053,8 +3159,8 @@
               </div>
             </div>
             <div class="signal-tags">
-              <span class="signal-tag">📍 연준 금리 고점</span>
-              <span class="signal-tag">📍 위험회피</span>
+              <span class="signal-tag">연준 금리 고점</span>
+              <span class="signal-tag">위험회피</span>
               <span class="signal-tag">RSI 과매수 경고</span>
             </div>
           </div>
@@ -3074,7 +3180,7 @@
       <!-- ── Wizard Card ── -->
       <div class="card" id="wizardCard">
         <div class="card-title">
-          <span>✨ 투자 성향 진단</span>
+          <span>투자 성향 진단</span>
           <span id="wizardStepIndicator" style="font-size: 12px; font-weight: 700; color: var(--text-sub);">1 / 2</span>
         </div>
 
@@ -3090,17 +3196,14 @@
           <div class="wizard-sub">투자 기간이 길수록 더 공격적인 배분이 유리해요</div>
           <div class="wizard-options">
             <button class="wizard-option" data-step="1" data-value="short">
-              <span class="wizard-option-emoji">🐰</span>
               <span class="wizard-option-label">1~2년</span>
               <span class="wizard-option-sub">단기 저축 목적</span>
             </button>
             <button class="wizard-option" data-step="1" data-value="mid">
-              <span class="wizard-option-emoji">🚶</span>
               <span class="wizard-option-label">3~5년</span>
               <span class="wizard-option-sub">목돈 마련</span>
             </button>
             <button class="wizard-option" data-step="1" data-value="long">
-              <span class="wizard-option-emoji">🌳</span>
               <span class="wizard-option-label">10년 이상</span>
               <span class="wizard-option-sub">장기 자산 증식</span>
             </button>
@@ -3113,17 +3216,14 @@
           <div class="wizard-sub">솔직하게 골라주세요. 맞춤 포트폴리오가 달라져요</div>
           <div class="wizard-options">
             <button class="wizard-option" data-step="2" data-value="safe">
-              <span class="wizard-option-emoji">😱</span>
               <span class="wizard-option-label">참을 수 없어요</span>
               <span class="wizard-option-sub">원금 보존 최우선</span>
             </button>
             <button class="wizard-option" data-step="2" data-value="balanced">
-              <span class="wizard-option-emoji">😐</span>
               <span class="wizard-option-label">좀 불안하지만..</span>
               <span class="wizard-option-sub">수익과 안정 균형</span>
             </button>
             <button class="wizard-option" data-step="2" data-value="growth">
-              <span class="wizard-option-emoji">😎</span>
               <span class="wizard-option-label">오히려 기회!</span>
               <span class="wizard-option-sub">성장 최우선</span>
             </button>
@@ -3151,10 +3251,10 @@
         <!-- Quick Presets -->
         <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
           <span style="font-size: 12px; font-weight: 600; color: var(--text-sub);">프리셋:</span>
-          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('allweather')">🌤 올웨더</button>
-          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('classic')">⚖️ 60/40</button>
-          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('aggressive')">🚀 공격형</button>
-          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('defense')">🛡️ 방어형</button>
+          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('allweather')">올웨더</button>
+          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('classic')">60/40</button>
+          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('aggressive')">공격형</button>
+          <button class="btn-pct" style="padding: 5px 11px;" onclick="applyPreset('defense')">방어형</button>
         </div>
 
         <div class="terminal-grid">
@@ -3163,28 +3263,28 @@
             <div style="font-size:13px;font-weight:700;color:var(--text-color);border-bottom:1.5px solid var(--border-color);padding-bottom:8px;margin-bottom:4px;">자산군별 비중 설정</div>
             <div class="trade-control-group">
               <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
-                <span style="color:var(--text-color);">📈 글로벌 주식 (TSLA, NVDA, AAPL)</span>
+                <span style="color:var(--text-color);">글로벌 주식 (TSLA, NVDA, AAPL)</span>
                 <strong id="weightLabel_equity" style="font-family:var(--font-outfit);color:var(--toss-blue);">40%</strong>
               </div>
               <input type="range" id="weight_equity" class="alloc-slider" min="0" max="100" value="40" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:var(--toss-blue);">
             </div>
             <div class="trade-control-group">
               <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
-                <span style="color:var(--text-color);">🪙 암호화폐 (BTC, ETH)</span>
+                <span style="color:var(--text-color);">암호화폐 (BTC, ETH)</span>
                 <strong id="weightLabel_crypto" style="font-family:var(--font-outfit);color:var(--neon-green);">20%</strong>
               </div>
               <input type="range" id="weight_crypto" class="alloc-slider" min="0" max="100" value="20" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:var(--neon-green);">
             </div>
             <div class="trade-control-group">
               <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
-                <span style="color:var(--text-color);">✨ 금 (Gold 현물)</span>
+                <span style="color:var(--text-color);">금 (Gold 현물)</span>
                 <strong id="weightLabel_gold" style="font-family:var(--font-outfit);color:#F59F00;">15%</strong>
               </div>
               <input type="range" id="weight_gold" class="alloc-slider" min="0" max="100" value="15" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:#F59F00;">
             </div>
             <div class="trade-control-group">
               <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;">
-                <span style="color:var(--text-color);">🛡️ 미국 국채 (Bond)</span>
+                <span style="color:var(--text-color);">미국 국채 (Bond)</span>
                 <strong id="weightLabel_bond" style="font-family:var(--font-outfit);color:var(--grey-dark);">25%</strong>
               </div>
               <input type="range" id="weight_bond" class="alloc-slider" min="0" max="100" value="25" style="width:100%;height:6px;background-color:var(--grey-medium);border-radius:4px;outline:none;margin-top:4px;accent-color:var(--grey-dark);">
@@ -3240,7 +3340,7 @@
         <!-- Advisory -->
         <div style="background-color:var(--grey-light);border-radius:18px;padding:16px;border:1px solid var(--border-color);">
           <div style="font-size:13px;font-weight:700;color:var(--text-color);margin-bottom:6px;display:flex;align-items:center;gap:6px;">
-            🤖 <span id="advisoryTitle">성향 분석: 균형감 있는 자산배분 포트폴리오</span>
+            <span id="advisoryTitle">성향 분석: 균형감 있는 자산배분 포트폴리오</span>
           </div>
           <p id="advisoryDesc" style="font-size:12px;color:var(--text-sub);line-height:1.6;">주식과 안전자산의 균형감 있는 배분으로 장기 복리 성장세가 두드러지는 배분 포지션입니다.</p>
         </div>
@@ -3340,7 +3440,7 @@
           <!-- Indicator 3: US10Y -->
           <div class="forex-item" style="border-left: 4px solid var(--neon-green);">
             <div class="forex-meta">
-              <span class="forex-flag">📈</span>
+              <span class="forex-flag" style="font-size:16px;font-weight:700;color:var(--neon-green);">%</span>
               <div>
                 <div class="forex-name">10년물 국채 금리</div>
                 <div class="forex-code">US10Y · 무위험 기준</div>
@@ -3363,7 +3463,7 @@
         
         <div class="guide-article-box">
           <div class="guide-section">
-            <h3>📊 자산 배분의 수학적 기초 (Mpt 이론)</h3>
+            <h3>자산 배분의 수학적 기초 (MPT 이론)</h3>
             <p>
               현대 포트폴리오 이론(Modern Portfolio Theory, MPT)의 창시자 해리 마코위츠는 "분산 투자는 투자 시장에서 얻을 수 있는 유일한 공짜 점심이다"라고 말했습니다. 상이한 변동성을 지닌 비상관성 자산(예: 미국 기술 주식과 암호화폐 자산)을 일정 비율로 조합하여 구성하면, 포트폴리오의 기대 수익률을 훼손하지 않으면서도 전체 투자 리스크(표준편차 변동성)를 획기적으로 낮출 수 있는 수학적 원리입니다.
             </p>
@@ -3512,7 +3612,7 @@
     // ─────────────────────────────────────────────────────────
     const ETF_THEMES = [
       {
-        id: 'us-monthly-div', hashtag: '#미국_월배당', emoji: '💵',
+        id: 'us-monthly-div', hashtag: '#미국_월배당',
         desc: '<strong>매달 배당금이 들어오는</strong> 미국 ETF 모음. 안정적인 현금 흐름을 만들고 싶다면.',
         etfs: [
           { ticker: 'SCHD', name: 'Schwab US Dividend Equity ETF', oneYearReturn: 11.2, dividendYield: 3.50, expenseRatio: 0.06, aumBillion: 58, description: '미국 우량 배당주 100종목에 분산 투자하는 대표 배당 ETF. 매분기 배당 지급.' },
@@ -3521,7 +3621,7 @@
         ]
       },
       {
-        id: 'ai-semicon', hashtag: '#AI_반도체', emoji: '🤖',
+        id: 'ai-semicon', hashtag: '#AI_반도체',
         desc: 'AI 시대의 핵심, <strong>반도체·GPU</strong> 기업에 분산 투자. 성장성 기대가 높지만 변동성도 큽니다.',
         etfs: [
           { ticker: 'SOXX', name: 'iShares Semiconductor ETF',     oneYearReturn: 38.5, dividendYield: 0.95, expenseRatio: 0.35, aumBillion: 14, description: '미국 30대 반도체 기업에 투자. 엔비디아·AMD·인텔 등이 핵심 보유.' },
@@ -3530,7 +3630,7 @@
         ]
       },
       {
-        id: 'india-emerging', hashtag: '#신흥국_인도', emoji: '🇮🇳',
+        id: 'india-emerging', hashtag: '#신흥국_인도',
         desc: '<strong>14억 인구</strong>의 차세대 신흥 강국 인도. 향후 10년 가장 빠른 성장이 예상되는 시장.',
         etfs: [
           { ticker: 'INDA', name: 'iShares MSCI India ETF',        oneYearReturn: 18.7, dividendYield: 0.85, expenseRatio: 0.62, aumBillion: 8,  description: '인도 대형주 중심. 인도 주식시장 시가총액 85% 커버.' },
@@ -3539,7 +3639,7 @@
         ]
       },
       {
-        id: 'us-bigtech', hashtag: '#미국_빅테크', emoji: '💻',
+        id: 'us-bigtech', hashtag: '#미국_빅테크',
         desc: '<strong>매그니피센트 7</strong> 중심의 미국 기술주. 시장 주도주에 한 번에 베팅.',
         etfs: [
           { ticker: 'QQQ',  name: 'Invesco QQQ Trust',             oneYearReturn: 24.3, dividendYield: 0.55, expenseRatio: 0.20, aumBillion: 280, description: '나스닥 100 추종. 애플·MS·엔비디아 등 미국 빅테크 전체 분산.' },
@@ -3548,7 +3648,7 @@
         ]
       },
       {
-        id: 'kr-dividend', hashtag: '#한국_배당주', emoji: '🇰🇷',
+        id: 'kr-dividend', hashtag: '#한국_배당주',
         desc: '<strong>국내 우량 배당주</strong> 묶음. 절세 계좌(ISA·연금저축)에서 활용도가 높습니다.',
         etfs: [
           { ticker: '266390', name: 'KODEX 고배당',                oneYearReturn: 6.8,  dividendYield: 4.20, expenseRatio: 0.30, aumBillion: 0.4, description: '코스피·코스닥 상장 고배당 종목 50개로 구성. 분기 배당.' },
@@ -3557,7 +3657,7 @@
         ]
       },
       {
-        id: 'global-defense', hashtag: '#글로벌_방산', emoji: '🛡️',
+        id: 'global-defense', hashtag: '#글로벌_방산',
         desc: '<strong>지정학 리스크 시대</strong>의 방어 자산. 미국 방산 빅5에 분산.',
         etfs: [
           { ticker: 'ITA',  name: 'iShares US Aerospace & Defense', oneYearReturn: 22.4, dividendYield: 1.05, expenseRatio: 0.40, aumBillion: 6,  description: '록히드마틴·RTX·노스롭그루먼 등 미국 방산 대표주 분산.' },
@@ -3573,25 +3673,25 @@
     // ─────────────────────────────────────────────────────────
     const TECH_SUMMARY_DATA = {
       '5m': [
-        { ticker: 'BTC',   name: 'Bitcoin',    emoji: '₿',  ma: { buy:7,  sell:4, neutral:1 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    },
-        { ticker: 'ETH',   name: 'Ethereum',   emoji: 'Ξ',  ma: { buy:9,  sell:2, neutral:1 }, osc: { buy:5, sell:2, neutral:4 }, summary: 'BUY'         },
-        { ticker: 'AAPL',  name: 'Apple',      emoji: '🍎', ma: { buy:5,  sell:5, neutral:2 }, osc: { buy:2, sell:4, neutral:5 }, summary: 'NEUTRAL'    },
-        { ticker: 'TSLA',  name: 'Tesla',      emoji: '⚡', ma: { buy:10, sell:1, neutral:1 }, osc: { buy:7, sell:1, neutral:3 }, summary: 'STRONG_BUY' },
-        { ticker: 'KOSPI', name: '코스피 200', emoji: '🇰🇷', ma: { buy:4,  sell:6, neutral:2 }, osc: { buy:2, sell:5, neutral:4 }, summary: 'SELL'       }
+        { ticker: 'BTC',   name: 'Bitcoin',    ma: { buy:7,  sell:4, neutral:1 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    },
+        { ticker: 'ETH',   name: 'Ethereum',   ma: { buy:9,  sell:2, neutral:1 }, osc: { buy:5, sell:2, neutral:4 }, summary: 'BUY'         },
+        { ticker: 'AAPL',  name: 'Apple',      ma: { buy:5,  sell:5, neutral:2 }, osc: { buy:2, sell:4, neutral:5 }, summary: 'NEUTRAL'    },
+        { ticker: 'TSLA',  name: 'Tesla',      ma: { buy:10, sell:1, neutral:1 }, osc: { buy:7, sell:1, neutral:3 }, summary: 'STRONG_BUY' },
+        { ticker: 'KOSPI', name: '코스피 200', ma: { buy:4,  sell:6, neutral:2 }, osc: { buy:2, sell:5, neutral:4 }, summary: 'SELL'       }
       ],
       '1h': [
-        { ticker: 'BTC',   name: 'Bitcoin',    emoji: '₿',  ma: { buy:8,  sell:3, neutral:1 }, osc: { buy:6, sell:1, neutral:4 }, summary: 'BUY'         },
-        { ticker: 'ETH',   name: 'Ethereum',   emoji: 'Ξ',  ma: { buy:10, sell:1, neutral:1 }, osc: { buy:7, sell:1, neutral:3 }, summary: 'STRONG_BUY' },
-        { ticker: 'AAPL',  name: 'Apple',      emoji: '🍎', ma: { buy:7,  sell:3, neutral:2 }, osc: { buy:4, sell:2, neutral:5 }, summary: 'BUY'         },
-        { ticker: 'TSLA',  name: 'Tesla',      emoji: '⚡', ma: { buy:11, sell:0, neutral:1 }, osc: { buy:8, sell:0, neutral:3 }, summary: 'STRONG_BUY' },
-        { ticker: 'KOSPI', name: '코스피 200', emoji: '🇰🇷', ma: { buy:5,  sell:5, neutral:2 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    }
+        { ticker: 'BTC',   name: 'Bitcoin',    ma: { buy:8,  sell:3, neutral:1 }, osc: { buy:6, sell:1, neutral:4 }, summary: 'BUY'         },
+        { ticker: 'ETH',   name: 'Ethereum',   ma: { buy:10, sell:1, neutral:1 }, osc: { buy:7, sell:1, neutral:3 }, summary: 'STRONG_BUY' },
+        { ticker: 'AAPL',  name: 'Apple',      ma: { buy:7,  sell:3, neutral:2 }, osc: { buy:4, sell:2, neutral:5 }, summary: 'BUY'         },
+        { ticker: 'TSLA',  name: 'Tesla',      ma: { buy:11, sell:0, neutral:1 }, osc: { buy:8, sell:0, neutral:3 }, summary: 'STRONG_BUY' },
+        { ticker: 'KOSPI', name: '코스피 200', ma: { buy:5,  sell:5, neutral:2 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    }
       ],
       '1d': [
-        { ticker: 'BTC',   name: 'Bitcoin',    emoji: '₿',  ma: { buy:9,  sell:2, neutral:1 }, osc: { buy:5, sell:2, neutral:4 }, summary: 'BUY'         },
-        { ticker: 'ETH',   name: 'Ethereum',   emoji: 'Ξ',  ma: { buy:8,  sell:3, neutral:1 }, osc: { buy:4, sell:2, neutral:5 }, summary: 'BUY'         },
-        { ticker: 'AAPL',  name: 'Apple',      emoji: '🍎', ma: { buy:6,  sell:4, neutral:2 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    },
-        { ticker: 'TSLA',  name: 'Tesla',      emoji: '⚡', ma: { buy:10, sell:2, neutral:0 }, osc: { buy:6, sell:1, neutral:4 }, summary: 'BUY'         },
-        { ticker: 'KOSPI', name: '코스피 200', emoji: '🇰🇷', ma: { buy:3,  sell:7, neutral:2 }, osc: { buy:1, sell:6, neutral:4 }, summary: 'SELL'       }
+        { ticker: 'BTC',   name: 'Bitcoin',    ma: { buy:9,  sell:2, neutral:1 }, osc: { buy:5, sell:2, neutral:4 }, summary: 'BUY'         },
+        { ticker: 'ETH',   name: 'Ethereum',   ma: { buy:8,  sell:3, neutral:1 }, osc: { buy:4, sell:2, neutral:5 }, summary: 'BUY'         },
+        { ticker: 'AAPL',  name: 'Apple',      ma: { buy:6,  sell:4, neutral:2 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    },
+        { ticker: 'TSLA',  name: 'Tesla',      ma: { buy:10, sell:2, neutral:0 }, osc: { buy:6, sell:1, neutral:4 }, summary: 'BUY'         },
+        { ticker: 'KOSPI', name: '코스피 200', ma: { buy:3,  sell:7, neutral:2 }, osc: { buy:1, sell:6, neutral:4 }, summary: 'SELL'       }
       ]
     };
 
@@ -3600,39 +3700,30 @@
     // (실제 운영: Investing.com Calendar API 또는 Finnhub /calendar/economic)
     // ─────────────────────────────────────────────────────────
     const ECO_CALENDAR_DATA = [
-      {
-        id: 'fomc_minutes', time: '03:00', flag: '🇺🇸',
-        name: 'FOMC 의사록', importance: 3,
-        prev: '--', forecast: '--', actual: null, actualDir: null,
-        guide: `연준 위원들이 <strong>경기·물가에 대해 어떻게 논의했는지</strong> 공개하는 문서입니다.<br><br>"매파(Hawkish)" 색채가 강하면 기술주와 코인에 <strong style="color:var(--neon-red)">하락 압력</strong>, "비둘기파(Dovish)" 신호가 나오면 위험자산 전반에 <strong style="color:var(--neon-green)">상승 재료</strong>가 됩니다.`
-      },
-      {
-        id: 'boj_rate', time: '12:00', flag: '🇯🇵',
-        name: '일본은행 금리 결정', importance: 3,
-        prev: '0.10%', forecast: '0.10%', actual: '0.25%', actualDir: 'up',
-        guide: `<strong>BOJ가 예상보다 빠르게 금리를 올리면</strong> 엔화가 강세로 돌아서고, 달러/엔이 하락합니다.<br><br>엔 캐리 트레이드(엔을 싸게 빌려 위험자산에 투자) 청산이 발생해 <strong style="color:var(--neon-red)">코인·나스닥이 단기 급락</strong>할 수 있습니다. 2024년 8월 급락이 대표 사례입니다.`
-      },
-      {
-        id: 'eur_gdp', time: '18:00', flag: '🇪🇺',
-        name: '유로존 GDP QoQ (속보치)', importance: 2,
-        prev: '0.3%', forecast: '0.4%', actual: null, actualDir: null
-      },
-      {
-        id: 'cpi_us', time: '21:30', flag: '🇺🇸',
-        name: '소비자물가지수 (CPI YoY)', importance: 3,
-        prev: '3.2%', forecast: '3.1%', actual: '3.0%', actualDir: 'down',
-        guide: `<strong>CPI가 예상보다 낮게 나오면 (오늘처럼 3.0%)</strong> 인플레 둔화 신호로 읽혀 연준의 금리 인하 기대를 끌어올립니다.<br><br>이 경우 <strong style="color:var(--neon-green)">기술주(QQQ·NVDA)와 BTC에 호재</strong>로 작용하는 경우가 많습니다. 반대로 예상보다 높으면 금리 인하가 멀어져 기술주에 하락 압력이 생깁니다.`
-      },
-      {
-        id: 'jobless', time: '21:30', flag: '🇺🇸',
-        name: '신규 실업수당 청구건수', importance: 2,
-        prev: '215K', forecast: '210K', actual: '208K', actualDir: 'down'
-      },
-      {
-        id: 'ppi_us', time: '21:30', flag: '🇺🇸',
-        name: '생산자물가지수 (PPI MoM)', importance: 2,
-        prev: '0.2%', forecast: '0.3%', actual: '0.4%', actualDir: 'up'
-      }
+      // 2026-05-26 (월)
+      { id:'ism_mfg',     date:'2026-05-26', time:'23:00', flag:'🇺🇸', name:'ISM 제조업 PMI',              importance:2, prev:'49.0', forecast:'49.5', actual:'49.8', actualDir:'up' },
+      { id:'cb_consumer', date:'2026-05-26', time:'23:00', flag:'🇺🇸', name:'CB 소비자신뢰지수',            importance:2, prev:'98.7', forecast:'99.0', actual:'97.4', actualDir:'down' },
+      // 2026-05-27 (화)
+      { id:'jolts',       date:'2026-05-27', time:'23:00', flag:'🇺🇸', name:'JOLTS 구인건수',              importance:2, prev:'8.6M', forecast:'8.5M', actual:'8.7M', actualDir:'up' },
+      { id:'eur_inflation',date:'2026-05-27',time:'11:00', flag:'🇪🇺', name:'유로존 소비자물가 (속보)',      importance:3, prev:'2.3%', forecast:'2.2%', actual:null, actualDir:null,
+        guide:`<strong>유로존 CPI가 예상보다 낮게 나오면</strong> ECB 금리 인하 기대가 강해져 유로화 약세, 달러 강세로 이어집니다.<br><br>달러 강세는 <strong style="color:var(--neon-red)">BTC·금·신흥국 ETF에 단기 역풍</strong>이 될 수 있습니다.` },
+      // 2026-05-28 (수 — 오늘)
+      { id:'fomc_minutes', date:'2026-05-28', time:'03:00', flag:'🇺🇸', name:'FOMC 의사록', importance:3, prev:'--', forecast:'--', actual:null, actualDir:null,
+        guide:`연준 위원들이 <strong>경기·물가에 대해 어떻게 논의했는지</strong> 공개하는 문서입니다.<br><br>"매파(Hawkish)" 색채가 강하면 기술주와 코인에 <strong style="color:var(--neon-red)">하락 압력</strong>, "비둘기파(Dovish)" 신호가 나오면 위험자산 전반에 <strong style="color:var(--neon-green)">상승 재료</strong>가 됩니다.` },
+      { id:'boj_rate',    date:'2026-05-28', time:'12:00', flag:'🇯🇵', name:'일본은행 금리 결정', importance:3, prev:'0.10%', forecast:'0.10%', actual:'0.25%', actualDir:'up',
+        guide:`<strong>BOJ가 예상보다 빠르게 금리를 올리면</strong> 엔화가 강세로 돌아서고 달러/엔이 하락합니다.<br><br>엔 캐리 트레이드 청산이 발생해 <strong style="color:var(--neon-red)">코인·나스닥이 단기 급락</strong>할 수 있습니다.` },
+      { id:'eur_gdp',     date:'2026-05-28', time:'18:00', flag:'🇪🇺', name:'유로존 GDP QoQ (속보)', importance:2, prev:'0.3%', forecast:'0.4%', actual:null, actualDir:null },
+      { id:'cpi_us',      date:'2026-05-28', time:'21:30', flag:'🇺🇸', name:'소비자물가지수 (CPI YoY)', importance:3, prev:'3.2%', forecast:'3.1%', actual:'3.0%', actualDir:'down',
+        guide:`<strong>CPI가 예상보다 낮게 나오면 (오늘처럼 3.0%)</strong> 인플레 둔화 신호로 읽혀 연준의 금리 인하 기대를 끌어올립니다.<br><br>이 경우 <strong style="color:var(--neon-green)">기술주(QQQ·NVDA)와 BTC에 호재</strong>로 작용하는 경우가 많습니다.` },
+      { id:'jobless',     date:'2026-05-28', time:'21:30', flag:'🇺🇸', name:'신규 실업수당 청구건수', importance:2, prev:'215K', forecast:'210K', actual:'208K', actualDir:'down' },
+      { id:'ppi_us',      date:'2026-05-28', time:'21:30', flag:'🇺🇸', name:'생산자물가지수 (PPI MoM)', importance:2, prev:'0.2%', forecast:'0.3%', actual:'0.4%', actualDir:'up' },
+      // 2026-05-29 (목)
+      { id:'fed_waller',  date:'2026-05-29', time:'18:00', flag:'🇺🇸', name:'연준 위원 월러 연설',         importance:2, prev:'--', forecast:'--', actual:null, actualDir:null },
+      { id:'kr_ip',       date:'2026-05-29', time:'08:00', flag:'🇰🇷', name:'한국 산업생산 MoM',           importance:2, prev:'0.5%', forecast:'0.3%', actual:null, actualDir:null },
+      // 2026-05-30 (금)
+      { id:'us_pce',      date:'2026-05-30', time:'21:30', flag:'🇺🇸', name:'PCE 물가지수 YoY',           importance:3, prev:'2.7%', forecast:'2.6%', actual:null, actualDir:null,
+        guide:`<strong>PCE(개인소비지출)는 연준이 가장 중시하는 물가 지표입니다.</strong><br><br>예상보다 낮게 나오면 6월 금리 인하 기대가 높아져 <strong style="color:var(--neon-green)">기술주·BTC 동반 상승</strong> 재료가 됩니다.` },
+      { id:'us_michigan', date:'2026-05-30', time:'23:00', flag:'🇺🇸', name:'미시간대 소비심리 (확정)',     importance:2, prev:'67.4', forecast:'68.0', actual:null, actualDir:null }
     ];
 
     // ─────────────────────────────────────────────────────────
@@ -3640,30 +3731,11 @@
     // (실제 운영: Polygon.io /grouped/locale/us/market/stocks + 섹터 분류 매핑)
     // ─────────────────────────────────────────────────────────
     const THEME_RANKINGS_DATA = [
-      {
-        rank: 1, theme: 'AI 반도체', emoji: '🤖',
-        avgChangePct: +4.28, tradingVol: '8.4조',
-        leaders: [{ ticker: 'NVDA', pct: +6.12 }, { ticker: 'AMD', pct: +3.44 }]
-      },
-      {
-        rank: 2, theme: '레이어1 코인', emoji: '⛓️',
-        avgChangePct: +6.85, tradingVol: '12.1조',
-        leaders: [{ ticker: 'ETH', pct: +8.20 }, { ticker: 'SOL', pct: +5.50 }]
-      },
-      {
-        rank: 3, theme: '미국 월배당 ETF', emoji: '💵',
-        avgChangePct: +0.42, tradingVol: '2.1조',
-        leaders: [{ ticker: 'JEPI', pct: +0.65 }, { ticker: 'SCHD', pct: +0.18 }]
-      },
-      {
-        rank: 4, theme: '전기차', emoji: '🔋',
-        avgChangePct: -1.24, tradingVol: '3.7조',
-        leaders: [{ ticker: 'TSLA', pct: -2.35 }, { ticker: 'RIVN', pct: -0.12 }]
-      },
-      {
-        rank: 5, theme: '글로벌 방산', emoji: '🛡️',
-        avgChangePct: +2.11, tradingVol: '1.8조',
-        leaders: [{ ticker: 'LMT', pct: +3.22 }, { ticker: 'RTX', pct: +1.00 }]
+      { rank: 1, theme: 'AI 반도체',    avgChangePct: +4.28, tradingVol: '8.4조',  leaders: [{ ticker: 'NVDA', pct: +6.12 }, { ticker: 'AMD',  pct: +3.44 }] },
+      { rank: 2, theme: '레이어1 코인', avgChangePct: +6.85, tradingVol: '12.1조', leaders: [{ ticker: 'ETH',  pct: +8.20 }, { ticker: 'SOL',  pct: +5.50 }] },
+      { rank: 3, theme: '미국 월배당 ETF', avgChangePct: +0.42, tradingVol: '2.1조', leaders: [{ ticker: 'JEPI', pct: +0.65 }, { ticker: 'SCHD', pct: +0.18 }] },
+      { rank: 4, theme: '전기차',       avgChangePct: -1.24, tradingVol: '3.7조',  leaders: [{ ticker: 'TSLA', pct: -2.35 }, { ticker: 'RIVN', pct: -0.12 }] },
+      { rank: 5, theme: '글로벌 방산',  avgChangePct: +2.11, tradingVol: '1.8조',  leaders: [{ ticker: 'LMT',  pct: +3.22 }, { ticker: 'RTX',  pct: +1.00 }]
       }
     ];
 
@@ -3850,6 +3922,7 @@
 
       // Dashboard widgets
       renderTechSummary();
+      renderCalStrip();
       renderEcoCalendar();
       renderThemeRankings();
 
@@ -4217,7 +4290,7 @@
               <span class="surge-price">${priceFmt}</span>
               <span class="surge-pct ${isUp ? 'up' : 'down'}">${pctSign}${s.changePct.toFixed(2)}%</span>
             </div>
-            <div class="surge-reason">📌 ${s.reasonTag}</div>
+            <div class="surge-reason">${s.reasonTag}</div>
           </a>
         `;
       }).join('');
@@ -4243,7 +4316,7 @@
 
       scroller.innerHTML = ETF_THEMES.map(t => `
         <button class="theme-chip ${t.id === state.selectedThemeId ? 'active' : ''}" data-theme-id="${t.id}">
-          ${t.emoji} ${t.hashtag}
+          ${t.hashtag}
         </button>
       `).join('');
 
@@ -4597,16 +4670,16 @@
       // ─ ICT context tags ─
       const tags = {
         buy: [
-          ['📍 달러 약세 구간', '📍 위험선호', 'OB 반등 확인'],
-          ['📍 연준 보류', '📍 상승 모멘텀', '15분봉 확인 권고'],
-          ['📍 NY세션 진입', 'FVG 반등', 'BOS 돌파'],
-          ['📍 리쿨이디티 획득', '📍 위험선호', '분할매수 권고']
+          ['달러 약세 구간', '위험선호', 'OB 반등 확인'],
+          ['연준 보류', '상승 모멘텀', '15분봉 확인 권고'],
+          ['NY세션 진입', 'FVG 반등', 'BOS 돌파'],
+          ['리쿨이디티 획득', '위험선호', '분할매수 권고']
         ],
         sell: [
-          ['📍 연준 금리 고점', '📍 위험회피', 'RSI 과매수 경고'],
-          ['📍 달러 강세', '📍 안전자산 선호', '손절선 확인 필수'],
-          ['📍 변동성 경보', 'OB 저항', '시간대 주의'],
-          ['📍 그린백 리스크', '📍 위험회피', 'Bearish BOS 확인']
+          ['연준 금리 고점', '위험회피', 'RSI 과매수 경고'],
+          ['달러 강세', '안전자산 선호', '손절선 확인 필수'],
+          ['변동성 경보', 'OB 저항', '시간대 주의'],
+          ['그린백 리스크', '위험회피', 'Bearish BOS 확인']
         ]
       };
 
@@ -4660,8 +4733,8 @@
       const badgeLabel  = isUp ? '▲ BUY' : '▼ SELL';
       const badgeClass  = isUp ? 'buy' : 'sell';
       const signalTitle = isUp
-        ? `🤖 Bullish 돌파 매수 시그널 &mdash; ${asset.name}`
-        : `🤖 Bearish 저항 매도 시그널 &mdash; ${asset.name}`;
+        ? `Bullish 돌파 매수 시그널 &mdash; ${asset.name}`
+        : `Bearish 저항 매도 시그널 &mdash; ${asset.name}`;
 
       const tagHtml = selectedTags.map(t => `<span class="signal-tag">${t}</span>`).join('');
 
@@ -4678,12 +4751,12 @@
           <span class="signal-badge ${badgeClass}">${badgeLabel}</span>
         </div>
         <div class="signal-reason">
-          <div class="signal-reason-title">📌 시그널 근거 (ICT)</div>
+          <div class="signal-reason-title">시그널 근거 (ICT)</div>
           <div class="signal-desc">${selectedReason}</div>
         </div>
         <div class="signal-ict-plan">
           <div class="signal-ict-header">
-            <span class="signal-ict-label">💰 ICT 매매 계획</span>
+            <span class="signal-ict-label">ICT 매매 계획</span>
             <span class="signal-confidence">
               <span>신뢰도 ${confidence}%</span>
               <span class="confidence-bar-bg"><span class="confidence-bar-fill" style="width:${confidence}%"></span></span>
@@ -4696,12 +4769,12 @@
               <div class="signal-price-cell-sub">${entryNote}</div>
             </div>
             <div class="signal-price-cell target">
-              <div class="signal-price-cell-label">🎯 목표가</div>
+              <div class="signal-price-cell-label">목표가</div>
               <div class="signal-price-cell-val">${fmt(targetPrice)}</div>
               <div class="signal-price-cell-sub">${targetPctLabel}</div>
             </div>
             <div class="signal-price-cell stop">
-              <div class="signal-price-cell-label">⚠️ 손절가</div>
+              <div class="signal-price-cell-label">손절가</div>
               <div class="signal-price-cell-val">${fmt(stopPrice)}</div>
               <div class="signal-price-cell-sub">${stopPctLabel}</div>
             </div>
@@ -4865,7 +4938,7 @@
       if (eiLossEl)   eiLossEl.textContent   = '약 ' + maxLoss.toLocaleString('ko-KR') + '만원';
 
       if (triggerToast) {
-        showToast('백테스트 완료! 슬라이더를 움직여 비중을 바꿔보세요 📊');
+        showToast('백테스트 완료! 슬라이더를 움직여 비중을 바꿔보세요');
       }
     }
 
@@ -4969,15 +5042,15 @@
     // Portfolio Wizard
     // ─────────────────────────────────────────────────────────
     const WIZARD_PRESETS = {
-      'long-growth':    { preset: 'aggressive', label: '🚀 공격형 성장 포트폴리오',   desc: '장기 투자 + 높은 위험 감수 → 가장 공격적인 배분이에요. 암호화폐·주식 비중이 높아 호황 시 폭발적 수익이 기대되지만, 단기 -30% 이상 낙폭도 감수해야 합니다.' },
-      'long-balanced':  { preset: 'classic',    label: '⚖️ 클래식 60/40 포트폴리오', desc: '장기 + 균형 성향에 딱 맞는 수십 년 검증 전략이에요. 주식 60%, 채권 40%로 성장성과 안정성을 균형 있게 추구합니다.' },
-      'long-safe':      { preset: 'allweather', label: '🌤 올웨더 포트폴리오',        desc: '장기 투자지만 안정을 우선해요. 레이 달리오의 올웨더 전략으로 어떤 경제 환경에서도 방어력을 유지합니다.' },
-      'mid-growth':     { preset: 'aggressive', label: '🚀 공격형 성장 포트폴리오',   desc: '중기 + 성장 성향. 변동성을 감수하고 적극적인 수익을 추구합니다.' },
-      'mid-balanced':   { preset: 'classic',    label: '⚖️ 클래식 60/40 포트폴리오', desc: '중기 + 균형 성향. 주식과 채권의 균형 잡힌 배분으로 안정적인 수익을 노려요.' },
-      'mid-safe':       { preset: 'defense',    label: '🛡️ 안정 자산 수호형',         desc: '중기 + 안전 우선. 금과 채권 비중을 높여 원금 보존에 집중합니다.' },
-      'short-growth':   { preset: 'classic',    label: '⚖️ 클래식 60/40 포트폴리오', desc: '단기지만 성장을 원하신다면 균형형을 추천해요. 단기에 너무 공격적인 배분은 위험할 수 있거든요.' },
-      'short-balanced': { preset: 'defense',    label: '🛡️ 안정 자산 수호형',         desc: '단기 + 균형. 단기 투자에서는 안정성이 중요해요. 방어형 배분을 추천드려요.' },
-      'short-safe':     { preset: 'defense',    label: '🛡️ 안정 자산 수호형',         desc: '단기 + 안전 최우선. 원금 보존에 집중하는 방어형 배분이에요.' },
+      'long-growth':    { preset: 'aggressive', label: '공격형 성장 포트폴리오',   desc: '장기 투자 + 높은 위험 감수 → 가장 공격적인 배분이에요. 암호화폐·주식 비중이 높아 호황 시 폭발적 수익이 기대되지만, 단기 -30% 이상 낙폭도 감수해야 합니다.' },
+      'long-balanced':  { preset: 'classic',    label: '클래식 60/40 포트폴리오', desc: '장기 + 균형 성향에 딱 맞는 수십 년 검증 전략이에요. 주식 60%, 채권 40%로 성장성과 안정성을 균형 있게 추구합니다.' },
+      'long-safe':      { preset: 'allweather', label: '올웨더 포트폴리오',        desc: '장기 투자지만 안정을 우선해요. 레이 달리오의 올웨더 전략으로 어떤 경제 환경에서도 방어력을 유지합니다.' },
+      'mid-growth':     { preset: 'aggressive', label: '공격형 성장 포트폴리오',   desc: '중기 + 성장 성향. 변동성을 감수하고 적극적인 수익을 추구합니다.' },
+      'mid-balanced':   { preset: 'classic',    label: '클래식 60/40 포트폴리오', desc: '중기 + 균형 성향. 주식과 채권의 균형 잡힌 배분으로 안정적인 수익을 노려요.' },
+      'mid-safe':       { preset: 'defense',    label: '안정 자산 수호형',         desc: '중기 + 안전 우선. 금과 채권 비중을 높여 원금 보존에 집중합니다.' },
+      'short-growth':   { preset: 'classic',    label: '클래식 60/40 포트폴리오', desc: '단기지만 성장을 원하신다면 균형형을 추천해요. 단기에 너무 공격적인 배분은 위험할 수 있거든요.' },
+      'short-balanced': { preset: 'defense',    label: '안정 자산 수호형',         desc: '단기 + 균형. 단기 투자에서는 안정성이 중요해요. 방어형 배분을 추천드려요.' },
+      'short-safe':     { preset: 'defense',    label: '안정 자산 수호형',         desc: '단기 + 안전 최우선. 원금 보존에 집중하는 방어형 배분이에요.' },
     };
 
     const PRESET_WEIGHTS = {
@@ -5019,14 +5092,14 @@
               const weights = PRESET_WEIGHTS[result.preset];
 
               document.getElementById('wizardResultBanner').innerHTML = `
-                <div class="wizard-result-tag">✅ 진단 완료 · 추천 포트폴리오</div>
+                <div class="wizard-result-tag">진단 완료 · 추천 포트폴리오</div>
                 <div class="wizard-result-title">${result.label}</div>
                 <div class="wizard-result-desc">${result.desc}</div>
                 <div class="wizard-result-weights">
-                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">📈 주식</span><span class="wizard-weight-chip-val">${weights.equity}%</span></div>
-                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">🪙 코인</span><span class="wizard-weight-chip-val">${weights.crypto}%</span></div>
-                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">✨ 금</span><span class="wizard-weight-chip-val">${weights.gold}%</span></div>
-                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">🛡️ 채권</span><span class="wizard-weight-chip-val">${weights.bond}%</span></div>
+                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">주식</span><span class="wizard-weight-chip-val">${weights.equity}%</span></div>
+                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">코인</span><span class="wizard-weight-chip-val">${weights.crypto}%</span></div>
+                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">금</span><span class="wizard-weight-chip-val">${weights.gold}%</span></div>
+                  <div class="wizard-weight-chip"><span class="wizard-weight-chip-label">채권</span><span class="wizard-weight-chip-val">${weights.bond}%</span></div>
                 </div>`;
 
               document.getElementById('wizardApplyBtn').setAttribute('data-preset', result.preset);
@@ -5039,7 +5112,7 @@
         const presetKey = document.getElementById('wizardApplyBtn').getAttribute('data-preset') || 'classic';
         applyPreset(presetKey);
         document.getElementById('allocatorCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        showToast('포트폴리오 적용 완료! 슬라이더로 미세조정 해보세요 👍');
+        showToast('포트폴리오 적용 완료! 슬라이더로 미세조정 해보세요');
       });
 
       document.getElementById('wizardRetryBtn').addEventListener('click', () => {
@@ -5086,7 +5159,7 @@
         const oscHtml = `<span style="color:var(--neon-green);font-weight:700">${r.osc.buy}</span><span style="color:var(--text-sub)"> 매수 · </span><span style="color:var(--neon-red);font-weight:700">${r.osc.sell}</span><span style="color:var(--text-sub)"> 매도</span>`;
         return `<tr>
           <td>
-            <span class="tech-asset-name">${r.emoji} ${r.ticker}</span>
+            <span class="tech-asset-name">${r.ticker}</span>
             <span class="tech-asset-sub">${r.name}</span>
           </td>
           <td class="tech-count-cell hide-mobile">${maHtml}</td>
@@ -5099,14 +5172,89 @@
     // ─────────────────────────────────────────────────────────
     // Economic Calendar
     // ─────────────────────────────────────────────────────────
+    // ─── Calendar week strip ──────────────────────────────────
+    let calWeekOffset = 0;  // 0 = current week
+    let calSelectedDate = '';  // YYYY-MM-DD
+
+    function getWeekDates(offset) {
+      const now = new Date('2026-05-28');
+      // Get Monday of current week
+      const dow = now.getDay() === 0 ? 6 : now.getDay() - 1; // Mon=0
+      const monday = new Date(now);
+      monday.setDate(now.getDate() - dow + offset * 7);
+      return Array.from({ length: 7 }, (_, i) => {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + i);
+        return d;
+      });
+    }
+
+    function dateToStr(d) {
+      return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    }
+
+    function renderCalStrip() {
+      const strip = document.getElementById('calStrip');
+      const label = document.getElementById('calWeekLabel');
+      if (!strip) return;
+      const days = getWeekDates(calWeekOffset);
+      const DAY_NAMES = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
+      const todayStr = '2026-05-28';
+      if (!calSelectedDate) calSelectedDate = todayStr;
+
+      if (label) {
+        const m = days[0].getMonth() + 1;
+        const d1 = days[0].getDate();
+        const d7 = days[6].getDate();
+        label.textContent = `${days[0].getFullYear()}년 ${m}월 ${d1}일 — ${d7}일`;
+      }
+
+      strip.innerHTML = days.map((d, i) => {
+        const ds = dateToStr(d);
+        const events = ECO_CALENDAR_DATA.filter(e => e.date === ds);
+        const highCount = events.filter(e => e.importance === 3).length;
+        const medCount  = events.filter(e => e.importance === 2).length;
+        const isToday   = ds === todayStr;
+        const isActive  = ds === calSelectedDate;
+        const dots = [
+          ...Array(Math.min(highCount,3)).fill('<span class="cal-dot high"></span>'),
+          ...Array(Math.min(medCount,2)).fill('<span class="cal-dot med"></span>')
+        ].slice(0,3).join('');
+        return `<div class="cal-day-cell${isActive ? ' active' : ''}${isToday ? ' today' : ''}" onclick="selectCalDate('${ds}')">
+          <span class="cal-day-name">${DAY_NAMES[i]}</span>
+          <span class="cal-day-num">${d.getDate()}</span>
+          <div class="cal-event-dots">${dots}</div>
+        </div>`;
+      }).join('');
+    }
+
+    function selectCalDate(dateStr) {
+      calSelectedDate = dateStr;
+      renderCalStrip();
+      renderEcoCalendar();
+    }
+
+    function shiftCalWeek(dir) {
+      calWeekOffset += dir;
+      renderCalStrip();
+      renderEcoCalendar();
+    }
+
     function renderEcoCalendar() {
       const container = document.getElementById('ecoCalendarBody');
       if (!container) return;
-      const sorted = [...ECO_CALENDAR_DATA].sort((a, b) => {
-        const ta = parseInt(a.time.replace(':', ''), 10);
-        const tb = parseInt(b.time.replace(':', ''), 10);
-        return ta - tb;
-      });
+      const targetDate = calSelectedDate || '2026-05-28';
+      const sorted = ECO_CALENDAR_DATA
+        .filter(e => e.date === targetDate)
+        .sort((a, b) => {
+          const ta = parseInt(a.time.replace(':', ''), 10);
+          const tb = parseInt(b.time.replace(':', ''), 10);
+          return ta - tb;
+        });
+      if (sorted.length === 0) {
+        container.innerHTML = `<div style="padding:24px;text-align:center;color:var(--text-sub);font-size:13px;">이 날은 예정된 주요 지표가 없습니다.</div>`;
+        return;
+      }
       container.innerHTML = sorted.map(item => {
         const hasGuide = item.importance === 3 && item.guide;
         const stars = [0,1,2].map(i => {
@@ -5157,7 +5305,7 @@
         return `<div class="theme-rank-card">
           <div class="theme-rank-num ${rankClass}">${item.rank}</div>
           <div>
-            <div class="theme-rank-name">${item.emoji} ${item.theme}</div>
+            <div class="theme-rank-name">${item.theme}</div>
             <div class="theme-rank-meta">
               <span class="theme-vol-label">거래대금 ${item.tradingVol}</span>
               <div class="theme-leaders">${leadersHtml}</div>
