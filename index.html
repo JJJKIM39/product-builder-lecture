@@ -2096,6 +2096,117 @@
     .easy-interpret-box .ei-loss   { color: var(--neon-red);   font-weight: 800; font-family: var(--font-outfit); }
 
     /* ─────────── 3-Axis Segmented Diagnosis ─────────── */
+    /* ─────────── 투자 성향 진단 위저드 v2 (5-step) ─────────── */
+    #diagCard { padding: 28px; display: flex; flex-direction: column; gap: 18px; }
+    .diag2-header { display: flex; flex-direction: column; gap: 10px; }
+    .diag2-title-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .diag2-eyebrow { font-size: 11px; font-weight: 800; color: var(--toss-blue); background: var(--toss-blue-light); padding: 5px 10px; border-radius: 7px; letter-spacing: 0.2px; }
+    .diag2-step-badge { font-family: var(--font-outfit); font-size: 13px; font-weight: 700; color: var(--text-sub); padding: 4px 10px; background: var(--grey-light); border-radius: 999px; }
+    .diag2-title { font-size: 22px; font-weight: 900; color: var(--text-color); letter-spacing: -0.6px; line-height: 1.25; margin: 0; }
+    .diag2-subtitle { font-size: 13px; color: var(--text-sub); line-height: 1.6; margin: 0; }
+    .diag2-progress-track { margin-top: 6px; height: 6px; background: var(--grey-medium); border-radius: 6px; overflow: hidden; }
+    .diag2-progress-fill { height: 100%; background: linear-gradient(90deg, var(--toss-blue), #00C089); border-radius: 6px; transition: width 0.55s cubic-bezier(0.16,1,0.3,1); }
+
+    /* Step Stage */
+    .diag2-stage { position: relative; min-height: 260px; }
+    .diag2-step { display: none; flex-direction: column; gap: 14px; animation: diag2In 0.45s cubic-bezier(0.16,1,0.3,1); }
+    .diag2-step.active { display: flex; }
+    @keyframes diag2In { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .diag2-q-tag { font-size: 11px; font-weight: 800; color: var(--toss-blue); letter-spacing: 0.4px; }
+    .diag2-q-text { font-size: 17px; font-weight: 800; color: var(--text-color); line-height: 1.45; letter-spacing: -0.3px; }
+    .diag2-q-hint { font-size: 12px; color: var(--text-sub); margin-top: -4px; }
+    .diag2-options { display: flex; flex-direction: column; gap: 9px; margin-top: 6px; }
+    .diag2-option { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: var(--card-bg); border: 1.8px solid var(--border-color); border-radius: 14px; cursor: pointer; transition: all 0.2s cubic-bezier(0.16,1,0.3,1); text-align: left; font-family: var(--font-primary); }
+    .diag2-option:hover { border-color: var(--text-sub); background: var(--grey-light); }
+    .diag2-option.selected { border-color: var(--toss-blue); background: rgba(49,130,246,0.06); box-shadow: 0 4px 14px rgba(49,130,246,0.15); }
+    .diag2-option-check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--border-color); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+    .diag2-option.selected .diag2-option-check { border-color: var(--toss-blue); background: var(--toss-blue); }
+    .diag2-option.selected .diag2-option-check::after { content: ''; width: 9px; height: 9px; border-radius: 50%; background: #fff; }
+    .diag2-option-check.box { border-radius: 6px; }
+    .diag2-option.selected .diag2-option-check.box::after { content: ''; width: 11px; height: 6px; border-left: 2.5px solid #fff; border-bottom: 2.5px solid #fff; background: transparent; border-radius: 0; transform: rotate(-45deg) translate(1px, -1px); }
+    .diag2-option-body { flex: 1; min-width: 0; }
+    .diag2-option-label { font-size: 14px; font-weight: 800; color: var(--text-color); letter-spacing: -0.2px; }
+    .diag2-option-sub { font-size: 12px; color: var(--text-sub); margin-top: 3px; line-height: 1.5; }
+    .diag2-option-tag { font-size: 10px; font-weight: 800; color: var(--neon-red); background: var(--neon-red-light); padding: 2px 7px; border-radius: 5px; margin-top: 4px; display: inline-block; }
+
+    /* Warning popup (mismatch filter) */
+    .diag2-warning { display: flex; gap: 10px; padding: 12px 14px; background: rgba(240,68,56,0.08); border: 1.5px solid rgba(240,68,56,0.28); border-radius: 12px; animation: diag2In 0.35s ease; }
+    .diag2-warning-icon { width: 22px; height: 22px; border-radius: 50%; background: var(--neon-red); color: #fff; font-weight: 900; font-family: var(--font-outfit); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 13px; }
+    .diag2-warning-body { flex: 1; min-width: 0; }
+    .diag2-warning-title { font-size: 13px; font-weight: 800; color: var(--neon-red); margin-bottom: 2px; }
+    .diag2-warning-desc { font-size: 12px; color: var(--text-sub); line-height: 1.6; }
+
+    /* Footer Nav */
+    .diag2-footer { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding-top: 6px; }
+    .diag2-btn-secondary { padding: 11px 18px; background: var(--grey-light); color: var(--text-color); border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: var(--font-primary); transition: all 0.2s; }
+    .diag2-btn-secondary:hover:not(:disabled) { background: var(--grey-medium); }
+    .diag2-btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .diag2-btn-primary { padding: 11px 22px; background: var(--toss-blue); color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: var(--font-primary); transition: all 0.2s; box-shadow: 0 4px 14px rgba(49,130,246,0.32); }
+    .diag2-btn-primary:hover:not(:disabled) { background: var(--toss-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(49,130,246,0.4); }
+    .diag2-btn-primary:disabled { background: var(--grey-medium); color: var(--grey-dark); cursor: not-allowed; box-shadow: none; transform: none; }
+
+    /* Loading Step */
+    .diag2-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 36px 20px; }
+    .diag2-loading-spinner { width: 56px; height: 56px; border: 4px solid rgba(49,130,246,0.18); border-top-color: var(--toss-blue); border-radius: 50%; animation: diag2-spin 0.85s linear infinite; }
+    @keyframes diag2-spin { to { transform: rotate(360deg); } }
+    .diag2-loading-text { font-size: 14px; font-weight: 700; color: var(--text-color); text-align: center; letter-spacing: -0.2px; line-height: 1.5; min-height: 22px; }
+    .diag2-loading-text .accent { color: var(--toss-blue); }
+    .diag2-analysis-bars { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 320px; margin-top: 6px; }
+    .diag2-analysis-row { display: flex; align-items: center; gap: 10px; font-size: 11px; }
+    .diag2-analysis-label { width: 90px; color: var(--text-sub); font-weight: 600; flex-shrink: 0; }
+    .diag2-analysis-bar { flex: 1; height: 4px; background: var(--grey-medium); border-radius: 4px; overflow: hidden; position: relative; }
+    .diag2-analysis-bar::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--toss-blue), #00C089); border-radius: 4px; transform-origin: left; animation: diag2-fill-bar 1.5s cubic-bezier(0.16,1,0.3,1) forwards; transform: scaleX(0); }
+    .diag2-analysis-row:nth-child(2) .diag2-analysis-bar::after { animation-delay: 0.18s; }
+    .diag2-analysis-row:nth-child(3) .diag2-analysis-bar::after { animation-delay: 0.36s; }
+    .diag2-analysis-row:nth-child(4) .diag2-analysis-bar::after { animation-delay: 0.54s; }
+    .diag2-analysis-row:nth-child(5) .diag2-analysis-bar::after { animation-delay: 0.72s; }
+    @keyframes diag2-fill-bar { to { transform: scaleX(1); } }
+    .diag2-analysis-pct { width: 36px; text-align: right; font-family: var(--font-outfit); font-weight: 700; color: var(--text-color); font-size: 11px; }
+
+    /* Result Step */
+    .diag2-result { display: flex; flex-direction: column; gap: 18px; padding: 4px 0; }
+    .diag2-result-top { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 22px 16px; background: linear-gradient(135deg, rgba(49,130,246,0.10), rgba(0,192,137,0.08)); border: 1.5px solid var(--toss-blue); border-radius: 18px; }
+    .diag2-result-eyebrow { font-size: 10px; font-weight: 800; color: var(--toss-blue); letter-spacing: 0.6px; text-transform: uppercase; }
+    .diag2-result-name { font-size: 28px; font-weight: 900; color: var(--text-color); letter-spacing: -0.8px; line-height: 1.15; text-align: center; }
+    .diag2-result-score { font-family: var(--font-outfit); font-size: 14px; font-weight: 700; color: var(--text-sub); margin-top: 4px; }
+    .diag2-result-score strong { color: var(--toss-blue); font-weight: 900; font-size: 17px; }
+
+    .diag2-radar-wrap { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 0; }
+    .diag2-radar-canvas { width: 280px; height: 280px; max-width: 100%; display: block; }
+    .diag2-radar-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: center; font-size: 11px; color: var(--text-sub); margin-top: 4px; }
+    .diag2-radar-legend strong { color: var(--text-color); font-weight: 800; font-family: var(--font-outfit); }
+
+    .diag2-insight { padding: 16px 18px; background: var(--grey-light); border-radius: 14px; border-left: 4px solid var(--toss-blue); display: flex; flex-direction: column; gap: 6px; }
+    .diag2-insight-title { font-size: 13px; font-weight: 800; color: var(--text-color); letter-spacing: -0.2px; }
+    .diag2-insight-text { font-size: 13px; color: var(--text-sub); line-height: 1.7; }
+    .diag2-insight.mismatch { border-left-color: var(--neon-red); background: rgba(240,68,56,0.05); }
+    .diag2-insight.mismatch .diag2-insight-title { color: var(--neon-red); }
+
+    .diag2-scores-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .diag2-score-cell { padding: 12px 10px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; display: flex; flex-direction: column; gap: 4px; align-items: center; }
+    .diag2-score-name { font-size: 11px; color: var(--text-sub); font-weight: 700; text-align: center; }
+    .diag2-score-val { font-family: var(--font-outfit); font-size: 22px; font-weight: 900; color: var(--text-color); line-height: 1; }
+    .diag2-score-weight { font-size: 10px; font-family: var(--font-outfit); color: var(--toss-blue); font-weight: 700; }
+
+    .diag2-cta-row { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+    .diag2-cta-apply { padding: 14px 20px; background: var(--toss-blue); color: #fff; border: none; border-radius: 14px; font-size: 14px; font-weight: 800; cursor: pointer; font-family: var(--font-primary); transition: all 0.2s; box-shadow: 0 4px 16px rgba(49,130,246,0.35); display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .diag2-cta-apply:hover { background: var(--toss-blue-hover); transform: translateY(-1px); box-shadow: 0 6px 22px rgba(49,130,246,0.4); }
+    .diag2-cta-restart { padding: 11px 18px; background: transparent; color: var(--text-sub); border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: var(--font-primary); transition: all 0.2s; }
+    .diag2-cta-restart:hover { background: var(--grey-light); color: var(--text-color); }
+
+    @media (max-width: 540px) {
+      #diagCard { padding: 22px 18px; }
+      .diag2-title { font-size: 19px; }
+      .diag2-q-text { font-size: 15.5px; }
+      .diag2-option { padding: 12px 14px; }
+      .diag2-result-name { font-size: 23px; }
+      .diag2-radar-canvas { width: 240px; height: 240px; }
+      .diag2-scores-grid { grid-template-columns: 1fr; }
+      .diag2-footer { flex-direction: row; }
+      .diag2-btn-secondary, .diag2-btn-primary { padding: 11px 14px; font-size: 12.5px; }
+    }
+
+    /* Legacy diag-section (남아있던 잔존 사용 호환) */
     .diag-section { display: flex; flex-direction: column; gap: 22px; }
     .diag-axis { display: flex; flex-direction: column; gap: 8px; }
     .diag-axis-tag { font-size: 10px; font-weight: 800; color: var(--toss-blue); letter-spacing: 0.6px; text-transform: uppercase; }
@@ -3290,52 +3401,34 @@
 
       <!-- ── Diagnosis Card ── -->
       <div class="card" id="diagCard">
-        <div class="card-title">
-          <span>투자 성향 진단</span>
-          <span style="font-size:11px;font-weight:800;color:var(--toss-blue);background:var(--toss-blue-light);padding:4px 8px;border-radius:6px;">3축 분석</span>
+        <div class="diag2-header">
+          <div class="diag2-title-row">
+            <span class="diag2-eyebrow">행동경제학 기반 정밀 검사</span>
+            <span class="diag2-step-badge" id="diag2StepBadge">1 / 5</span>
+          </div>
+          <h2 class="diag2-title">투자 성향 진단</h2>
+          <p class="diag2-subtitle">자금 안정성 · 투자 역량 · 심리적 성향 — 3대 축을 정량 분석합니다</p>
+          <div class="diag2-progress-track">
+            <div class="diag2-progress-fill" id="diag2ProgressFill" style="width:20%;"></div>
+          </div>
         </div>
-        <div class="card-subtitle">경력 · 지식 · 손실 감내도 세 가지 축으로 나만의 투자 유형을 정밀 진단합니다</div>
 
-        <div class="diag-section">
-          <!-- Axis 1: Experience -->
-          <div class="diag-axis">
-            <div class="diag-axis-tag">축 01 · 투자 경력</div>
-            <div class="diag-axis-q">투자를 시작한 지 얼마나 됐나요?</div>
-            <div class="seg-ctrl">
-              <button class="seg-btn active" data-axis="exp" data-val="novice">1년 미만</button>
-              <button class="seg-btn" data-axis="exp" data-val="mid">1~3년</button>
-              <button class="seg-btn" data-axis="exp" data-val="expert">3년 이상</button>
-            </div>
-          </div>
+        <!-- Step Stage -->
+        <div class="diag2-stage" id="diag2Stage"></div>
 
-          <!-- Axis 2: Knowledge -->
-          <div class="diag-axis">
-            <div class="diag-axis-tag">축 02 · 금융 지식</div>
-            <div class="diag-axis-q">나의 금융 이해 수준은?</div>
-            <div class="seg-ctrl">
-              <button class="seg-btn active" data-axis="know" data-val="basic">기초 수준<small>예적금·주식 위주</small></button>
-              <button class="seg-btn" data-axis="know" data-val="advanced">전문 이해<small>채권·파생·매크로</small></button>
-            </div>
+        <!-- Mismatch warning popup -->
+        <div class="diag2-warning" id="diag2Warning" style="display:none;">
+          <div class="diag2-warning-icon">!</div>
+          <div class="diag2-warning-body">
+            <div class="diag2-warning-title" id="diag2WarningTitle"></div>
+            <div class="diag2-warning-desc" id="diag2WarningDesc"></div>
           </div>
+        </div>
 
-          <!-- Axis 3: MDD Tolerance -->
-          <div class="diag-axis">
-            <div class="diag-axis-tag">축 03 · 감내 손실률 (MDD)</div>
-            <div class="diag-axis-q">투자금이 얼마나 빠지면 잠을 못 자나요?</div>
-            <div class="seg-ctrl">
-              <button class="seg-btn active" data-axis="mdd" data-val="low">원금 보존<small>-5% 미만</small></button>
-              <button class="seg-btn" data-axis="mdd" data-val="mid">중간 감내<small>-15% 내외</small></button>
-              <button class="seg-btn" data-axis="mdd" data-val="high">고위험 감내<small>-30% 이상</small></button>
-            </div>
-          </div>
-
-          <!-- Result -->
-          <div class="diag-result">
-            <div class="diag-result-type">INVESTOR TYPE ANALYSIS</div>
-            <div class="diag-result-title" id="diagResultTitle">안전을 추구하는 초보 투자자형</div>
-            <div class="diag-result-rec" id="diagResultRec">원금 보존에 집중하는 방어형 배분이 적합합니다. 채권·금 비중을 높인 올웨더 전략을 추천드려요.</div>
-            <button class="diag-apply-btn" id="diagApplyBtn">이 배분으로 백테스트 →</button>
-          </div>
+        <!-- Footer Nav -->
+        <div class="diag2-footer" id="diag2Footer">
+          <button class="diag2-btn-secondary" id="diag2BtnPrev">← 이전</button>
+          <button class="diag2-btn-primary" id="diag2BtnNext" disabled>다음 →</button>
         </div>
       </div>
 
@@ -3943,7 +4036,7 @@
     let backtestAnimFrame = null;
     let btLineData = [];
     let btLineYears = 10;          // 현재 라인차트에 표시 중인 기간
-    let diagAnswers = { exp: 'novice', know: 'basic', mdd: 'low' };
+    // (구) diagAnswers는 5-step 위저드(diag2State)로 대체됨 — 호환 위해 빈 객체 유지
     let allocTotalAmount = 10000000;
     let backtestYears = 10;        // 사용자가 선택한 백테스트 기간
 
@@ -4116,7 +4209,7 @@
       renderThemeRankings();
 
       // Portfolio diagnosis (3-axis segmented control)
-      initDiagnosis();
+      initDiag2();
 
       // Pro mode: chart takes full width by default (order book hidden)
       const initGrid = document.getElementById('terminalGrid');
@@ -5272,66 +5365,623 @@
       setTimeout(resizeCanvas, 60);
     }
 
-    // ─────────────────────────────────────────────────────────
-    // 3-Axis Investment Diagnosis
-    // ─────────────────────────────────────────────────────────
-    const DIAG_MAP = {
-      'novice-basic-low':     { title: '안전을 추구하는 초보 투자자형',            preset: 'allweather', rec: '원금 보존에 집중하는 방어형 배분이 적합합니다. 채권·금 비중을 높인 올웨더 전략을 추천드려요.' },
-      'novice-basic-mid':     { title: '균형을 배워가는 입문자형',                 preset: 'classic',    rec: '주식과 채권을 균형 있게 담는 클래식 60/40이 입문자에게 가장 검증된 시작점입니다.' },
-      'novice-basic-high':    { title: '용기 있는 초보 투자자형',                  preset: 'classic',    rec: '고수익을 원하지만 경험이 부족한 만큼, 균형형으로 시작 후 점진적으로 공격 비중을 늘려가세요.' },
-      'novice-advanced-low':  { title: '지식은 충분하지만 신중한 연구자형',        preset: 'allweather', rec: '시장 이해도는 높지만 실전 경험이 적으니, 방어형 배분으로 포트폴리오 감각을 익혀가세요.' },
-      'novice-advanced-mid':  { title: '이론과 실전을 연결하는 성장형',            preset: 'classic',    rec: '탄탄한 금융 지식을 활용해 클래식 균형 배분으로 포트폴리오 경험을 쌓아가기 좋은 단계입니다.' },
-      'novice-advanced-high': { title: '지식 기반의 도전적 신진 투자자형',         preset: 'aggressive', rec: '파생상품·매크로 이해를 바탕으로 공격적 배분에 도전해볼 수 있습니다. 포지션 규모 관리를 철저히 하세요.' },
-      'mid-basic-low':        { title: '안전을 추구하는 중급 투자자형',            preset: 'allweather', rec: '다년간 경험으로 변동성을 체감했고, 이제는 원금 보존 중심의 방어형 포트폴리오가 적합합니다.' },
-      'mid-basic-mid':        { title: '균형감 있는 중급 자산배분가형',            preset: 'classic',    rec: '경험과 감내 수준이 균형을 이루는 이상적인 투자자입니다. 수십 년 검증된 60/40 전략이 딱 맞습니다.' },
-      'mid-basic-high':       { title: '성장을 추구하는 중급 투자자형',            preset: 'aggressive', rec: '실전 경험을 바탕으로 공격적 배분에 도전할 수 있는 시점입니다. 암호화폐·성장주 비중을 늘려보세요.' },
-      'mid-advanced-low':     { title: '전문 지식으로 리스크를 관리하는 안전 추구형', preset: 'allweather', rec: '매크로 분석 능력과 안전 선호의 조합. 금리·환율을 활용한 정교한 채권·금 배분 전략이 어울립니다.' },
-      'mid-advanced-mid':     { title: '검증된 전략을 구사하는 중견 배분가형',     preset: 'classic',    rec: '경험과 지식이 조화로운 이상적인 투자자입니다. 60/40 기반에 소량의 대안자산을 추가해 알파를 추구해보세요.' },
-      'mid-advanced-high':    { title: '공격적 배분을 이해하는 중급 전문가형',     preset: 'aggressive', rec: '시장 메커니즘을 이해한 상태에서 고위험 배분에 도전하는 준비된 투자자입니다.' },
-      'expert-basic-low':     { title: '경험이 풍부하지만 안전을 추구하는 자산배분가형', preset: 'allweather', rec: '수년간의 경험으로 시장 사이클을 체감했고, 이제는 원금 보존 중심의 성숙한 배분을 선택한 투자자입니다.' },
-      'expert-basic-mid':     { title: '냉정한 균형을 유지하는 베테랑형',          preset: 'classic',    rec: '오랜 투자 경험이 주는 냉정함으로 60/40 균형 전략을 일관되게 유지하는 투자자입니다.' },
-      'expert-basic-high':    { title: '실전 경험 기반의 고수익 추구형',           preset: 'aggressive', rec: '시장 폭락도 겪어본 베테랑으로서, 고위험 배분의 실체를 알고 도전하는 공격 투자자입니다.' },
-      'expert-advanced-low':  { title: '시장을 꿰뚫는 전략적 안전자산 전문가형',   preset: 'defense',    rec: '전문가급 지식과 경험을 갖췄지만 자본 보전을 최우선으로 하는 기관 투자자 스타일입니다.' },
-      'expert-advanced-mid':  { title: '기관급 사고를 갖춘 균형 배분 전문가형',    preset: 'classic',    rec: '매크로·파생 이해와 오랜 경험의 시너지. MPT 이론 기반의 정교한 멀티에셋 배분을 구현할 수 있습니다.' },
-      'expert-advanced-high': { title: '시장의 흐름을 읽는 공격적 배분 전문가형',  preset: 'aggressive', rec: '최고 수준의 지식·경험·고위험 감내까지 갖춘 전문 투자자 수준입니다. 레버리지·대안자산 활용도 가능합니다.' },
+    // ═════════════════════════════════════════════════════════
+    // 투자 성향 진단 v2 — 5-Step 행동경제학 기반 진단 위저드
+    //  • 3대 축: 위험감수능력(0.3) / 투자역량(0.3) / 위험감수성향(0.4)
+    //  • 캡: Q1 단기자금 시 최대 위험중립형
+    //  • 모순필터: 고위험 경험 0 + 추매(공격) → 1단계 강제 하향
+    // ═════════════════════════════════════════════════════════
+    const DIAG2_QUESTIONS = [
+      {
+        id: 'q1_purpose', axisKey: 'capacity', subWeight: 0.5,
+        tag: '축 01 · 자금 안정성', micro: '행동경제학 기준 자금 안정성 측정',
+        q: '이 투자 자금의 주된 목적과 필요한 시기는 언제인가요?',
+        hint: '자금의 사용 시점은 감내 가능한 손실폭의 출발점입니다',
+        type: 'single',
+        options: [
+          { id: 'short', label: '1년 미만', sub: '전세금·결혼자금 등 곧 써야 할 단기자금',   score: 10, flag: 'short_cap' },
+          { id: 'mid',   label: '1~3년',   sub: '목돈마련·주택구입 등 중기 자금',           score: 50 },
+          { id: 'long',  label: '3년 이상', sub: '은퇴자금·장기 자산 형성',                   score: 90 },
+        ],
+      },
+      {
+        id: 'q2_buffer', axisKey: 'capacity', subWeight: 0.5,
+        tag: '축 02 · 손실 흡수력', micro: '손실이 실생활에 미칠 영향',
+        q: '만약 이 투자금을 잃어도 일상 생활에 큰 지장이 없나요?',
+        hint: '재무 안정성은 심리적 안정성의 핵심 토대입니다',
+        type: 'single',
+        options: [
+          { id: 'critical', label: '큰 지장',    sub: '전 재산에 가깝거나 생활비를 동원했어요',   score: 10 },
+          { id: 'partial',  label: '어느 정도',  sub: '여유자금 일부 + 일정 부분 생활자금',       score: 50 },
+          { id: 'safe',     label: '거의 없음',  sub: '순수 여윳돈 — 잃어도 일상에 무영향',       score: 90 },
+        ],
+      },
+      {
+        id: 'q3_assets', axisKey: 'competence', subWeight: 0.6,
+        tag: '축 03 · 투자 경험', micro: '과거·현재 보유 자산 매트릭스',
+        q: '과거에 투자해 보았거나 현재 보유 중인 자산은 무엇인가요?',
+        hint: '복수 선택 가능 — 모두 체크해 주세요',
+        type: 'multi',
+        options: [
+          { id: 'safe',  label: '예적금·채권',                          sub: 'CD·MMF·국채 등 저위험 안전자산',         score: 25 },
+          { id: 'blue',  label: '국내외 우량주·ETF',                     sub: 'KOSPI200·S&P500 ETF·우량 개별주',        score: 60 },
+          { id: 'high',  label: '레버리지·가상자산·해외 테크주',          sub: 'TSLA·NVDA·BTC·3X 레버리지·옵션',         score: 95 },
+        ],
+      },
+      {
+        id: 'q4_knowledge', axisKey: 'competence', subWeight: 0.4,
+        tag: '축 04 · 금융 지식', micro: '금융상품 이해도 자가평가',
+        q: '본인의 금융 지식 수준은 어디에 가깝나요?',
+        hint: '자기 인식의 정확도가 투자 성과의 60%를 좌우합니다',
+        type: 'single',
+        options: [
+          { id: 'basic', label: '예금·주식 기초',  sub: 'PER·배당·시장 흐름 등 기본 용어 인지',        score: 20 },
+          { id: 'mid',   label: '분산·리밸런싱',  sub: 'ETF 구성·MDD·샤프 비율·리밸런싱 이해',         score: 60 },
+          { id: 'pro',   label: '파생·매크로',     sub: '옵션·금리·환율·매크로 자산배분 시그널 분석',    score: 95 },
+        ],
+      },
+      {
+        id: 'q5_panic', axisKey: 'tendency', subWeight: 1.0,
+        tag: '축 05 · 심리 시뮬레이션', micro: '폭락 시나리오 행동 반응',
+        q: '1,000만 원을 투자한 내 계좌가 시장 폭락으로 일주일 만에 850만 원(-15%)이 되었다면?',
+        hint: '실제 손실 상황에서의 의사결정 패턴을 측정합니다',
+        type: 'single',
+        options: [
+          { id: 'cut',  label: '손절 후 안전자산 이동', sub: '추가 손실 차단이 최우선 — 안정 지향',     score: 15 },
+          { id: 'hold', label: '불안하지만 관망',        sub: '심리적 불편 + 추세를 관찰하며 대응',        score: 55 },
+          { id: 'buy',  label: '좋은 기회라 생각하고 추매', sub: '저점 매수 — 평단가를 낮추는 공격적 행보', score: 95, flag: 'aggressive_panic' },
+        ],
+      },
+    ];
+
+    const DIAG2_LEVELS = [
+      {
+        name: '안정형', tag: 'CONSERVATIVE',
+        preset: { equity: 5,  crypto: 0,  gold: 25, bond: 70 },
+        rangeMin: 0, rangeMax: 20,
+        traits: '원금 보존 우선 — 채권·예금 비중 70% 이상이 적합합니다.',
+        insight: '시장 변동성에 강한 거부감을 갖고 있으며, 단기적 손실에도 큰 스트레스를 받는 유형이에요. 채권·금 같은 안전자산 위주의 포트폴리오가 심리적 안정에 가장 부합합니다.',
+      },
+      {
+        name: '안정추구형', tag: 'MODERATELY CONSERVATIVE',
+        preset: { equity: 25, crypto: 0,  gold: 20, bond: 55 },
+        rangeMin: 21, rangeMax: 40,
+        traits: '안전자산 중심 + 일부 주식 — 보수적 균형형',
+        insight: '안정성을 최우선으로 하되 일정 수준의 성장도 원하시는 유형이에요. 우량주 ETF 중심으로 변동성을 줄이고 채권으로 손실을 방어하는 전략이 적합합니다.',
+      },
+      {
+        name: '위험중립형', tag: 'BALANCED',
+        preset: { equity: 50, crypto: 5,  gold: 15, bond: 30 },
+        rangeMin: 41, rangeMax: 60,
+        traits: '주식·채권 균형 — 검증된 60/40 클래식 모델 기반',
+        insight: '리스크와 수익의 균형을 추구하는 가장 표준적인 투자자 유형입니다. 시장 사이클 전반에서 무난한 성과를 기대할 수 있는 안정적 포지션이에요.',
+      },
+      {
+        name: '적극투자형', tag: 'AGGRESSIVE',
+        preset: { equity: 70, crypto: 10, gold: 5,  bond: 15 },
+        rangeMin: 61, rangeMax: 80,
+        traits: '주식 비중 70% 내외 — 성장 중심 공격적 배분',
+        insight: '시장 변동성을 감내하며 적극적으로 수익을 추구하는 유형이에요. 단기 -15% 이상의 변동도 견딜 수 있으니, 주식·성장주 중심의 포트폴리오가 어울립니다.',
+      },
+      {
+        name: '공격투자형', tag: 'HIGH-RISK GROWTH',
+        preset: { equity: 75, crypto: 25, gold: 0,  bond: 0  },
+        rangeMin: 81, rangeMax: 100,
+        traits: '주식·암호화폐·대안자산 — 최대 성장 추구',
+        insight: '시장의 가장 큰 변동성도 기회로 받아들이는 공격적 투자자입니다. 다만 단일 자산 집중은 피하고, 분산을 통한 위험 관리는 잊지 마세요.',
+      },
+    ];
+
+    let diag2State = {
+      currentStep: 0,
+      answers: {},
+      result: null,
+      mismatchFlag: false,
+      shortCapFlag: false,
     };
 
-    const PRESET_NAMES = { allweather: '올웨더', classic: '60/40 클래식', aggressive: '공격형', defense: '방어형' };
+    function initDiag2() {
+      const stage = document.getElementById('diag2Stage');
+      const prev  = document.getElementById('diag2BtnPrev');
+      const next  = document.getElementById('diag2BtnNext');
+      if (!stage || !prev || !next) return;
 
-    function initDiagnosis() {
-      document.querySelectorAll('.seg-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const axis = btn.dataset.axis;
-          const val  = btn.dataset.val;
-          btn.closest('.seg-ctrl').querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          diagAnswers[axis] = val;
-          updateDiagResult();
-        });
+      // 초기 렌더링
+      renderDiag2Step(0);
+
+      prev.addEventListener('click', () => {
+        if (diag2State.currentStep > 0 && diag2State.currentStep < 5) {
+          renderDiag2Step(diag2State.currentStep - 1);
+        }
       });
 
-      const applyBtn = document.getElementById('diagApplyBtn');
-      if (applyBtn) {
-        applyBtn.addEventListener('click', () => {
-          const key    = `${diagAnswers.exp}-${diagAnswers.know}-${diagAnswers.mdd}`;
-          const result = DIAG_MAP[key] || DIAG_MAP['mid-basic-mid'];
-          applyPreset(result.preset);
-          document.getElementById('allocatorCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-      }
-
-      updateDiagResult();
+      next.addEventListener('click', () => {
+        const idx = diag2State.currentStep;
+        if (idx < DIAG2_QUESTIONS.length - 1) {
+          renderDiag2Step(idx + 1);
+        } else if (idx === DIAG2_QUESTIONS.length - 1) {
+          // 마지막 질문 후 → 분석 애니메이션 (Step 6) → 결과 (Step 7)
+          renderDiag2LoadingStep();
+        }
+      });
     }
 
-    function updateDiagResult() {
-      const key    = `${diagAnswers.exp}-${diagAnswers.know}-${diagAnswers.mdd}`;
-      const result = DIAG_MAP[key] || DIAG_MAP['mid-basic-mid'];
-      const titleEl = document.getElementById('diagResultTitle');
-      const recEl   = document.getElementById('diagResultRec');
-      const applyBtn = document.getElementById('diagApplyBtn');
-      if (titleEl) titleEl.textContent = result.title;
-      if (recEl)   recEl.textContent   = result.rec;
-      if (applyBtn) applyBtn.textContent = `${PRESET_NAMES[result.preset]} 배분으로 백테스트 →`;
+    function isAnswered(qIdx) {
+      const q   = DIAG2_QUESTIONS[qIdx];
+      const ans = diag2State.answers[q.id];
+      if (q.type === 'multi') return Array.isArray(ans) && ans.length > 0;
+      return !!ans;
+    }
+
+    function updateDiag2Header(stepIdx, totalSteps) {
+      const badge = document.getElementById('diag2StepBadge');
+      const fill  = document.getElementById('diag2ProgressFill');
+      if (badge) badge.textContent = `${Math.min(stepIdx + 1, totalSteps)} / ${totalSteps}`;
+      if (fill)  fill.style.width  = `${((stepIdx + 1) / totalSteps) * 100}%`;
+    }
+
+    function renderDiag2Step(stepIdx) {
+      diag2State.currentStep = stepIdx;
+      const stage = document.getElementById('diag2Stage');
+      const prev  = document.getElementById('diag2BtnPrev');
+      const next  = document.getElementById('diag2BtnNext');
+      const warningEl = document.getElementById('diag2Warning');
+      if (warningEl) warningEl.style.display = 'none';
+
+      const q = DIAG2_QUESTIONS[stepIdx];
+      updateDiag2Header(stepIdx, DIAG2_QUESTIONS.length);
+
+      // Step content
+      const ans  = diag2State.answers[q.id];
+      const opts = q.options.map(opt => {
+        const selected = q.type === 'multi'
+          ? Array.isArray(ans) && ans.includes(opt.id)
+          : ans === opt.id;
+        return `
+          <button class="diag2-option ${selected ? 'selected' : ''}" data-qid="${q.id}" data-oid="${opt.id}" data-qtype="${q.type}">
+            <span class="diag2-option-check ${q.type === 'multi' ? 'box' : ''}"></span>
+            <span class="diag2-option-body">
+              <span class="diag2-option-label">${opt.label}</span>
+              <span class="diag2-option-sub">${opt.sub}</span>
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      stage.innerHTML = `
+        <div class="diag2-step active">
+          <div class="diag2-q-tag">${q.tag}</div>
+          <div class="diag2-q-text">${q.q}</div>
+          <div class="diag2-q-hint">${q.hint}</div>
+          <div class="diag2-options">${opts}</div>
+        </div>
+      `;
+
+      stage.querySelectorAll('.diag2-option').forEach(btn => {
+        btn.addEventListener('click', () => handleDiag2Select(btn));
+      });
+
+      // Nav 상태
+      prev.disabled = stepIdx === 0;
+      const isLast = stepIdx === DIAG2_QUESTIONS.length - 1;
+      next.textContent = isLast ? '결과 분석하기 →' : '다음 →';
+      next.disabled = !isAnswered(stepIdx);
+
+      // 모순필터 사전 경고: Q5 단계 진입 후, Q3에 high가 없고 Q5에서 buy 선택 시 경고
+      if (q.id === 'q5_panic') {
+        const q3 = diag2State.answers.q3_assets || [];
+        if (Array.isArray(q3) && !q3.includes('high') && diag2State.answers.q5_panic === 'buy') {
+          showDiag2Warning(
+            '심리 vs 경험 미스매치 감지',
+            '실제 고위험 자산 경험은 없는데 심리적으로는 공격형이세요. 자신감이 실제 능력보다 앞서 있을 수 있어요 — 결과는 1단계 보수적으로 조정됩니다.'
+          );
+        }
+      }
+    }
+
+    function handleDiag2Select(btnEl) {
+      const qid   = btnEl.dataset.qid;
+      const oid   = btnEl.dataset.oid;
+      const qtype = btnEl.dataset.qtype;
+
+      if (qtype === 'multi') {
+        const cur = diag2State.answers[qid] || [];
+        const idx = cur.indexOf(oid);
+        if (idx >= 0) cur.splice(idx, 1);
+        else cur.push(oid);
+        diag2State.answers[qid] = cur;
+        // 같은 그룹의 selected 상태 토글
+        btnEl.classList.toggle('selected');
+      } else {
+        diag2State.answers[qid] = oid;
+        // 같은 그룹은 단일 선택 토글
+        btnEl.parentElement.querySelectorAll('.diag2-option').forEach(b => b.classList.remove('selected'));
+        btnEl.classList.add('selected');
+      }
+      // Next 활성화
+      const next = document.getElementById('diag2BtnNext');
+      if (next) next.disabled = !isAnswered(diag2State.currentStep);
+
+      // Q5에서 buy 선택 즉시 경고 (사전 노출)
+      if (qid === 'q5_panic') {
+        const q3 = diag2State.answers.q3_assets || [];
+        if (Array.isArray(q3) && !q3.includes('high') && oid === 'buy') {
+          showDiag2Warning(
+            '심리 vs 경험 미스매치 감지',
+            '실제 고위험 자산 경험은 없는데 심리적으로는 공격형이세요. 자신감이 실제 능력보다 앞서 있을 수 있어요 — 결과는 1단계 보수적으로 조정됩니다.'
+          );
+        } else {
+          hideDiag2Warning();
+        }
+      }
+    }
+
+    function showDiag2Warning(title, desc) {
+      const wrap = document.getElementById('diag2Warning');
+      const t = document.getElementById('diag2WarningTitle');
+      const d = document.getElementById('diag2WarningDesc');
+      if (wrap && t && d) {
+        t.textContent = title;
+        d.textContent = desc;
+        wrap.style.display = 'flex';
+      }
+    }
+    function hideDiag2Warning() {
+      const wrap = document.getElementById('diag2Warning');
+      if (wrap) wrap.style.display = 'none';
+    }
+
+    // 점수 산출 (0~100 각 축)
+    function calcDiag2Profile() {
+      // 1) Capacity: Q1 × 0.5 + Q2 × 0.5
+      const q1 = DIAG2_QUESTIONS[0].options.find(o => o.id === diag2State.answers.q1_purpose);
+      const q2 = DIAG2_QUESTIONS[1].options.find(o => o.id === diag2State.answers.q2_buffer);
+      const capacityScore = ((q1 ? q1.score : 0) * 0.5) + ((q2 ? q2.score : 0) * 0.5);
+
+      // 2) Competence: Q3 multi avg × 0.6 + Q4 × 0.4
+      const q3Ans = diag2State.answers.q3_assets || [];
+      const q3Scores = q3Ans.map(id => {
+        const o = DIAG2_QUESTIONS[2].options.find(x => x.id === id);
+        return o ? o.score : 0;
+      });
+      // 다중 선택은 최대값(=가장 고위험 경험)을 기반으로 평가 (현실: 어떤 자산에 가본 경험 자체가 시야 확장)
+      const q3Score = q3Scores.length ? Math.max(...q3Scores) : 0;
+      const q4 = DIAG2_QUESTIONS[3].options.find(o => o.id === diag2State.answers.q4_knowledge);
+      const competenceScore = q3Score * 0.6 + ((q4 ? q4.score : 0) * 0.4);
+
+      // 3) Tendency: Q5
+      const q5 = DIAG2_QUESTIONS[4].options.find(o => o.id === diag2State.answers.q5_panic);
+      const tendencyScore = q5 ? q5.score : 0;
+
+      // 총점
+      let total = capacityScore * 0.3 + competenceScore * 0.3 + tendencyScore * 0.4;
+      let levelIdx;
+      if      (total <= 20) levelIdx = 0;
+      else if (total <= 40) levelIdx = 1;
+      else if (total <= 60) levelIdx = 2;
+      else if (total <= 80) levelIdx = 3;
+      else                  levelIdx = 4;
+
+      // 예외 처리 1: 단기자금 캡 — 최대 위험중립형 (idx 2)
+      let shortCapApplied = false;
+      if (diag2State.answers.q1_purpose === 'short' && levelIdx > 2) {
+        levelIdx = 2;
+        shortCapApplied = true;
+      }
+
+      // 예외 처리 2: 모순 필터 — 고위험 자산 경험 0 + 추매 → 1단계 강제 하향
+      let mismatchApplied = false;
+      const hasHighRisk = q3Ans.includes('high');
+      if (!hasHighRisk && diag2State.answers.q5_panic === 'buy' && levelIdx > 0) {
+        levelIdx -= 1;
+        mismatchApplied = true;
+      }
+
+      const level = DIAG2_LEVELS[levelIdx];
+
+      // 5개 세부 지표 (레이더 차트용)
+      const radar = {
+        '자금 안정성':  Math.round(q1 ? q1.score : 0),
+        '손실 흡수력':  Math.round(q2 ? q2.score : 0),
+        '보유 경험':    Math.round(q3Score),
+        '금융 지식':    Math.round(q4 ? q4.score : 0),
+        '심리 강도':    Math.round(q5 ? q5.score : 0),
+      };
+
+      return {
+        levelIdx, level,
+        total: Math.round(total),
+        capacityScore:   Math.round(capacityScore),
+        competenceScore: Math.round(competenceScore),
+        tendencyScore:   Math.round(tendencyScore),
+        shortCapApplied, mismatchApplied,
+        radar,
+      };
+    }
+
+    // Step 6: 1.5초 분석 애니메이션
+    function renderDiag2LoadingStep() {
+      diag2State.currentStep = 5;
+      const stage = document.getElementById('diag2Stage');
+      const prev  = document.getElementById('diag2BtnPrev');
+      const next  = document.getElementById('diag2BtnNext');
+      const warningEl = document.getElementById('diag2Warning');
+      if (warningEl) warningEl.style.display = 'none';
+
+      const badge = document.getElementById('diag2StepBadge');
+      const fill  = document.getElementById('diag2ProgressFill');
+      if (badge) badge.textContent = '분석 중';
+      if (fill)  fill.style.width  = '100%';
+
+      prev.disabled = true;
+      next.disabled = true;
+      next.textContent = '연산 중...';
+
+      stage.innerHTML = `
+        <div class="diag2-loading">
+          <div class="diag2-loading-spinner"></div>
+          <div class="diag2-loading-text" id="diag2LoadingText">유저님의 <span class="accent">자산 목적</span> 매트릭스 연산 중...</div>
+          <div class="diag2-analysis-bars">
+            <div class="diag2-analysis-row"><div class="diag2-analysis-label">자금 안정성</div><div class="diag2-analysis-bar"></div><div class="diag2-analysis-pct">--</div></div>
+            <div class="diag2-analysis-row"><div class="diag2-analysis-label">손실 흡수력</div><div class="diag2-analysis-bar"></div><div class="diag2-analysis-pct">--</div></div>
+            <div class="diag2-analysis-row"><div class="diag2-analysis-label">투자 경험</div><div class="diag2-analysis-bar"></div><div class="diag2-analysis-pct">--</div></div>
+            <div class="diag2-analysis-row"><div class="diag2-analysis-label">금융 지식</div><div class="diag2-analysis-bar"></div><div class="diag2-analysis-pct">--</div></div>
+            <div class="diag2-analysis-row"><div class="diag2-analysis-label">심리 강도</div><div class="diag2-analysis-bar"></div><div class="diag2-analysis-pct">--</div></div>
+          </div>
+        </div>
+      `;
+
+      // 문구 회전 (총 1.5s)
+      const phrases = [
+        '유저님의 <span class="accent">자산 목적</span> 매트릭스 연산 중...',
+        '<span class="accent">투자 경험·역량</span> 정량 분석 진행 중...',
+        '<span class="accent">심리 시뮬레이션</span> 결과 가중치 적용 중...',
+        '<span class="accent">행동경제학</span> 모순 필터 검증 중...',
+      ];
+      let phraseIdx = 0;
+      const phraseEl = document.getElementById('diag2LoadingText');
+      const phraseTimer = setInterval(() => {
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        if (phraseEl) phraseEl.innerHTML = phrases[phraseIdx];
+      }, 380);
+
+      // 1.5s 후 결과 렌더
+      setTimeout(() => {
+        clearInterval(phraseTimer);
+        const result = calcDiag2Profile();
+        diag2State.result = result;
+        renderDiag2Result(result);
+      }, 1500);
+    }
+
+    // Step 7: 결과
+    function renderDiag2Result(result) {
+      diag2State.currentStep = 6;
+      const stage = document.getElementById('diag2Stage');
+      const prev  = document.getElementById('diag2BtnPrev');
+      const next  = document.getElementById('diag2BtnNext');
+      const footer = document.getElementById('diag2Footer');
+      const badge = document.getElementById('diag2StepBadge');
+      if (badge) badge.textContent = '진단 완료';
+
+      // 푸터 숨김 (결과 카드 안에 자체 CTA 있음)
+      if (footer) footer.style.display = 'none';
+
+      // 날카로운 코멘트 생성
+      const sharpFeedback = buildDiag2SharpFeedback(result);
+
+      const radarEntries = Object.entries(result.radar);
+      const radarLegend = radarEntries
+        .map(([k, v]) => `<span>${k} <strong>${v}</strong></span>`).join('');
+
+      stage.innerHTML = `
+        <div class="diag2-result">
+          <div class="diag2-result-top">
+            <div class="diag2-result-eyebrow">INVESTOR PROFILE · ${result.level.tag}</div>
+            <div class="diag2-result-name">${result.level.name}</div>
+            <div class="diag2-result-score">종합 점수 <strong>${result.total}</strong> / 100</div>
+          </div>
+
+          ${result.mismatchApplied ? `
+            <div class="diag2-insight mismatch">
+              <div class="diag2-insight-title">⚡ 이중적 성향 감지 · 1단계 보수적 조정 적용</div>
+              <div class="diag2-insight-text">실제 고위험 자산 경험은 없는데 \"폭락 시 추매\"를 선택하셨어요. 심리적 자신감이 실제 경험·지식보다 앞서 있는 전형적인 <strong>과신 편향(Overconfidence Bias)</strong> 패턴이에요. 안전을 위해 결과를 1단계 보수적으로 조정했습니다.</div>
+            </div>` : ''}
+
+          ${result.shortCapApplied ? `
+            <div class="diag2-insight mismatch">
+              <div class="diag2-insight-title">⏱ 단기 자금 캡 적용</div>
+              <div class="diag2-insight-text">1년 미만 단기 자금은 시장 변동성에 노출시키면 안 됩니다. 다른 점수가 아무리 높아도 <strong>위험중립형 이상</strong>으로는 분류하지 않아요. 자금 성격에 맞는 보수적 운용을 권장드립니다.</div>
+            </div>` : ''}
+
+          <div class="diag2-radar-wrap">
+            <canvas id="diag2RadarCanvas" class="diag2-radar-canvas" width="280" height="280"></canvas>
+            <div class="diag2-radar-legend">${radarLegend}</div>
+          </div>
+
+          <div class="diag2-scores-grid">
+            <div class="diag2-score-cell">
+              <span class="diag2-score-name">위험감수능력</span>
+              <span class="diag2-score-val">${result.capacityScore}</span>
+              <span class="diag2-score-weight">× 0.3</span>
+            </div>
+            <div class="diag2-score-cell">
+              <span class="diag2-score-name">투자 역량</span>
+              <span class="diag2-score-val">${result.competenceScore}</span>
+              <span class="diag2-score-weight">× 0.3</span>
+            </div>
+            <div class="diag2-score-cell">
+              <span class="diag2-score-name">위험감수성향</span>
+              <span class="diag2-score-val">${result.tendencyScore}</span>
+              <span class="diag2-score-weight">× 0.4</span>
+            </div>
+          </div>
+
+          <div class="diag2-insight">
+            <div class="diag2-insight-title">${sharpFeedback.title}</div>
+            <div class="diag2-insight-text">${sharpFeedback.body}</div>
+          </div>
+
+          <div class="diag2-cta-row">
+            <button class="diag2-cta-apply" id="diag2BtnApply">${result.level.name} 추천 배분 적용 →</button>
+            <button class="diag2-cta-restart" id="diag2BtnRestart">진단 다시 하기</button>
+          </div>
+        </div>
+      `;
+
+      // 레이더 차트
+      drawDiag2Radar(document.getElementById('diag2RadarCanvas'), result.radar);
+
+      // CTA
+      const applyBtn = document.getElementById('diag2BtnApply');
+      const restartBtn = document.getElementById('diag2BtnRestart');
+      if (applyBtn) {
+        applyBtn.addEventListener('click', () => {
+          state.allocation = { ...result.level.preset };
+          if (typeof syncAllocUI === 'function') syncAllocUI();
+          if (typeof drawPieChart === 'function') drawPieChart();
+          if (typeof updateBacktestResults === 'function') updateBacktestResults(false);
+          const ac = document.getElementById('allocatorCard');
+          if (ac) ac.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (typeof showToast === 'function') showToast(`${result.level.name} 배분이 적용됐어요`);
+        });
+      }
+      if (restartBtn) {
+        restartBtn.addEventListener('click', () => {
+          diag2State.answers = {};
+          diag2State.result = null;
+          if (footer) footer.style.display = 'flex';
+          renderDiag2Step(0);
+        });
+      }
+    }
+
+    function buildDiag2SharpFeedback(result) {
+      // 능력/역량/성향 간의 갭을 분석해 'sharp' 코멘트 생성
+      const cap = result.capacityScore;
+      const comp = result.competenceScore;
+      const tend = result.tendencyScore;
+      const lvl = result.level.name;
+
+      // 케이스 1: 성향 > 역량 (심리적 자신감이 실제 역량보다 큼)
+      if (tend - comp >= 30) {
+        return {
+          title: '💡 핵심 인사이트 · 심리가 역량보다 앞서 있어요',
+          body: `<strong>${lvl}</strong>이지만, 행동 의지(${tend}점)가 실제 투자 경험·지식(${comp}점)보다 ${tend - comp}점이나 앞섭니다. 시장이 좋을 땐 좋은 결정처럼 보이지만, 실제 -20%·-30% 하락을 처음 만났을 때 패닉 매도로 이어지기 쉬워요. <strong>소액부터 시작해 실전 경험을 쌓으면서 비중을 단계적으로 늘리는 전략</strong>을 권장드립니다.`,
+        };
+      }
+      // 케이스 2: 역량 > 성향 (지식·경험은 있는데 심리적으로 보수적)
+      if (comp - tend >= 30) {
+        return {
+          title: '🎯 핵심 인사이트 · 지식 대비 심리가 보수적이에요',
+          body: `투자 경험·지식(${comp}점)은 충분하지만 손실에 대한 심리적 거부감(${tend}점)이 ${comp - tend}점 더 보수적이에요. <strong>알면서도 못 사는 케이스</strong>입니다. 이성적 분석을 신뢰하되, 한 번에 풀 매수하지 말고 분할 매수(DCA)로 심리적 부담을 분산시키세요.`,
+        };
+      }
+      // 케이스 3: 능력 약 + 성향 강 (위험)
+      if (cap < 40 && tend >= 70) {
+        return {
+          title: '⚠ 핵심 인사이트 · 재무 안정성 대비 공격성이 과해요',
+          body: `손실 흡수력(${cap}점)이 약한데 심리는 공격적(${tend}점)이에요. 변동성 자산의 손실이 실제 생활에 큰 영향을 줄 수 있는 구조입니다. <strong>먼저 비상자금 6개월치를 확보</strong>한 뒤 본격적인 투자를 권장드려요.`,
+        };
+      }
+      // 케이스 4: 균형 잘 잡힘
+      if (Math.abs(cap - comp) < 20 && Math.abs(comp - tend) < 20) {
+        return {
+          title: '✓ 핵심 인사이트 · 세 가지 축이 균형 있게 정렬됐어요',
+          body: `자금 안정성(${cap}점) · 투자 역량(${comp}점) · 심리 강도(${tend}점)가 매우 균형 잡혀 있어요. 머리와 마음, 통장이 같은 방향을 보는 <strong>가장 이상적인 투자자 프로파일</strong>입니다. ${lvl} 배분을 일관되게 유지하는 것만으로도 좋은 성과를 기대할 수 있어요.`,
+        };
+      }
+      // 케이스 5: 기본
+      return {
+        title: '📊 핵심 인사이트 · 당신은 ' + lvl + '이에요',
+        body: `${result.level.insight} 추천 배분을 백테스트로 확인한 뒤, 본인의 ${cap >= 60 ? '안정된 재무 기반' : '재무 상황'}과 ${tend >= 60 ? '적극적 심리' : '신중한 심리'}에 맞게 미세 조정해 보세요.`,
+      };
+    }
+
+    // 레이더 차트 (5각형) — Canvas 2D
+    function drawDiag2Radar(canvas, radarData) {
+      if (!canvas) return;
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      const W = rect.width || 280;
+      const H = rect.height || 280;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      const c = canvas.getContext('2d');
+      c.scale(dpr, dpr);
+      c.clearRect(0, 0, W, H);
+
+      const cx = W / 2, cy = H / 2;
+      const radius = Math.min(W, H) / 2 - 36;
+      const labels = Object.keys(radarData);
+      const values = Object.values(radarData);
+      const N = labels.length;
+
+      // 동심 다각형 가이드 (4단계)
+      c.strokeStyle = 'rgba(25,31,40,0.10)';
+      c.lineWidth = 1;
+      for (let g = 1; g <= 4; g++) {
+        const r = (radius * g) / 4;
+        c.beginPath();
+        for (let i = 0; i < N; i++) {
+          const ang = -Math.PI / 2 + (i * 2 * Math.PI) / N;
+          const x = cx + r * Math.cos(ang);
+          const y = cy + r * Math.sin(ang);
+          if (i === 0) c.moveTo(x, y); else c.lineTo(x, y);
+        }
+        c.closePath(); c.stroke();
+      }
+      // 축선
+      c.strokeStyle = 'rgba(25,31,40,0.10)';
+      for (let i = 0; i < N; i++) {
+        const ang = -Math.PI / 2 + (i * 2 * Math.PI) / N;
+        c.beginPath();
+        c.moveTo(cx, cy);
+        c.lineTo(cx + radius * Math.cos(ang), cy + radius * Math.sin(ang));
+        c.stroke();
+      }
+
+      // 데이터 폴리곤 (0~100 정규화)
+      c.beginPath();
+      for (let i = 0; i < N; i++) {
+        const ang = -Math.PI / 2 + (i * 2 * Math.PI) / N;
+        const r = (radius * (values[i] || 0)) / 100;
+        const x = cx + r * Math.cos(ang);
+        const y = cy + r * Math.sin(ang);
+        if (i === 0) c.moveTo(x, y); else c.lineTo(x, y);
+      }
+      c.closePath();
+      // 채우기
+      const grad = c.createRadialGradient(cx, cy, 0, cx, cy, radius);
+      grad.addColorStop(0, 'rgba(49,130,246,0.35)');
+      grad.addColorStop(1, 'rgba(0,192,137,0.18)');
+      c.fillStyle = grad; c.fill();
+      // 외곽선
+      c.strokeStyle = '#3182F6'; c.lineWidth = 2.5; c.lineJoin = 'round'; c.stroke();
+
+      // 데이터 포인트 (점)
+      for (let i = 0; i < N; i++) {
+        const ang = -Math.PI / 2 + (i * 2 * Math.PI) / N;
+        const r = (radius * (values[i] || 0)) / 100;
+        const x = cx + r * Math.cos(ang);
+        const y = cy + r * Math.sin(ang);
+        c.beginPath(); c.arc(x, y, 4.5, 0, Math.PI * 2);
+        c.fillStyle = '#FFFFFF'; c.fill();
+        c.beginPath(); c.arc(x, y, 3, 0, Math.PI * 2);
+        c.fillStyle = '#3182F6'; c.fill();
+      }
+
+      // 라벨
+      c.font = `700 11px Outfit, "Noto Sans KR", sans-serif`;
+      c.fillStyle = '#4E5968';
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+      for (let i = 0; i < N; i++) {
+        const ang = -Math.PI / 2 + (i * 2 * Math.PI) / N;
+        const lx = cx + (radius + 20) * Math.cos(ang);
+        const ly = cy + (radius + 20) * Math.sin(ang);
+        c.fillText(labels[i], lx, ly);
+      }
     }
 
     // ─────────────────────────────────────────────────────────
