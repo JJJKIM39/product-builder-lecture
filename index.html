@@ -5372,6 +5372,14 @@
         if (eiLossEl)   eiLossEl.textContent   = '약 ' + lossM.toLocaleString('ko-KR') + '만원';
 
         showToast('시뮬레이션 완료! 포트폴리오 성과를 확인하세요');
+
+        // 결과 패널로 부드럽게 스크롤 — 사용자가 즉시 결과를 볼 수 있도록
+        setTimeout(() => {
+          const chartBox = document.querySelector('#allocatorCard .bt-chart-box');
+          if (chartBox && typeof chartBox.scrollIntoView === 'function') {
+            chartBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 80);
       }, 1050);
     }
 
@@ -5397,13 +5405,19 @@
       const canvas = document.getElementById('btLineCanvas');
       if (!canvas) return;
       if (backtestAnimFrame) { cancelAnimationFrame(backtestAnimFrame); backtestAnimFrame = null; }
+      // 1) 안전장치: 즉시 1프레임 그려 두기 (rAF 지연·throttle 대비)
+      try { drawBtLinePart(canvas, data, 0.04); } catch (e) {}
       const startTime = performance.now();
       const DURATION  = 900;
       function frame(now) {
         const prog   = Math.min(1, (now - startTime) / DURATION);
         const eased  = 1 - Math.pow(1 - prog, 3);
-        drawBtLinePart(canvas, data, eased);
+        try { drawBtLinePart(canvas, data, eased); } catch (e) { console.error('drawBtLinePart err', e); }
         if (prog < 1) backtestAnimFrame = requestAnimationFrame(frame);
+        else {
+          // 완료 후 최종 프레임 한 번 더 보장
+          try { drawBtLinePart(canvas, data, 1); } catch (e) {}
+        }
       }
       backtestAnimFrame = requestAnimationFrame(frame);
     }
