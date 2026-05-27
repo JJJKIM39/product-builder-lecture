@@ -189,6 +189,7 @@
       padding: 6px 12px;
       border-radius: 8px;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .nav-link:hover {
@@ -200,6 +201,79 @@
       color: #FFFFFF !important;
       background-color: var(--toss-blue);
       box-shadow: 0 4px 12px rgba(49, 130, 246, 0.35);
+    }
+
+    /* ── Mobile Bottom Tab Bar ── */
+    .bottom-tab-bar {
+      display: none; /* hidden on desktop */
+    }
+
+    @media (max-width: 600px) {
+      /* Hide top nav links on mobile */
+      .nav-links {
+        display: none;
+      }
+
+      /* Show bottom tab bar on mobile */
+      .bottom-tab-bar {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        background: rgba(22, 27, 38, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-top: 1px solid var(--border-color);
+        padding: 6px 0 env(safe-area-inset-bottom, 10px) 0;
+      }
+
+      .tab-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        text-decoration: none;
+        color: var(--text-sub);
+        font-size: 10px;
+        font-weight: 700;
+        padding: 4px 2px;
+        transition: color 0.18s;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .tab-item svg {
+        transition: transform 0.18s;
+      }
+
+      .tab-item.active {
+        color: var(--toss-blue);
+      }
+
+      .tab-item.active svg {
+        transform: scale(1.12);
+      }
+
+      /* Extra bottom padding so content isn't hidden behind tab bar */
+      .app-container {
+        padding-bottom: 90px;
+      }
+
+      /* forex-item font size scaling on mobile */
+      .forex-item {
+        padding: 14px 16px;
+        min-height: 54px;
+      }
+      .forex-name {
+        font-size: 13px;
+        white-space: normal;
+      }
+      .forex-price {
+        font-size: 18px;
+      }
     }
 
     /* SPA Page-View system rules */
@@ -496,43 +570,210 @@
       padding-right: 4px;
     }
 
+    /* ── ICT Signal Cards ── */
     .signal-card {
       background-color: var(--grey-light);
-      border-radius: 16px;
-      padding: 12px 16px;
+      border-radius: 18px;
+      padding: 16px 18px;
       border-left: 4px solid var(--toss-blue);
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 10px;
       animation: signalFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .signal-card.buy { border-left-color: var(--neon-green); }
+    .signal-card.buy  { border-left-color: var(--neon-green); }
     .signal-card.sell { border-left-color: var(--neon-red); }
 
     .signal-header-row {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       font-size: 11px;
       color: var(--grey-dark);
       font-weight: 600;
     }
 
-    .signal-label {
-      font-size: 13px;
+    /* LIVE pulse dot */
+    .signal-live-dot {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
       font-weight: 700;
-      color: var(--text-color);
+      color: var(--neon-green);
+    }
+    .signal-live-dot::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--neon-green);
+      animation: livePulse 1.4s ease-in-out infinite;
+      display: inline-block;
+    }
+    .signal-card.sell .signal-live-dot { color: var(--neon-red); }
+    .signal-card.sell .signal-live-dot::before { background: var(--neon-red); }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.7); }
     }
 
+    .signal-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .signal-label {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-color);
+      line-height: 1.3;
+    }
+
+    .signal-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .signal-badge.buy  { background: var(--neon-green-light); color: var(--neon-green); }
+    .signal-badge.sell { background: var(--neon-red-light);   color: var(--neon-red); }
+
+    /* Reason / basis section */
+    .signal-reason {
+      background: rgba(255,255,255,0.03);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .signal-reason-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--grey-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
     .signal-desc {
       font-size: 12px;
       color: var(--text-sub);
-      line-height: 1.5;
+      line-height: 1.55;
+    }
+
+    /* ICT price plan grid */
+    .signal-ict-plan {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .signal-ict-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .signal-ict-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--grey-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .signal-confidence {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+    .confidence-bar-bg {
+      width: 64px;
+      height: 5px;
+      background: var(--grey-medium);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .confidence-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--toss-blue), var(--neon-green));
+      transition: width 0.4s;
+    }
+    .signal-card.sell .confidence-bar-fill {
+      background: linear-gradient(90deg, #F59F00, var(--neon-red));
+    }
+
+    .signal-price-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .signal-price-cell {
+      background: var(--bg-color);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .signal-price-cell-label {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: var(--grey-dark);
+    }
+    .signal-price-cell-val {
+      font-size: 13px;
+      font-weight: 800;
+      font-family: var(--font-outfit);
+      color: var(--text-color);
+    }
+    .signal-price-cell-sub {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--grey-dark);
+    }
+    .signal-price-cell.entry .signal-price-cell-label { color: var(--toss-blue); }
+    .signal-price-cell.target .signal-price-cell-label { color: var(--neon-green); }
+    .signal-price-cell.stop   .signal-price-cell-label { color: var(--neon-red); }
+
+    .signal-rr-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+    }
+    .signal-rr-label { color: var(--grey-dark); font-weight: 600; }
+    .signal-rr-val   { font-weight: 800; font-family: var(--font-outfit); color: var(--text-color); }
+
+    /* Context tags */
+    .signal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 2px;
+    }
+    .signal-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      background: var(--grey-medium);
+      color: var(--text-sub);
     }
 
     @keyframes signalFadeIn {
-      from { transform: translateY(10px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      from { transform: translateY(12px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
     }
 
     /* Mock Trading Panel */
@@ -1064,6 +1305,41 @@
     </div>
   </nav>
 
+  <!-- Mobile Bottom Tab Bar (visible only on ≤600px via CSS) -->
+  <nav class="bottom-tab-bar" id="bottomTabBar">
+    <!-- Terminal -->
+    <a href="#terminal" class="tab-item active" data-tab="terminal" id="tabBtn_terminal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+      <span>터미널</span>
+    </a>
+    <!-- Portfolio -->
+    <a href="#allocator" class="tab-item" data-tab="allocator" id="tabBtn_allocator">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+      </svg>
+      <span>포트폴리오</span>
+    </a>
+    <!-- AI Signal -->
+    <a href="#signals" class="tab-item" data-tab="signals" id="tabBtn_signals">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+      </svg>
+      <span>AI 시그널</span>
+    </a>
+    <!-- Macro -->
+    <a href="#macro" class="tab-item" data-tab="macro" id="tabBtn_macro">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      <span>환율·거시</span>
+    </a>
+  </nav>
+
   <div class="app-container">
     
     <div class="page-view active" id="view-terminal">
@@ -1155,20 +1431,111 @@
     <div class="page-view" id="view-signals">
       <div class="card" id="signalsCard">
         <div class="card-title">
-          <span>X-AI 투자 분석 시그널</span>
+          <span>X-AI 투자 분석 시그널 (ICT 기반)</span>
         </div>
-        <div class="card-subtitle">AI 신경망 분석 엔진이 감지한 주요 종목별 틱 실시간 매매 포착 피드입니다.</div>
+        <div class="card-subtitle">AI 신경망 분석 엔진이 ICT 트레이딩 이론(오더블록 7 FVG 7 EQH/L 7 OTE)에 기반하여 감지한 실시간 매매 시그널 피드입니다. 교육 목적의 가상 시뮬레이션 데이터입니다.</div>
         
         <div class="signal-timeline" id="signalTimeline">
+          <!-- Seed signal 1: TSLA BUY -->
           <div class="signal-card buy">
-            <div class="signal-header-row"><span>TSLA / USD</span><span>방금 전</span></div>
-            <div class="signal-label" style="color: var(--neon-green);">🤖 [AI 돌파 매수 시그널] 테슬라</div>
-            <div class="signal-desc">이동평균 수렴확산(MACD) 5분봉 기준 골든크로스 상승 패턴 포착. 단기 추세 반전 매수 진입 유리.</div>
+            <div class="signal-header-row">
+              <span>TSLA / USD &nbsp;·&nbsp; 나스닥 대형주</span>
+              <span class="signal-live-dot">LIVE</span>
+            </div>
+            <div class="signal-title-row">
+              <div class="signal-label">🤖 추세 돌파 매수 시그널 &mdash; 테슬라</div>
+              <span class="signal-badge buy">▲ BUY</span>
+            </div>
+            <div class="signal-reason">
+              <div class="signal-reason-title">📌 시그널 근거 (ICT)</div>
+              <div class="signal-desc">5분봉 Order Block(OB) 상단 돌파 + Fair Value Gap(하방 빈고) 소멸 확인. Bullish 인가마로 위치한 FVG 기준 매수 매력도 상승.</div>
+            </div>
+            <div class="signal-ict-plan">
+              <div class="signal-ict-header">
+                <span class="signal-ict-label">💰 ICT 매매 계획</span>
+                <span class="signal-confidence">
+                  <span>신뢰도 81%</span>
+                  <span class="confidence-bar-bg"><span class="confidence-bar-fill" style="width:81%"></span></span>
+                </span>
+              </div>
+              <div class="signal-price-grid">
+                <div class="signal-price-cell entry">
+                  <div class="signal-price-cell-label">▶ 진입가</div>
+                  <div class="signal-price-cell-val">$244.30</div>
+                  <div class="signal-price-cell-sub">OB 상단 기준</div>
+                </div>
+                <div class="signal-price-cell target">
+                  <div class="signal-price-cell-label">🎯 목표가</div>
+                  <div class="signal-price-cell-val">$252.80</div>
+                  <div class="signal-price-cell-sub">+3.5% · EQH 레벨</div>
+                </div>
+                <div class="signal-price-cell stop">
+                  <div class="signal-price-cell-label">⚠️ 손절가</div>
+                  <div class="signal-price-cell-val">$240.10</div>
+                  <div class="signal-price-cell-sub">−1.7% · OB 하단</div>
+                </div>
+              </div>
+              <div class="signal-rr-row">
+                <span class="signal-rr-label">리스크:리워드 (R:R)</span>
+                <span class="signal-rr-val">1 : 2.1</span>
+              </div>
+            </div>
+            <div class="signal-tags">
+              <span class="signal-tag">📍 달러 약세 구간</span>
+              <span class="signal-tag">📍 위험선호</span>
+              <span class="signal-tag">15분봉 확인 권고</span>
+            </div>
           </div>
-          <div class="signal-card">
-            <div class="signal-header-row"><span>NVDA / USD</span><span>2분 전</span></div>
-            <div class="signal-label">🤖 [AI 지지선 테스트] 엔비디아</div>
-            <div class="signal-desc">최근 주요 지지선 $918.00 구간의 터치 지지 거래대금 상승 포착. 분할 매수 적합 영역.</div>
+
+          <!-- Seed signal 2: NVDA SELL -->
+          <div class="signal-card sell">
+            <div class="signal-header-row">
+              <span>NVDA / USD &nbsp;·&nbsp; 나스닥 대형주</span>
+              <span>2분 전</span>
+            </div>
+            <div class="signal-title-row">
+              <div class="signal-label">🤖 저항선 붕괴 매도 시그널 &mdash; 엔비디아</div>
+              <span class="signal-badge sell">▼ SELL</span>
+            </div>
+            <div class="signal-reason">
+              <div class="signal-reason-title">📌 시그널 근거 (ICT)</div>
+              <div class="signal-desc">Bearish Order Block 하단 이탈 + RSI 78 과매수 구역. 세션 높은 거래량에서 매도 OB 상단 저항 확인. EQL(Equal Lows) 목표가 하방 위치.</div>
+            </div>
+            <div class="signal-ict-plan">
+              <div class="signal-ict-header">
+                <span class="signal-ict-label">💰 ICT 매매 계획</span>
+                <span class="signal-confidence">
+                  <span>신뢰도 74%</span>
+                  <span class="confidence-bar-bg"><span class="confidence-bar-fill" style="width:74%"></span></span>
+                </span>
+              </div>
+              <div class="signal-price-grid">
+                <div class="signal-price-cell entry">
+                  <div class="signal-price-cell-label">▶ 진입가</div>
+                  <div class="signal-price-cell-val">$921.40</div>
+                  <div class="signal-price-cell-sub">Bearish OB 기준</div>
+                </div>
+                <div class="signal-price-cell target">
+                  <div class="signal-price-cell-label">🎯 목표가</div>
+                  <div class="signal-price-cell-val">$893.20</div>
+                  <div class="signal-price-cell-sub">−3.1% · EQL 레벨</div>
+                </div>
+                <div class="signal-price-cell stop">
+                  <div class="signal-price-cell-label">⚠️ 손절가</div>
+                  <div class="signal-price-cell-val">$934.90</div>
+                  <div class="signal-price-cell-sub">+1.5% · OB 상단</div>
+                </div>
+              </div>
+              <div class="signal-rr-row">
+                <span class="signal-rr-label">리스크:리워드 (R:R)</span>
+                <span class="signal-rr-val">1 : 2.0</span>
+              </div>
+            </div>
+            <div class="signal-tags">
+              <span class="signal-tag">📍 연준 금리 고점</span>
+              <span class="signal-tag">📍 위험회피</span>
+              <span class="signal-tag">RSI 과매수 경고</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1623,6 +1990,18 @@
         });
       });
 
+      // Connect bottom tab bar links
+      document.querySelectorAll('.tab-item').forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          const tabId = e.currentTarget.getAttribute('data-tab');
+          if (tabId) {
+            e.preventDefault();
+            window.location.hash = '#' + tabId;
+            switchTab(tabId);
+          }
+        });
+      });
+
       // Connect tab selector buttons for live chart terminal
       document.querySelectorAll('#terminalAssetSelector .asset-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
@@ -1794,6 +2173,14 @@
         link.classList.remove('active');
         if (link.getAttribute('data-tab') === tabId) {
           link.classList.add('active');
+        }
+      });
+
+      // Sync bottom tab bar active state
+      document.querySelectorAll('.tab-item').forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.getAttribute('data-tab') === tabId) {
+          tab.classList.add('active');
         }
       });
       
@@ -2201,47 +2588,158 @@
       const keys = Object.keys(state.assets);
       const randomKey = keys[Math.floor(Math.random() * keys.length)];
       const asset = state.assets[randomKey];
-      const isUp = Math.random() > 0.48;
-      
-      const signals = {
+      const currentPrice = asset.price;
+      const isUp = Math.random() > 0.46;
+
+      // ─ ICT Reasons ─
+      const reasons = {
         buy: [
-          "5분봉 기준 볼린저밴드 하단 이탈 후 회귀 포착. 단기 지지선 반등 매수 전략 유효.",
-          "거래량 동반한 저항선 돌파 패턴 감지. 피보나치 되돌림 0.618 지지 성공 후 2차 파동 예상.",
-          "외국인 계좌의 대량 분할 순매수 신호 감지. 단기 목표가 도달 가능성 74% 예상.",
-          "RSI 과매도 영역 진입에 따른 공매도 숏커버링 유입 예측. 강력 매입 매력도 상승."
+          'Bullish Order Block(OB) 상단 돌파 + 상방 Fair Value Gap(FVG) 소멸 전 위치. OTE(Optimal Trade Entry) 구간 진입 자감 확인.',
+          'Swing Low 투 센(Turtle Soup) 후 반전봉 포다 확인. 시장 구조(Market Structure) Bullish 전환 신호.',
+          'New York 세션 개장 시 Price 리템션. Daily Fair Value Gap 하단 반등 + Liquidity Pool 획득 확인.',
+          '15분봉 Bullish BOS(Break of Structure) 확인. 연속하는 Higher Low 형성 후 매수 진입 타이밍.'
         ],
         sell: [
-          "상단 강한 저항선 저항 돌파 실패 후 음봉 거래대금 폭발. 리스크 관리 분할 매도 권고.",
-          "시간외 체결 및 선물 거래량 둔화 신호 포착. 지지선 하향 돌파 우려에 따른 보수적 관점 유지.",
-          "RSI 75% 이상 극단적 과매수 구간 진입 완료. 일시적 기술적 조정 파동 대비 필요.",
-          "이동평균선(EMA) 데드크로스 출현에 따른 지지 구간 붕괴 포착. 손절(Stop Loss) 기준선 확보 필요."
+          'Bearish Order Block 준거 + 하방 FVG 위치. Equal Highs(EQH) 유동성 획득 후 급락 구조 전환 신호.',
+          'Smart Money Reversal(SMR) 패턴 노출. VWAP 이탈 + CISD 센드 상 겹치 지점.',
+          'Power of 3(스우프~개장~분배) 항퍼단계 확인. 레지스터망 구간 매도 OB 위치.',
+          '시간워랙(OTE) 내 Bearish Engulfing 확인. ADR(일중 범위) 상단 돌파 및 시장 하락 전환 가능성.'
         ]
       };
 
-      const selectedTimeline = isUp ? signals.buy : signals.sell;
-      const randomDesc = selectedTimeline[Math.floor(Math.random() * selectedTimeline.length)];
-      const titleLabel = isUp ? `🤖 [AI 돌파 매수 시그널] ${randomKey}` : `🤖 [AI 지지 붕괴 매도 시그널] ${randomKey}`;
+      // ─ ICT context tags ─
+      const tags = {
+        buy: [
+          ['📍 달러 약세 구간', '📍 위험선호', 'OB 반등 확인'],
+          ['📍 연준 보류', '📍 상승 모멘텀', '15분봉 확인 권고'],
+          ['📍 NY세션 진입', 'FVG 반등', 'BOS 돌파'],
+          ['📍 리쿨이디티 획득', '📍 위험선호', '분할매수 권고']
+        ],
+        sell: [
+          ['📍 연준 금리 고점', '📍 위험회피', 'RSI 과매수 경고'],
+          ['📍 달러 강세', '📍 안전자산 선호', '손절선 확인 필수'],
+          ['📍 변동성 경보', 'OB 저항', '시간대 주의'],
+          ['📍 그린백 리스크', '📍 위험회피', 'Bearish BOS 확인']
+        ]
+      };
+
+      const reasonPool = isUp ? reasons.buy : reasons.sell;
+      const tagPool    = isUp ? tags.buy    : tags.sell;
+      const rIdx = Math.floor(Math.random() * reasonPool.length);
+      const selectedReason = reasonPool[rIdx];
+      const selectedTags   = tagPool[rIdx];
+
+      // ─ ICT price calculations ─
+      const obPct    = (0.008 + Math.random() * 0.005);   // OB range: 0.8−1.3%
+      const fvgPct   = (0.025 + Math.random() * 0.015);   // FVG target: 2.5−4.0%
+      const slPct    = (0.012 + Math.random() * 0.006);   // Stop loss: 1.2−1.8%
+
+      let entryPrice, targetPrice, stopPrice, targetPctLabel, stopPctLabel, entryNote, targetNote, stopNote;
+      if (isUp) {
+        entryPrice  = currentPrice * (1 - obPct);    // below current = OB top zone
+        targetPrice = currentPrice * (1 + fvgPct);   // above = FVG / EQH
+        stopPrice   = currentPrice * (1 - obPct - slPct); // below entry = OB bottom
+        targetPctLabel = `+${(fvgPct * 100).toFixed(1)}% · EQH 레벨`;
+        stopPctLabel   = `−${((obPct + slPct) * 100).toFixed(1)}% · OB 하단`;
+        entryNote  = 'Bullish OB 상단';
+        targetNote = 'Equal Highs';
+        stopNote   = 'OB 하단';
+      } else {
+        entryPrice  = currentPrice * (1 + obPct);    // above current = Bearish OB bottom
+        targetPrice = currentPrice * (1 - fvgPct);   // below = FVG / EQL
+        stopPrice   = currentPrice * (1 + obPct + slPct); // above entry = OB top
+        targetPctLabel = `−${(fvgPct * 100).toFixed(1)}% · EQL 레벨`;
+        stopPctLabel   = `+${((obPct + slPct) * 100).toFixed(1)}% · OB 상단`;
+        entryNote  = 'Bearish OB 하단';
+        targetNote = 'Equal Lows';
+        stopNote   = 'OB 상단';
+      }
+
+      // R:R ratio
+      const reward = Math.abs(targetPrice - entryPrice);
+      const risk   = Math.abs(stopPrice - entryPrice);
+      const rr = (reward / risk).toFixed(1);
+
+      // Confidence 65−92%
+      const confidence = Math.floor(65 + Math.random() * 27);
+
+      // Format prices with currency symbol
+      const isCrypto = ['BTC', 'ETH'].includes(randomKey);
+      const decimals = isCrypto ? 1 : 2;
+      const sym = '$';
+      const fmt = v => sym + v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
       const borderClass = isUp ? 'signal-card buy' : 'signal-card sell';
-      const labelColor = isUp ? 'var(--neon-green)' : 'var(--neon-red)';
+      const badgeLabel  = isUp ? '▲ BUY' : '▼ SELL';
+      const badgeClass  = isUp ? 'buy' : 'sell';
+      const signalTitle = isUp
+        ? `🤖 Bullish 돌파 매수 시그널 &mdash; ${asset.name}`
+        : `🤖 Bearish 저항 매도 시그널 &mdash; ${asset.name}`;
+
+      const tagHtml = selectedTags.map(t => `<span class="signal-tag">${t}</span>`).join('');
 
       const timelineEl = document.getElementById('signalTimeline');
       const newCard = document.createElement('div');
       newCard.className = borderClass;
       newCard.innerHTML = `
-        <div class="signal-header-row"><span>${asset.name}</span><span>방금 전</span></div>
-        <div class="signal-label" style="color: ${labelColor};">${titleLabel}</div>
-        <div class="signal-desc">${randomDesc}</div>
+        <div class="signal-header-row">
+          <span>${randomKey} / USD &nbsp;·&nbsp; ${isCrypto ? '암호화폐' : '나스닥 대형주'}</span>
+          <span class="signal-live-dot">LIVE</span>
+        </div>
+        <div class="signal-title-row">
+          <div class="signal-label">${signalTitle}</div>
+          <span class="signal-badge ${badgeClass}">${badgeLabel}</span>
+        </div>
+        <div class="signal-reason">
+          <div class="signal-reason-title">📌 시그널 근거 (ICT)</div>
+          <div class="signal-desc">${selectedReason}</div>
+        </div>
+        <div class="signal-ict-plan">
+          <div class="signal-ict-header">
+            <span class="signal-ict-label">💰 ICT 매매 계획</span>
+            <span class="signal-confidence">
+              <span>신뢰도 ${confidence}%</span>
+              <span class="confidence-bar-bg"><span class="confidence-bar-fill" style="width:${confidence}%"></span></span>
+            </span>
+          </div>
+          <div class="signal-price-grid">
+            <div class="signal-price-cell entry">
+              <div class="signal-price-cell-label">▶ 진입가</div>
+              <div class="signal-price-cell-val">${fmt(entryPrice)}</div>
+              <div class="signal-price-cell-sub">${entryNote}</div>
+            </div>
+            <div class="signal-price-cell target">
+              <div class="signal-price-cell-label">🎯 목표가</div>
+              <div class="signal-price-cell-val">${fmt(targetPrice)}</div>
+              <div class="signal-price-cell-sub">${targetPctLabel}</div>
+            </div>
+            <div class="signal-price-cell stop">
+              <div class="signal-price-cell-label">⚠️ 손절가</div>
+              <div class="signal-price-cell-val">${fmt(stopPrice)}</div>
+              <div class="signal-price-cell-sub">${stopPctLabel}</div>
+            </div>
+          </div>
+          <div class="signal-rr-row">
+            <span class="signal-rr-label">리스크:리워드 (R:R)</span>
+            <span class="signal-rr-val">1 : ${rr}</span>
+          </div>
+        </div>
+        <div class="signal-tags">${tagHtml}</div>
       `;
 
       timelineEl.insertBefore(newCard, timelineEl.firstChild);
-      
+
       while (timelineEl.children.length > 6) {
         timelineEl.removeChild(timelineEl.lastChild);
       }
 
+      // Update timestamps on older cards
       Array.from(timelineEl.children).forEach((child, index) => {
         if (index > 0) {
-          child.querySelector('.signal-header-row span:last-child').textContent = `${index * 2}분 전`;
+          const timeEl = child.querySelector('.signal-header-row span:last-child');
+          if (timeEl && !timeEl.classList.contains('signal-live-dot')) {
+            timeEl.textContent = `${index * 3}분 전`;
+          }
         }
       });
     }
