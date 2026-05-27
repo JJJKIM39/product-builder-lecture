@@ -3478,13 +3478,10 @@
             <button class="btn-run-backtest" id="btnRunBacktest">백테스트 실행 (과거 10년)</button>
           </div>
 
-          <!-- Right: Pie + Line Chart + KPI -->
+          <!-- Right: Line Chart + KPI (pie chart 카드 제거 — 입력 행의 색 점 + progress bar로 시각 피드백 대체) -->
           <div style="display:flex;flex-direction:column;gap:14px;">
-            <!-- Pie Chart -->
-            <div style="background:#030712;border:1.5px solid var(--border-color);border-radius:18px;padding:14px;display:flex;flex-direction:column;align-items:center;min-height:160px;">
-              <div style="font-size:11px;font-weight:700;color:var(--text-sub);align-self:flex-start;text-transform:uppercase;border-bottom:1px solid var(--border-color);padding-bottom:4px;width:100%;margin-bottom:8px;">Portfolio Allocation</div>
-              <canvas id="pieChartCanvas" width="130" height="130" style="display:block;margin:4px auto;"></canvas>
-            </div>
+            <!-- 숨겨진 pie chart canvas — drawPieChart() 호출이 다수 위치에서 일어나므로 DOM 자체는 유지 -->
+            <canvas id="pieChartCanvas" width="130" height="130" style="display:none;"></canvas>
 
             <!-- Line Chart -->
             <div class="bt-chart-box">
@@ -5373,12 +5370,16 @@
 
         showToast('시뮬레이션 완료! 포트폴리오 성과를 확인하세요');
 
-        // 결과 패널로 부드럽게 스크롤 — 사용자가 즉시 결과를 볼 수 있도록
+        // 결과 패널이 화면 안에 들어와 있지 않은 경우에만 부드럽게 이동
+        // (버튼 위치에서 멀지 않게 — 화면 상단 70px 정도에 차트가 오도록)
         setTimeout(() => {
           const chartBox = document.querySelector('#allocatorCard .bt-chart-box');
-          if (chartBox && typeof chartBox.scrollIntoView === 'function') {
-            chartBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+          if (!chartBox) return;
+          const rect = chartBox.getBoundingClientRect();
+          // 이미 화면 안에 있으면 스크롤 생략
+          if (rect.top >= 0 && rect.top < window.innerHeight - 100) return;
+          const target = window.scrollY + rect.top - 80;
+          window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
         }, 80);
       }, 1050);
     }
@@ -5442,7 +5443,8 @@
       const minV    = Math.min(...visible);
       const maxV    = Math.max(...visible);
       const range   = maxV - minV || 1;
-      const pL = 4, pR = 8, pT = 12, pB = 22;
+      // 좌측 패딩 확대 — "시작" 라벨이 잘리지 않도록 / 우측은 "10Y" 여유 확보
+      const pL = 18, pR = 22, pT = 12, pB = 22;
       const cW = W - pL - pR;
       const cH = H - pT - pB;
 
@@ -5454,13 +5456,14 @@
         c.beginPath(); c.moveTo(pL, y); c.lineTo(W - pR, y); c.stroke();
       }
 
-      // X-axis year labels
+      // X-axis year labels — 양 끝은 정렬을 바꿔 영역 안에 안전 배치
       c.fillStyle  = 'rgba(144,155,176,0.55)';
       c.font       = `9px Outfit, sans-serif`;
-      c.textAlign  = 'center';
       for (let yr = 0; yr <= 10; yr++) {
         const x = pL + (yr / 10) * cW;
-        c.fillText(yr === 0 ? '시작' : yr + 'Y', x, H - 5);
+        if (yr === 0)       { c.textAlign = 'left';   c.fillText('시작', pL - 14, H - 5); }
+        else if (yr === 10) { c.textAlign = 'right';  c.fillText('10Y',  W - 2,    H - 5); }
+        else                { c.textAlign = 'center'; c.fillText(yr + 'Y', x,      H - 5); }
       }
 
       if (visible.length < 2) return;
