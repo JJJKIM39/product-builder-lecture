@@ -5422,11 +5422,16 @@
       backtestAnimFrame = requestAnimationFrame(frame);
     }
 
+    // 차트 고정 높이 — canvas.height 속성을 직접 읽으면 매 프레임마다 2배씩 폭증하는 버그 발생
+    const BT_LINE_CANVAS_H = 110;
+
     function drawBtLinePart(canvas, data, progress) {
       const dpr   = window.devicePixelRatio || 1;
       const rect  = canvas.getBoundingClientRect();
       const W     = rect.width  || canvas.offsetWidth || 200;
-      const H     = parseInt(canvas.getAttribute('height')) || 110;
+      const H     = BT_LINE_CANVAS_H;
+      // CSS 높이를 명시적으로 고정 — aspect-ratio 기반 자동 확장 방지
+      canvas.style.height = H + 'px';
       canvas.width  = W * dpr;
       canvas.height = H * dpr;
       const c = canvas.getContext('2d');
