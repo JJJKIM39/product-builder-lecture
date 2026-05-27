@@ -1576,6 +1576,18 @@
       // 3. Setup Theme (Now safe as candles & resize are initialized)
       setupTheme();
 
+      // Connect upper navigation links directly to prevent hashchange event delay on some environments
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+          const tabId = e.currentTarget.getAttribute('data-tab');
+          if (tabId) {
+            e.preventDefault();
+            window.location.hash = '#' + tabId;
+            switchTab(tabId);
+          }
+        });
+      });
+
       // Connect tab selector buttons for live chart terminal
       document.querySelectorAll('#terminalAssetSelector .asset-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
