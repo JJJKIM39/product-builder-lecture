@@ -2201,10 +2201,16 @@
 
     /* ─────────── Backtest Line Chart ─────────── */
     .bt-chart-box { background: var(--grey-light); border: 1.5px solid var(--border-color); border-radius: 18px; padding: 16px; }
-    .bt-chart-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-    .bt-chart-lbl { font-size: 10px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.4px; }
-    .bt-chart-return { font-size: 24px; font-weight: 900; font-family: var(--font-outfit); line-height: 1; }
-    .bt-chart-sub { font-size: 10px; color: var(--text-sub); margin-top: 3px; }
+    .bt-chart-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; gap: 12px; }
+    .bt-chart-lbl { font-size: 14px; font-weight: 800; color: var(--text-color); letter-spacing: -0.1px; line-height: 1.25; }
+    .bt-chart-return { font-size: 28px; font-weight: 900; font-family: var(--font-outfit); line-height: 1; white-space: nowrap; }
+    .bt-chart-sub { font-size: 12px; color: var(--text-sub); margin-top: 4px; font-weight: 500; }
+
+    /* 백테스트 기간 선택 */
+    .bt-period-wrap { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+    .bt-period-label { font-size: 12px; font-weight: 700; color: var(--text-sub); }
+    .bt-period-seg { width: 100%; }
+    .bt-period-seg .seg-btn { font-size: 13px; padding: 10px 6px; }
     #btLineCanvas { display: block; width: 100%; }
 
     /* ─────────── Pro Mode Toggle (Order Book) ─────────── */
@@ -3462,6 +3468,17 @@
             </div>
             <div class="alloc-validation-msg" id="allocValidationMsg"></div>
 
+            <!-- 백테스트 기간 선택 (1·3·5·10년) -->
+            <div class="bt-period-wrap">
+              <div class="bt-period-label">시뮬레이션 기간</div>
+              <div class="seg-ctrl bt-period-seg" id="btPeriodSeg">
+                <button class="seg-btn" data-years="1">1년</button>
+                <button class="seg-btn" data-years="3">3년</button>
+                <button class="seg-btn" data-years="5">5년</button>
+                <button class="seg-btn active" data-years="10">10년</button>
+              </div>
+            </div>
+
             <button class="btn-run-backtest" id="btnRunBacktest">백테스트 실행 (과거 10년)</button>
           </div>
 
@@ -3925,8 +3942,10 @@
     let chartResizeTimeout;
     let backtestAnimFrame = null;
     let btLineData = [];
+    let btLineYears = 10;          // 현재 라인차트에 표시 중인 기간
     let diagAnswers = { exp: 'novice', know: 'basic', mdd: 'low' };
     let allocTotalAmount = 10000000;
+    let backtestYears = 10;        // 사용자가 선택한 백테스트 기간
 
     // Initialize application
     function init() {
@@ -4042,6 +4061,22 @@
       const btnRunBacktest = document.getElementById('btnRunBacktest');
       if (btnRunBacktest) {
         btnRunBacktest.addEventListener('click', runBacktest);
+      }
+
+      // Bind Backtest Period Selector (1·3·5·10년)
+      const btPeriodSeg = document.getElementById('btPeriodSeg');
+      if (btPeriodSeg) {
+        btPeriodSeg.querySelectorAll('.seg-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            btPeriodSeg.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            backtestYears = parseInt(btn.dataset.years) || 10;
+            // 버튼 라벨 즉시 동기화
+            if (btnRunBacktest && !btnRunBacktest.classList.contains('is-loading')) {
+              btnRunBacktest.innerHTML = `백테스트 실행 (과거 ${backtestYears}년)`;
+            }
+          });
+        });
       }
 
       // Fetch Real-time External Financial Market Data immediately on start
@@ -5306,10 +5341,18 @@
       const btn = document.getElementById('btnRunBacktest');
       if (!btn || btn.disabled) return;
 
+      // Snapshot 사용자가 선택한 기간 (애니메이션 도중 변경되어도 일관성 유지)
+      const years = backtestYears;
+      btLineYears = years;
+
       // Loading state
       btn.classList.add('is-loading');
       btn.disabled = true;
-      btn.innerHTML = '<span class="btn-spin-icon"></span> 과거 10년 데이터 시뮬레이션 중...';
+      btn.innerHTML = `<span class="btn-spin-icon"></span> 과거 ${years}년 데이터 시뮬레이션 중...`;
+
+      // 차트 헤더 라벨도 즉시 갱신
+      const lblEl = document.querySelector('#allocatorCard .bt-chart-lbl');
+      if (lblEl) lblEl.textContent = `${years}년 시뮬레이션 수익 곡선`;
 
       setTimeout(() => {
         const { cagr, vol, mdd, sharpe, wE, wC, wG, wB } = calcBacktest();
@@ -5319,9 +5362,9 @@
         btn.disabled = false;
         btn.innerHTML = '백테스트 재실행';
 
-        // Generate & animate line chart
-        btLineData = generateBtData(cagr, vol);
-        animateBtLine(btLineData);
+        // Generate & animate line chart (선택 기간 반영)
+        btLineData = generateBtData(cagr, vol, years);
+        animateBtLine(btLineData, years);
 
         // Count-up KPI
         countUp(document.getElementById('report_cagr'),   cagr,          '+', '%', 800, 2);
@@ -5334,12 +5377,12 @@
         const subEl    = document.getElementById('btChartSub');
         const finalRet = ((btLineData[btLineData.length-1] / 100 - 1) * 100).toFixed(1);
         if (returnEl) { returnEl.textContent = '+' + finalRet + '%'; returnEl.style.color = 'var(--neon-green)'; }
-        if (subEl)    subEl.textContent = '누적 수익률 · 10년 시뮬레이션';
+        if (subEl)    subEl.textContent = `누적 수익률 · ${years}년 시뮬레이션`;
 
         // Update advisory + interpretation
         updateAdvisory(wE, wC, wG, wB);
         const totalM  = allocTotalAmount / 10000;
-        const futureM = Math.round(totalM * Math.pow(1 + cagr / 100, 10));
+        const futureM = Math.round(totalM * Math.pow(1 + cagr / 100, years));
         const lossM   = Math.round(totalM * Math.abs(mdd) / 100);
         const eiAmountEl = document.getElementById('eiAmount');
         const eiLossEl   = document.getElementById('eiLoss');
@@ -5347,6 +5390,13 @@
         if (eiTotalEl)  eiTotalEl.textContent  = Math.round(totalM).toLocaleString('ko-KR') + '만원';
         if (eiAmountEl) eiAmountEl.textContent = futureM.toLocaleString('ko-KR') + '만원';
         if (eiLossEl)   eiLossEl.textContent   = '약 ' + lossM.toLocaleString('ko-KR') + '만원';
+
+        // 동적 문구도 기간 반영
+        const eiText = document.querySelector('.easy-interpret-box');
+        if (eiText && eiAmountEl && eiLossEl && eiTotalEl) {
+          // 기존 텍스트 구조를 유지하되 "10년 후" 부분만 동적으로 치환
+          eiText.innerHTML = `💡 <strong><span id="eiTotalDisplay">${eiTotalEl.textContent}</span> 투자 시</strong> ${years}년 후 약 <span class="ei-amount" id="eiAmount">${eiAmountEl.textContent}</span>으로 성장할 수 있어요.<br>최악의 해엔 <span class="ei-loss" id="eiLoss">${eiLossEl.textContent}</span> 손실 가능성이 있어요.`;
+        }
 
         showToast('시뮬레이션 완료! 포트폴리오 성과를 확인하세요');
 
@@ -5364,16 +5414,18 @@
       }, 1050);
     }
 
-    // Generate monthly data points over 10 years (deterministic pseudo-random)
-    function generateBtData(cagr, vol) {
-      let seed = Math.floor(cagr * 317 + vol * 149 + 42);
+    // Generate monthly data points over `years` (deterministic pseudo-random)
+    function generateBtData(cagr, vol, years) {
+      const yrs = years || 10;
+      let seed = Math.floor(cagr * 317 + vol * 149 + yrs * 91 + 42);
       const rand = () => {
         seed = (seed * 1664525 + 1013904223) >>> 0;
         return (seed >>> 16) / 65535;
       };
       let v = 100;
+      const months = yrs * 12;
       const data = [v];
-      for (let m = 0; m < 120; m++) {
+      for (let m = 0; m < months; m++) {
         const r = (cagr / 100 / 12) + (vol / 100 / Math.sqrt(12)) * (rand() * 2 - 1);
         v = Math.max(v * (1 + r), 10);
         data.push(v);
@@ -5382,22 +5434,24 @@
     }
 
     // Progressive line chart drawing animation
-    function animateBtLine(data) {
+    function animateBtLine(data, years) {
       const canvas = document.getElementById('btLineCanvas');
       if (!canvas) return;
+      const yrs = years || btLineYears || 10;
+      btLineYears = yrs;
       if (backtestAnimFrame) { cancelAnimationFrame(backtestAnimFrame); backtestAnimFrame = null; }
       // 1) 안전장치: 즉시 1프레임 그려 두기 (rAF 지연·throttle 대비)
-      try { drawBtLinePart(canvas, data, 0.04); } catch (e) {}
+      try { drawBtLinePart(canvas, data, 0.04, yrs); } catch (e) {}
       const startTime = performance.now();
       const DURATION  = 900;
       function frame(now) {
         const prog   = Math.min(1, (now - startTime) / DURATION);
         const eased  = 1 - Math.pow(1 - prog, 3);
-        try { drawBtLinePart(canvas, data, eased); } catch (e) { console.error('drawBtLinePart err', e); }
+        try { drawBtLinePart(canvas, data, eased, yrs); } catch (e) { console.error('drawBtLinePart err', e); }
         if (prog < 1) backtestAnimFrame = requestAnimationFrame(frame);
         else {
           // 완료 후 최종 프레임 한 번 더 보장
-          try { drawBtLinePart(canvas, data, 1); } catch (e) {}
+          try { drawBtLinePart(canvas, data, 1, yrs); } catch (e) {}
         }
       }
       backtestAnimFrame = requestAnimationFrame(frame);
@@ -5406,12 +5460,13 @@
     // 차트 고정 높이 — canvas.height 속성을 직접 읽으면 매 프레임마다 2배씩 폭증하는 버그 발생
     const BT_LINE_CANVAS_H = 110;
 
-    function drawBtLinePart(canvas, data, progress) {
+    function drawBtLinePart(canvas, data, progress, years) {
+      const yrs   = years || btLineYears || 10;
       const dpr   = window.devicePixelRatio || 1;
       const rect  = canvas.getBoundingClientRect();
       const W     = rect.width  || canvas.offsetWidth || 200;
       const H     = BT_LINE_CANVAS_H;
-      // CSS 높이를 명시적으로 고정 — aspect-ratio 기반 자동 확장 방지
+      // CSS 높이 고정 — aspect-ratio 기반 자동 확장 방지
       canvas.style.height = H + 'px';
       canvas.width  = W * dpr;
       canvas.height = H * dpr;
@@ -5423,12 +5478,12 @@
       const minV    = Math.min(...visible);
       const maxV    = Math.max(...visible);
       const range   = maxV - minV || 1;
-      // 좌측 패딩 확대 — "시작" 라벨이 잘리지 않도록 / 우측은 "10Y" 여유 확보
-      const pL = 18, pR = 22, pT = 12, pB = 22;
+      // 좌·우 패딩 — 양 끝 라벨("시작" / "{n}Y")이 잘리지 않도록 확보
+      const pL = 24, pR = 28, pT = 14, pB = 28;
       const cW = W - pL - pR;
       const cH = H - pT - pB;
 
-      // Grid — 라이트 배경에 맞게 어두운 반투명 라인
+      // Grid — 라이트 배경 친화 어두운 반투명
       c.strokeStyle = 'rgba(25,31,40,0.08)';
       c.lineWidth = 1;
       for (let i = 0; i <= 3; i++) {
@@ -5436,14 +5491,34 @@
         c.beginPath(); c.moveTo(pL, y); c.lineTo(W - pR, y); c.stroke();
       }
 
-      // X-axis year labels — 라이트 배경에서 가독성 있는 진한 회색
-      c.fillStyle  = 'rgba(78,89,104,0.85)';
-      c.font       = `9px Outfit, sans-serif`;
-      for (let yr = 0; yr <= 10; yr++) {
-        const x = pL + (yr / 10) * cW;
-        if (yr === 0)       { c.textAlign = 'left';   c.fillText('시작', pL - 14, H - 5); }
-        else if (yr === 10) { c.textAlign = 'right';  c.fillText('10Y',  W - 2,    H - 5); }
-        else                { c.textAlign = 'center'; c.fillText(yr + 'Y', x,      H - 5); }
+      // X-axis year labels — 균일 간격, 가독성 폰트
+      // 기간이 길수록 표시 라벨 간격을 늘려 겹침 방지
+      let step = 1;
+      if      (yrs <= 3)  step = 1;
+      else if (yrs <= 5)  step = 1;
+      else if (yrs <= 7)  step = 1;
+      else                step = 2; // 10년: 2년 간격으로 표시 (0,2,4,6,8,10)
+      const lastY = yrs;
+
+      c.fillStyle  = 'rgba(78,89,104,0.95)';
+      c.font       = `600 11px Outfit, "Noto Sans KR", sans-serif`;
+      c.textAlign  = 'center';
+      c.textBaseline = 'alphabetic';
+      const labelY = H - 8;
+      for (let yr = 0; yr <= lastY; yr += step) {
+        const x = pL + (yr / lastY) * cW;
+        // 양 끝 라벨이 캔버스 밖으로 새어 나가지 않도록 텍스트 폭만큼 클램프
+        const txt = yr === 0 ? '시작' : (yr + 'Y');
+        const half = Math.ceil(c.measureText(txt).width / 2) + 2;
+        const xClamped = Math.min(Math.max(x, half + 1), W - half - 1);
+        c.fillText(txt, xClamped, labelY);
+      }
+      // step=2일 때 마지막 lastY가 짝수가 아니면 별도로 그려 마지막 연도 보장
+      if (step > 1 && (lastY % step !== 0)) {
+        const x = W - pR;
+        const txt = lastY + 'Y';
+        const half = Math.ceil(c.measureText(txt).width / 2) + 2;
+        c.fillText(txt, Math.min(x, W - half - 1), labelY);
       }
 
       if (visible.length < 2) return;
@@ -5474,18 +5549,17 @@
         const y = pT + cH - ((v - minV) / range) * cH;
         i === 0 ? c.moveTo(x, y) : c.lineTo(x, y);
       });
-      c.strokeStyle = grad; c.lineWidth = 2; c.lineJoin = 'round'; c.stroke();
+      c.strokeStyle = grad; c.lineWidth = 2.5; c.lineJoin = 'round'; c.stroke();
 
-      // End dot + label
+      // 끝 지점 점 (% 라벨은 헤더에 표시되므로 캔버스 내 중복 라벨 제거)
       const lastV = visible[visible.length - 1];
       const dotX  = pL + ((count - 1) / (data.length - 1)) * cW;
       const dotY  = pT + cH - ((lastV - minV) / range) * cH;
+      // 흰색 외곽으로 점 강조
+      c.beginPath(); c.arc(dotX, dotY, 5, 0, Math.PI * 2);
+      c.fillStyle = '#FFFFFF'; c.fill();
       c.beginPath(); c.arc(dotX, dotY, 3.5, 0, Math.PI * 2);
-      c.fillStyle = '#00F5A0'; c.fill();
-      const retPct = ((lastV / 100 - 1) * 100).toFixed(1);
-      const labelX = Math.min(dotX + 2, W - pR - 2);
-      c.fillStyle = '#00F5A0'; c.font = 'bold 9px Outfit, sans-serif'; c.textAlign = 'right';
-      c.fillText((lastV >= 100 ? '+' : '') + retPct + '%', labelX, dotY - 6);
+      c.fillStyle = '#00B770'; c.fill();
     }
 
     // Count-up animation for KPI numbers
