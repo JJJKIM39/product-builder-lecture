@@ -2172,6 +2172,244 @@
       opacity: 1;
       transform: translate(-50%, 0);
     }
+
+    /* ═══════════════════════════════════════════════════════
+       DASHBOARD WIDGETS — Technical Summary / Eco Calendar / Theme Rankings
+       ═══════════════════════════════════════════════════════ */
+
+    /* ─── Technical Analysis Summary ─────────────────────── */
+    .tech-summary-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .tech-tab-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      background: rgba(0,0,0,0.2);
+    }
+    .tech-tab-btn {
+      flex: 1;
+      padding: 11px 0;
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      font-size: 12px;
+      font-weight: 700;
+      font-family: var(--font-outfit);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .tech-tab-btn.active { color: var(--toss-blue); border-bottom-color: var(--toss-blue); }
+    .tech-table { width: 100%; border-collapse: collapse; }
+    .tech-table thead tr { background: rgba(255,255,255,0.02); }
+    .tech-table th {
+      padding: 7px 12px;
+      text-align: left;
+      font-size: 10px;
+      color: var(--text-sub);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+    .tech-table td {
+      padding: 10px 12px;
+      font-size: 13px;
+      border-bottom: 1px solid rgba(36,43,58,0.6);
+      vertical-align: middle;
+    }
+    .tech-table tr:last-child td { border-bottom: none; }
+    .tech-asset-name { font-weight: 700; font-family: var(--font-outfit); font-size: 13px; }
+    .tech-asset-sub  { font-size: 10px; color: var(--text-sub); display: block; margin-top: 2px; }
+    .tech-count-cell { font-size: 11px; color: var(--text-sub); white-space: nowrap; }
+    .signal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      font-family: var(--font-outfit);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .signal-badge.STRONG_BUY  { background: rgba(0,200,83,0.18);   color: #00C853; }
+    .signal-badge.BUY         { background: rgba(0,245,160,0.12);  color: var(--neon-green); }
+    .signal-badge.NEUTRAL     { background: rgba(138,149,161,0.13); color: var(--text-sub); }
+    .signal-badge.SELL        { background: rgba(255,112,67,0.15);  color: #FF7043; }
+    .signal-badge.STRONG_SELL { background: rgba(255,59,48,0.18);   color: var(--neon-red); }
+    @media (max-width: 600px) {
+      .tech-table .hide-mobile { display: none; }
+    }
+
+    /* ─── Economic Calendar ───────────────────────────────── */
+    .eco-calendar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .eco-header-row {
+      display: grid;
+      grid-template-columns: 48px 26px 1fr 56px 50px 50px 54px;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid var(--border-color);
+      align-items: center;
+    }
+    .eco-col-label {
+      font-size: 10px;
+      color: var(--text-sub);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .eco-row { border-bottom: 1px solid rgba(36,43,58,0.5); }
+    .eco-row:last-child { border-bottom: none; }
+    .eco-row-main {
+      display: grid;
+      grid-template-columns: 48px 26px 1fr 56px 50px 50px 54px;
+      gap: 6px;
+      padding: 11px 14px;
+      align-items: center;
+    }
+    .eco-row.expandable .eco-row-main { cursor: pointer; }
+    .eco-row.expandable .eco-row-main:hover { background: rgba(255,255,255,0.025); }
+    .eco-time {
+      font-family: var(--font-outfit);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+    .eco-flag { font-size: 15px; line-height: 1; }
+    .eco-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      line-height: 1.3;
+    }
+    .eco-stars { font-size: 11px; white-space: nowrap; }
+    .eco-star-red    { color: #FF5252; }
+    .eco-star-yellow { color: #FFD600; }
+    .eco-star-gray   { color: var(--grey-medium); }
+    .eco-val {
+      font-family: var(--font-outfit);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-sub);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .eco-val.actual-up   { color: var(--neon-green); }
+    .eco-val.actual-down { color: var(--neon-red); }
+    .eco-val.actual-neutral { color: var(--text-color); }
+    .eco-unpublished { font-size: 11px; color: var(--grey-dark); text-align: right; }
+    .eco-guide-wrap {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.32s ease;
+      background: rgba(49,130,246,0.05);
+      border-top: 1px solid transparent;
+    }
+    .eco-row.open .eco-guide-wrap {
+      max-height: 220px;
+      border-top-color: rgba(49,130,246,0.18);
+    }
+    .eco-guide {
+      padding: 12px 16px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--text-color);
+    }
+    .eco-guide strong { color: var(--toss-blue); }
+    .eco-expand-icon {
+      font-size: 9px;
+      color: var(--text-sub);
+      transition: transform 0.22s;
+      flex-shrink: 0;
+    }
+    .eco-row.open .eco-expand-icon { transform: rotate(180deg); }
+    @media (max-width: 600px) {
+      .eco-header-row,
+      .eco-row-main {
+        grid-template-columns: 42px 22px 1fr 48px 0 0 46px;
+      }
+      .eco-col-label.hide-m,
+      .eco-val.hide-m { display: none; }
+    }
+
+    /* ─── Theme Volume Rankings ───────────────────────────── */
+    .theme-rank-list { display: flex; flex-direction: column; gap: 8px; }
+    .theme-rank-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 13px 16px;
+      display: grid;
+      grid-template-columns: 30px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .theme-rank-card:hover {
+      border-color: rgba(49,130,246,0.4);
+      background: rgba(49,130,246,0.04);
+    }
+    .theme-rank-num {
+      font-family: var(--font-outfit);
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-sub);
+      text-align: center;
+      line-height: 1;
+    }
+    .theme-rank-num.top { color: var(--toss-blue); }
+    .theme-rank-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: 5px;
+    }
+    .theme-rank-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .theme-vol-label { font-size: 11px; color: var(--text-sub); }
+    .theme-leaders { display: flex; gap: 5px; flex-wrap: wrap; }
+    .theme-leader-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 7px;
+      border-radius: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-outfit);
+      background: rgba(49,130,246,0.12);
+      color: var(--toss-blue);
+      white-space: nowrap;
+    }
+    .theme-rank-right { text-align: right; flex-shrink: 0; }
+    .theme-avg-pct {
+      font-family: var(--font-outfit);
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+    .theme-vol-amount { font-size: 11px; color: var(--text-sub); white-space: nowrap; }
   </style>
   <meta name="google-adsense-account" content="ca-pub-9832973303458105">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9832973303458105"
@@ -2317,6 +2555,72 @@
         </div>
         <div class="surge-scroller" id="volumeSurgeScroller">
           <!-- Cards injected by renderVolumeSurges() -->
+        </div>
+      </section>
+
+      <!-- ─────────── Technical Analysis Summary ─────────── -->
+      <section>
+        <div class="section-header">
+          <div>
+            <div class="section-title">📡 기술적 분석 요약</div>
+            <div class="section-sub">이동평균선 + 오실레이터 종합 신호 · 탭으로 봉 단위 전환</div>
+          </div>
+          <span class="section-tag-pill" style="background:rgba(49,130,246,0.15);color:var(--toss-blue);">SIGNAL</span>
+        </div>
+        <div class="tech-summary-card">
+          <div class="tech-tab-bar">
+            <button class="tech-tab-btn active" data-tf="5m"  onclick="switchTechTab('5m')">5분봉</button>
+            <button class="tech-tab-btn"        data-tf="1h"  onclick="switchTechTab('1h')">1시간봉</button>
+            <button class="tech-tab-btn"        data-tf="1d"  onclick="switchTechTab('1d')">일봉</button>
+          </div>
+          <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+            <table class="tech-table" style="min-width:380px;">
+              <thead>
+                <tr>
+                  <th>자산</th>
+                  <th class="hide-mobile">이동평균 (MA)</th>
+                  <th class="hide-mobile">오실레이터</th>
+                  <th>종합 신호</th>
+                </tr>
+              </thead>
+              <tbody id="techSummaryBody"><!-- renderTechSummary() --></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────── Theme Volume Rankings ─────────── -->
+      <section>
+        <div class="section-header">
+          <div>
+            <div class="section-title">💰 오늘의 테마별 거래대금 순위</div>
+            <div class="section-sub">돈이 몰리는 섹터와 대장주를 한눈에</div>
+          </div>
+          <span class="section-tag-pill" style="background:rgba(0,245,160,0.1);color:var(--neon-green);">FLOW</span>
+        </div>
+        <div class="theme-rank-list" id="themeRankList"><!-- renderThemeRankings() --></div>
+      </section>
+
+      <!-- ─────────── Economic Calendar ─────────── -->
+      <section>
+        <div class="section-header">
+          <div>
+            <div class="section-title">📅 오늘의 경제 지표 캘린더</div>
+            <div class="section-sub">★★★ 지표를 탭하면 시장 영향 가이드가 펼쳐져요</div>
+          </div>
+          <span class="section-tag-pill" style="background:rgba(255,112,67,0.12);color:#FF7043;">MACRO</span>
+        </div>
+        <div class="eco-calendar-card">
+          <div class="eco-header-row">
+            <span class="eco-col-label">시간</span>
+            <span class="eco-col-label">국</span>
+            <span class="eco-col-label">지표명</span>
+            <span class="eco-col-label">중요도</span>
+            <span class="eco-col-label hide-m" style="text-align:right">이전</span>
+            <span class="eco-col-label hide-m" style="text-align:right">예상</span>
+            <span class="eco-col-label" style="text-align:right">발표</span>
+          </div>
+          <div id="ecoCalendarBody"><!-- renderEcoCalendar() --></div>
         </div>
       </section>
 
@@ -3169,6 +3473,106 @@
       }
     ];
 
+    // ─────────────────────────────────────────────────────────
+    // Technical Analysis Summary mock data
+    // (실제 운영: TradingView Widget API 또는 Taapi.io RSI/MA endpoint)
+    // ─────────────────────────────────────────────────────────
+    const TECH_SUMMARY_DATA = {
+      '5m': [
+        { ticker: 'BTC',   name: 'Bitcoin',    emoji: '₿',  ma: { buy:7,  sell:4, neutral:1 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    },
+        { ticker: 'ETH',   name: 'Ethereum',   emoji: 'Ξ',  ma: { buy:9,  sell:2, neutral:1 }, osc: { buy:5, sell:2, neutral:4 }, summary: 'BUY'         },
+        { ticker: 'AAPL',  name: 'Apple',      emoji: '🍎', ma: { buy:5,  sell:5, neutral:2 }, osc: { buy:2, sell:4, neutral:5 }, summary: 'NEUTRAL'    },
+        { ticker: 'TSLA',  name: 'Tesla',      emoji: '⚡', ma: { buy:10, sell:1, neutral:1 }, osc: { buy:7, sell:1, neutral:3 }, summary: 'STRONG_BUY' },
+        { ticker: 'KOSPI', name: '코스피 200', emoji: '🇰🇷', ma: { buy:4,  sell:6, neutral:2 }, osc: { buy:2, sell:5, neutral:4 }, summary: 'SELL'       }
+      ],
+      '1h': [
+        { ticker: 'BTC',   name: 'Bitcoin',    emoji: '₿',  ma: { buy:8,  sell:3, neutral:1 }, osc: { buy:6, sell:1, neutral:4 }, summary: 'BUY'         },
+        { ticker: 'ETH',   name: 'Ethereum',   emoji: 'Ξ',  ma: { buy:10, sell:1, neutral:1 }, osc: { buy:7, sell:1, neutral:3 }, summary: 'STRONG_BUY' },
+        { ticker: 'AAPL',  name: 'Apple',      emoji: '🍎', ma: { buy:7,  sell:3, neutral:2 }, osc: { buy:4, sell:2, neutral:5 }, summary: 'BUY'         },
+        { ticker: 'TSLA',  name: 'Tesla',      emoji: '⚡', ma: { buy:11, sell:0, neutral:1 }, osc: { buy:8, sell:0, neutral:3 }, summary: 'STRONG_BUY' },
+        { ticker: 'KOSPI', name: '코스피 200', emoji: '🇰🇷', ma: { buy:5,  sell:5, neutral:2 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    }
+      ],
+      '1d': [
+        { ticker: 'BTC',   name: 'Bitcoin',    emoji: '₿',  ma: { buy:9,  sell:2, neutral:1 }, osc: { buy:5, sell:2, neutral:4 }, summary: 'BUY'         },
+        { ticker: 'ETH',   name: 'Ethereum',   emoji: 'Ξ',  ma: { buy:8,  sell:3, neutral:1 }, osc: { buy:4, sell:2, neutral:5 }, summary: 'BUY'         },
+        { ticker: 'AAPL',  name: 'Apple',      emoji: '🍎', ma: { buy:6,  sell:4, neutral:2 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    },
+        { ticker: 'TSLA',  name: 'Tesla',      emoji: '⚡', ma: { buy:10, sell:2, neutral:0 }, osc: { buy:6, sell:1, neutral:4 }, summary: 'BUY'         },
+        { ticker: 'KOSPI', name: '코스피 200', emoji: '🇰🇷', ma: { buy:3,  sell:7, neutral:2 }, osc: { buy:1, sell:6, neutral:4 }, summary: 'SELL'       }
+      ]
+    };
+
+    // ─────────────────────────────────────────────────────────
+    // Economic Calendar mock data
+    // (실제 운영: Investing.com Calendar API 또는 Finnhub /calendar/economic)
+    // ─────────────────────────────────────────────────────────
+    const ECO_CALENDAR_DATA = [
+      {
+        id: 'fomc_minutes', time: '03:00', flag: '🇺🇸',
+        name: 'FOMC 의사록', importance: 3,
+        prev: '--', forecast: '--', actual: null, actualDir: null,
+        guide: `연준 위원들이 <strong>경기·물가에 대해 어떻게 논의했는지</strong> 공개하는 문서입니다.<br><br>"매파(Hawkish)" 색채가 강하면 기술주와 코인에 <strong style="color:var(--neon-red)">하락 압력</strong>, "비둘기파(Dovish)" 신호가 나오면 위험자산 전반에 <strong style="color:var(--neon-green)">상승 재료</strong>가 됩니다.`
+      },
+      {
+        id: 'boj_rate', time: '12:00', flag: '🇯🇵',
+        name: '일본은행 금리 결정', importance: 3,
+        prev: '0.10%', forecast: '0.10%', actual: '0.25%', actualDir: 'up',
+        guide: `<strong>BOJ가 예상보다 빠르게 금리를 올리면</strong> 엔화가 강세로 돌아서고, 달러/엔이 하락합니다.<br><br>엔 캐리 트레이드(엔을 싸게 빌려 위험자산에 투자) 청산이 발생해 <strong style="color:var(--neon-red)">코인·나스닥이 단기 급락</strong>할 수 있습니다. 2024년 8월 급락이 대표 사례입니다.`
+      },
+      {
+        id: 'eur_gdp', time: '18:00', flag: '🇪🇺',
+        name: '유로존 GDP QoQ (속보치)', importance: 2,
+        prev: '0.3%', forecast: '0.4%', actual: null, actualDir: null
+      },
+      {
+        id: 'cpi_us', time: '21:30', flag: '🇺🇸',
+        name: '소비자물가지수 (CPI YoY)', importance: 3,
+        prev: '3.2%', forecast: '3.1%', actual: '3.0%', actualDir: 'down',
+        guide: `<strong>CPI가 예상보다 낮게 나오면 (오늘처럼 3.0%)</strong> 인플레 둔화 신호로 읽혀 연준의 금리 인하 기대를 끌어올립니다.<br><br>이 경우 <strong style="color:var(--neon-green)">기술주(QQQ·NVDA)와 BTC에 호재</strong>로 작용하는 경우가 많습니다. 반대로 예상보다 높으면 금리 인하가 멀어져 기술주에 하락 압력이 생깁니다.`
+      },
+      {
+        id: 'jobless', time: '21:30', flag: '🇺🇸',
+        name: '신규 실업수당 청구건수', importance: 2,
+        prev: '215K', forecast: '210K', actual: '208K', actualDir: 'down'
+      },
+      {
+        id: 'ppi_us', time: '21:30', flag: '🇺🇸',
+        name: '생산자물가지수 (PPI MoM)', importance: 2,
+        prev: '0.2%', forecast: '0.3%', actual: '0.4%', actualDir: 'up'
+      }
+    ];
+
+    // ─────────────────────────────────────────────────────────
+    // Theme Volume Rankings mock data
+    // (실제 운영: Polygon.io /grouped/locale/us/market/stocks + 섹터 분류 매핑)
+    // ─────────────────────────────────────────────────────────
+    const THEME_RANKINGS_DATA = [
+      {
+        rank: 1, theme: 'AI 반도체', emoji: '🤖',
+        avgChangePct: +4.28, tradingVol: '8.4조',
+        leaders: [{ ticker: 'NVDA', pct: +6.12 }, { ticker: 'AMD', pct: +3.44 }]
+      },
+      {
+        rank: 2, theme: '레이어1 코인', emoji: '⛓️',
+        avgChangePct: +6.85, tradingVol: '12.1조',
+        leaders: [{ ticker: 'ETH', pct: +8.20 }, { ticker: 'SOL', pct: +5.50 }]
+      },
+      {
+        rank: 3, theme: '미국 월배당 ETF', emoji: '💵',
+        avgChangePct: +0.42, tradingVol: '2.1조',
+        leaders: [{ ticker: 'JEPI', pct: +0.65 }, { ticker: 'SCHD', pct: +0.18 }]
+      },
+      {
+        rank: 4, theme: '전기차', emoji: '🔋',
+        avgChangePct: -1.24, tradingVol: '3.7조',
+        leaders: [{ ticker: 'TSLA', pct: -2.35 }, { ticker: 'RIVN', pct: -0.12 }]
+      },
+      {
+        rank: 5, theme: '글로벌 방산', emoji: '🛡️',
+        avgChangePct: +2.11, tradingVol: '1.8조',
+        leaders: [{ ticker: 'LMT', pct: +3.22 }, { ticker: 'RTX', pct: +1.00 }]
+      }
+    ];
+
     // Global Element Declarations (Late-bound on DOMContentLoaded to guarantee zero runtime NullPointer crashes)
     let themeToggle, sunIcon, moonIcon, toast;
     let liveCanvas, ctx, liveChartTitle, liveChartPrice, liveChartPct;
@@ -3349,6 +3753,11 @@
       renderVolumeSurges();
       renderThemeChips();
       renderEtfList();
+
+      // Dashboard widgets
+      renderTechSummary();
+      renderEcoCalendar();
+      renderThemeRankings();
 
       // Portfolio wizard
       initWizard();
@@ -4552,6 +4961,122 @@
 
     // Trigger visual floating Toast notification
     let toastTimeout;
+    // ─────────────────────────────────────────────────────────
+    // Technical Analysis Summary
+    // ─────────────────────────────────────────────────────────
+    let activeTechTf = '5m';
+
+    const SIGNAL_META = {
+      STRONG_BUY:  { label: '강력 매수', dot: '▲▲' },
+      BUY:         { label: '매수',      dot: '▲'  },
+      NEUTRAL:     { label: '중립',      dot: '─'  },
+      SELL:        { label: '매도',      dot: '▼'  },
+      STRONG_SELL: { label: '강력 매도', dot: '▼▼' }
+    };
+
+    function switchTechTab(tf) {
+      activeTechTf = tf;
+      document.querySelectorAll('.tech-tab-btn').forEach(b => {
+        b.classList.toggle('active', b.dataset.tf === tf);
+      });
+      renderTechSummary();
+    }
+
+    function renderTechSummary() {
+      const tbody = document.getElementById('techSummaryBody');
+      if (!tbody) return;
+      const rows = TECH_SUMMARY_DATA[activeTechTf] || [];
+      tbody.innerHTML = rows.map(r => {
+        const sm = SIGNAL_META[r.summary] || SIGNAL_META.NEUTRAL;
+        const maHtml = `<span style="color:var(--neon-green);font-weight:700">${r.ma.buy}</span><span style="color:var(--text-sub)"> 매수 · </span><span style="color:var(--neon-red);font-weight:700">${r.ma.sell}</span><span style="color:var(--text-sub)"> 매도</span>`;
+        const oscHtml = `<span style="color:var(--neon-green);font-weight:700">${r.osc.buy}</span><span style="color:var(--text-sub)"> 매수 · </span><span style="color:var(--neon-red);font-weight:700">${r.osc.sell}</span><span style="color:var(--text-sub)"> 매도</span>`;
+        return `<tr>
+          <td>
+            <span class="tech-asset-name">${r.emoji} ${r.ticker}</span>
+            <span class="tech-asset-sub">${r.name}</span>
+          </td>
+          <td class="tech-count-cell hide-mobile">${maHtml}</td>
+          <td class="tech-count-cell hide-mobile">${oscHtml}</td>
+          <td><span class="signal-badge ${r.summary}">${sm.dot} ${sm.label}</span></td>
+        </tr>`;
+      }).join('');
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Economic Calendar
+    // ─────────────────────────────────────────────────────────
+    function renderEcoCalendar() {
+      const container = document.getElementById('ecoCalendarBody');
+      if (!container) return;
+      const sorted = [...ECO_CALENDAR_DATA].sort((a, b) => {
+        const ta = parseInt(a.time.replace(':', ''), 10);
+        const tb = parseInt(b.time.replace(':', ''), 10);
+        return ta - tb;
+      });
+      container.innerHTML = sorted.map(item => {
+        const hasGuide = item.importance === 3 && item.guide;
+        const stars = [0,1,2].map(i => {
+          if (i >= item.importance) return `<span class="eco-star-gray">★</span>`;
+          return item.importance === 3
+            ? `<span class="eco-star-red">★</span>`
+            : `<span class="eco-star-yellow">★</span>`;
+        }).join('');
+        const actualHtml = item.actual === null
+          ? `<span class="eco-unpublished">미발표</span>`
+          : `<span class="eco-val ${item.actualDir === 'up' ? 'actual-up' : item.actualDir === 'down' ? 'actual-down' : 'actual-neutral'}">${item.actual}</span>`;
+        const expandIcon = hasGuide ? `<span class="eco-expand-icon">▼</span>` : '';
+        return `<div class="eco-row${hasGuide ? ' expandable' : ''}" id="ecoRow_${item.id}"${hasGuide ? ` onclick="toggleEcoRow('${item.id}')"` : ''}>
+          <div class="eco-row-main">
+            <span class="eco-time">${item.time}</span>
+            <span class="eco-flag">${item.flag}</span>
+            <span class="eco-name">${item.name}${expandIcon}</span>
+            <span class="eco-stars">${stars}</span>
+            <span class="eco-val hide-m" style="text-align:right">${item.prev}</span>
+            <span class="eco-val hide-m" style="text-align:right">${item.forecast}</span>
+            <span style="text-align:right;display:block">${actualHtml}</span>
+          </div>
+          ${hasGuide ? `<div class="eco-guide-wrap"><div class="eco-guide">${item.guide}</div></div>` : ''}
+        </div>`;
+      }).join('');
+    }
+
+    function toggleEcoRow(id) {
+      const row = document.getElementById('ecoRow_' + id);
+      if (row) row.classList.toggle('open');
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Theme Volume Rankings
+    // ─────────────────────────────────────────────────────────
+    function renderThemeRankings() {
+      const list = document.getElementById('themeRankList');
+      if (!list) return;
+      list.innerHTML = THEME_RANKINGS_DATA.map(item => {
+        const isPos = item.avgChangePct >= 0;
+        const pctStr = (isPos ? '+' : '') + item.avgChangePct.toFixed(2) + '%';
+        const pctColor = isPos ? 'var(--neon-green)' : 'var(--neon-red)';
+        const rankClass = item.rank <= 3 ? 'top' : '';
+        const leadersHtml = item.leaders.map(l => {
+          const lPos = l.pct >= 0;
+          return `<span class="theme-leader-badge">${l.ticker} <span style="color:${lPos ? 'var(--neon-green)' : 'var(--neon-red)'}">${lPos ? '+' : ''}${l.pct.toFixed(2)}%</span></span>`;
+        }).join('');
+        return `<div class="theme-rank-card">
+          <div class="theme-rank-num ${rankClass}">${item.rank}</div>
+          <div>
+            <div class="theme-rank-name">${item.emoji} ${item.theme}</div>
+            <div class="theme-rank-meta">
+              <span class="theme-vol-label">거래대금 ${item.tradingVol}</span>
+              <div class="theme-leaders">${leadersHtml}</div>
+            </div>
+          </div>
+          <div class="theme-rank-right">
+            <div class="theme-avg-pct" style="color:${pctColor}">${pctStr}</div>
+            <div class="theme-vol-amount">테마 평균</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
     function showToast(msg) {
       toast.textContent = msg;
       toast.classList.add('show');
