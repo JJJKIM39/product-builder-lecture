@@ -2156,11 +2156,14 @@
     @media (max-width: 600px) {
       /* 자산명을 1행에 꽉 채우고, 2행에 입력창을 배치 */
       .alloc-col-headers { display: none; }
+      /* 부모 패딩 축소로 가로 공간 확보 */
+      .alloc-panel { padding: 14px 12px !important; }
       .alloc-asset-row {
-        grid-template-columns: 1fr 1fr 42px;
+        /* 금액(원) 컬럼이 가장 넓어야 "10,000,000원" 표시 가능 */
+        grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr) 40px;
         grid-template-rows: auto auto;
-        gap: 6px 5px;
-        padding: 12px 12px;
+        gap: 8px 6px;
+        padding: 12px 10px;
       }
       /* 자산 이름 → 상단 전체 폭 (1번째 자식) */
       .alloc-asset-row > :nth-child(1) {
@@ -2171,23 +2174,28 @@
       .alloc-asset-row > :nth-child(2) {
         grid-column: 1;
         grid-row: 2;
+        min-width: 0;
       }
       /* 비율 입력 → 2행 col2 (3번째 자식) */
       .alloc-asset-row > :nth-child(3) {
         grid-column: 2;
         grid-row: 2;
+        min-width: 0;
       }
       /* 퀵버튼 → 2행 col3 (4번째 자식) */
       .alloc-asset-row > :nth-child(4) {
         grid-column: 3;
         grid-row: 2;
-        justify-self: end;
+        justify-self: stretch;
+        align-self: stretch;
       }
-      .alloc-input-cell { padding: 5px 8px; }
-      .alloc-input-cell input { font-size: 13px; }
-      .alloc-quick-btn { font-size: 10px; padding: 4px 5px; }
+      .alloc-input-cell { padding: 6px 7px; min-width: 0; }
+      .alloc-input-cell input { font-size: 12px; min-width: 0; }
+      .alloc-input-unit { font-size: 10px; }
+      .alloc-quick-wrap { gap: 3px; }
+      .alloc-quick-btn { font-size: 9.5px; padding: 4px 2px; min-width: 0; width: 100%; }
       .alloc-asset-name { font-size: 14px; }
-      .alloc-asset-sub { padding-left: 13px; }
+      .alloc-asset-sub { padding-left: 13px; font-size: 11px; }
     }
 
     /* ─────────── Backtest Run Button & Spinner ─────────── */
@@ -3358,7 +3366,7 @@
 
         <div class="terminal-grid">
           <!-- Left: Allocation input panel -->
-          <div style="display:flex;flex-direction:column;gap:10px;background:var(--grey-light);padding:18px;border-radius:18px;border:1.5px solid var(--border-color);">
+          <div class="alloc-panel" style="display:flex;flex-direction:column;gap:10px;background:var(--grey-light);padding:18px;border-radius:18px;border:1.5px solid var(--border-color);">
             <div style="font-size:13px;font-weight:700;color:var(--text-color);border-bottom:1.5px solid var(--border-color);padding-bottom:8px;margin-bottom:2px;">자산군별 배분 설정</div>
 
             <!-- Column headers -->
