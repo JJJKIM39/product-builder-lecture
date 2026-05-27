@@ -1497,45 +1497,49 @@
       cryptoInitialized: false
     };
 
-    // Load elements
-    const themeToggle = document.getElementById('themeToggle');
-    const sunIcon = themeToggle.querySelector('.sun-icon');
-    const moonIcon = themeToggle.querySelector('.moon-icon');
-    const toast = document.getElementById('toast');
-
-    // Chart Elements
-    const liveCanvas = document.getElementById('liveChartCanvas');
-    const ctx = liveCanvas.getContext('2d');
-    const liveChartTitle = document.getElementById('liveChartTitle');
-    const liveChartPrice = document.getElementById('liveChartPrice');
-    const liveChartPct = document.getElementById('liveChartPct');
-
-    // Portfolio Allocator & Backtester Elements
-    const weightEquity = document.getElementById('weight_equity');
-    const weightCrypto = document.getElementById('weight_crypto');
-    const weightGold = document.getElementById('weight_gold');
-    const weightBond = document.getElementById('weight_bond');
-
-    const weightLabelEquity = document.getElementById('weightLabel_equity');
-    const weightLabelCrypto = document.getElementById('weightLabel_crypto');
-    const weightLabelGold = document.getElementById('weightLabel_gold');
-    const weightLabelBond = document.getElementById('weightLabel_bond');
-    const weightTotalLabel = document.getElementById('weightTotalLabel');
-
-    const reportCagr = document.getElementById('report_cagr');
-    const reportMdd = document.getElementById('report_mdd');
-    const reportSharpe = document.getElementById('report_sharpe');
-    const reportVol = document.getElementById('report_vol');
-
-    const advisoryTitle = document.getElementById('advisoryTitle');
-    const advisoryDesc = document.getElementById('advisoryDesc');
-    const pieCanvas = document.getElementById('pieChartCanvas');
-
-    // Chart resizing helper
+    // Global Element Declarations (Late-bound on DOMContentLoaded to guarantee zero runtime NullPointer crashes)
+    let themeToggle, sunIcon, moonIcon, toast;
+    let liveCanvas, ctx, liveChartTitle, liveChartPrice, liveChartPct;
+    let weightEquity, weightCrypto, weightGold, weightBond;
+    let weightLabelEquity, weightLabelCrypto, weightLabelGold, weightLabelBond, weightTotalLabel;
+    let reportCagr, reportMdd, reportSharpe, reportVol;
+    let advisoryTitle, advisoryDesc, pieCanvas;
     let chartResizeTimeout;
 
     // Initialize application
     function init() {
+      // Late bind DOM elements safely inside the fully loaded DOMContentLoaded lifecycle
+      themeToggle = document.getElementById('themeToggle');
+      sunIcon = themeToggle.querySelector('.sun-icon');
+      moonIcon = themeToggle.querySelector('.moon-icon');
+      toast = document.getElementById('toast');
+
+      liveCanvas = document.getElementById('liveChartCanvas');
+      ctx = liveCanvas.getContext('2d');
+      liveChartTitle = document.getElementById('liveChartTitle');
+      liveChartPrice = document.getElementById('liveChartPrice');
+      liveChartPct = document.getElementById('liveChartPct');
+
+      weightEquity = document.getElementById('weight_equity');
+      weightCrypto = document.getElementById('weight_crypto');
+      weightGold = document.getElementById('weight_gold');
+      weightBond = document.getElementById('weight_bond');
+
+      weightLabelEquity = document.getElementById('weightLabel_equity');
+      weightLabelCrypto = document.getElementById('weightLabel_crypto');
+      weightLabelGold = document.getElementById('weightLabel_gold');
+      weightLabelBond = document.getElementById('weightLabel_bond');
+      weightTotalLabel = document.getElementById('weightTotalLabel');
+
+      reportCagr = document.getElementById('report_cagr');
+      reportMdd = document.getElementById('report_mdd');
+      reportSharpe = document.getElementById('report_sharpe');
+      reportVol = document.getElementById('report_vol');
+
+      advisoryTitle = document.getElementById('advisoryTitle');
+      advisoryDesc = document.getElementById('advisoryDesc');
+      pieCanvas = document.getElementById('pieChartCanvas');
+
       // 1. Prepopulate mock price history arrays (30 ticks) and candles (30 candles) backwards
       Object.keys(state.assets).forEach(key => {
         const currentPrice = state.assets[key].price;
