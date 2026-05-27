@@ -1086,6 +1086,639 @@
       }
     }
 
+    /* ─────────── Home Landing Page ─────────── */
+    .hero-section {
+      text-align: center;
+      padding: 28px 12px 8px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--toss-blue);
+      background: var(--toss-blue-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      letter-spacing: -0.2px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.3;
+      letter-spacing: -1px;
+      color: var(--text-color);
+      max-width: 560px;
+    }
+
+    .hero-title-accent {
+      background: linear-gradient(90deg, var(--toss-blue), var(--neon-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-sub);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-stat {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 10px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 88px;
+    }
+
+    .hero-stat-val {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: var(--font-outfit);
+      color: var(--toss-blue);
+    }
+
+    .hero-stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .hero-section { padding: 18px 8px 4px 8px; gap: 10px; }
+      .hero-title { font-size: 24px; line-height: 1.35; }
+      .hero-sub { font-size: 13px; }
+      .hero-stat { padding: 8px 14px; min-width: 76px; }
+      .hero-stat-val { font-size: 16px; }
+    }
+
+    /* Category card grid */
+    .category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .category-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
+    .category-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: 20px;
+      padding: 20px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s, border-color 0.2s;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-card::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, rgba(49, 130, 246, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .category-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--toss-blue);
+      box-shadow: 0 12px 32px rgba(49, 130, 246, 0.18);
+    }
+
+    .category-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .category-card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(49, 130, 246, 0.25);
+    }
+
+    .category-card-tag {
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--toss-blue);
+      background: var(--toss-blue-light);
+      padding: 3px 9px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+      font-family: var(--font-outfit);
+    }
+
+    .category-card-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-color);
+      letter-spacing: -0.4px;
+      margin-top: 4px;
+    }
+
+    .category-card-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      min-height: 36px;
+    }
+
+    .category-card-preview {
+      background: var(--grey-light);
+      border-radius: 12px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-top: 4px;
+    }
+
+    .preview-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .preview-label {
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+
+    .preview-val {
+      font-weight: 800;
+      font-family: var(--font-outfit);
+      color: var(--text-color);
+    }
+
+    .category-card-cta {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--toss-blue);
+      margin-top: 4px;
+      letter-spacing: -0.2px;
+    }
+
+    /* Quick start banner */
+    .quick-start-banner {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(135deg, rgba(49, 130, 246, 0.12), rgba(0, 245, 160, 0.10));
+      border: 1.5px solid var(--toss-blue);
+      border-radius: 18px;
+      padding: 16px 20px;
+    }
+
+    .quick-start-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+    }
+
+    .quick-start-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .quick-start-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-color);
+      letter-spacing: -0.3px;
+    }
+
+    .quick-start-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 2px;
+      line-height: 1.45;
+    }
+
+    .quick-start-btn {
+      background: var(--toss-blue);
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 10px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(49, 130, 246, 0.35);
+      transition: transform 0.15s;
+    }
+
+    .quick-start-btn:hover {
+      transform: scale(1.04);
+    }
+
+    @media (max-width: 600px) {
+      .quick-start-banner { padding: 14px; gap: 10px; }
+      .quick-start-icon { font-size: 22px; }
+      .quick-start-title { font-size: 13px; }
+      .quick-start-sub { font-size: 11px; }
+      .quick-start-btn { padding: 8px 14px; font-size: 12px; }
+    }
+
+    /* ─────────── Volume Surge Section ─────────── */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0 4px;
+      margin-bottom: -4px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-color);
+      letter-spacing: -0.4px;
+    }
+    .section-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+    .section-tag-pill {
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+    .section-tag-pill.hot {
+      color: #FF3B30;
+      background: rgba(255, 59, 48, 0.12);
+    }
+    .section-tag-pill.curated {
+      color: var(--toss-blue);
+      background: var(--toss-blue-light);
+    }
+
+    .surge-scroller {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 4px 4px 8px 4px;
+      margin: 0 -4px;
+      scrollbar-width: none;
+    }
+    .surge-scroller::-webkit-scrollbar { display: none; }
+
+    .surge-card {
+      flex: 0 0 200px;
+      scroll-snap-align: start;
+      background: var(--card-bg);
+      border: 1.5px solid var(--border-color);
+      border-radius: 18px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    .surge-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--neon-red);
+      box-shadow: 0 8px 24px rgba(255, 59, 48, 0.18);
+    }
+
+    .surge-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .surge-rank {
+      font-size: 11px;
+      font-weight: 900;
+      font-family: var(--font-outfit);
+      color: var(--grey-dark);
+    }
+    .surge-region {
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.4px;
+    }
+    .surge-region.us { background: rgba(49, 130, 246, 0.15); color: var(--toss-blue); }
+    .surge-region.kr { background: rgba(255, 59, 48, 0.12); color: var(--neon-red); }
+
+    .surge-ticker {
+      font-size: 17px;
+      font-weight: 900;
+      font-family: var(--font-outfit);
+      color: var(--text-color);
+      letter-spacing: -0.5px;
+    }
+    .surge-name {
+      font-size: 11px;
+      color: var(--text-sub);
+      font-weight: 600;
+      margin-top: -2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .surge-volume-ratio {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      background: rgba(255, 59, 48, 0.10);
+      border-radius: 8px;
+      padding: 6px 10px;
+      width: fit-content;
+    }
+    .surge-volume-ratio strong {
+      font-size: 18px;
+      font-weight: 900;
+      font-family: var(--font-outfit);
+      color: var(--neon-red);
+      letter-spacing: -0.5px;
+    }
+    .surge-volume-ratio span {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--neon-red);
+    }
+
+    .surge-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--font-outfit);
+    }
+    .surge-price {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+    .surge-pct {
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .surge-pct.up { color: var(--neon-green); }
+    .surge-pct.down { color: var(--neon-red); }
+
+    .surge-reason {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--toss-blue);
+      background: var(--toss-blue-light);
+      padding: 4px 8px;
+      border-radius: 6px;
+      align-self: flex-start;
+    }
+
+    @media (max-width: 600px) {
+      .surge-card { flex: 0 0 170px; padding: 12px 14px; }
+      .surge-ticker { font-size: 15px; }
+      .surge-volume-ratio strong { font-size: 16px; }
+    }
+
+    /* ─────────── ETF Theme Curation ─────────── */
+    .theme-chip-scroller {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 4px 0 8px 0;
+      scrollbar-width: none;
+    }
+    .theme-chip-scroller::-webkit-scrollbar { display: none; }
+
+    .theme-chip {
+      flex-shrink: 0;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--grey-light);
+      color: var(--text-color);
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      white-space: nowrap;
+      font-family: var(--font-primary);
+    }
+    .theme-chip:hover {
+      background: var(--grey-medium);
+    }
+    .theme-chip.active {
+      background: var(--toss-blue);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(49, 130, 246, 0.35);
+      transform: scale(1.04);
+    }
+
+    .theme-desc-banner {
+      background: var(--grey-light);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 4px;
+    }
+    .theme-desc-banner strong {
+      color: var(--text-color);
+    }
+
+    .etf-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .etf-item {
+      background: var(--grey-light);
+      border-radius: 16px;
+      border: 1.5px solid transparent;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .etf-item.open {
+      border-color: var(--toss-blue);
+    }
+
+    .etf-summary {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      width: 100%;
+      border: none;
+      background: transparent;
+      text-align: left;
+      font-family: var(--font-primary);
+    }
+
+    .etf-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--toss-blue), var(--neon-green));
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-outfit);
+      font-weight: 900;
+      font-size: 11px;
+      flex-shrink: 0;
+      letter-spacing: -0.3px;
+    }
+
+    .etf-summary-mid {
+      flex: 1;
+      min-width: 0;
+    }
+    .etf-summary-ticker {
+      font-size: 14px;
+      font-weight: 900;
+      font-family: var(--font-outfit);
+      color: var(--text-color);
+      letter-spacing: -0.4px;
+    }
+    .etf-summary-name {
+      font-size: 11px;
+      color: var(--text-sub);
+      font-weight: 600;
+      margin-top: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .etf-summary-right {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .etf-return {
+      font-size: 14px;
+      font-weight: 900;
+      font-family: var(--font-outfit);
+    }
+    .etf-return.up { color: var(--neon-green); }
+    .etf-return.down { color: var(--neon-red); }
+    .etf-return-label {
+      font-size: 9px;
+      color: var(--grey-dark);
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .etf-chevron {
+      color: var(--grey-dark);
+      transition: transform 0.25s;
+      flex-shrink: 0;
+    }
+    .etf-item.open .etf-chevron {
+      transform: rotate(180deg);
+    }
+
+    .etf-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .etf-item.open .etf-detail {
+      max-height: 240px;
+    }
+    .etf-detail-inner {
+      padding: 0 16px 14px 16px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+      margin: 0 0 0 0;
+    }
+    .etf-detail-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .etf-mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+    }
+    .etf-mini-stat {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+    .etf-mini-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--grey-dark);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .etf-mini-val {
+      font-size: 13px;
+      font-weight: 800;
+      font-family: var(--font-outfit);
+      color: var(--text-color);
+      margin-top: 2px;
+    }
+
+    .etf-data-source {
+      font-size: 10px;
+      color: var(--grey-dark);
+      text-align: right;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .theme-chip { font-size: 12px; padding: 7px 12px; }
+      .etf-summary { padding: 12px 14px; gap: 10px; }
+      .etf-avatar { width: 38px; height: 38px; }
+      .etf-mini-grid { gap: 4px; }
+      .etf-mini-val { font-size: 12px; }
+    }
+
     /* Guide Educational Articles */
     .guide-article-box {
       display: flex;
@@ -1308,10 +1941,11 @@
       </a>
       <div style="display: flex; align-items: center; gap: 12px;">
         <div class="nav-links">
+          <a href="#home" class="nav-link active" data-tab="home">홈</a>
           <a href="#terminal" class="nav-link" data-tab="terminal">터미널</a>
           <a href="#allocator" class="nav-link" data-tab="allocator">포트폴리오</a>
           <a href="#signals" class="nav-link" data-tab="signals">AI 시그널</a>
-          <a href="#macro" class="nav-link" data-tab="macro">환율 · 거시지표</a>
+          <a href="#macro" class="nav-link" data-tab="macro">환율 · 거시</a>
         </div>
         
         <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" style="padding: 6px 10px; border-radius: 8px;">
@@ -1338,8 +1972,15 @@
 
   <!-- Mobile Bottom Tab Bar (visible only on ≤600px via CSS) -->
   <nav class="bottom-tab-bar" id="bottomTabBar">
+    <!-- Home -->
+    <a href="#home" class="tab-item active" data-tab="home" id="tabBtn_home">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+      </svg>
+      <span>홈</span>
+    </a>
     <!-- Terminal -->
-    <a href="#terminal" class="tab-item active" data-tab="terminal" id="tabBtn_terminal">
+    <a href="#terminal" class="tab-item" data-tab="terminal" id="tabBtn_terminal">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
       </svg>
@@ -1372,8 +2013,187 @@
   </nav>
 
   <div class="app-container">
-    
-    <div class="page-view active" id="view-terminal">
+
+    <!-- ─────────── HOME (Landing Page) ─────────── -->
+    <div class="page-view active" id="view-home">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-badge">📊 차세대 모의 투자 시뮬레이터</div>
+        <h1 class="hero-title">
+          투자가 처음이어도 <br>
+          <span class="hero-title-accent">차트 보는 법</span>부터 시작해요
+        </h1>
+        <p class="hero-sub">실시간 글로벌 시세, AI 시그널, 포트폴리오 백테스트까지 — 한 곳에서 안전하게 연습하세요.</p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-val" id="heroStat_assets">5</span>
+            <span class="hero-stat-label">실시간 자산</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-val" id="heroStat_signals">0</span>
+            <span class="hero-stat-label">AI 시그널</span>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-val" id="heroStat_sentiment">64</span>
+            <span class="hero-stat-label">시장 분위기</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────── Volume Surge: "오늘 시장의 관심사" ─────────── -->
+      <section>
+        <div class="section-header">
+          <div>
+            <div class="section-title">🔥 오늘 시장의 관심사</div>
+            <div class="section-sub">전일 대비 거래량이 폭증한 종목입니다</div>
+          </div>
+          <span class="section-tag-pill hot">HOT</span>
+        </div>
+        <div class="surge-scroller" id="volumeSurgeScroller">
+          <!-- Cards injected by renderVolumeSurges() -->
+        </div>
+      </section>
+
+      <!-- ─────────── ETF Theme Curation: "테마로 골라보는 ETF" ─────────── -->
+      <section>
+        <div class="section-header">
+          <div>
+            <div class="section-title">🏷️ 테마로 골라보는 ETF</div>
+            <div class="section-sub">티커를 몰라도 OK. 관심있는 주제로 시작하세요</div>
+          </div>
+          <span class="section-tag-pill curated">초보 추천</span>
+        </div>
+        <div class="theme-chip-scroller" id="themeChipScroller">
+          <!-- Chips injected by renderThemeChips() -->
+        </div>
+        <div class="theme-desc-banner" id="themeDescBanner">
+          관심있는 해시태그를 선택해보세요.
+        </div>
+        <div class="etf-list" id="etfList">
+          <!-- ETF items injected by renderEtfList() -->
+        </div>
+        <div class="etf-data-source">데이터 출처: FMP · Polygon · 한국투자증권 (데모 시뮬레이션)</div>
+      </section>
+
+      <!-- Category Card Grid -->
+      <div class="category-grid">
+        <!-- Card 1: Terminal -->
+        <a href="#terminal" class="category-card" data-tab="terminal">
+          <div class="category-card-head">
+            <div class="category-card-icon" style="background: linear-gradient(135deg, #3182F6, #1B64DA);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+            </div>
+            <span class="category-card-tag">LIVE</span>
+          </div>
+          <h3 class="category-card-title">실시간 시장</h3>
+          <p class="category-card-desc">캔들차트와 오더북으로 글로벌 자산의 흐름을 한눈에.</p>
+          <div class="category-card-preview">
+            <div class="preview-row">
+              <span class="preview-label">TSLA</span>
+              <span class="preview-val" id="homePreview_TSLA">$433.59</span>
+            </div>
+            <div class="preview-row">
+              <span class="preview-label">BTC</span>
+              <span class="preview-val" id="homePreview_BTC">$67,520</span>
+            </div>
+          </div>
+          <div class="category-card-cta">시장 보러가기 →</div>
+        </a>
+
+        <!-- Card 2: Portfolio -->
+        <a href="#allocator" class="category-card" data-tab="allocator">
+          <div class="category-card-head">
+            <div class="category-card-icon" style="background: linear-gradient(135deg, #00F5A0, #00B47A);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              </svg>
+            </div>
+            <span class="category-card-tag" style="background: rgba(0, 245, 160, 0.15); color: var(--neon-green);">MPT</span>
+          </div>
+          <h3 class="category-card-title">내 포트폴리오 짜기</h3>
+          <p class="category-card-desc">주식·코인·금·채권 비중을 정하면 10년치 백테스트가 즉시.</p>
+          <div class="category-card-preview">
+            <div class="preview-row">
+              <span class="preview-label">예상 수익률</span>
+              <span class="preview-val" style="color: var(--neon-green);">+12.4% / 년</span>
+            </div>
+            <div class="preview-row">
+              <span class="preview-label">최악의 해</span>
+              <span class="preview-val" style="color: var(--neon-red);">-8.5%</span>
+            </div>
+          </div>
+          <div class="category-card-cta">포트폴리오 만들기 →</div>
+        </a>
+
+        <!-- Card 3: AI Signals -->
+        <a href="#signals" class="category-card" data-tab="signals">
+          <div class="category-card-head">
+            <div class="category-card-icon" style="background: linear-gradient(135deg, #F59F00, #E67E00);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+              </svg>
+            </div>
+            <span class="category-card-tag" style="background: rgba(245, 159, 0, 0.15); color: #F59F00;">AI</span>
+          </div>
+          <h3 class="category-card-title">AI 시그널</h3>
+          <p class="category-card-desc">ICT 트레이딩 이론 기반 매매 시그널을 실시간으로.</p>
+          <div class="category-card-preview">
+            <div class="preview-row">
+              <span class="preview-label">활성 시그널</span>
+              <span class="preview-val" id="homePreview_signalCount">2건</span>
+            </div>
+            <div class="preview-row">
+              <span class="preview-label">최근 신호</span>
+              <span class="preview-val" id="homePreview_signalLast">TSLA BUY</span>
+            </div>
+          </div>
+          <div class="category-card-cta">시그널 보기 →</div>
+        </a>
+
+        <!-- Card 4: Forex & Macro -->
+        <a href="#macro" class="category-card" data-tab="macro">
+          <div class="category-card-head">
+            <div class="category-card-icon" style="background: linear-gradient(135deg, #909BB0, #6B7684);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <span class="category-card-tag" style="background: rgba(144, 155, 176, 0.15); color: var(--text-sub);">FX</span>
+          </div>
+          <h3 class="category-card-title">환율 · 거시지표</h3>
+          <p class="category-card-desc">원/달러 환율부터 연준 금리, CPI까지 거시 흐름 한눈에.</p>
+          <div class="category-card-preview">
+            <div class="preview-row">
+              <span class="preview-label">USD/KRW</span>
+              <span class="preview-val" id="homePreview_USD">1,364원</span>
+            </div>
+            <div class="preview-row">
+              <span class="preview-label">Fed 금리</span>
+              <span class="preview-val">5.50%</span>
+            </div>
+          </div>
+          <div class="category-card-cta">환율 보기 →</div>
+        </a>
+      </div>
+
+      <!-- Quick Start Banner -->
+      <div class="quick-start-banner">
+        <div class="quick-start-icon">🚀</div>
+        <div class="quick-start-text">
+          <div class="quick-start-title">처음이세요? 포트폴리오부터 시작해보세요</div>
+          <div class="quick-start-sub">슬라이더로 자산 비중을 정하면 자동으로 백테스트가 돌아갑니다.</div>
+        </div>
+        <a href="#allocator" class="quick-start-btn" data-tab="allocator">시작 →</a>
+      </div>
+    </div>
+    <!-- /view-home -->
+
+    <div class="page-view" id="view-terminal">
     <!-- Welcome Header -->
     <header style="padding: 8px 8px; margin-bottom: -4px;">
       <div>
@@ -1927,8 +2747,83 @@
       },
       sentiment: 64,
       forexInitialized: false,
-      cryptoInitialized: false
+      cryptoInitialized: false,
+      selectedThemeId: 'us-monthly-div'
     };
+
+    // ─────────────────────────────────────────────────────────
+    // Volume Surge data (demo — 실제 운영시 Polygon.io + KIS API 연동)
+    // Polygon: /v2/snapshot/locale/us/markets/stocks/tickers (volume vs prevDay)
+    // KIS:     /uapi/domestic-stock/v1/quotations/volume-rank
+    // ─────────────────────────────────────────────────────────
+    const VOLUME_SURGES = [
+      { ticker: 'NVDA',     name: '엔비디아',         region: 'US', price: 920.50,  changePct: 3.84,  volumeRatio: 4.2, reasonTag: '실적 발표 임박' },
+      { ticker: 'PLTR',     name: '팔란티어',         region: 'US', price: 42.18,   changePct: 8.21,  volumeRatio: 6.8, reasonTag: '신규 계약 체결' },
+      { ticker: 'SMCI',     name: '슈퍼마이크로',     region: 'US', price: 615.30,  changePct: -2.45, volumeRatio: 3.5, reasonTag: 'AI 서버 수요 급증' },
+      { ticker: '005930',   name: '삼성전자',         region: 'KR', price: 78500,   changePct: 2.13,  volumeRatio: 3.1, reasonTag: 'HBM3E 양산 시작' },
+      { ticker: '000660',   name: 'SK하이닉스',       region: 'KR', price: 215000,  changePct: 4.67,  volumeRatio: 5.4, reasonTag: '엔비디아 공급 확대' }
+    ];
+
+    // ─────────────────────────────────────────────────────────
+    // ETF Themes data (demo — 실제 운영시 FMP API 연동)
+    // FMP: /v3/etf-holdings/{ticker}, /v3/etf-list, /v3/historical-price-full
+    // ─────────────────────────────────────────────────────────
+    const ETF_THEMES = [
+      {
+        id: 'us-monthly-div', hashtag: '#미국_월배당', emoji: '💵',
+        desc: '<strong>매달 배당금이 들어오는</strong> 미국 ETF 모음. 안정적인 현금 흐름을 만들고 싶다면.',
+        etfs: [
+          { ticker: 'SCHD', name: 'Schwab US Dividend Equity ETF', oneYearReturn: 11.2, dividendYield: 3.50, expenseRatio: 0.06, aumBillion: 58, description: '미국 우량 배당주 100종목에 분산 투자하는 대표 배당 ETF. 매분기 배당 지급.' },
+          { ticker: 'JEPI', name: 'JPMorgan Equity Premium Income', oneYearReturn: 8.4,  dividendYield: 7.80, expenseRatio: 0.35, aumBillion: 33, description: '커버드콜 전략으로 매달 안정적인 분배금을 추구. 변동성이 큰 시장에서 방어력이 강점.' },
+          { ticker: 'O',    name: 'Realty Income Corp',             oneYearReturn: -2.1, dividendYield: 5.60, expenseRatio: 0.00, aumBillion: 50, description: "'월배당의 왕'으로 불리는 미국 상업용 부동산 리츠(REIT). 매달 배당금 지급." }
+        ]
+      },
+      {
+        id: 'ai-semicon', hashtag: '#AI_반도체', emoji: '🤖',
+        desc: 'AI 시대의 핵심, <strong>반도체·GPU</strong> 기업에 분산 투자. 성장성 기대가 높지만 변동성도 큽니다.',
+        etfs: [
+          { ticker: 'SOXX', name: 'iShares Semiconductor ETF',     oneYearReturn: 38.5, dividendYield: 0.95, expenseRatio: 0.35, aumBillion: 14, description: '미국 30대 반도체 기업에 투자. 엔비디아·AMD·인텔 등이 핵심 보유.' },
+          { ticker: 'SMH',  name: 'VanEck Semiconductor ETF',      oneYearReturn: 42.1, dividendYield: 0.50, expenseRatio: 0.35, aumBillion: 22, description: '글로벌 반도체 25종목에 집중 투자. TSMC, 엔비디아 비중이 매우 높음.' },
+          { ticker: 'AIQ',  name: 'Global X AI & Technology ETF',  oneYearReturn: 31.2, dividendYield: 0.20, expenseRatio: 0.68, aumBillion: 3,  description: 'AI 소프트웨어 + 하드웨어 전반에 투자. 마이크로소프트·메타·구글 포함.' }
+        ]
+      },
+      {
+        id: 'india-emerging', hashtag: '#신흥국_인도', emoji: '🇮🇳',
+        desc: '<strong>14억 인구</strong>의 차세대 신흥 강국 인도. 향후 10년 가장 빠른 성장이 예상되는 시장.',
+        etfs: [
+          { ticker: 'INDA', name: 'iShares MSCI India ETF',        oneYearReturn: 18.7, dividendYield: 0.85, expenseRatio: 0.62, aumBillion: 8,  description: '인도 대형주 중심. 인도 주식시장 시가총액 85% 커버.' },
+          { ticker: 'INDY', name: 'iShares India 50 ETF',          oneYearReturn: 19.4, dividendYield: 0.80, expenseRatio: 0.89, aumBillion: 0.9, description: '인도 NIFTY 50 지수 추종. 가장 대표적인 인도 종합 ETF.' },
+          { ticker: 'FLIN', name: 'Franklin FTSE India ETF',       oneYearReturn: 17.9, dividendYield: 0.90, expenseRatio: 0.19, aumBillion: 1.5, description: '저비용으로 인도 시장 전반에 분산 투자할 수 있는 ETF.' }
+        ]
+      },
+      {
+        id: 'us-bigtech', hashtag: '#미국_빅테크', emoji: '💻',
+        desc: '<strong>매그니피센트 7</strong> 중심의 미국 기술주. 시장 주도주에 한 번에 베팅.',
+        etfs: [
+          { ticker: 'QQQ',  name: 'Invesco QQQ Trust',             oneYearReturn: 24.3, dividendYield: 0.55, expenseRatio: 0.20, aumBillion: 280, description: '나스닥 100 추종. 애플·MS·엔비디아 등 미국 빅테크 전체 분산.' },
+          { ticker: 'MGK',  name: 'Vanguard Mega Cap Growth',      oneYearReturn: 28.1, dividendYield: 0.45, expenseRatio: 0.07, aumBillion: 18,  description: '미국 초대형 성장주에 집중. QQQ보다 매그니피센트 7 비중이 더 높음.' },
+          { ticker: 'VGT',  name: 'Vanguard Information Tech',     oneYearReturn: 32.6, dividendYield: 0.65, expenseRatio: 0.10, aumBillion: 75,  description: '미국 IT 섹터 전체에 투자. 반도체·소프트웨어·서비스 종합.' }
+        ]
+      },
+      {
+        id: 'kr-dividend', hashtag: '#한국_배당주', emoji: '🇰🇷',
+        desc: '<strong>국내 우량 배당주</strong> 묶음. 절세 계좌(ISA·연금저축)에서 활용도가 높습니다.',
+        etfs: [
+          { ticker: '266390', name: 'KODEX 고배당',                oneYearReturn: 6.8,  dividendYield: 4.20, expenseRatio: 0.30, aumBillion: 0.4, description: '코스피·코스닥 상장 고배당 종목 50개로 구성. 분기 배당.' },
+          { ticker: '210780', name: 'TIGER 코스피고배당',          oneYearReturn: 7.5,  dividendYield: 4.50, expenseRatio: 0.29, aumBillion: 0.3, description: 'KRX 고배당 50 지수 추종. 코스피 대표 배당주 분산.' },
+          { ticker: '161510', name: 'ARIRANG 고배당주',            oneYearReturn: 8.1,  dividendYield: 4.80, expenseRatio: 0.40, aumBillion: 0.2, description: '시가 배당률 상위 우량 30종목에 집중. 연 1회 배당.' }
+        ]
+      },
+      {
+        id: 'global-defense', hashtag: '#글로벌_방산', emoji: '🛡️',
+        desc: '<strong>지정학 리스크 시대</strong>의 방어 자산. 미국 방산 빅5에 분산.',
+        etfs: [
+          { ticker: 'ITA',  name: 'iShares US Aerospace & Defense', oneYearReturn: 22.4, dividendYield: 1.05, expenseRatio: 0.40, aumBillion: 6,  description: '록히드마틴·RTX·노스롭그루먼 등 미국 방산 대표주 분산.' },
+          { ticker: 'XAR',  name: 'SPDR Aerospace & Defense',       oneYearReturn: 24.1, dividendYield: 0.45, expenseRatio: 0.35, aumBillion: 2,  description: '동일가중(Equal Weight) 방식. 대형주 편중 없이 균형 잡힌 배분.' },
+          { ticker: 'PPA',  name: 'Invesco Aerospace & Defense',    oneYearReturn: 23.8, dividendYield: 0.70, expenseRatio: 0.58, aumBillion: 3,  description: '미국 방산 + 우주항공 50종목. 차세대 방산 기술 포함.' }
+        ]
+      }
+    ];
 
     // Global Element Declarations (Late-bound on DOMContentLoaded to guarantee zero runtime NullPointer crashes)
     let themeToggle, sunIcon, moonIcon, toast;
@@ -2033,6 +2928,18 @@
         });
       });
 
+      // Connect home category cards & quick-start button
+      document.querySelectorAll('.category-card, .quick-start-btn').forEach(el => {
+        el.addEventListener('click', (e) => {
+          const tabId = e.currentTarget.getAttribute('data-tab');
+          if (tabId) {
+            e.preventDefault();
+            window.location.hash = '#' + tabId;
+            switchTab(tabId);
+          }
+        });
+      });
+
       // Connect tab selector buttons for live chart terminal
       document.querySelectorAll('#terminalAssetSelector .asset-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
@@ -2092,6 +2999,12 @@
       updateOrderBook();
       updateForexUI();
       tickAiSignals();
+      updateHomePreviews();
+
+      // Home page curation sections
+      renderVolumeSurges();
+      renderThemeChips();
+      renderEtfList();
 
       // Initialize Allocation Backtester UI
       syncSliderUI();
@@ -2179,13 +3092,13 @@
 
     function handleRouting() {
       let hash = window.location.hash.replace('#', '');
-      const validTabs = ['terminal', 'allocator', 'signals', 'macro'];
-      
+      const validTabs = ['home', 'terminal', 'allocator', 'signals', 'macro'];
+
       if (!hash || !validTabs.includes(hash)) {
-        window.location.hash = '#terminal';
+        window.location.hash = '#home';
         return;
       }
-      
+
       switchTab(hash);
     }
 
@@ -2368,6 +3281,195 @@
       renderChart();
       updateOrderBook();
       updateForexUI();
+      updateHomePreviews();
+    }
+
+    // Update Home landing-page preview values in real-time
+    function updateHomePreviews() {
+      const tslaEl = document.getElementById('homePreview_TSLA');
+      const btcEl  = document.getElementById('homePreview_BTC');
+      const usdEl  = document.getElementById('homePreview_USD');
+      const sentEl = document.getElementById('heroStat_sentiment');
+      const sigCountEl = document.getElementById('homePreview_signalCount');
+      const sigLastEl  = document.getElementById('homePreview_signalLast');
+      const heroSigEl  = document.getElementById('heroStat_signals');
+
+      if (tslaEl) {
+        tslaEl.textContent = '$' + state.assets.TSLA.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        tslaEl.style.color = state.assets.TSLA.pct >= 0 ? 'var(--neon-green)' : 'var(--neon-red)';
+      }
+      if (btcEl) {
+        btcEl.textContent = '$' + Math.round(state.assets.BTC.price).toLocaleString('en-US');
+        btcEl.style.color = state.assets.BTC.pct >= 0 ? 'var(--neon-green)' : 'var(--neon-red)';
+      }
+      if (usdEl) {
+        usdEl.textContent = state.forex.USD.price.toLocaleString('ko-KR', { maximumFractionDigits: 0 }) + '원';
+      }
+      if (sentEl) sentEl.textContent = state.sentiment;
+
+      // Signal count + most recent label (read from DOM since signals are rendered as cards)
+      const timelineEl = document.getElementById('signalTimeline');
+      if (timelineEl) {
+        const count = timelineEl.children.length;
+        if (sigCountEl) sigCountEl.textContent = count + '건';
+        if (heroSigEl)  heroSigEl.textContent  = count;
+        const firstCard = timelineEl.firstElementChild;
+        if (firstCard && sigLastEl) {
+          const headerText = firstCard.querySelector('.signal-header-row span:first-child');
+          const badge = firstCard.querySelector('.signal-badge');
+          if (headerText && badge) {
+            const symbol = headerText.textContent.split('/')[0].trim();
+            const action = badge.textContent.includes('BUY') ? 'BUY' : 'SELL';
+            sigLastEl.textContent = `${symbol} ${action}`;
+            sigLastEl.style.color = action === 'BUY' ? 'var(--neon-green)' : 'var(--neon-red)';
+          }
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Render "오늘 시장의 관심사" — Volume surge cards
+    // ─────────────────────────────────────────────────────────
+    function renderVolumeSurges() {
+      const scroller = document.getElementById('volumeSurgeScroller');
+      if (!scroller) return;
+
+      // Sort by volume ratio (highest first)
+      const sorted = [...VOLUME_SURGES].sort((a, b) => b.volumeRatio - a.volumeRatio);
+
+      const html = sorted.map((s, idx) => {
+        const isUp = s.changePct >= 0;
+        const priceFmt = s.region === 'KR'
+          ? s.price.toLocaleString('ko-KR') + '원'
+          : '$' + s.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const pctSign = isUp ? '+' : '';
+        const regionLabel = s.region === 'KR' ? 'KR' : 'US';
+
+        return `
+          <a href="#terminal" class="surge-card" data-ticker="${s.ticker}">
+            <div class="surge-card-head">
+              <span class="surge-rank">#${idx + 1}</span>
+              <span class="surge-region ${s.region.toLowerCase()}">${regionLabel}</span>
+            </div>
+            <div>
+              <div class="surge-ticker">${s.ticker}</div>
+              <div class="surge-name">${s.name}</div>
+            </div>
+            <div class="surge-volume-ratio">
+              <strong>${s.volumeRatio.toFixed(1)}배</strong>
+              <span>거래량 ↑</span>
+            </div>
+            <div class="surge-price-row">
+              <span class="surge-price">${priceFmt}</span>
+              <span class="surge-pct ${isUp ? 'up' : 'down'}">${pctSign}${s.changePct.toFixed(2)}%</span>
+            </div>
+            <div class="surge-reason">📌 ${s.reasonTag}</div>
+          </a>
+        `;
+      }).join('');
+
+      scroller.innerHTML = html;
+
+      // Bind click → terminal navigation (preserves SPA routing)
+      scroller.querySelectorAll('.surge-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.location.hash = '#terminal';
+          switchTab('terminal');
+        });
+      });
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Render ETF theme chips + ETF accordion list
+    // ─────────────────────────────────────────────────────────
+    function renderThemeChips() {
+      const scroller = document.getElementById('themeChipScroller');
+      if (!scroller) return;
+
+      scroller.innerHTML = ETF_THEMES.map(t => `
+        <button class="theme-chip ${t.id === state.selectedThemeId ? 'active' : ''}" data-theme-id="${t.id}">
+          ${t.emoji} ${t.hashtag}
+        </button>
+      `).join('');
+
+      scroller.querySelectorAll('.theme-chip').forEach(chip => {
+        chip.addEventListener('click', (e) => {
+          state.selectedThemeId = e.currentTarget.getAttribute('data-theme-id');
+          renderThemeChips();
+          renderEtfList();
+        });
+      });
+    }
+
+    function renderEtfList() {
+      const listEl = document.getElementById('etfList');
+      const bannerEl = document.getElementById('themeDescBanner');
+      if (!listEl) return;
+
+      const theme = ETF_THEMES.find(t => t.id === state.selectedThemeId);
+      if (!theme) {
+        listEl.innerHTML = '';
+        if (bannerEl) bannerEl.innerHTML = '관심있는 해시태그를 선택해보세요.';
+        return;
+      }
+
+      if (bannerEl) bannerEl.innerHTML = theme.desc;
+
+      listEl.innerHTML = theme.etfs.map(etf => {
+        const isUp = etf.oneYearReturn >= 0;
+        const sign = isUp ? '+' : '';
+        const avatarText = etf.ticker.length > 4 ? etf.ticker.slice(0, 4) : etf.ticker;
+
+        return `
+          <div class="etf-item" data-ticker="${etf.ticker}">
+            <button class="etf-summary">
+              <div class="etf-avatar">${avatarText}</div>
+              <div class="etf-summary-mid">
+                <div class="etf-summary-ticker">${etf.ticker}</div>
+                <div class="etf-summary-name">${etf.name}</div>
+              </div>
+              <div class="etf-summary-right">
+                <div class="etf-return ${isUp ? 'up' : 'down'}">${sign}${etf.oneYearReturn.toFixed(1)}%</div>
+                <div class="etf-return-label">1년 수익률</div>
+              </div>
+              <svg class="etf-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+            <div class="etf-detail">
+              <div class="etf-detail-inner">
+                <p class="etf-detail-desc">${etf.description}</p>
+                <div class="etf-mini-grid">
+                  <div class="etf-mini-stat">
+                    <div class="etf-mini-label">배당률</div>
+                    <div class="etf-mini-val">${etf.dividendYield.toFixed(2)}%</div>
+                  </div>
+                  <div class="etf-mini-stat">
+                    <div class="etf-mini-label">운용규모</div>
+                    <div class="etf-mini-val">$${etf.aumBillion}B</div>
+                  </div>
+                  <div class="etf-mini-stat">
+                    <div class="etf-mini-label">총보수</div>
+                    <div class="etf-mini-val">${etf.expenseRatio.toFixed(2)}%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Bind accordion toggle
+      listEl.querySelectorAll('.etf-item').forEach(item => {
+        const summary = item.querySelector('.etf-summary');
+        summary.addEventListener('click', () => {
+          const wasOpen = item.classList.contains('open');
+          // Close all others
+          listEl.querySelectorAll('.etf-item').forEach(other => other.classList.remove('open'));
+          if (!wasOpen) item.classList.add('open');
+        });
+      });
     }
 
     // Top Marquee continuous 시세 업데이트
