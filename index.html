@@ -100,7 +100,7 @@
     .ticker-wrapper {
       display: flex;
       white-space: nowrap;
-      animation: tickerLoop 28s linear infinite;
+      animation: tickerLoop 32s linear infinite;
       will-change: transform;
     }
 
@@ -2878,20 +2878,22 @@
   <!-- Top Real-Time Global Market Ticker Bar -->
   <div class="ticker-bar">
     <div class="ticker-wrapper" id="tickerWrapper">
-      <!-- Generated items will cycle here infinitely -->
-      <div class="ticker-item"><span class="ticker-label">NASDAQ</span><span class="ticker-value">16,211.50</span><span class="ticker-change up">+1.42%</span></div>
+      <!-- 7 unique items × 2 copies for seamless loop -->
+      <div class="ticker-item"><span class="ticker-label">나스닥</span><span class="ticker-value">16,211.50</span><span class="ticker-change up">+1.42%</span></div>
       <div class="ticker-item"><span class="ticker-label">S&P 500</span><span class="ticker-value">5,190.20</span><span class="ticker-change up">+0.88%</span></div>
-      <div class="ticker-item"><span class="ticker-label">USDKRW</span><span class="ticker-value">1,364.50</span><span class="ticker-change down">-0.32%</span></div>
-      <div class="ticker-item"><span class="ticker-label">BTC/USD</span><span class="ticker-value">67,520.00</span><span class="ticker-change up">+2.15%</span></div>
-      <div class="ticker-item"><span class="ticker-label">NVDA</span><span class="ticker-value">920.50</span><span class="ticker-change up">+3.84%</span></div>
-      <div class="ticker-item"><span class="ticker-label">TSLA</span><span class="ticker-value">180.20</span><span class="ticker-change down">-1.25%</span></div>
-      <!-- Duplicate items for seamless continuous looping animation -->
-      <div class="ticker-item"><span class="ticker-label">NASDAQ</span><span class="ticker-value">16,211.50</span><span class="ticker-change up">+1.42%</span></div>
+      <div class="ticker-item"><span class="ticker-label">SOX</span><span class="ticker-value">4,228.50</span><span class="ticker-change up">+1.95%</span></div>
+      <div class="ticker-item"><span class="ticker-label">코스피</span><span class="ticker-value">2,638</span><span class="ticker-change down">-0.21%</span></div>
+      <div class="ticker-item"><span class="ticker-label">코스닥</span><span class="ticker-value">852</span><span class="ticker-change up">+0.44%</span></div>
+      <div class="ticker-item"><span class="ticker-label">BTC</span><span class="ticker-value">67,520</span><span class="ticker-change up">+2.15%</span></div>
+      <div class="ticker-item"><span class="ticker-label">ETH</span><span class="ticker-value">3,500.00</span><span class="ticker-change up">+1.87%</span></div>
+      <!-- Duplicate for seamless continuous looping animation -->
+      <div class="ticker-item"><span class="ticker-label">나스닥</span><span class="ticker-value">16,211.50</span><span class="ticker-change up">+1.42%</span></div>
       <div class="ticker-item"><span class="ticker-label">S&P 500</span><span class="ticker-value">5,190.20</span><span class="ticker-change up">+0.88%</span></div>
-      <div class="ticker-item"><span class="ticker-label">USDKRW</span><span class="ticker-value">1,364.50</span><span class="ticker-change down">-0.32%</span></div>
-      <div class="ticker-item"><span class="ticker-label">BTC/USD</span><span class="ticker-value">67,520.00</span><span class="ticker-change up">+2.15%</span></div>
-      <div class="ticker-item"><span class="ticker-label">NVDA</span><span class="ticker-value">920.50</span><span class="ticker-change up">+3.84%</span></div>
-      <div class="ticker-item"><span class="ticker-label">TSLA</span><span class="ticker-value">180.20</span><span class="ticker-change down">-1.25%</span></div>
+      <div class="ticker-item"><span class="ticker-label">SOX</span><span class="ticker-value">4,228.50</span><span class="ticker-change up">+1.95%</span></div>
+      <div class="ticker-item"><span class="ticker-label">코스피</span><span class="ticker-value">2,638</span><span class="ticker-change down">-0.21%</span></div>
+      <div class="ticker-item"><span class="ticker-label">코스닥</span><span class="ticker-value">852</span><span class="ticker-change up">+0.44%</span></div>
+      <div class="ticker-item"><span class="ticker-label">BTC</span><span class="ticker-value">67,520</span><span class="ticker-change up">+2.15%</span></div>
+      <div class="ticker-item"><span class="ticker-label">ETH</span><span class="ticker-value">3,500.00</span><span class="ticker-change up">+1.87%</span></div>
     </div>
   </div>
 
@@ -4790,13 +4792,23 @@
       const wrapper = document.getElementById('tickerWrapper');
       if (!wrapper) return;
 
+      const nvdaPct = state.assets.NVDA.pct;
+      const aaplPct = state.assets.AAPL.pct;
       const indices = [
-        { price: 16211.5 * (state.assets.NVDA.price / 215.33), pct: state.assets.NVDA.pct * 0.4 },
-        { price: 5190.2  * (state.assets.AAPL.price / 308.33), pct: state.assets.AAPL.pct * 0.3 },
-        { price: state.forex.USD.price,  pct: state.forex.USD.pct  },
-        { price: state.assets.BTC.price, pct: state.assets.BTC.pct },
-        { price: state.assets.NVDA.price, pct: state.assets.NVDA.pct },
-        { price: state.assets.TSLA.price, pct: state.assets.TSLA.pct },
+        // 나스닥: tech-weighted composite
+        { price: 16211.5 * (state.assets.NVDA.price / 215.33), pct: nvdaPct * 0.35 + aaplPct * 0.15, fmt: 'decimal' },
+        // S&P 500: broad-market composite
+        { price: 5190.2  * (state.assets.AAPL.price / 308.33), pct: aaplPct * 0.25 + nvdaPct * 0.10, fmt: 'decimal' },
+        // SOX 필라델피아 반도체: NVDA-heavy
+        { price: 4228.5  * (state.assets.NVDA.price / 215.33), pct: nvdaPct * 0.60, fmt: 'decimal' },
+        // 코스피: Korean market proxy
+        { price: 2638.4  * (state.assets.AAPL.price / 308.33), pct: aaplPct * 0.30 - (state.forex.USD.pct || 0) * 0.15, fmt: 'int' },
+        // 코스닥: Korean tech proxy
+        { price: 852.1   * (state.assets.NVDA.price / 215.33), pct: nvdaPct * 0.35 + aaplPct * 0.10, fmt: 'int' },
+        // BTC
+        { price: state.assets.BTC.price, pct: state.assets.BTC.pct, fmt: 'int' },
+        // ETH
+        { price: state.assets.ETH.price, pct: state.assets.ETH.pct, fmt: 'decimal' },
       ];
 
       const items = wrapper.querySelectorAll('.ticker-item');
@@ -4805,7 +4817,11 @@
         const idx = indices[i % n];
         const valEl = item.querySelector('.ticker-value');
         const chgEl = item.querySelector('.ticker-change');
-        if (valEl) valEl.textContent = idx.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        if (valEl) {
+          valEl.textContent = idx.fmt === 'int'
+            ? Math.round(idx.price).toLocaleString()
+            : idx.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
         if (chgEl) {
           chgEl.textContent = (idx.pct >= 0 ? '+' : '') + idx.pct.toFixed(2) + '%';
           chgEl.className   = 'ticker-change ' + (idx.pct >= 0 ? 'up' : 'down');
