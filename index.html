@@ -2816,6 +2816,175 @@
       margin-bottom: 3px;
     }
     .theme-vol-amount { font-size: 11px; color: var(--text-sub); white-space: nowrap; }
+
+    /* ═══════════════════════════════════════════════════════
+       경제 & 실적 캘린더
+    ═══════════════════════════════════════════════════════ */
+    .cal-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 16px 0 12px; flex-wrap: wrap;
+    }
+    .cal-nav-btn {
+      width: 34px; height: 34px; border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg); color: var(--text-color);
+      font-size: 20px; font-weight: 300;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0; transition: background .15s;
+    }
+    .cal-nav-btn:hover { background: var(--grey-light); }
+    .cal-title-wrap { flex: 1; text-align: center; }
+    .cal-title { font-size: 17px; font-weight: 700; color: var(--text-color); }
+    .cal-view-toggle {
+      display: flex; border: 1px solid var(--border-color);
+      border-radius: 8px; overflow: hidden; flex-shrink: 0;
+    }
+    .cal-view-btn {
+      padding: 6px 14px; font-size: 12px; font-weight: 600;
+      border: none; background: transparent; color: var(--text-sub);
+      cursor: pointer; transition: all .15s;
+    }
+    .cal-view-btn.active { background: var(--toss-blue); color: #fff; }
+
+    .cal-filter-bar {
+      display: flex; align-items: center; gap: 6px;
+      flex-wrap: wrap; padding-bottom: 12px;
+    }
+    .cal-filter-btn, .cal-imp-btn {
+      padding: 5px 11px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      border: 1px solid var(--border-color);
+      background: var(--card-bg); color: var(--text-sub);
+      cursor: pointer; transition: all .15s; white-space: nowrap;
+    }
+    .cal-filter-btn.active { background: var(--toss-blue); color: #fff; border-color: var(--toss-blue); }
+    .cal-imp-btn.active { background: var(--grey-light); color: var(--text-color); border-color: var(--border-color); }
+    .cal-filter-sep { width: 1px; height: 20px; background: var(--border-color); margin: 0 2px; }
+
+    /* Month grid */
+    .cal-weekdays {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      text-align: center; padding-bottom: 4px;
+    }
+    .cal-weekdays div {
+      font-size: 11px; font-weight: 700; color: var(--text-sub);
+      padding: 4px 0;
+    }
+    .cal-weekdays div:first-child { color: #ef4444; }
+    .cal-weekdays div:last-child  { color: var(--toss-blue); }
+    .cal-days {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+    }
+    .cal-day {
+      min-height: 58px; border-radius: 8px; padding: 6px 5px 4px;
+      display: flex; flex-direction: column; align-items: center;
+      cursor: pointer; transition: background .12s; position: relative;
+      border: 1.5px solid transparent;
+    }
+    .cal-day:hover { background: var(--grey-light); }
+    .cal-day.cal-today .cal-day-num {
+      background: var(--toss-blue); color: #fff;
+      border-radius: 50%; width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cal-day.cal-selected {
+      border-color: var(--toss-blue);
+      background: rgba(55,114,255,.06);
+    }
+    .cal-day.cal-day-empty { cursor: default; pointer-events: none; }
+    .cal-day-num { font-size: 13px; font-weight: 600; color: var(--text-color); line-height: 1; }
+    .cal-day:nth-child(7n+1) .cal-day-num { color: #ef4444; }  /* 일요일 */
+    .cal-day:nth-child(7n)   .cal-day-num { color: var(--toss-blue); }  /* 토요일 */
+    .cal-dots { display: flex; gap: 3px; margin-top: 5px; flex-wrap: wrap; justify-content: center; }
+    .cal-dot { width: 5px; height: 5px; border-radius: 50%; }
+    .cal-dot-h { background: #ef4444; }
+    .cal-dot-m { background: #f59f00; }
+    .cal-dot-l { background: var(--text-sub); opacity: .6; }
+    .cal-dot-earn { background: #3b82f6; }
+
+    /* Week view */
+    .cal-week-list { display: flex; flex-direction: column; gap: 0; }
+    .cal-week-day-header {
+      padding: 10px 0 6px;
+      font-size: 12px; font-weight: 700; color: var(--text-sub);
+      border-top: 1px solid var(--border-color); margin-top: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .cal-week-day-header .cwdh-date {
+      font-size: 14px; font-weight: 800; color: var(--text-color);
+    }
+    .cal-week-day-header .cwdh-today {
+      font-size: 10px; padding: 1px 6px; border-radius: 10px;
+      background: var(--toss-blue); color: #fff; font-weight: 700;
+    }
+    .cal-week-empty { font-size: 12px; color: var(--text-sub); padding: 6px 0 8px; }
+
+    /* Event rows (shared month detail + week view) */
+    .cal-event-row {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 9px 10px; border-radius: 10px;
+      background: var(--card-bg); border: 1px solid var(--border-color);
+      margin-bottom: 6px; cursor: default;
+    }
+    .cal-event-imp {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px;
+    }
+    .imp-h { background: #ef4444; }
+    .imp-m { background: #f59f00; }
+    .imp-l { background: #9ca3af; }
+    .imp-earn { background: #3b82f6; }
+    .cal-event-main { flex: 1; min-width: 0; }
+    .cal-event-name {
+      font-size: 13px; font-weight: 600; color: var(--text-color); line-height: 1.3;
+    }
+    .cal-event-meta {
+      font-size: 11px; color: var(--text-sub); margin-top: 2px;
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .cal-event-vals {
+      display: flex; gap: 8px; margin-top: 5px; flex-wrap: wrap;
+    }
+    .cal-event-val-chip {
+      font-size: 11px; padding: 2px 7px; border-radius: 6px;
+      background: var(--grey-light); color: var(--text-sub); font-weight: 600;
+    }
+    .cal-event-val-chip.actual-up { background: rgba(0,229,160,.12); color: #00b37e; }
+    .cal-event-val-chip.actual-down { background: rgba(255,107,107,.12); color: #ff4d4d; }
+    .cal-event-timing {
+      font-size: 10px; padding: 1px 7px; border-radius: 8px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .timing-bmo { background: rgba(59,130,246,.15); color: #3b82f6; }
+    .timing-amc { background: rgba(245,159,0,.15); color: #f59f00; }
+    .timing-tbd { background: var(--grey-light); color: var(--text-sub); }
+    .cal-country-flag {
+      font-size: 10px; padding: 1px 6px; border-radius: 6px;
+      background: var(--grey-light); color: var(--text-sub); font-weight: 700;
+    }
+
+    /* Detail panel */
+    .cal-detail-panel {
+      margin-top: 16px; border-radius: 14px;
+      border: 1px solid var(--toss-blue);
+      background: var(--card-bg); overflow: hidden;
+    }
+    .cal-detail-date-row {
+      padding: 12px 16px; background: rgba(55,114,255,.07);
+      font-size: 14px; font-weight: 700; color: var(--toss-blue);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .cal-detail-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 14px; }
+    .cal-detail-section-title {
+      font-size: 11px; font-weight: 800; color: var(--text-sub);
+      letter-spacing: .06em; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .cal-no-events {
+      font-size: 13px; color: var(--text-sub); text-align: center; padding: 20px 0;
+    }
+    .cal-updated {
+      font-size: 11px; color: var(--text-sub); text-align: right;
+      padding: 10px 0 4px; opacity: .7;
+    }
   </style>
   <meta name="google-adsense-account" content="ca-pub-9832973303458105">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9832973303458105"
@@ -2834,7 +3003,7 @@
           <a href="#home" class="nav-link active" data-tab="home">홈</a>
           <a href="#terminal" class="nav-link" data-tab="terminal">터미널</a>
           <a href="#allocator" class="nav-link" data-tab="allocator">포트폴리오</a>
-          <a href="#signals" class="nav-link" data-tab="signals">AI 시그널</a>
+          <a href="#calendar" class="nav-link" data-tab="calendar">캘린더</a>
           <a href="#macro" class="nav-link" data-tab="macro">환율 · 거시</a>
           <a href="#community" class="nav-link" data-tab="community">커뮤니티</a>
         </div>
@@ -2884,13 +3053,12 @@
       </svg>
       <span>포트폴리오</span>
     </a>
-    <!-- AI Signal -->
-    <a href="#signals" class="tab-item" data-tab="signals" id="tabBtn_signals">
+    <!-- Calendar -->
+    <a href="#calendar" class="tab-item" data-tab="calendar" id="tabBtn_calendar">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="3"/>
-        <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
       </svg>
-      <span>AI 시그널</span>
+      <span>캘린더</span>
     </a>
     <!-- Macro -->
     <a href="#macro" class="tab-item" data-tab="macro" id="tabBtn_macro">
@@ -3129,30 +3297,29 @@
           <div class="category-card-cta">포트폴리오 만들기 →</div>
         </a>
 
-        <!-- Card 3: AI Signals -->
-        <a href="#signals" class="category-card" data-tab="signals">
+        <!-- Card 3: Calendar -->
+        <a href="#calendar" class="category-card" data-tab="calendar">
           <div class="category-card-head">
-            <div class="category-card-icon" style="background: linear-gradient(135deg, #F59F00, #E67E00);">
+            <div class="category-card-icon" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
               </svg>
             </div>
-            <span class="category-card-tag" style="background: rgba(245, 159, 0, 0.15); color: #F59F00;">AI</span>
+            <span class="category-card-tag" style="background: rgba(59,130,246,0.15); color: #3B82F6;">일정</span>
           </div>
-          <h3 class="category-card-title">AI 시그널</h3>
-          <p class="category-card-desc">ICT 트레이딩 이론 기반 매매 시그널을 실시간으로.</p>
+          <h3 class="category-card-title">경제 캘린더</h3>
+          <p class="category-card-desc">FOMC · CPI · 기업 실적 발표 일정을 한눈에.</p>
           <div class="category-card-preview">
             <div class="preview-row">
-              <span class="preview-label">활성 시그널</span>
-              <span class="preview-val" id="homePreview_signalCount">2건</span>
+              <span class="preview-label">이번 주 이벤트</span>
+              <span class="preview-val" id="homePreview_calCount">-</span>
             </div>
             <div class="preview-row">
-              <span class="preview-label">최근 신호</span>
-              <span class="preview-val" id="homePreview_signalLast">TSLA BUY</span>
+              <span class="preview-label">다음 주요 일정</span>
+              <span class="preview-val" id="homePreview_calNext">-</span>
             </div>
           </div>
-          <div class="category-card-cta">시그널 보기 →</div>
+          <div class="category-card-cta">캘린더 보기 →</div>
         </a>
 
         <!-- Card 4: Forex & Macro -->
@@ -3287,118 +3454,39 @@
     </div> <!-- /view-terminal -->
 
     <!-- 3. AI Signals Feed Card -->
-    <div class="page-view" id="view-signals">
-      <div class="card" id="signalsCard">
-        <div class="card-title">
-          <span>X-AI 투자 분석 시그널 (ICT 기반)</span>
-        </div>
-        <div class="card-subtitle">AI 신경망 분석 엔진이 ICT 트레이딩 이론(오더블록 7 FVG 7 EQH/L 7 OTE)에 기반하여 감지한 실시간 매매 시그널 피드입니다. 교육 목적의 가상 시뮬레이션 데이터입니다.</div>
-        
-        <div class="signal-timeline" id="signalTimeline">
-          <!-- Seed signal 1: TSLA BUY -->
-          <div class="signal-card buy">
-            <div class="signal-header-row">
-              <span>TSLA / USD &nbsp;·&nbsp; 나스닥 대형주</span>
-              <span class="signal-live-dot">LIVE</span>
-            </div>
-            <div class="signal-title-row">
-              <div class="signal-label">추세 돌파 매수 시그널 &mdash; 테슬라</div>
-              <span class="signal-badge buy">▲ BUY</span>
-            </div>
-            <div class="signal-reason">
-              <div class="signal-reason-title">시그널 근거 (ICT)</div>
-              <div class="signal-desc">5분봉 Order Block(OB) 상단 돌파 + Fair Value Gap(하방 빈고) 소멸 확인. Bullish 인가마로 위치한 FVG 기준 매수 매력도 상승.</div>
-            </div>
-            <div class="signal-ict-plan">
-              <div class="signal-ict-header">
-                <span class="signal-ict-label">ICT 매매 계획</span>
-                <span class="signal-confidence">
-                  <span>신뢰도 81%</span>
-                  <span class="confidence-bar-bg"><span class="confidence-bar-fill" style="width:81%"></span></span>
-                </span>
-              </div>
-              <div class="signal-price-grid">
-                <div class="signal-price-cell entry">
-                  <div class="signal-price-cell-label">▶ 진입가</div>
-                  <div class="signal-price-cell-val">$244.30</div>
-                  <div class="signal-price-cell-sub">OB 상단 기준</div>
-                </div>
-                <div class="signal-price-cell target">
-                  <div class="signal-price-cell-label">목표가</div>
-                  <div class="signal-price-cell-val">$252.80</div>
-                  <div class="signal-price-cell-sub">+3.5% · EQH 레벨</div>
-                </div>
-                <div class="signal-price-cell stop">
-                  <div class="signal-price-cell-label">손절가</div>
-                  <div class="signal-price-cell-val">$240.10</div>
-                  <div class="signal-price-cell-sub">−1.7% · OB 하단</div>
-                </div>
-              </div>
-              <div class="signal-rr-row">
-                <span class="signal-rr-label">리스크:리워드 (R:R)</span>
-                <span class="signal-rr-val">1 : 2.1</span>
-              </div>
-            </div>
-            <div class="signal-tags">
-              <span class="signal-tag">달러 약세 구간</span>
-              <span class="signal-tag">위험선호</span>
-              <span class="signal-tag">15분봉 확인 권고</span>
-            </div>
+    <!-- 3. Economic & Earnings Calendar -->
+    <div class="page-view" id="view-calendar">
+      <div style="display:none" id="signalTimeline"></div>
+      <div id="calendarRoot">
+        <div class="cal-header">
+          <button class="cal-nav-btn" id="calPrevBtn">&#8249;</button>
+          <div class="cal-title-wrap">
+            <span class="cal-title" id="calTitle">2026년 6월</span>
           </div>
-
-          <!-- Seed signal 2: NVDA SELL -->
-          <div class="signal-card sell">
-            <div class="signal-header-row">
-              <span>NVDA / USD &nbsp;·&nbsp; 나스닥 대형주</span>
-              <span>2분 전</span>
-            </div>
-            <div class="signal-title-row">
-              <div class="signal-label">저항선 붕괴 매도 시그널 &mdash; 엔비디아</div>
-              <span class="signal-badge sell">▼ SELL</span>
-            </div>
-            <div class="signal-reason">
-              <div class="signal-reason-title">시그널 근거 (ICT)</div>
-              <div class="signal-desc">Bearish Order Block 하단 이탈 + RSI 78 과매수 구역. 세션 높은 거래량에서 매도 OB 상단 저항 확인. EQL(Equal Lows) 목표가 하방 위치.</div>
-            </div>
-            <div class="signal-ict-plan">
-              <div class="signal-ict-header">
-                <span class="signal-ict-label">ICT 매매 계획</span>
-                <span class="signal-confidence">
-                  <span>신뢰도 74%</span>
-                  <span class="confidence-bar-bg"><span class="confidence-bar-fill" style="width:74%"></span></span>
-                </span>
-              </div>
-              <div class="signal-price-grid">
-                <div class="signal-price-cell entry">
-                  <div class="signal-price-cell-label">▶ 진입가</div>
-                  <div class="signal-price-cell-val">$921.40</div>
-                  <div class="signal-price-cell-sub">Bearish OB 기준</div>
-                </div>
-                <div class="signal-price-cell target">
-                  <div class="signal-price-cell-label">목표가</div>
-                  <div class="signal-price-cell-val">$893.20</div>
-                  <div class="signal-price-cell-sub">−3.1% · EQL 레벨</div>
-                </div>
-                <div class="signal-price-cell stop">
-                  <div class="signal-price-cell-label">손절가</div>
-                  <div class="signal-price-cell-val">$934.90</div>
-                  <div class="signal-price-cell-sub">+1.5% · OB 상단</div>
-                </div>
-              </div>
-              <div class="signal-rr-row">
-                <span class="signal-rr-label">리스크:리워드 (R:R)</span>
-                <span class="signal-rr-val">1 : 2.0</span>
-              </div>
-            </div>
-            <div class="signal-tags">
-              <span class="signal-tag">연준 금리 고점</span>
-              <span class="signal-tag">위험회피</span>
-              <span class="signal-tag">RSI 과매수 경고</span>
-            </div>
+          <button class="cal-nav-btn" id="calNextBtn">&#8250;</button>
+          <div class="cal-view-toggle">
+            <button class="cal-view-btn active" id="calViewMonth" data-view="month">월간</button>
+            <button class="cal-view-btn" id="calViewWeek" data-view="week">주간</button>
           </div>
         </div>
+        <div class="cal-filter-bar">
+          <button class="cal-filter-btn active" data-f="all">전체</button>
+          <button class="cal-filter-btn" data-f="earnings">&#128202; 실적</button>
+          <button class="cal-filter-btn" data-f="economic">&#127760; 경제지표</button>
+          <span class="cal-filter-sep"></span>
+          <button class="cal-imp-btn active" data-imp="0">전체</button>
+          <button class="cal-imp-btn" data-imp="3">&#128308;</button>
+          <button class="cal-imp-btn" data-imp="2">&#128993;</button>
+          <button class="cal-imp-btn" data-imp="1">&#9898;</button>
+        </div>
+        <div id="calGrid"></div>
+        <div class="cal-detail-panel" id="calDetailPanel" style="display:none">
+          <div class="cal-detail-date-row" id="calDetailDateRow"></div>
+          <div class="cal-detail-body" id="calDetailBody"></div>
+        </div>
+        <div class="cal-updated" id="calUpdated"></div>
       </div>
-    </div> <!-- /view-signals -->
+    </div> <!-- /view-calendar -->
 
     <!-- 4. Portfolio Page — Wizard + Allocator -->
     <div class="page-view" id="view-allocator">
@@ -4246,6 +4334,7 @@
       // Portfolio diagnosis (3-axis segmented control)
       initDiag2();
       initCommunity();
+      initCalendar();
 
       // Pro mode: chart takes full width by default (order book hidden)
       const initGrid = document.getElementById('terminalGrid');
@@ -4309,7 +4398,7 @@
 
     function handleRouting() {
       let hash = window.location.hash.replace('#', '');
-      const validTabs = ['home', 'terminal', 'allocator', 'signals', 'macro', 'community'];
+      const validTabs = ['home', 'terminal', 'allocator', 'calendar', 'macro', 'community'];
 
       if (!hash || !validTabs.includes(hash)) {
         window.location.hash = '#home';
@@ -6804,6 +6893,329 @@
         showToast('게시글이 등록됐어요! 🎉');
       });
     }
+
+    // ══════════════════════════════════════════════════════════════
+    //  경제 & 실적 캘린더
+    // ══════════════════════════════════════════════════════════════
+    const calState = {
+      view: 'month',          // 'month' | 'week'
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),  // 0-based
+      weekStart: null,        // week view 시작일 (Date)
+      selected: null,         // 'YYYY-MM-DD'
+      events: [],
+      filter: 'all',          // 'all' | 'earnings' | 'economic'
+      impFilter: 0,           // 0=all, 1/2/3=specific
+    };
+
+    async function initCalendar() {
+      // 이번 주 월요일 초기화
+      const today = new Date();
+      const dow = today.getDay();
+      const monday = new Date(today);
+      monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
+      calState.weekStart = monday;
+
+      // 데이터 로드
+      try {
+        const resp = await fetch('./data/calendar.json');
+        if (resp.ok) {
+          const data = await resp.json();
+          calState.events = data.events || [];
+          const upEl = document.getElementById('calUpdated');
+          if (upEl && data.updated_at) {
+            upEl.textContent = '최종 업데이트: ' + data.updated_at.replace('T', ' ').slice(0, 16) + ' KST';
+          }
+        }
+      } catch(e) {
+        console.warn('[Calendar] data/calendar.json 로드 실패:', e);
+        calState.events = [];
+      }
+
+      // 홈 미리보기 업데이트
+      updateCalHomePreview();
+
+      // 버튼 바인딩
+      bindCalendarControls();
+
+      renderCalendar();
+    }
+
+    function bindCalendarControls() {
+      const prev = document.getElementById('calPrevBtn');
+      const next = document.getElementById('calNextBtn');
+      if (prev) prev.addEventListener('click', () => { calNav(-1); });
+      if (next) next.addEventListener('click', () => { calNav(+1); });
+
+      // View toggle
+      document.querySelectorAll('.cal-view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.cal-view-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          calState.view = btn.dataset.view;
+          calState.selected = null;
+          document.getElementById('calDetailPanel').style.display = 'none';
+          renderCalendar();
+        });
+      });
+
+      // Type filter
+      document.querySelectorAll('.cal-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.cal-filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          calState.filter = btn.dataset.f;
+          renderCalendar();
+          if (calState.selected) renderDayDetail(calState.selected);
+        });
+      });
+
+      // Importance filter
+      document.querySelectorAll('.cal-imp-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.cal-imp-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          calState.impFilter = parseInt(btn.dataset.imp, 10);
+          renderCalendar();
+          if (calState.selected) renderDayDetail(calState.selected);
+        });
+      });
+    }
+
+    function calNav(dir) {
+      if (calState.view === 'month') {
+        calState.month += dir;
+        if (calState.month < 0)  { calState.month = 11; calState.year--; }
+        if (calState.month > 11) { calState.month = 0;  calState.year++; }
+      } else {
+        const ws = new Date(calState.weekStart);
+        ws.setDate(ws.getDate() + dir * 7);
+        calState.weekStart = ws;
+      }
+      calState.selected = null;
+      document.getElementById('calDetailPanel').style.display = 'none';
+      renderCalendar();
+    }
+
+    function getFilteredEvents() {
+      return calState.events.filter(ev => {
+        if (calState.filter !== 'all' && ev.type !== calState.filter) return false;
+        if (calState.impFilter > 0) {
+          if (ev.type === 'earnings' && calState.impFilter !== 3) return false; // 실적은 항상 high
+          if (ev.type === 'economic' && ev.importance !== calState.impFilter) return false;
+        }
+        return true;
+      });
+    }
+
+    function eventsForDate(dateStr) {
+      return getFilteredEvents().filter(ev => (ev.date || ev.datetime || '').slice(0, 10) === dateStr);
+    }
+
+    function fmtDate(dateStr) {
+      const d = new Date(dateStr + 'T00:00:00');
+      const DOW = ['일', '월', '화', '수', '목', '금', '토'];
+      return `${d.getFullYear()}년 ${d.getMonth()+1}월 ${d.getDate()}일 (${DOW[d.getDay()]})`;
+    }
+
+    function renderCalendar() {
+      const titleEl = document.getElementById('calTitle');
+      if (calState.view === 'month') {
+        if (titleEl) titleEl.textContent = `${calState.year}년 ${calState.month + 1}월`;
+        renderMonthView();
+      } else {
+        const ws = calState.weekStart;
+        const we = new Date(ws); we.setDate(ws.getDate() + 6);
+        if (titleEl) {
+          titleEl.textContent = `${ws.getMonth()+1}/${ws.getDate()} – ${we.getMonth()+1}/${we.getDate()}`;
+        }
+        renderWeekView();
+      }
+    }
+
+    function renderMonthView() {
+      const grid = document.getElementById('calGrid');
+      if (!grid) return;
+
+      const year = calState.year, month = calState.month;
+      const firstDow = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const todayStr = new Date().toISOString().slice(0, 10);
+
+      let html = '<div class="cal-weekdays">';
+      ['일','월','화','수','목','금','토'].forEach(d => { html += `<div>${d}</div>`; });
+      html += '</div><div class="cal-days">';
+
+      for (let i = 0; i < firstDow; i++) {
+        html += '<div class="cal-day cal-day-empty"></div>';
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const ds = `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        const dayEvs = eventsForDate(ds);
+        const isToday = ds === todayStr;
+        const isSel   = ds === calState.selected;
+
+        let dots = '';
+        const hasH = dayEvs.some(e => e.importance === 3);
+        const hasM = dayEvs.some(e => e.importance === 2);
+        const hasE = dayEvs.some(e => e.type === 'earnings');
+        const hasL = dayEvs.some(e => e.importance === 1);
+        if (hasH) dots += '<span class="cal-dot cal-dot-h"></span>';
+        if (hasM) dots += '<span class="cal-dot cal-dot-m"></span>';
+        if (hasE) dots += '<span class="cal-dot cal-dot-earn"></span>';
+        if (hasL && !hasH && !hasM && !hasE) dots += '<span class="cal-dot cal-dot-l"></span>';
+
+        html += `<div class="cal-day${isToday?' cal-today':''}${isSel?' cal-selected':''}${dayEvs.length?' cal-has-events':''}"
+          data-date="${ds}" onclick="selectCalDate('${ds}')">
+          <span class="cal-day-num">${day}</span>
+          <div class="cal-dots">${dots}</div>
+        </div>`;
+      }
+
+      html += '</div>';
+      grid.innerHTML = html;
+    }
+
+    function renderWeekView() {
+      const grid = document.getElementById('calGrid');
+      if (!grid) return;
+
+      const ws = calState.weekStart;
+      const todayStr = new Date().toISOString().slice(0, 10);
+      let html = '<div class="cal-week-list">';
+
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(ws); d.setDate(ws.getDate() + i);
+        const ds = d.toISOString().slice(0, 10);
+        const dayEvs = eventsForDate(ds);
+        const isToday = ds === todayStr;
+        const DOW = ['일','월','화','수','목','금','토'];
+        const isSel = ds === calState.selected;
+
+        html += `<div class="cal-week-day-header">
+          <span class="cwdh-date">${d.getMonth()+1}/${d.getDate()} (${DOW[d.getDay()]})</span>
+          ${isToday ? '<span class="cwdh-today">오늘</span>' : ''}
+        </div>`;
+
+        if (dayEvs.length === 0) {
+          html += '<div class="cal-week-empty">예정된 이벤트 없음</div>';
+        } else {
+          dayEvs.forEach(ev => { html += buildEventRow(ev); });
+        }
+      }
+
+      html += '</div>';
+      grid.innerHTML = html;
+    }
+
+    function buildEventRow(ev) {
+      const isEarnings = ev.type === 'earnings';
+      const impClass = isEarnings ? 'imp-earn' :
+                       ev.importance === 3 ? 'imp-h' :
+                       ev.importance === 2 ? 'imp-m' : 'imp-l';
+      const impLabel = isEarnings ? '실적' :
+                       ev.importance === 3 ? '🔴 높음' :
+                       ev.importance === 2 ? '🟡 중간' : '⚪ 낮음';
+
+      let meta = `<span>${impLabel}</span><span class="cal-country-flag">${ev.country || 'US'}</span>`;
+      if (!isEarnings && ev.datetime) {
+        meta += `<span>${ev.datetime.slice(11,16)}</span>`;
+      }
+
+      let vals = '';
+      if (isEarnings) {
+        const timingCls = ev.timing === 'BMO' ? 'timing-bmo' : ev.timing === 'AMC' ? 'timing-amc' : 'timing-tbd';
+        const timingLabel = ev.timing === 'BMO' ? '장시작전' : ev.timing === 'AMC' ? '장마감후' : 'TBD';
+        vals += `<span class="cal-event-timing ${timingCls}">${timingLabel}</span>`;
+        if (ev.eps_estimate != null) vals += `<span class="cal-event-val-chip">예상 EPS ${ev.eps_estimate}</span>`;
+        if (ev.eps_actual   != null) {
+          const updown = ev.eps_actual >= (ev.eps_estimate || 0) ? 'actual-up' : 'actual-down';
+          vals += `<span class="cal-event-val-chip ${updown}">실제 EPS ${ev.eps_actual}</span>`;
+        }
+      } else {
+        if (ev.previous  != null) vals += `<span class="cal-event-val-chip">이전 ${ev.previous}</span>`;
+        if (ev.forecast  != null) vals += `<span class="cal-event-val-chip">예상 ${ev.forecast}</span>`;
+        if (ev.actual    != null) {
+          const updown = ev.actual >= (ev.forecast || ev.previous || 0) ? 'actual-up' : 'actual-down';
+          vals += `<span class="cal-event-val-chip ${updown}">실제 ${ev.actual}</span>`;
+        }
+      }
+
+      return `<div class="cal-event-row">
+        <div class="cal-event-imp ${impClass}"></div>
+        <div class="cal-event-main">
+          <div class="cal-event-name">${isEarnings ? (ev.ticker ? '['+ev.ticker+'] ' : '') + ev.name : ev.name}</div>
+          <div class="cal-event-meta">${meta}</div>
+          ${vals ? `<div class="cal-event-vals">${vals}</div>` : ''}
+        </div>
+      </div>`;
+    }
+
+    window.selectCalDate = function(dateStr) {
+      calState.selected = dateStr;
+      // re-render to show selection
+      if (calState.view === 'month') renderMonthView();
+      renderDayDetail(dateStr);
+    };
+
+    function renderDayDetail(dateStr) {
+      const panel   = document.getElementById('calDetailPanel');
+      const dateRow = document.getElementById('calDetailDateRow');
+      const body    = document.getElementById('calDetailBody');
+      if (!panel) return;
+
+      const dayEvs = eventsForDate(dateStr);
+
+      dateRow.textContent = '📅 ' + fmtDate(dateStr);
+
+      if (dayEvs.length === 0) {
+        body.innerHTML = '<div class="cal-no-events">이 날 예정된 이벤트가 없어요.</div>';
+      } else {
+        const earnings  = dayEvs.filter(e => e.type === 'earnings');
+        const economic  = dayEvs.filter(e => e.type === 'economic');
+        let html = '';
+
+        if (economic.length) {
+          html += '<div>';
+          html += '<div class="cal-detail-section-title">🌐 경제 지표</div>';
+          economic.sort((a,b) => (b.importance||0)-(a.importance||0))
+                  .forEach(ev => { html += buildEventRow(ev); });
+          html += '</div>';
+        }
+        if (earnings.length) {
+          html += '<div>';
+          html += '<div class="cal-detail-section-title">📊 기업 실적 발표</div>';
+          earnings.forEach(ev => { html += buildEventRow(ev); });
+          html += '</div>';
+        }
+        body.innerHTML = html;
+      }
+
+      panel.style.display = 'block';
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function updateCalHomePreview() {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const thisWeekEnd = new Date(); thisWeekEnd.setDate(thisWeekEnd.getDate() + 6);
+      const tweStr = thisWeekEnd.toISOString().slice(0, 10);
+
+      const weekEvs = calState.events.filter(ev => {
+        const d = (ev.date || ev.datetime || '').slice(0, 10);
+        return d >= todayStr && d <= tweStr;
+      });
+
+      const countEl = document.getElementById('homePreview_calCount');
+      if (countEl) countEl.textContent = weekEvs.length + '건';
+
+      const nextEl = document.getElementById('homePreview_calNext');
+      if (nextEl) {
+        const next = calState.events.find(ev => (ev.date || ev.datetime || '').slice(0,10) >= todayStr);
+        nextEl.textContent = next ? (next.name.length > 10 ? next.name.slice(0,10)+'…' : next.name) : '-';
+      }
+    }
+    // ══════════════════════════════════════════════════════════════
 
     function initCommunity() {
       const spaceBar = document.getElementById('commSpaceBar');
