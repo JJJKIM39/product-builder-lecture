@@ -2266,6 +2266,36 @@
     .comm-action-btn { display:flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:var(--text-sub); background:none; border:none; cursor:pointer; padding:4px 0; font-family:var(--font-primary); transition:color 0.15s; }
     .comm-action-btn.liked { color:var(--neon-red); }
     .comm-empty { text-align:center; padding:52px 20px; color:var(--text-sub); font-size:14px; line-height:1.7; }
+    /* Write modal (bottom sheet) */
+    .comm-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.52); z-index:9000; display:flex; align-items:flex-end; justify-content:center; }
+    .comm-sheet { background:var(--card-bg); border-radius:20px 20px 0 0; width:100%; max-width:680px; max-height:88vh; overflow-y:auto; display:flex; flex-direction:column; animation:commSlideUp 0.32s cubic-bezier(0.16,1,0.3,1); }
+    @keyframes commSlideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+    .comm-sheet-header { display:flex; align-items:center; justify-content:space-between; padding:18px 20px 14px; border-bottom:1px solid var(--border-color); flex-shrink:0; }
+    .comm-sheet-title { font-size:16px; font-weight:800; color:var(--text-color); }
+    .comm-sheet-close { background:none; border:none; font-size:20px; color:var(--text-sub); cursor:pointer; line-height:1; padding:2px 4px; }
+    .comm-sheet-body { padding:18px 20px; display:flex; flex-direction:column; gap:14px; }
+    .comm-sheet-footer { display:flex; gap:10px; padding:12px 20px 34px; flex-shrink:0; }
+    .comm-form-group { display:flex; flex-direction:column; gap:6px; }
+    .comm-form-label { font-size:12px; font-weight:700; color:var(--text-sub); }
+    .comm-form-input, .comm-form-select, .comm-form-textarea { background:var(--grey-light); border:1.5px solid var(--border-color); border-radius:10px; padding:11px 13px; font-size:14px; font-family:var(--font-primary); color:var(--text-color); outline:none; transition:border-color 0.18s; width:100%; box-sizing:border-box; -webkit-appearance:none; appearance:none; }
+    .comm-form-input:focus, .comm-form-select:focus, .comm-form-textarea:focus { border-color:var(--toss-blue); }
+    .comm-form-textarea { resize:none; min-height:110px; line-height:1.65; }
+    .comm-btn-cancel { flex:1; padding:13px; border-radius:12px; border:1.5px solid var(--border-color); background:transparent; color:var(--text-sub); font-size:14px; font-weight:700; cursor:pointer; font-family:var(--font-primary); }
+    .comm-btn-submit { flex:2; padding:13px; border-radius:12px; border:none; background:var(--toss-blue); color:#fff; font-size:14px; font-weight:700; cursor:pointer; font-family:var(--font-primary); }
+    /* Post detail */
+    .comm-back-btn { display:flex; align-items:center; gap:6px; background:none; border:none; color:var(--text-sub); font-size:13px; font-weight:700; cursor:pointer; font-family:var(--font-primary); padding:8px 0; }
+    .comm-detail-card { background:var(--card-bg); border:1.5px solid var(--border-color); border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:12px; }
+    .comm-detail-title { font-size:18px; font-weight:900; color:var(--text-color); line-height:1.4; letter-spacing:-0.3px; }
+    .comm-detail-body { font-size:14px; color:var(--text-color); line-height:1.8; white-space:pre-wrap; }
+    .comm-detail-actions { display:flex; gap:16px; border-top:1px solid var(--border-color); padding-top:12px; margin-top:2px; }
+    /* Comments */
+    .comm-comments-wrap { display:flex; flex-direction:column; gap:12px; }
+    .comm-comments-hd { font-size:13px; font-weight:800; color:var(--text-sub); }
+    .comm-comment-card { background:var(--card-bg); border:1.5px solid var(--border-color); border-radius:12px; padding:13px 15px; display:flex; flex-direction:column; gap:7px; }
+    .comm-comment-meta { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+    .comm-comment-text { font-size:13.5px; color:var(--text-color); line-height:1.65; white-space:pre-wrap; }
+    .comm-comment-form { background:var(--card-bg); border:1.5px solid var(--border-color); border-radius:14px; padding:15px; display:flex; flex-direction:column; gap:10px; }
+    .comm-comment-form-title { font-size:12px; font-weight:700; color:var(--text-sub); }
 
     /* ─────────── Allocation Amount/Pct Inputs ─────────── */
     .alloc-total-wrap { display: flex; align-items: center; gap: 10px; background: var(--grey-light); border-radius: 14px; padding: 12px 16px; border: 1.5px solid var(--border-color); }
@@ -3818,12 +3848,10 @@
 
     <!-- ─────────── COMMUNITY ─────────── -->
     <div class="page-view" id="view-community">
-      <div style="display:flex; flex-direction:column; gap:20px; padding:16px 0 40px;">
 
-        <!-- Space Selector -->
+      <!-- Feed View -->
+      <div id="commFeedWrap" style="display:flex; flex-direction:column; gap:20px; padding:16px 0 40px;">
         <div class="comm-space-bar" id="commSpaceBar"></div>
-
-        <!-- Feed Header -->
         <div class="comm-feed-header">
           <div class="comm-seg" id="commSeg">
             <button class="comm-seg-btn active" data-feedtab="all">전체</button>
@@ -3831,17 +3859,16 @@
           </div>
           <button class="comm-write-btn" id="commWriteBtn">✏ 글쓰기</button>
         </div>
-
-        <!-- TOP 3 Popular Portfolios -->
         <div class="comm-top3-section" id="commTop3Wrap">
           <div class="comm-top3-label">🏆 인기 포트폴리오 TOP 3</div>
           <div class="comm-top3-scroll" id="commTop3Scroll"></div>
         </div>
-
-        <!-- Post Feed -->
         <div class="comm-feed" id="commFeed"></div>
-
       </div>
+
+      <!-- Post Detail View (hidden by default) -->
+      <div id="commDetailWrap" style="display:none;"></div>
+
     </div> <!-- /view-community -->
 
   </div>
@@ -6561,7 +6588,7 @@
     }
 
     // ─────────────────────────────────────────────────────────
-    // Community Module
+    // Community Module  (localStorage 기반 글쓰기·댓글 지원)
     // ─────────────────────────────────────────────────────────
 
     const COMM_SPACES = [
@@ -6596,7 +6623,56 @@
       { id:15, spaceType:'global',    author:'macro_hawk_kr',  badge:'위험중립형', title:'Fed 금리 인하 사이클 — 역사적 주식 수익률 데이터', content:'1995, 1998, 2001, 2007, 2019년 첫 인하 후 12개월 S&P500 수익률 평균 +11.3%. 다만 2001, 2007년은 -22%, -38%로 하락. 경기침체 여부가 핵심 변수라는 건 모두 동의하실 거예요.', likes:49, commentsCount:21, time:'4일 전' },
     ];
 
-    let commState = { space: 'all', tab: 'all', likes: {} };
+
+    // ── 시드 댓글 (예시 게시글에 미리 달린 댓글) ──
+    const COMM_SEED_COMMENTS = {
+      1:  [
+        { id:'s1a', author:'value_invest_kr', badge:'안정추구형', text:'QQQ 40% 비중은 꽤 공격적이에요. 채권 비중 조금 늘려보시는 건 어떨까요?', ts: Date.now()-7200000 },
+        { id:'s1b', author:'macro_hawk_kr',   badge:'위험중립형', text:'30대라면 이 정도 리스크가 맞을 수도 있어요. 장기적으로는 주식이 압도적이니까요.', ts: Date.now()-3600000 },
+      ],
+      2:  [{ id:'s2a', author:'btc_hodler_9',  badge:'공격투자형', text:'RSI 27은 극단적 과매도가 맞는데, 지금 금리 환경이 달라서 섣불리 들어가기엔 조심스럽네요.', ts: Date.now()-14400000 }],
+      3:  [{ id:'s3a', author:'eth_maxi_kr',   badge:'공격투자형', text:'온체인 지표 보면 고래 누적 패턴이 강해요. 단기 조정 있어도 연말 랠리 기대해요.', ts: Date.now()-18000000 }],
+      8:  [
+        { id:'s8a', author:'first_invest_k', badge:'안정추구형', text:'정말 공감 가는 글이에요. 저도 비슷한 경험 후 원칙 투자로 전환했는데 훨씬 마음 편해졌어요.', ts: Date.now()-86400000 },
+        { id:'s8b', author:'student_port',   badge:'안정형',    text:'멘탈 관리가 진짜 투자의 핵심이더라고요. 경험담 감사합니다!', ts: Date.now()-43200000 },
+      ],
+      13: [{ id:'s13a', author:'rebal_master', badge:'위험중립형', text:'올웨더 직접 운용하신 분이 있었군요! 세금 최적화 부분 더 자세히 공유해 주실 수 있나요?', ts: Date.now()-172800000 }],
+    };
+
+    let commState = { space:'all', tab:'all', likes:{}, view:'feed', activePostId:null };
+
+    // ── localStorage 헬퍼 ──
+    function commLoadPosts()         { try { return JSON.parse(localStorage.getItem('xi_posts')||'[]'); } catch { return []; } }
+    function commSavePosts(arr)      { try { localStorage.setItem('xi_posts', JSON.stringify(arr)); } catch {} }
+    function commLoadComments(pid)   { try { return (JSON.parse(localStorage.getItem('xi_comments')||'{}'))[pid]||[]; } catch { return []; } }
+    function commSaveComment(pid, c) {
+      try {
+        const all = JSON.parse(localStorage.getItem('xi_comments')||'{}');
+        if (!all[pid]) all[pid] = [];
+        all[pid].push(c);
+        localStorage.setItem('xi_comments', JSON.stringify(all));
+      } catch {}
+    }
+    function commLoadUser()  { try { return JSON.parse(localStorage.getItem('xi_user')||'null'); } catch { return null; } }
+    function commSaveUser(u) { try { localStorage.setItem('xi_user', JSON.stringify(u)); } catch {} }
+
+    function commTimeAgo(ts) {
+      const d = Date.now()-ts, m = Math.floor(d/60000);
+      if (m < 1)  return '방금 전';
+      if (m < 60) return m + '분 전';
+      const h = Math.floor(m/60);
+      if (h < 24) return h + '시간 전';
+      return Math.floor(h/24) + '일 전';
+    }
+
+    function commEsc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function getAllCommPosts() {
+      const user = commLoadPosts().map(p => ({...p, isUser:true}));
+      return [...user, ...COMM_POSTS].sort((a,b) => (b.ts||0)-(a.ts||0));
+    }
 
     function getCommBadgeStyle(badge) {
       const map = {
@@ -6607,7 +6683,7 @@
         '공격투자형': { bg:'rgba(255,59,111,0.14)', color:'#FF3B6F' },
       };
       const s = map[badge] || { bg:'rgba(138,149,161,0.18)', color:'#8A95A1' };
-      return `background:${s.bg}; color:${s.color};`;
+      return 'background:' + s.bg + '; color:' + s.color + ';';
     }
 
     function getAvatarColor(str) {
@@ -6621,119 +6697,295 @@
       return (COMM_SPACES.find(s => s.id === id) || {}).label || id;
     }
 
+    function commPostCardHTML(post, showTag) {
+      const liked = commState.likes[post.id];
+      const likeCount = (post.likes||0) + (liked ? 1 : 0);
+      const userCmtCount = commLoadComments(post.id).length;
+      const totalCmt = (post.commentsCount||0) + userCmtCount;
+      const avColor = getAvatarColor(post.author);
+      const timeStr = post.ts ? commTimeAgo(post.ts) : (post.time||'');
+      return '<div class="comm-post" data-postid="' + post.id + '" style="cursor:pointer;">'
+        + '<div class="comm-post-header">'
+        + '<div class="comm-avatar" style="background:' + avColor + ';">' + commEsc(post.author[0].toUpperCase()) + '</div>'
+        + '<span class="comm-author">' + commEsc(post.author) + '</span>'
+        + '<span class="comm-user-badge" style="' + getCommBadgeStyle(post.badge) + '">' + commEsc(post.badge) + '</span>'
+        + (showTag ? '<span class="comm-space-tag">' + getSpaceLabel(post.spaceType) + '</span>' : '')
+        + '<span class="comm-post-time">' + commEsc(timeStr) + '</span>'
+        + '</div>'
+        + '<div class="comm-post-title">' + commEsc(post.title) + '</div>'
+        + '<div class="comm-post-body">' + commEsc(post.content) + '</div>'
+        + '<div class="comm-post-footer">'
+        + '<button class="comm-action-btn' + (liked?' liked':'') + '" data-pid="' + post.id + '" data-action="like">'
+        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="' + (liked?'currentColor':'none') + '" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'
+        + likeCount + '</button>'
+        + '<span class="comm-action-btn" style="cursor:default;">'
+        + '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
+        + totalCmt + '</span>'
+        + '</div></div>';
+    }
+
     function renderCommFeed() {
       const feedEl = document.getElementById('commFeed');
       if (!feedEl) return;
-
-      let posts = COMM_POSTS.slice();
+      let posts = getAllCommPosts();
       if (commState.space !== 'all') posts = posts.filter(p => p.spaceType === commState.space);
-      if (commState.tab === 'trending') {
-        posts = posts.slice().sort((a, b) => (b.likes + b.commentsCount * 2) - (a.likes + a.commentsCount * 2));
-      }
-
+      if (commState.tab === 'trending') posts = posts.slice().sort((a,b) => (b.likes+b.commentsCount*2)-(a.likes+a.commentsCount*2));
       if (!posts.length) {
-        feedEl.innerHTML = '<div class="comm-empty">이 스페이스에 아직 게시글이 없어요.<br>첫 번째 글을 작성해 보세요!</div>';
+        feedEl.innerHTML = '<div class="comm-empty">아직 게시글이 없어요.<br>첫 번째 글을 남겨 보세요!</div>';
         return;
       }
-
-      feedEl.innerHTML = posts.map(post => {
-        const liked = commState.likes[post.id];
-        const likeCount = post.likes + (liked ? 1 : 0);
-        const avColor = getAvatarColor(post.author);
-        const showTag = commState.space === 'all';
-        return `
-          <div class="comm-post">
-            <div class="comm-post-header">
-              <div class="comm-avatar" style="background:${avColor};">${post.author[0].toUpperCase()}</div>
-              <span class="comm-author">${post.author}</span>
-              <span class="comm-user-badge" style="${getCommBadgeStyle(post.badge)}">${post.badge}</span>
-              ${showTag ? `<span class="comm-space-tag">${getSpaceLabel(post.spaceType)}</span>` : ''}
-              <span class="comm-post-time">${post.time}</span>
-            </div>
-            <div class="comm-post-title">${post.title}</div>
-            <div class="comm-post-body">${post.content}</div>
-            <div class="comm-post-footer">
-              <button class="comm-action-btn ${liked ? 'liked' : ''}" data-pid="${post.id}">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="${liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                </svg>
-                ${likeCount}
-              </button>
-              <button class="comm-action-btn" style="cursor:default;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                </svg>
-                ${post.commentsCount}
-              </button>
-            </div>
-          </div>`;
-      }).join('');
-
-      feedEl.querySelectorAll('.comm-action-btn[data-pid]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const pid = parseInt(btn.dataset.pid);
+      const showTag = commState.space === 'all';
+      feedEl.innerHTML = posts.map(p => commPostCardHTML(p, showTag)).join('');
+      feedEl.querySelectorAll('.comm-action-btn[data-action="like"]').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          const pid = btn.dataset.pid;
           commState.likes[pid] = !commState.likes[pid];
           renderCommFeed();
         });
       });
+      feedEl.querySelectorAll('.comm-post').forEach(card => {
+        card.addEventListener('click', () => openPostDetail(card.dataset.postid));
+      });
+    }
+
+    function openPostDetail(postId) {
+      const post = getAllCommPosts().find(p => String(p.id) === String(postId));
+      if (!post) return;
+      commState.view = 'detail';
+      commState.activePostId = postId;
+      const feedWrap   = document.getElementById('commFeedWrap');
+      const detailWrap = document.getElementById('commDetailWrap');
+      if (feedWrap) feedWrap.style.display = 'none';
+      if (!detailWrap) return;
+      detailWrap.style.cssText = 'display:flex; flex-direction:column; gap:16px; padding:16px 0 60px;';
+      renderPostDetail(post, detailWrap);
+      window.scrollTo(0, 0);
+    }
+
+    function commBuildCommentsList(postId) {
+      const seed = COMM_SEED_COMMENTS[postId] || [];
+      const user = commLoadComments(postId);
+      return [...seed, ...user].sort((a,b) => a.ts - b.ts);
+    }
+
+    function commCommentCardHTML(c) {
+      return '<div class="comm-comment-card">'
+        + '<div class="comm-comment-meta">'
+        + '<div class="comm-avatar" style="background:' + getAvatarColor(c.author) + ';width:26px;height:26px;font-size:10px;">' + commEsc(c.author[0].toUpperCase()) + '</div>'
+        + '<span class="comm-author" style="font-size:12px;">' + commEsc(c.author) + '</span>'
+        + '<span class="comm-user-badge" style="' + getCommBadgeStyle(c.badge) + 'font-size:10px;padding:2px 7px;">' + commEsc(c.badge) + '</span>'
+        + '<span class="comm-post-time">' + commTimeAgo(c.ts) + '</span>'
+        + '</div>'
+        + '<div class="comm-comment-text">' + commEsc(c.text) + '</div>'
+        + '</div>';
+    }
+
+    function renderPostDetail(post, container) {
+      const allComments  = commBuildCommentsList(post.id);
+      const liked        = commState.likes[post.id];
+      const likeCount    = (post.likes||0) + (liked ? 1 : 0);
+      const userCmtCount = commLoadComments(post.id).length;
+      const totalCmt     = (post.commentsCount||0) + userCmtCount;
+      const avColor      = getAvatarColor(post.author);
+      const timeStr      = post.ts ? commTimeAgo(post.ts) : (post.time||'');
+      const user         = commLoadUser();
+      const badgeOpts    = ['안정형','안정추구형','위험중립형','적극투자형','공격투자형'];
+
+      const cmtListHTML = allComments.length
+        ? allComments.map(commCommentCardHTML).join('')
+        : '<div style="font-size:13px;color:var(--text-sub);text-align:center;padding:20px 0;">아직 댓글이 없어요. 첫 번째로 의견을 남겨 보세요!</div>';
+
+      container.innerHTML =
+        '<button class="comm-back-btn" id="commBackBtn">'
+        + '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
+        + '피드로 돌아가기</button>'
+
+        + '<div class="comm-detail-card">'
+        + '<div class="comm-post-header">'
+        + '<div class="comm-avatar" style="background:' + avColor + ';">' + commEsc(post.author[0].toUpperCase()) + '</div>'
+        + '<span class="comm-author">' + commEsc(post.author) + '</span>'
+        + '<span class="comm-user-badge" style="' + getCommBadgeStyle(post.badge) + '">' + commEsc(post.badge) + '</span>'
+        + '<span class="comm-space-tag">' + getSpaceLabel(post.spaceType) + '</span>'
+        + '<span class="comm-post-time">' + commEsc(timeStr) + '</span>'
+        + '</div>'
+        + '<div class="comm-detail-title">' + commEsc(post.title) + '</div>'
+        + '<div class="comm-detail-body">' + commEsc(post.content) + '</div>'
+        + '<div class="comm-detail-actions">'
+        + '<button class="comm-action-btn' + (liked?' liked':'') + '" id="commDetailLike">'
+        + '<svg id="commDetailLikeIcon" width="15" height="15" viewBox="0 0 24 24" fill="' + (liked?'currentColor':'none') + '" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'
+        + '<span id="commDetailLikeCount">' + likeCount + '</span></button>'
+        + '<span class="comm-action-btn" style="cursor:default;">'
+        + '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>'
+        + '<span id="commDetailCmtCount">' + totalCmt + '</span></span>'
+        + '</div></div>'
+
+        + '<div class="comm-comments-wrap">'
+        + '<div class="comm-comments-hd" id="commCommentsHd">댓글 ' + allComments.length + '개</div>'
+        + '<div id="commCommentsList">' + cmtListHTML + '</div>'
+        + '<div class="comm-comment-form">'
+        + '<div class="comm-comment-form-title">댓글 작성</div>'
+        + '<div style="display:flex;gap:8px;flex-wrap:wrap;">'
+        + '<input type="text" class="comm-form-input" id="commCmtName" placeholder="닉네임" style="flex:1;min-width:100px;" maxlength="20" value="' + (user ? commEsc(user.name) : '') + '">'
+        + '<select class="comm-form-select" id="commCmtBadge" style="flex:1;min-width:120px;">'
+        + badgeOpts.map(b => '<option' + (user&&user.badge===b?' selected':'') + '>' + commEsc(b) + '</option>').join('')
+        + '</select></div>'
+        + '<textarea class="comm-form-textarea" id="commCmtText" placeholder="의견을 자유롭게 남겨 주세요" style="min-height:80px;" maxlength="500"></textarea>'
+        + '<button class="comm-btn-submit" id="commCmtSubmit">댓글 게시</button>'
+        + '</div></div>';
+
+      document.getElementById('commBackBtn').addEventListener('click', () => {
+        commState.view = 'feed';
+        container.style.display = 'none';
+        const fw = document.getElementById('commFeedWrap');
+        if (fw) fw.style.display = 'flex';
+        renderCommFeed();
+        window.scrollTo(0, 0);
+      });
+
+      document.getElementById('commDetailLike').addEventListener('click', () => {
+        commState.likes[post.id] = !commState.likes[post.id];
+        const l = commState.likes[post.id];
+        document.getElementById('commDetailLikeCount').textContent = (post.likes||0) + (l?1:0);
+        document.getElementById('commDetailLike').classList.toggle('liked', l);
+        document.getElementById('commDetailLikeIcon').setAttribute('fill', l ? 'currentColor' : 'none');
+      });
+
+      document.getElementById('commCmtSubmit').addEventListener('click', () => {
+        const nameEl  = document.getElementById('commCmtName');
+        const badgeEl = document.getElementById('commCmtBadge');
+        const textEl  = document.getElementById('commCmtText');
+        const name = nameEl.value.trim();
+        const text = textEl.value.trim();
+        if (!name) { nameEl.focus(); showToast('닉네임을 입력해 주세요'); return; }
+        if (!text) { textEl.focus(); showToast('댓글 내용을 입력해 주세요'); return; }
+        commSaveUser({ name, badge: badgeEl.value });
+        commSaveComment(post.id, { id:'u'+Date.now(), author:name, badge:badgeEl.value, text, ts:Date.now() });
+        textEl.value = '';
+        const allNew = commBuildCommentsList(post.id);
+        document.getElementById('commCommentsList').innerHTML = allNew.map(commCommentCardHTML).join('');
+        document.getElementById('commCommentsHd').textContent = '댓글 ' + allNew.length + '개';
+        document.getElementById('commDetailCmtCount').textContent = (post.commentsCount||0) + commLoadComments(post.id).length;
+        showToast('댓글이 등록됐어요! 💬');
+      });
+    }
+
+    function openWriteModal() {
+      const existing = document.getElementById('commWriteModal');
+      if (existing) existing.remove();
+      const user     = commLoadUser();
+      const badgeOpts = ['안정형','안정추구형','위험중립형','적극투자형','공격투자형'];
+      const modal    = document.createElement('div');
+      modal.id       = 'commWriteModal';
+      modal.className = 'comm-overlay';
+      modal.innerHTML =
+        '<div class="comm-sheet" id="commSheetInner">'
+        + '<div class="comm-sheet-header">'
+        + '<span class="comm-sheet-title">새 글 작성</span>'
+        + '<button class="comm-sheet-close" id="commModalClose">✕</button>'
+        + '</div>'
+        + '<div class="comm-sheet-body">'
+        + '<div class="comm-form-group"><label class="comm-form-label">닉네임</label>'
+        + '<input type="text" class="comm-form-input" id="commPostName" placeholder="표시될 이름" maxlength="20" value="' + (user ? commEsc(user.name) : '') + '"></div>'
+        + '<div class="comm-form-group"><label class="comm-form-label">투자 성향</label>'
+        + '<select class="comm-form-select" id="commPostBadge">'
+        + badgeOpts.map(b => '<option' + (user&&user.badge===b?' selected':'') + '>' + commEsc(b) + '</option>').join('')
+        + '</select></div>'
+        + '<div class="comm-form-group"><label class="comm-form-label">스페이스</label>'
+        + '<select class="comm-form-select" id="commPostSpace">'
+        + '<option value="portfolio">포트폴리오 검증</option>'
+        + '<option value="global">미장 vs 국장</option>'
+        + '<option value="crypto">크립토</option>'
+        + '<option value="free">자유게시판</option>'
+        + '</select></div>'
+        + '<div class="comm-form-group"><label class="comm-form-label">제목</label>'
+        + '<input type="text" class="comm-form-input" id="commPostTitle" placeholder="글 제목을 입력하세요" maxlength="80"></div>'
+        + '<div class="comm-form-group"><label class="comm-form-label">내용</label>'
+        + '<textarea class="comm-form-textarea" id="commPostContent" placeholder="투자 의견, 질문, 경험을 자유롭게 공유해 보세요" maxlength="1000"></textarea></div>'
+        + '</div>'
+        + '<div class="comm-sheet-footer">'
+        + '<button class="comm-btn-cancel" id="commModalCancel">취소</button>'
+        + '<button class="comm-btn-submit" id="commModalSubmit">게시하기</button>'
+        + '</div></div>';
+      document.body.appendChild(modal);
+
+      const closeModal = () => modal.remove();
+      modal.addEventListener('click', closeModal);
+      document.getElementById('commSheetInner').addEventListener('click', e => e.stopPropagation());
+      document.getElementById('commModalClose').addEventListener('click', closeModal);
+      document.getElementById('commModalCancel').addEventListener('click', closeModal);
+
+      document.getElementById('commModalSubmit').addEventListener('click', () => {
+        const name    = document.getElementById('commPostName').value.trim();
+        const badge   = document.getElementById('commPostBadge').value;
+        const space   = document.getElementById('commPostSpace').value;
+        const title   = document.getElementById('commPostTitle').value.trim();
+        const content = document.getElementById('commPostContent').value.trim();
+        if (!name)    { document.getElementById('commPostName').focus();    showToast('닉네임을 입력해 주세요'); return; }
+        if (!title)   { document.getElementById('commPostTitle').focus();   showToast('제목을 입력해 주세요');   return; }
+        if (!content) { document.getElementById('commPostContent').focus(); showToast('내용을 입력해 주세요');   return; }
+        commSaveUser({ name, badge });
+        const posts = commLoadPosts();
+        posts.unshift({ id:'u'+Date.now(), spaceType:space, author:name, badge, title, content, likes:0, commentsCount:0, ts:Date.now() });
+        commSavePosts(posts);
+        modal.remove();
+        commState.space = 'all'; commState.tab = 'all'; commState.view = 'feed';
+        const spaceBar = document.getElementById('commSpaceBar');
+        if (spaceBar) spaceBar.querySelectorAll('.comm-space-btn').forEach(b => b.classList.toggle('active', b.dataset.space==='all'));
+        const top3 = document.getElementById('commTop3Wrap');
+        if (top3) top3.style.display = '';
+        const fw = document.getElementById('commFeedWrap'); if (fw) fw.style.display = 'flex';
+        const dw = document.getElementById('commDetailWrap'); if (dw) dw.style.display = 'none';
+        renderCommFeed();
+        showToast('게시글이 등록됐어요! 🎉');
+      });
     }
 
     function initCommunity() {
-      // Space tabs
       const spaceBar = document.getElementById('commSpaceBar');
       if (spaceBar) {
         spaceBar.innerHTML = COMM_SPACES.map(s =>
-          `<button class="comm-space-btn${s.id === commState.space ? ' active' : ''}" data-space="${s.id}">${s.label}</button>`
+          '<button class="comm-space-btn' + (s.id===commState.space?' active':'') + '" data-space="' + s.id + '">' + s.label + '</button>'
         ).join('');
         spaceBar.querySelectorAll('.comm-space-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             commState.space = btn.dataset.space;
-            spaceBar.querySelectorAll('.comm-space-btn').forEach(b => b.classList.toggle('active', b.dataset.space === commState.space));
+            spaceBar.querySelectorAll('.comm-space-btn').forEach(b => b.classList.toggle('active', b.dataset.space===commState.space));
             const top3 = document.getElementById('commTop3Wrap');
-            if (top3) top3.style.display = commState.space === 'all' ? '' : 'none';
+            if (top3) top3.style.display = commState.space==='all' ? '' : 'none';
             renderCommFeed();
           });
         });
       }
-
-      // Feed tabs
       const seg = document.getElementById('commSeg');
       if (seg) {
         seg.querySelectorAll('.comm-seg-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             commState.tab = btn.dataset.feedtab;
-            seg.querySelectorAll('.comm-seg-btn').forEach(b => b.classList.toggle('active', b.dataset.feedtab === commState.tab));
+            seg.querySelectorAll('.comm-seg-btn').forEach(b => b.classList.toggle('active', b.dataset.feedtab===commState.tab));
             renderCommFeed();
           });
         });
       }
-
-      // Write button
       const writeBtn = document.getElementById('commWriteBtn');
-      if (writeBtn) writeBtn.addEventListener('click', () => showToast('글쓰기 기능은 곧 출시됩니다 🚀'));
-
-      // TOP 3
+      if (writeBtn) writeBtn.addEventListener('click', openWriteModal);
       const top3El = document.getElementById('commTop3Scroll');
       if (top3El) {
-        const rankMeta = [
-          { cls: 'gold',   label: '#1 GOLD'   },
-          { cls: 'silver', label: '#2 SILVER' },
-          { cls: 'bronze', label: '#3 BRONZE' },
-        ];
-        top3El.innerHTML = COMM_TOP3.map((p, i) => `
-          <div class="comm-top3-card">
-            <div class="comm-top3-rank ${rankMeta[i].cls}">${rankMeta[i].label}</div>
-            <div class="comm-top3-portname">${p.name}</div>
-            <div class="comm-top3-by">@${p.author}</div>
-            <div class="comm-top3-by" style="${getCommBadgeStyle(p.badge)}">${p.badge}</div>
-            <div class="comm-top3-ret">+${p.ret1y}%</div>
-            <div class="comm-top3-ret-label">1년 수익률</div>
-          </div>`
+        const rankMeta = [{cls:'gold',label:'#1 GOLD'},{cls:'silver',label:'#2 SILVER'},{cls:'bronze',label:'#3 BRONZE'}];
+        top3El.innerHTML = COMM_TOP3.map((p,i) =>
+          '<div class="comm-top3-card">'
+          + '<div class="comm-top3-rank ' + rankMeta[i].cls + '">' + rankMeta[i].label + '</div>'
+          + '<div class="comm-top3-portname">' + p.name + '</div>'
+          + '<div class="comm-top3-by">@' + p.author + '</div>'
+          + '<div class="comm-top3-by" style="' + getCommBadgeStyle(p.badge) + '">' + p.badge + '</div>'
+          + '<div class="comm-top3-ret">+' + p.ret1y + '%</div>'
+          + '<div class="comm-top3-ret-label">1년 수익률</div>'
+          + '</div>'
         ).join('');
       }
-
       renderCommFeed();
     }
+
 
     // Bind Initial setup trigger on Dom loaded
     window.addEventListener('DOMContentLoaded', init);
