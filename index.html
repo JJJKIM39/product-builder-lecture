@@ -85,58 +85,6 @@
       background: var(--grey-dark);
     }
 
-    /* Ticker Bar (Top Neon Banner) */
-    .ticker-bar {
-      background-color: #0F1923;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      height: 36px;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-      z-index: 101;
-    }
-
-    .ticker-wrapper {
-      display: flex;
-      white-space: nowrap;
-      animation: tickerLoop 32s linear infinite;
-      will-change: transform;
-    }
-
-    .ticker-item {
-      display: inline-flex;
-      align-items: center;
-      padding: 0 20px;
-      font-size: 11px;
-      font-weight: 600;
-      font-family: var(--font-outfit);
-      color: rgba(255,255,255,0.55);
-    }
-
-    .ticker-label {
-      margin-right: 6px;
-      color: rgba(255,255,255,0.9);
-      font-weight: 700;
-    }
-
-    .ticker-value {
-      margin-right: 6px;
-      color: rgba(255,255,255,0.85);
-    }
-
-    .ticker-change {
-      font-weight: 700;
-    }
-
-    .ticker-change.up { color: #00E5A0; }
-    .ticker-change.down { color: #FF6B6B; }
-
-    @keyframes tickerLoop {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-50%, 0, 0); }
-    }
-
     /* Sticky Glassmorphic Navigation */
     .nav-bar {
       position: sticky;
@@ -2875,28 +2823,6 @@
 </head>
 <body>
 
-  <!-- Top Real-Time Global Market Ticker Bar -->
-  <div class="ticker-bar">
-    <div class="ticker-wrapper" id="tickerWrapper">
-      <!-- 7 unique items × 2 copies for seamless loop -->
-      <div class="ticker-item"><span class="ticker-label">나스닥</span><span class="ticker-value">16,211.50</span><span class="ticker-change up">+1.42%</span></div>
-      <div class="ticker-item"><span class="ticker-label">S&P 500</span><span class="ticker-value">5,190.20</span><span class="ticker-change up">+0.88%</span></div>
-      <div class="ticker-item"><span class="ticker-label">SOX</span><span class="ticker-value">4,228.50</span><span class="ticker-change up">+1.95%</span></div>
-      <div class="ticker-item"><span class="ticker-label">코스피</span><span class="ticker-value">2,638</span><span class="ticker-change down">-0.21%</span></div>
-      <div class="ticker-item"><span class="ticker-label">코스닥</span><span class="ticker-value">852</span><span class="ticker-change up">+0.44%</span></div>
-      <div class="ticker-item"><span class="ticker-label">BTC</span><span class="ticker-value">67,520</span><span class="ticker-change up">+2.15%</span></div>
-      <div class="ticker-item"><span class="ticker-label">ETH</span><span class="ticker-value">3,500.00</span><span class="ticker-change up">+1.87%</span></div>
-      <!-- Duplicate for seamless continuous looping animation -->
-      <div class="ticker-item"><span class="ticker-label">나스닥</span><span class="ticker-value">16,211.50</span><span class="ticker-change up">+1.42%</span></div>
-      <div class="ticker-item"><span class="ticker-label">S&P 500</span><span class="ticker-value">5,190.20</span><span class="ticker-change up">+0.88%</span></div>
-      <div class="ticker-item"><span class="ticker-label">SOX</span><span class="ticker-value">4,228.50</span><span class="ticker-change up">+1.95%</span></div>
-      <div class="ticker-item"><span class="ticker-label">코스피</span><span class="ticker-value">2,638</span><span class="ticker-change down">-0.21%</span></div>
-      <div class="ticker-item"><span class="ticker-label">코스닥</span><span class="ticker-value">852</span><span class="ticker-change up">+0.44%</span></div>
-      <div class="ticker-item"><span class="ticker-label">BTC</span><span class="ticker-value">67,520</span><span class="ticker-change up">+2.15%</span></div>
-      <div class="ticker-item"><span class="ticker-label">ETH</span><span class="ticker-value">3,500.00</span><span class="ticker-change up">+1.87%</span></div>
-    </div>
-  </div>
-
   <!-- Sticky Glassmorphic Navigation -->
   <nav class="nav-bar">
     <div class="nav-container">
@@ -4284,9 +4210,6 @@
       // Fetch Real-time External Financial Market Data immediately on start
       fetchRealtimeRatesAndCryptos();
 
-      // Connect Binance WebSocket for true real-time BTC/ETH streaming
-      initBinanceWebSocket();
-
       // Start core live updates interval loop (every 1.5 seconds)
       setInterval(tickLiveMarkets, 1500);
 
@@ -4372,74 +4295,12 @@
         console.warn('외환 API 동기화 실패 (로컬 하이브리드 보정기 작동):', err);
       }
 
-      // 2. BTC/ETH는 WebSocket(initBinanceWebSocket)이 실시간 처리 — REST 폴링 불필요
-
-      // 3. Fetch Real-time Stocks (Fallback Hybrid simulator logic)
+      // 2. Fetch Real-time Stocks (Fallback Hybrid simulator logic)
       // Yahoo finance 429 및 Twelve Data key 제한 우회를 위하여
       // 최신 실시간 시장 시가와 근접하게 하이브리드로 정기 보정하여 사용합니다.
     }
 
     // ─── Binance WebSocket — Real-time BTC/ETH streaming ───────────────────────
-    let _binanceWs = null;
-    let _binanceReconnectTimer = null;
-
-    function initBinanceWebSocket() {
-      // Clear any pending reconnect timer
-      if (_binanceReconnectTimer) { clearTimeout(_binanceReconnectTimer); _binanceReconnectTimer = null; }
-      // Close existing connection if any
-      if (_binanceWs) { try { _binanceWs.close(); } catch(e) {} }
-
-      const STREAM = 'wss://stream.binance.com:9443/stream?streams=btcusdt@ticker/ethusdt@ticker';
-      _binanceWs = new WebSocket(STREAM);
-
-      _binanceWs.onopen = () => {
-        console.log('[Binance WS] 연결됨 — BTC/ETH 실시간 스트리밍 시작');
-      };
-
-      _binanceWs.onmessage = (event) => {
-        try {
-          const msg   = JSON.parse(event.data);
-          const d     = msg.data;
-          const sym   = d.s;  // 'BTCUSDT' or 'ETHUSDT'
-          const price = parseFloat(d.c);  // last price
-          const pct   = parseFloat(d.P);  // 24h change %
-
-          if (sym === 'BTCUSDT') {
-            state.assets.BTC.price = price;
-            state.assets.BTC.pct   = pct;
-            state.assets.BTC.startPrice = price / (1 + pct / 100);
-          } else if (sym === 'ETHUSDT') {
-            state.assets.ETH.price = price;
-            state.assets.ETH.pct   = pct;
-            state.assets.ETH.startPrice = price / (1 + pct / 100);
-          }
-
-          // Immediately reflect in ticker bar (no waiting for 1.5s tick)
-          updateTopTickerUI();
-
-          // If the terminal is showing BTC or ETH, update chart panel too
-          if ((sym === 'BTCUSDT' && state.activeTerminalAsset === 'BTC') ||
-              (sym === 'ETHUSDT' && state.activeTerminalAsset === 'ETH')) {
-            updateChartDetails();
-          }
-
-        } catch (e) {
-          console.warn('[Binance WS] 메시지 파싱 오류:', e);
-        }
-      };
-
-      _binanceWs.onerror = (err) => {
-        console.warn('[Binance WS] 오류 발생, 5초 후 재연결:', err);
-      };
-
-      _binanceWs.onclose = () => {
-        console.log('[Binance WS] 연결 종료 — 5초 후 재연결 시도');
-        // Auto-reconnect after 5s
-        _binanceReconnectTimer = setTimeout(initBinanceWebSocket, 5000);
-      };
-    }
-    // ────────────────────────────────────────────────────────────────────────────
-
     // SPA Router Engine to support dedicated page switching
     function initRouter() {
       window.addEventListener('hashchange', handleRouting);
@@ -4622,10 +4483,7 @@
         sentimentLabel.style.color = 'var(--neon-red)';
       }
 
-      // 4. Update global top marquee ticker values
-      updateTopTickerUI();
-
-      // 5. Update core elements live
+      // 4. Update core elements live
       updateChartDetails();
       renderChart();
       updateOrderBook();
@@ -4818,49 +4676,6 @@
           listEl.querySelectorAll('.etf-item').forEach(other => other.classList.remove('open'));
           if (!wasOpen) item.classList.add('open');
         });
-      });
-    }
-
-    // Top Marquee continuous 시세 업데이트
-    // ※ innerHTML 재생성 금지 — CSS 애니메이션 리셋 방지를 위해 텍스트만 in-place 업데이트
-    function updateTopTickerUI() {
-      const wrapper = document.getElementById('tickerWrapper');
-      if (!wrapper) return;
-
-      const nvdaPct = state.assets.NVDA.pct;
-      const aaplPct = state.assets.AAPL.pct;
-      const indices = [
-        // 나스닥: tech-weighted composite
-        { price: 16211.5 * (state.assets.NVDA.price / 215.33), pct: nvdaPct * 0.35 + aaplPct * 0.15, fmt: 'decimal' },
-        // S&P 500: broad-market composite
-        { price: 5190.2  * (state.assets.AAPL.price / 308.33), pct: aaplPct * 0.25 + nvdaPct * 0.10, fmt: 'decimal' },
-        // SOX 필라델피아 반도체: NVDA-heavy
-        { price: 4228.5  * (state.assets.NVDA.price / 215.33), pct: nvdaPct * 0.60, fmt: 'decimal' },
-        // 코스피: Korean market proxy
-        { price: 2638.4  * (state.assets.AAPL.price / 308.33), pct: aaplPct * 0.30 - (state.forex.USD.pct || 0) * 0.15, fmt: 'int' },
-        // 코스닥: Korean tech proxy
-        { price: 852.1   * (state.assets.NVDA.price / 215.33), pct: nvdaPct * 0.35 + aaplPct * 0.10, fmt: 'int' },
-        // BTC
-        { price: state.assets.BTC.price, pct: state.assets.BTC.pct, fmt: 'int' },
-        // ETH
-        { price: state.assets.ETH.price, pct: state.assets.ETH.pct, fmt: 'decimal' },
-      ];
-
-      const items = wrapper.querySelectorAll('.ticker-item');
-      const n = indices.length;
-      items.forEach((item, i) => {
-        const idx = indices[i % n];
-        const valEl = item.querySelector('.ticker-value');
-        const chgEl = item.querySelector('.ticker-change');
-        if (valEl) {
-          valEl.textContent = idx.fmt === 'int'
-            ? Math.round(idx.price).toLocaleString()
-            : idx.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        }
-        if (chgEl) {
-          chgEl.textContent = (idx.pct >= 0 ? '+' : '') + idx.pct.toFixed(2) + '%';
-          chgEl.className   = 'ticker-change ' + (idx.pct >= 0 ? 'up' : 'down');
-        }
       });
     }
 
