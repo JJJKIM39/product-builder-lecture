@@ -14,6 +14,7 @@ from datetime import datetime, timedelta, timezone, date
 
 KST    = timezone(timedelta(hours=9))
 TODAY  = datetime.now(KST).date()
+PAST   = TODAY - timedelta(days=7)   # 7일 전 이벤트도 포함 (실적 발표 확인용)
 CUTOFF = TODAY + timedelta(weeks=12)
 OUTPUT = os.path.join(os.path.dirname(__file__), '..', 'data', 'calendar.json')
 
@@ -62,7 +63,7 @@ def date_ok(d):
     if isinstance(d, str):
         try: d = date.fromisoformat(d[:10])
         except: return False
-    return TODAY <= d <= CUTOFF
+    return PAST <= d <= CUTOFF
 
 # ── 1. 기업 실적 (yfinance — earnings_dates만 사용) ──────────────────────────
 
@@ -177,7 +178,7 @@ FIXED_ECONOMIC_SCHEDULE = [
     {"id":"ism_2026-08-03","name":"ISM 제조업 PMI","country":"US","date":"2026-08-03","datetime":"2026-08-03 23:00","importance":2,"previous":None,"forecast":None,"actual":None},
 
     # ── 한국은행 기준금리 결정 ─────────────────────────
-    {"id":"bok_2026-05-29","name":"한국은행 기준금리 결정","country":"KR","date":"2026-05-29","datetime":"2026-05-29 10:00","importance":3,"previous":2.5,"forecast":2.25,"actual":None},
+    {"id":"bok_2026-05-28","name":"한국은행 기준금리 결정","country":"KR","date":"2026-05-28","datetime":"2026-05-28 10:00","importance":3,"previous":2.5,"forecast":2.25,"actual":None},
     {"id":"bok_2026-07-09","name":"한국은행 기준금리 결정","country":"KR","date":"2026-07-09","datetime":"2026-07-09 10:00","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"bok_2026-08-27","name":"한국은행 기준금리 결정","country":"KR","date":"2026-08-27","datetime":"2026-08-27 10:00","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"bok_2026-10-15","name":"한국은행 기준금리 결정","country":"KR","date":"2026-10-15","datetime":"2026-10-15 10:00","importance":3,"previous":None,"forecast":None,"actual":None},
@@ -212,7 +213,7 @@ def main():
     now_kst = datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S KST")
     print(f"\n{'='*55}")
     print(f"  xinvest 캘린더 크롤러 v2  [{now_kst}]")
-    print(f"  수집 범위: {TODAY} ~ {CUTOFF}")
+    print(f"  수집 범위: {PAST} ~ {CUTOFF}")
     print(f"{'='*55}\n")
 
     all_events = []
@@ -235,7 +236,7 @@ def main():
 
     output = {
         "updated_at": datetime.now(KST).strftime("%Y-%m-%dT%H:%M:%S+09:00"),
-        "range_from": TODAY.strftime("%Y-%m-%d"),
+        "range_from": PAST.strftime("%Y-%m-%d"),
         "range_to":   CUTOFF.strftime("%Y-%m-%d"),
         "count":      len(unique),
         "events":     unique,

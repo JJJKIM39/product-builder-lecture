@@ -1,15 +1,15 @@
 {
-  "updated_at": "2026-05-29T01:31:02+09:00",
-  "range_from": "2026-05-29",
+  "updated_at": "2026-05-29T01:34:24+09:00",
+  "range_from": "2026-05-22",
   "range_to": "2026-08-21",
   "count": 25,
   "events": [
     {
-      "id": "bok_2026-05-29",
+      "id": "bok_2026-05-28",
       "name": "한국은행 기준금리 결정",
       "country": "KR",
-      "date": "2026-05-29",
-      "datetime": "2026-05-29 10:00",
+      "date": "2026-05-28",
+      "datetime": "2026-05-28 10:00",
       "importance": 3,
       "previous": 2.5,
       "forecast": 2.25,
