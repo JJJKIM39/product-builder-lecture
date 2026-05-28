@@ -4284,6 +4284,9 @@
       // Fetch Real-time External Financial Market Data immediately on start
       fetchRealtimeRatesAndCryptos();
 
+      // Connect Binance WebSocket for true real-time BTC/ETH streaming
+      initBinanceWebSocket();
+
       // Start core live updates interval loop (every 1.5 seconds)
       setInterval(tickLiveMarkets, 1500);
 
@@ -4369,41 +4372,73 @@
         console.warn('외환 API 동기화 실패 (로컬 하이브리드 보정기 작동):', err);
       }
 
-      // 2. Fetch Real-time Cryptos (BTC, ETH) from Binance API
-      try {
-        const response = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22,%22ETHUSDT%22%5D');
-        if (response.ok) {
-          const data = await response.json();
-          
-          const btcData = data.find(x => x.symbol === 'BTCUSDT');
-          const ethData = data.find(x => x.symbol === 'ETHUSDT');
-          
-          if (btcData && ethData) {
-            state.assets.BTC.price = parseFloat(btcData.lastPrice);
-            const btcPct = parseFloat(btcData.priceChangePercent);
-            state.assets.BTC.pct = btcPct;
-            // 실제 바이낸스 24시간 변동률 기준에서 1.5초마다 가우시안 틱이 등락되도록 startPrice 역산 적용
-            state.assets.BTC.startPrice = state.assets.BTC.price / (1 + btcPct / 100);
-            
-            state.assets.ETH.price = parseFloat(ethData.lastPrice);
-            const ethPct = parseFloat(ethData.priceChangePercent);
-            state.assets.ETH.pct = ethPct;
-            // 마찬가지로 startPrice 역산
-            state.assets.ETH.startPrice = state.assets.ETH.price / (1 + ethPct / 100);
-            
-            updateChartDetails();
-            renderChart();
-            console.log('실시간 암호화폐 API 동기화 성공');
-          }
-        }
-      } catch (err) {
-        console.warn('암호화폐 API 동기화 실패 (로컬 하이브리드 보정기 작동):', err);
-      }
+      // 2. BTC/ETH는 WebSocket(initBinanceWebSocket)이 실시간 처리 — REST 폴링 불필요
 
       // 3. Fetch Real-time Stocks (Fallback Hybrid simulator logic)
       // Yahoo finance 429 및 Twelve Data key 제한 우회를 위하여
       // 최신 실시간 시장 시가와 근접하게 하이브리드로 정기 보정하여 사용합니다.
     }
+
+    // ─── Binance WebSocket — Real-time BTC/ETH streaming ───────────────────────
+    let _binanceWs = null;
+    let _binanceReconnectTimer = null;
+
+    function initBinanceWebSocket() {
+      // Clear any pending reconnect timer
+      if (_binanceReconnectTimer) { clearTimeout(_binanceReconnectTimer); _binanceReconnectTimer = null; }
+      // Close existing connection if any
+      if (_binanceWs) { try { _binanceWs.close(); } catch(e) {} }
+
+      const STREAM = 'wss://stream.binance.com:9443/stream?streams=btcusdt@ticker/ethusdt@ticker';
+      _binanceWs = new WebSocket(STREAM);
+
+      _binanceWs.onopen = () => {
+        console.log('[Binance WS] 연결됨 — BTC/ETH 실시간 스트리밍 시작');
+      };
+
+      _binanceWs.onmessage = (event) => {
+        try {
+          const msg   = JSON.parse(event.data);
+          const d     = msg.data;
+          const sym   = d.s;  // 'BTCUSDT' or 'ETHUSDT'
+          const price = parseFloat(d.c);  // last price
+          const pct   = parseFloat(d.P);  // 24h change %
+
+          if (sym === 'BTCUSDT') {
+            state.assets.BTC.price = price;
+            state.assets.BTC.pct   = pct;
+            state.assets.BTC.startPrice = price / (1 + pct / 100);
+          } else if (sym === 'ETHUSDT') {
+            state.assets.ETH.price = price;
+            state.assets.ETH.pct   = pct;
+            state.assets.ETH.startPrice = price / (1 + pct / 100);
+          }
+
+          // Immediately reflect in ticker bar (no waiting for 1.5s tick)
+          updateTopTickerUI();
+
+          // If the terminal is showing BTC or ETH, update chart panel too
+          if ((sym === 'BTCUSDT' && state.activeTerminalAsset === 'BTC') ||
+              (sym === 'ETHUSDT' && state.activeTerminalAsset === 'ETH')) {
+            updateChartDetails();
+          }
+
+        } catch (e) {
+          console.warn('[Binance WS] 메시지 파싱 오류:', e);
+        }
+      };
+
+      _binanceWs.onerror = (err) => {
+        console.warn('[Binance WS] 오류 발생, 5초 후 재연결:', err);
+      };
+
+      _binanceWs.onclose = () => {
+        console.log('[Binance WS] 연결 종료 — 5초 후 재연결 시도');
+        // Auto-reconnect after 5s
+        _binanceReconnectTimer = setTimeout(initBinanceWebSocket, 5000);
+      };
+    }
+    // ────────────────────────────────────────────────────────────────────────────
 
     // SPA Router Engine to support dedicated page switching
     function initRouter() {
