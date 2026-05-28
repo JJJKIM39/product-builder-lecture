@@ -2229,6 +2229,44 @@
       .seg-btn { font-size: 11px; padding: 8px 4px; }
     }
 
+    /* ─────────── Community ─────────── */
+    .comm-space-bar { display:flex; gap:8px; overflow-x:auto; padding-bottom:2px; scrollbar-width:none; }
+    .comm-space-bar::-webkit-scrollbar { display:none; }
+    .comm-space-btn { flex-shrink:0; font-size:13px; font-weight:700; padding:7px 15px; border-radius:999px; border:1.5px solid var(--border-color); background:transparent; color:var(--text-sub); cursor:pointer; transition:all 0.18s; }
+    .comm-space-btn.active { background:var(--toss-blue); border-color:var(--toss-blue); color:#fff; }
+    .comm-space-btn:hover:not(.active) { border-color:var(--text-sub); color:var(--text-color); }
+    .comm-feed-header { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .comm-seg { display:flex; background:var(--grey-light); border-radius:10px; padding:3px; gap:2px; }
+    .comm-seg-btn { font-size:13px; font-weight:700; padding:6px 18px; border-radius:8px; border:none; background:transparent; color:var(--text-sub); cursor:pointer; transition:all 0.18s; font-family:var(--font-primary); }
+    .comm-seg-btn.active { background:var(--card-bg); color:var(--text-color); box-shadow:0 1px 5px rgba(0,0,0,0.12); }
+    .comm-write-btn { font-size:12.5px; font-weight:700; padding:7px 15px; border-radius:10px; border:none; background:var(--toss-blue); color:#fff; cursor:pointer; font-family:var(--font-primary); white-space:nowrap; }
+    .comm-top3-section { display:flex; flex-direction:column; gap:10px; }
+    .comm-top3-label { font-size:12px; font-weight:800; color:var(--text-sub); letter-spacing:0.3px; }
+    .comm-top3-scroll { display:flex; gap:10px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
+    .comm-top3-scroll::-webkit-scrollbar { display:none; }
+    .comm-top3-card { flex-shrink:0; width:156px; background:var(--card-bg); border:1.5px solid var(--border-color); border-radius:14px; padding:14px 14px 12px; display:flex; flex-direction:column; gap:5px; }
+    .comm-top3-rank { font-family:var(--font-outfit); font-size:10.5px; font-weight:800; letter-spacing:0.4px; }
+    .comm-top3-rank.gold { color:#F5A623; } .comm-top3-rank.silver { color:#9EA3AE; } .comm-top3-rank.bronze { color:#C47C3A; }
+    .comm-top3-portname { font-size:13px; font-weight:800; color:var(--text-color); line-height:1.35; }
+    .comm-top3-by { font-size:11px; color:var(--text-sub); }
+    .comm-top3-ret { font-family:var(--font-outfit); font-size:18px; font-weight:900; color:var(--neon-green); line-height:1.1; margin-top:2px; }
+    .comm-top3-ret-label { font-size:10px; color:var(--text-sub); }
+    .comm-feed { display:flex; flex-direction:column; gap:10px; }
+    .comm-post { background:var(--card-bg); border:1.5px solid var(--border-color); border-radius:16px; padding:18px 18px 14px; display:flex; flex-direction:column; gap:11px; transition:border-color 0.18s; }
+    .comm-post:hover { border-color:rgba(49,130,246,0.5); }
+    .comm-post-header { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .comm-avatar { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#fff; flex-shrink:0; }
+    .comm-author { font-size:13px; font-weight:700; color:var(--text-color); }
+    .comm-user-badge { font-size:10px; font-weight:800; padding:3px 8px; border-radius:999px; }
+    .comm-space-tag { font-size:10px; font-weight:700; padding:3px 8px; border-radius:999px; background:var(--grey-light); color:var(--text-sub); }
+    .comm-post-time { font-size:11px; color:var(--text-sub); margin-left:auto; white-space:nowrap; }
+    .comm-post-title { font-size:15px; font-weight:800; color:var(--text-color); line-height:1.4; letter-spacing:-0.2px; }
+    .comm-post-body { font-size:13px; color:var(--text-sub); line-height:1.65; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .comm-post-footer { display:flex; align-items:center; gap:14px; padding-top:2px; border-top:1px solid var(--border-color); margin-top:2px; }
+    .comm-action-btn { display:flex; align-items:center; gap:5px; font-size:12px; font-weight:700; color:var(--text-sub); background:none; border:none; cursor:pointer; padding:4px 0; font-family:var(--font-primary); transition:color 0.15s; }
+    .comm-action-btn.liked { color:var(--neon-red); }
+    .comm-empty { text-align:center; padding:52px 20px; color:var(--text-sub); font-size:14px; line-height:1.7; }
+
     /* ─────────── Allocation Amount/Pct Inputs ─────────── */
     .alloc-total-wrap { display: flex; align-items: center; gap: 10px; background: var(--grey-light); border-radius: 14px; padding: 12px 16px; border: 1.5px solid var(--border-color); }
     .alloc-total-label { font-size: 13px; font-weight: 700; color: var(--text-color); white-space: nowrap; }
@@ -2837,6 +2875,7 @@
           <a href="#allocator" class="nav-link" data-tab="allocator">포트폴리오</a>
           <a href="#signals" class="nav-link" data-tab="signals">AI 시그널</a>
           <a href="#macro" class="nav-link" data-tab="macro">환율 · 거시</a>
+          <a href="#community" class="nav-link" data-tab="community">커뮤니티</a>
         </div>
         
         <button class="theme-toggle" id="themeToggle" aria-label="테마 전환" style="padding: 6px 10px; border-radius: 8px;">
@@ -2900,6 +2939,13 @@
         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
       </svg>
       <span>환율·거시</span>
+    </a>
+    <!-- Community -->
+    <a href="#community" class="tab-item" data-tab="community" id="tabBtn_community">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <span>커뮤니티</span>
     </a>
   </nav>
 
@@ -3770,6 +3816,34 @@
       </div>
     </div> <!-- /view-macro -->
 
+    <!-- ─────────── COMMUNITY ─────────── -->
+    <div class="page-view" id="view-community">
+      <div style="display:flex; flex-direction:column; gap:20px; padding:16px 0 40px;">
+
+        <!-- Space Selector -->
+        <div class="comm-space-bar" id="commSpaceBar"></div>
+
+        <!-- Feed Header -->
+        <div class="comm-feed-header">
+          <div class="comm-seg" id="commSeg">
+            <button class="comm-seg-btn active" data-feedtab="all">전체</button>
+            <button class="comm-seg-btn" data-feedtab="trending">인기</button>
+          </div>
+          <button class="comm-write-btn" id="commWriteBtn">✏ 글쓰기</button>
+        </div>
+
+        <!-- TOP 3 Popular Portfolios -->
+        <div class="comm-top3-section" id="commTop3Wrap">
+          <div class="comm-top3-label">🏆 인기 포트폴리오 TOP 3</div>
+          <div class="comm-top3-scroll" id="commTop3Scroll"></div>
+        </div>
+
+        <!-- Post Feed -->
+        <div class="comm-feed" id="commFeed"></div>
+
+      </div>
+    </div> <!-- /view-community -->
+
   </div>
 
   <!-- Compliance Footer System -->
@@ -4213,6 +4287,7 @@
 
       // Portfolio diagnosis (3-axis segmented control)
       initDiag2();
+      initCommunity();
 
       // Pro mode: chart takes full width by default (order book hidden)
       const initGrid = document.getElementById('terminalGrid');
@@ -6478,11 +6553,186 @@
     function showToast(msg) {
       toast.textContent = msg;
       toast.classList.add('show');
-      
+
       clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
       }, 2500);
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // Community Module
+    // ─────────────────────────────────────────────────────────
+
+    const COMM_SPACES = [
+      { id: 'all',       label: '전체' },
+      { id: 'portfolio', label: '포트폴리오 검증' },
+      { id: 'global',    label: '미장 vs 국장' },
+      { id: 'crypto',    label: '크립토' },
+      { id: 'free',      label: '자유게시판' },
+    ];
+
+    const COMM_TOP3 = [
+      { name: 'TechFirst 2025', author: 'invest_jun99',    badge: '공격투자형', ret1y: 47.3 },
+      { name: '글로벌 배당 + 금',  author: 'moon_bear_kr',  badge: '안정추구형', ret1y: 19.2 },
+      { name: '올웨더 한국판',     author: 'rebal_master',  badge: '위험중립형', ret1y: 15.8 },
+    ];
+
+    const COMM_POSTS = [
+      { id:1,  spaceType:'portfolio', author:'invest_jun99',   badge:'공격투자형', title:'제 포트폴리오 피드백 부탁드립니다 (미국주식 70% 비중)', content:'30대 초반 직장인입니다. QQQ 40%, NVDA 15%, TSLA 15%, 금 ETF 15%, 채권 15%로 구성했는데 너무 공격적인가요? 변동성이 커서 고민이에요.', likes:34, commentsCount:18, time:'2시간 전' },
+      { id:2,  spaceType:'global',    author:'nasdaq_watcher', badge:'적극투자형', title:'나스닥 -12% 구간, 추가 매수 타이밍인가요?', content:'QQQ 기준 RSI 27 진입, 역사적으로 이 구간에서 3개월 후 평균 +18% 반등. 근데 지금 매크로가 달라서... 여러분은 어떻게 보세요?', likes:61, commentsCount:27, time:'4시간 전' },
+      { id:3,  spaceType:'crypto',    author:'btc_hodler_9',   badge:'공격투자형', title:'BTC 10만 달러 돌파 — 알트 시즌 신호탄인가?', content:'온체인 지표 보면 고래 지갑 누적 패턴이 21년 11월이랑 비슷해요. MVRV 2.8 수준이라 아직 과열은 아닌 것 같고요. 솔직히 이더가 더 올라갈 거 같은데 어떻게 보세요?', likes:88, commentsCount:42, time:'5시간 전' },
+      { id:4,  spaceType:'free',      author:'first_invest_k', badge:'안정추구형', title:'신입 1년차 월 30만 투자 시작 일지 #1', content:'드디어 첫 월급에서 30만 원 떼서 S&P500 ETF 매수했어요. 작지만 시작이 반이라고... 앞으로 매달 기록 남길 예정입니다. 선배 투자자분들 조언 부탁해요!', likes:47, commentsCount:23, time:'7시간 전' },
+      { id:5,  spaceType:'portfolio', author:'rebal_master',   badge:'위험중립형', title:'안정추구형 나왔는데 이 배분 맞나요?', content:'진단 결과 안정추구형이 나와서 채권 55%, 주식 25%, 금 20%로 설정했는데... 30대인데 너무 보수적인가요? 장기적으로 인플레이션 헷지가 걱정되기도 해서요.', likes:29, commentsCount:16, time:'9시간 전' },
+      { id:6,  spaceType:'global',    author:'kr_vs_us_fan',   badge:'위험중립형', title:'코스피 vs S&P500 — 향후 10년 어느 쪽이 유리할까요?', content:'원화 약세 고려하면 사실상 달러 자산 보유가 더 유리한 게 아닐까요? 배당 재투자 수익까지 합산하면 S&P500이 압도적이라는 데이터가 많은데 반론 있으신 분?', likes:55, commentsCount:31, time:'1일 전' },
+      { id:7,  spaceType:'crypto',    author:'eth_maxi_kr',    badge:'공격투자형', title:'이더리움 현물 ETF 이후 실제 가격 임팩트 어떻게 보세요?', content:'BTC ETF 승인 후 패턴이랑 비교해봤는데 ETH는 스테이킹 수익이 빠진 상태라 기관 수요가 예상보다 낮을 수 있어요. 실물 ETF여도 staking yield 없으면 메리트가 반감되지 않나요?', likes:43, commentsCount:19, time:'1일 전' },
+      { id:8,  spaceType:'free',      author:'comeback_k',     badge:'위험중립형', title:'재작년 -42% 맞고 다시 시작한 경험담', content:'23년 하반기에 레버리지 ETF로 원금의 42%를 날렸어요. 1년 쉬면서 공부하고 지금은 분산투자 원칙 철저히 지키는 중. 그때 잃었던 것보다 배운 게 더 많은 것 같아요.', likes:112, commentsCount:54, time:'1일 전' },
+      { id:9,  spaceType:'portfolio', author:'div_hunter_kr',  badge:'안정형',    title:'월배당 포트폴리오 수익률 업데이트 (6개월차)', content:'SCHD 40% + JEPI 30% + 리츠 20% + 현금 10% 구성으로 월 평균 배당수익률 연환산 5.4%. 원금 대비 평가수익도 +7.2%. 다만 최근 금리 상승에 리츠가 흔들리고 있어서 비중 조절 고민 중.', likes:38, commentsCount:22, time:'2일 전' },
+      { id:10, spaceType:'global',    author:'forex_hawk',     badge:'적극투자형', title:'달러 약세 기조에 환헷지 ETF 전략, 어떻게 가져가세요?', content:'원/달러 1,380원 수준에서 환헷지 해놓은 분들 계세요? 헷지 비용이 연 2~3%인데 이 환경에서 헷지 여부가 성과를 크게 가를 것 같아서요.', likes:26, commentsCount:14, time:'2일 전' },
+      { id:11, spaceType:'crypto',    author:'sol_watcher',    badge:'공격투자형', title:'솔라나 vs 이더리움 — 장기 보유 관점에서 비교', content:'TPS, 수수료, 생태계 TVL, 개발자 수 모두 이더리움이 압도적이지만 속도와 사용자 경험은 솔라나가 우월해요. 5년 뒤 어떻게 될지 의견 나눠봐요.', likes:57, commentsCount:33, time:'2일 전' },
+      { id:12, spaceType:'free',      author:'ai_signal_fan',  badge:'적극투자형', title:'AI 시그널 탭 진짜 맞던데 다들 확인하고 계세요?', content:'지난 주 NVDA OB 롱 시그널 때 진입했더니 +4.2% 수익 냈어요. ICT 이론 기반이라는데 백테스트 승률이 어느 정도인지 궁금하기도 하고... 여러분 활용 방법 공유해줘요!', likes:74, commentsCount:38, time:'3일 전' },
+      { id:13, spaceType:'portfolio', author:'moon_bear_kr',   badge:'안정추구형', title:'올웨더 포트폴리오 한국판 — 3년 실전 기록 공개', content:'주식 30% (국내 15%/해외 15%), 장기채 40%, 중기채 15%, 금 7.5%, 원자재 7.5%. 3년 CAGR 11.2%, MDD -8.4%. 레이 달리오 전략 한국 세금 체계에 맞게 최적화한 버전.', likes:93, commentsCount:47, time:'3일 전' },
+      { id:14, spaceType:'free',      author:'student_port',   badge:'안정형',    title:'대학생 월 10만 원으로 시작하는 방법 정리해봤어요', content:'용돈·알바비에서 10만 원씩 S&P500 ETF (SPY 또는 SPLG) 적립식 매수. 환전 비용 줄이려고 증권사 환전 우대 쿠폰 활용. 복리 계산기로 30년 뒤 시뮬레이션 해보니 꽤 괜찮더라고요.', likes:66, commentsCount:29, time:'4일 전' },
+      { id:15, spaceType:'global',    author:'macro_hawk_kr',  badge:'위험중립형', title:'Fed 금리 인하 사이클 — 역사적 주식 수익률 데이터', content:'1995, 1998, 2001, 2007, 2019년 첫 인하 후 12개월 S&P500 수익률 평균 +11.3%. 다만 2001, 2007년은 -22%, -38%로 하락. 경기침체 여부가 핵심 변수라는 건 모두 동의하실 거예요.', likes:49, commentsCount:21, time:'4일 전' },
+    ];
+
+    let commState = { space: 'all', tab: 'all', likes: {} };
+
+    function getCommBadgeStyle(badge) {
+      const map = {
+        '안정형':    { bg:'rgba(0,176,116,0.14)',   color:'#00B074' },
+        '안정추구형': { bg:'rgba(10,191,188,0.14)', color:'#0ABFBC' },
+        '위험중립형': { bg:'rgba(49,130,246,0.14)', color:'#3182F6' },
+        '적극투자형': { bg:'rgba(255,138,0,0.14)',  color:'#FF8A00' },
+        '공격투자형': { bg:'rgba(255,59,111,0.14)', color:'#FF3B6F' },
+      };
+      const s = map[badge] || { bg:'rgba(138,149,161,0.18)', color:'#8A95A1' };
+      return `background:${s.bg}; color:${s.color};`;
+    }
+
+    function getAvatarColor(str) {
+      const cols = ['#3182F6','#00C8B4','#FF8A00','#FF3B6F','#9C6FE4','#00B074'];
+      let h = 0;
+      for (let i = 0; i < str.length; i++) h = str.charCodeAt(i) + ((h << 5) - h);
+      return cols[Math.abs(h) % cols.length];
+    }
+
+    function getSpaceLabel(id) {
+      return (COMM_SPACES.find(s => s.id === id) || {}).label || id;
+    }
+
+    function renderCommFeed() {
+      const feedEl = document.getElementById('commFeed');
+      if (!feedEl) return;
+
+      let posts = COMM_POSTS.slice();
+      if (commState.space !== 'all') posts = posts.filter(p => p.spaceType === commState.space);
+      if (commState.tab === 'trending') {
+        posts = posts.slice().sort((a, b) => (b.likes + b.commentsCount * 2) - (a.likes + a.commentsCount * 2));
+      }
+
+      if (!posts.length) {
+        feedEl.innerHTML = '<div class="comm-empty">이 스페이스에 아직 게시글이 없어요.<br>첫 번째 글을 작성해 보세요!</div>';
+        return;
+      }
+
+      feedEl.innerHTML = posts.map(post => {
+        const liked = commState.likes[post.id];
+        const likeCount = post.likes + (liked ? 1 : 0);
+        const avColor = getAvatarColor(post.author);
+        const showTag = commState.space === 'all';
+        return `
+          <div class="comm-post">
+            <div class="comm-post-header">
+              <div class="comm-avatar" style="background:${avColor};">${post.author[0].toUpperCase()}</div>
+              <span class="comm-author">${post.author}</span>
+              <span class="comm-user-badge" style="${getCommBadgeStyle(post.badge)}">${post.badge}</span>
+              ${showTag ? `<span class="comm-space-tag">${getSpaceLabel(post.spaceType)}</span>` : ''}
+              <span class="comm-post-time">${post.time}</span>
+            </div>
+            <div class="comm-post-title">${post.title}</div>
+            <div class="comm-post-body">${post.content}</div>
+            <div class="comm-post-footer">
+              <button class="comm-action-btn ${liked ? 'liked' : ''}" data-pid="${post.id}">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="${liked ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                </svg>
+                ${likeCount}
+              </button>
+              <button class="comm-action-btn" style="cursor:default;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                ${post.commentsCount}
+              </button>
+            </div>
+          </div>`;
+      }).join('');
+
+      feedEl.querySelectorAll('.comm-action-btn[data-pid]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const pid = parseInt(btn.dataset.pid);
+          commState.likes[pid] = !commState.likes[pid];
+          renderCommFeed();
+        });
+      });
+    }
+
+    function initCommunity() {
+      // Space tabs
+      const spaceBar = document.getElementById('commSpaceBar');
+      if (spaceBar) {
+        spaceBar.innerHTML = COMM_SPACES.map(s =>
+          `<button class="comm-space-btn${s.id === commState.space ? ' active' : ''}" data-space="${s.id}">${s.label}</button>`
+        ).join('');
+        spaceBar.querySelectorAll('.comm-space-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            commState.space = btn.dataset.space;
+            spaceBar.querySelectorAll('.comm-space-btn').forEach(b => b.classList.toggle('active', b.dataset.space === commState.space));
+            const top3 = document.getElementById('commTop3Wrap');
+            if (top3) top3.style.display = commState.space === 'all' ? '' : 'none';
+            renderCommFeed();
+          });
+        });
+      }
+
+      // Feed tabs
+      const seg = document.getElementById('commSeg');
+      if (seg) {
+        seg.querySelectorAll('.comm-seg-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            commState.tab = btn.dataset.feedtab;
+            seg.querySelectorAll('.comm-seg-btn').forEach(b => b.classList.toggle('active', b.dataset.feedtab === commState.tab));
+            renderCommFeed();
+          });
+        });
+      }
+
+      // Write button
+      const writeBtn = document.getElementById('commWriteBtn');
+      if (writeBtn) writeBtn.addEventListener('click', () => showToast('글쓰기 기능은 곧 출시됩니다 🚀'));
+
+      // TOP 3
+      const top3El = document.getElementById('commTop3Scroll');
+      if (top3El) {
+        const rankMeta = [
+          { cls: 'gold',   label: '#1 GOLD'   },
+          { cls: 'silver', label: '#2 SILVER' },
+          { cls: 'bronze', label: '#3 BRONZE' },
+        ];
+        top3El.innerHTML = COMM_TOP3.map((p, i) => `
+          <div class="comm-top3-card">
+            <div class="comm-top3-rank ${rankMeta[i].cls}">${rankMeta[i].label}</div>
+            <div class="comm-top3-portname">${p.name}</div>
+            <div class="comm-top3-by">@${p.author}</div>
+            <div class="comm-top3-by" style="${getCommBadgeStyle(p.badge)}">${p.badge}</div>
+            <div class="comm-top3-ret">+${p.ret1y}%</div>
+            <div class="comm-top3-ret-label">1년 수익률</div>
+          </div>`
+        ).join('');
+      }
+
+      renderCommFeed();
     }
 
     // Bind Initial setup trigger on Dom loaded
