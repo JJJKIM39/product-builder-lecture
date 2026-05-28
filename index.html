@@ -2985,6 +2985,19 @@
       font-size: 11px; color: var(--text-sub); text-align: right;
       padding: 10px 0 4px; opacity: .7;
     }
+    .cal-upcoming-section {
+      margin-top: 24px; padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+    }
+    .cal-upcoming-title {
+      font-size: 14px; font-weight: 800; color: var(--text-color);
+      margin-bottom: 14px;
+    }
+    .cal-up-group { margin-bottom: 16px; }
+    .cal-up-date {
+      font-size: 12px; font-weight: 700; color: var(--toss-blue);
+      margin-bottom: 8px; padding: 4px 0;
+    }
   </style>
   <meta name="google-adsense-account" content="ca-pub-9832973303458105">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9832973303458105"
@@ -3485,6 +3498,12 @@
           <div class="cal-detail-body" id="calDetailBody"></div>
         </div>
         <div class="cal-updated" id="calUpdated"></div>
+
+        <!-- 다음 주요 일정 -->
+        <div class="cal-upcoming-section">
+          <div class="cal-upcoming-title">📌 다음 주요 일정</div>
+          <div id="calUpcomingWrap"></div>
+        </div>
       </div>
     </div> <!-- /view-calendar -->
 
@@ -6939,6 +6958,16 @@
       bindCalendarControls();
 
       renderCalendar();
+
+      // 오늘 날짜 자동 선택 → 상세 패널 즉시 표시
+      const todayStr2 = new Date().toISOString().slice(0, 10);
+      const todayEvs  = eventsForDate(todayStr2);
+      if (todayEvs.length > 0) {
+        setTimeout(() => selectCalDate(todayStr2), 50);
+      }
+
+      // 다음 주요 일정 섹션 렌더
+      renderUpcoming();
     }
 
     function bindCalendarControls() {
@@ -7214,6 +7243,45 @@
         const next = calState.events.find(ev => (ev.date || ev.datetime || '').slice(0,10) >= todayStr);
         nextEl.textContent = next ? (next.name.length > 10 ? next.name.slice(0,10)+'…' : next.name) : '-';
       }
+    }
+    function renderUpcoming() {
+      // 캘린더 페이지 하단 "다음 주요 일정" — 항상 오늘 이후 최대 8개 표시
+      const wrap = document.getElementById('calUpcomingWrap');
+      if (!wrap) return;
+
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const upcoming = calState.events
+        .filter(ev => {
+          const d = (ev.date || ev.datetime || '').slice(0, 10);
+          return d >= todayStr;
+        })
+        .sort((a, b) => {
+          const da = (a.date || a.datetime || '');
+          const db = (b.date || b.datetime || '');
+          return da < db ? -1 : da > db ? 1 : 0;
+        })
+        .slice(0, 8);
+
+      if (upcoming.length === 0) {
+        wrap.innerHTML = '<div class="cal-no-events">수집된 예정 이벤트가 없어요. GitHub Actions 크롤러 실행 후 업데이트됩니다.</div>';
+        return;
+      }
+
+      let html = '';
+      let lastDate = '';
+      upcoming.forEach(ev => {
+        const d = (ev.date || ev.datetime || '').slice(0, 10);
+        if (d !== lastDate) {
+          if (lastDate) html += '</div>';
+          html += `<div class="cal-up-group">
+            <div class="cal-up-date">${fmtDate(d)}</div>`;
+          lastDate = d;
+        }
+        html += buildEventRow(ev);
+      });
+      if (lastDate) html += '</div>';
+
+      wrap.innerHTML = html;
     }
     // ══════════════════════════════════════════════════════════════
 
