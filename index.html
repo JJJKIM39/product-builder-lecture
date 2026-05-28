@@ -2113,6 +2113,9 @@
     .diag2-step.active { display: flex; }
     @keyframes diag2In { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     .diag2-q-tag { font-size: 11px; font-weight: 800; color: var(--toss-blue); letter-spacing: 0.4px; }
+    .diag2-axis-nav { display: flex; flex-direction: column; gap: 3px; border-left: 3px solid var(--toss-blue); padding-left: 11px; margin-bottom: 2px; }
+    .diag2-axis-label { font-size: 11px; font-weight: 800; color: var(--toss-blue); letter-spacing: 0.5px; }
+    .diag2-axis-micro { font-size: 11px; color: var(--text-sub); }
     .diag2-q-text { font-size: 17px; font-weight: 800; color: var(--text-color); line-height: 1.45; letter-spacing: -0.3px; }
     .diag2-q-hint { font-size: 12px; color: var(--text-sub); margin-top: -4px; }
     .diag2-options { display: flex; flex-direction: column; gap: 9px; margin-top: 6px; }
@@ -3407,7 +3410,7 @@
             <span class="diag2-step-badge" id="diag2StepBadge">시작 전</span>
           </div>
           <h2 class="diag2-title">투자 성향 진단</h2>
-          <p class="diag2-subtitle">자금 안정성 · 투자 역량 · 심리적 성향, 3대 축을 정량 분석합니다</p>
+          <p class="diag2-subtitle" id="diag2HeaderSubtitle">자금 안정성 · 투자 역량 · 심리적 성향, 3대 축을 정량 분석합니다</p>
           <div class="diag2-progress-track">
             <div class="diag2-progress-fill" id="diag2ProgressFill" style="width:0%;"></div>
           </div>
@@ -5519,32 +5522,25 @@
       const badge   = document.getElementById('diag2StepBadge');
       const fill    = document.getElementById('diag2ProgressFill');
       const warning = document.getElementById('diag2Warning');
+      const subtitle = document.getElementById('diag2HeaderSubtitle');
 
-      if (badge)   badge.textContent  = '시작 전';
-      if (fill)    fill.style.width   = '0%';
-      if (warning) warning.style.display = 'none';
-      if (footer)  footer.style.display  = 'none';
+      if (badge)    badge.textContent       = '시작 전';
+      if (fill)     fill.style.width        = '0%';
+      if (warning)  warning.style.display   = 'none';
+      if (footer)   footer.style.display    = 'none';
+      if (subtitle) subtitle.style.display  = 'none';
 
       stage.innerHTML = `
-        <div class="diag2-step active" style="padding: 4px 0 8px; gap:20px;">
-          <div style="display:flex; flex-direction:column; gap:9px;">
-            <div style="display:flex; align-items:center; gap:12px; padding:13px 15px; background:var(--grey-light); border-radius:12px;">
-              <span style="font-size:13px; font-weight:700; color:var(--text-primary); white-space:nowrap;">자금 안정성</span>
-              <span style="font-size:12.5px; color:var(--text-secondary); line-height:1.5;">단기 자금이 투자에 묶여도 괜찮은지 확인</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:12px; padding:13px 15px; background:var(--grey-light); border-radius:12px;">
-              <span style="font-size:13px; font-weight:700; color:var(--text-primary); white-space:nowrap;">투자 역량</span>
-              <span style="font-size:12.5px; color:var(--text-secondary); line-height:1.5;">실제 투자 경험과 금융 지식 수준 파악</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:12px; padding:13px 15px; background:var(--grey-light); border-radius:12px;">
-              <span style="font-size:13px; font-weight:700; color:var(--text-primary); white-space:nowrap;">심리적 성향</span>
-              <span style="font-size:12.5px; color:var(--text-secondary); line-height:1.5;">급락 상황에서의 행동 심리 시뮬레이션</span>
-            </div>
-          </div>
-          <button id="diag2StartBtn" class="diag2-btn-primary" style="width:100%; font-size:15px; padding:14px 24px;">
+        <div class="diag2-step active" style="padding:20px 0 8px; gap:28px;">
+          <p style="font-size:14.5px; color:var(--text-sub); line-height:1.75; margin:0;">
+            행동경제학 기반 알고리즘으로 나만의 투자 유형을 정밀 진단합니다.
+          </p>
+          <button id="diag2StartBtn" class="diag2-btn-primary" style="width:100%; font-size:15px; padding:15px 24px; letter-spacing:-0.2px;">
             투자 성향 진단하기 →
           </button>
-          <div style="font-size:12px; color:var(--text-secondary); text-align:center; opacity:0.7;">약 2분 소요 · 개인정보 수집 없음</div>
+          <div style="font-size:12px; color:var(--text-sub); text-align:center; opacity:0.6;">
+            5가지 질문 &nbsp;·&nbsp; 약 2분 소요 &nbsp;·&nbsp; 개인정보 수집 없음
+          </div>
         </div>
       `;
 
@@ -5584,6 +5580,10 @@
       const warningEl = document.getElementById('diag2Warning');
       if (warningEl) warningEl.style.display = 'none';
 
+      // 헤더 subtitle 복원 (인트로에서 숨겼을 경우)
+      const subtitleEl = document.getElementById('diag2HeaderSubtitle');
+      if (subtitleEl) subtitleEl.style.display = '';
+
       const q = DIAG2_QUESTIONS[stepIdx];
       updateDiag2Header(stepIdx, DIAG2_QUESTIONS.length);
 
@@ -5606,7 +5606,10 @@
 
       stage.innerHTML = `
         <div class="diag2-step active">
-          <div class="diag2-q-tag">${q.tag}</div>
+          <div class="diag2-axis-nav">
+            <span class="diag2-axis-label">${q.tag}</span>
+            <span class="diag2-axis-micro">${q.micro}</span>
+          </div>
           <div class="diag2-q-text">${q.q}</div>
           <div class="diag2-q-hint">${q.hint}</div>
           <div class="diag2-options">${opts}</div>
