@@ -100,7 +100,8 @@
     .ticker-wrapper {
       display: flex;
       white-space: nowrap;
-      animation: tickerLoop 30s linear infinite;
+      animation: tickerLoop 28s linear infinite;
+      will-change: transform;
     }
 
     .ticker-item {
@@ -4784,37 +4785,32 @@
     }
 
     // Top Marquee continuous 시세 업데이트
+    // ※ innerHTML 재생성 금지 — CSS 애니메이션 리셋 방지를 위해 텍스트만 in-place 업데이트
     function updateTopTickerUI() {
-      const tickerWrapper = document.getElementById('tickerWrapper');
-      let htmlContent = '';
-      
+      const wrapper = document.getElementById('tickerWrapper');
+      if (!wrapper) return;
+
       const indices = [
-        { label: 'NASDAQ', price: 16211.5 * (state.assets.NVDA.price / 215.33), pct: state.assets.NVDA.pct * 0.4 },
-        { label: 'S&P 500', price: 5190.2 * (state.assets.AAPL.price / 308.33), pct: state.assets.AAPL.pct * 0.3 },
-        { label: 'USDKRW', price: state.forex.USD.price, pct: state.forex.USD.pct },
-        { label: 'BTC/USD', price: state.assets.BTC.price, pct: state.assets.BTC.pct },
-        { label: 'NVDA', price: state.assets.NVDA.price, pct: state.assets.NVDA.pct },
-        { label: 'TSLA', price: state.assets.TSLA.price, pct: state.assets.TSLA.pct }
+        { price: 16211.5 * (state.assets.NVDA.price / 215.33), pct: state.assets.NVDA.pct * 0.4 },
+        { price: 5190.2  * (state.assets.AAPL.price / 308.33), pct: state.assets.AAPL.pct * 0.3 },
+        { price: state.forex.USD.price,  pct: state.forex.USD.pct  },
+        { price: state.assets.BTC.price, pct: state.assets.BTC.pct },
+        { price: state.assets.NVDA.price, pct: state.assets.NVDA.pct },
+        { price: state.assets.TSLA.price, pct: state.assets.TSLA.pct },
       ];
 
-      for (let repeat = 0; repeat < 2; repeat++) {
-        indices.forEach(idx => {
-          const isUp = idx.pct >= 0;
-          const sign = isUp ? '+' : '';
-          const cls = isUp ? 'up' : 'down';
-          const formattedVal = idx.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-          const formattedPct = idx.pct.toFixed(2);
-          
-          htmlContent += `
-            <div class="ticker-item">
-              <span class="ticker-label">${idx.label}</span>
-              <span class="ticker-value">${formattedVal}</span>
-              <span class="ticker-change ${cls}">${sign}${formattedPct}%</span>
-            </div>
-          `;
-        });
-      }
-      tickerWrapper.innerHTML = htmlContent;
+      const items = wrapper.querySelectorAll('.ticker-item');
+      const n = indices.length;
+      items.forEach((item, i) => {
+        const idx = indices[i % n];
+        const valEl = item.querySelector('.ticker-value');
+        const chgEl = item.querySelector('.ticker-change');
+        if (valEl) valEl.textContent = idx.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        if (chgEl) {
+          chgEl.textContent = (idx.pct >= 0 ? '+' : '') + idx.pct.toFixed(2) + '%';
+          chgEl.className   = 'ticker-change ' + (idx.pct >= 0 ? 'up' : 'down');
+        }
+      });
     }
 
     // Update active Live chart panel data
