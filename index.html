@@ -3404,12 +3404,12 @@
         <div class="diag2-header">
           <div class="diag2-title-row">
             <span class="diag2-eyebrow">행동경제학 기반 정밀 검사</span>
-            <span class="diag2-step-badge" id="diag2StepBadge">1 / 5</span>
+            <span class="diag2-step-badge" id="diag2StepBadge">시작 전</span>
           </div>
           <h2 class="diag2-title">투자 성향 진단</h2>
           <p class="diag2-subtitle">자금 안정성 · 투자 역량 · 심리적 성향 — 3대 축을 정량 분석합니다</p>
           <div class="diag2-progress-track">
-            <div class="diag2-progress-fill" id="diag2ProgressFill" style="width:20%;"></div>
+            <div class="diag2-progress-fill" id="diag2ProgressFill" style="width:0%;"></div>
           </div>
         </div>
 
@@ -5486,11 +5486,14 @@
       const next  = document.getElementById('diag2BtnNext');
       if (!stage || !prev || !next) return;
 
-      // 초기 렌더링
-      renderDiag2Step(0);
+      // 초기 렌더링: 인트로 화면
+      renderDiag2Intro();
 
       prev.addEventListener('click', () => {
-        if (diag2State.currentStep > 0 && diag2State.currentStep < 5) {
+        if (diag2State.currentStep === 0) {
+          // Q1에서 이전 → 인트로로 복귀
+          renderDiag2Intro();
+        } else if (diag2State.currentStep > 0 && diag2State.currentStep < 5) {
           renderDiag2Step(diag2State.currentStep - 1);
         }
       });
@@ -5506,6 +5509,45 @@
       });
     }
 
+    function renderDiag2Intro() {
+      diag2State.currentStep = -1;
+      diag2State.answers = {};
+      diag2State.result = null;
+
+      const stage   = document.getElementById('diag2Stage');
+      const footer  = document.getElementById('diag2Footer');
+      const badge   = document.getElementById('diag2StepBadge');
+      const fill    = document.getElementById('diag2ProgressFill');
+      const warning = document.getElementById('diag2Warning');
+
+      if (badge)   badge.textContent  = '시작 전';
+      if (fill)    fill.style.width   = '0%';
+      if (warning) warning.style.display = 'none';
+      if (footer)  footer.style.display  = 'none';
+
+      stage.innerHTML = `
+        <div class="diag2-step active" style="align-items:center; text-align:center; padding: 12px 0 8px;">
+          <div style="font-size:44px; line-height:1; margin-bottom:12px;">📊</div>
+          <div style="font-size:17px; font-weight:700; color:var(--text-primary); margin-bottom:8px;">투자 성향 진단</div>
+          <div style="font-size:13.5px; color:var(--text-secondary); line-height:1.65; max-width:320px; margin:0 auto 24px;">
+            5가지 질문으로 <strong>자금 안정성 · 투자 역량 · 심리적 성향</strong>을 분석해<br>나에게 맞는 포트폴리오 배분을 추천해 드려요.
+          </div>
+          <button id="diag2StartBtn" class="diag2-btn-primary" style="width:100%; max-width:280px; font-size:15px; padding:14px 24px;">
+            투자 성향 진단하기 →
+          </button>
+          <div style="font-size:12px; color:var(--text-secondary); margin-top:14px; opacity:0.7;">약 2분 소요 · 개인정보 수집 없음</div>
+        </div>
+      `;
+
+      const startBtn = document.getElementById('diag2StartBtn');
+      if (startBtn) {
+        startBtn.addEventListener('click', () => {
+          if (footer) footer.style.display = 'flex';
+          renderDiag2Step(0);
+        });
+      }
+    }
+
     function isAnswered(qIdx) {
       const q   = DIAG2_QUESTIONS[qIdx];
       const ans = diag2State.answers[q.id];
@@ -5516,8 +5558,13 @@
     function updateDiag2Header(stepIdx, totalSteps) {
       const badge = document.getElementById('diag2StepBadge');
       const fill  = document.getElementById('diag2ProgressFill');
-      if (badge) badge.textContent = `${Math.min(stepIdx + 1, totalSteps)} / ${totalSteps}`;
-      if (fill)  fill.style.width  = `${((stepIdx + 1) / totalSteps) * 100}%`;
+      if (stepIdx < 0) {
+        if (badge) badge.textContent = '시작 전';
+        if (fill)  fill.style.width  = '0%';
+      } else {
+        if (badge) badge.textContent = `${Math.min(stepIdx + 1, totalSteps)} / ${totalSteps}`;
+        if (fill)  fill.style.width  = `${((stepIdx + 1) / totalSteps) * 100}%`;
+      }
     }
 
     function renderDiag2Step(stepIdx) {
@@ -5561,8 +5608,8 @@
         btn.addEventListener('click', () => handleDiag2Select(btn));
       });
 
-      // Nav 상태
-      prev.disabled = stepIdx === 0;
+      // Nav 상태 (Q1에서도 이전 버튼 활성화 — 클릭 시 인트로로 복귀)
+      prev.disabled = false;
       const isLast = stepIdx === DIAG2_QUESTIONS.length - 1;
       next.textContent = isLast ? '결과 분석하기 →' : '다음 →';
       next.disabled = !isAnswered(stepIdx);
@@ -5848,10 +5895,7 @@
       }
       if (restartBtn) {
         restartBtn.addEventListener('click', () => {
-          diag2State.answers = {};
-          diag2State.result = null;
-          if (footer) footer.style.display = 'flex';
-          renderDiag2Step(0);
+          renderDiag2Intro();
         });
       }
     }
