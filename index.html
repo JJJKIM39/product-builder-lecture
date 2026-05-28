@@ -87,8 +87,8 @@
 
     /* Ticker Bar (Top Neon Banner) */
     .ticker-bar {
-      background-color: #030712;
-      border-bottom: 1px solid var(--border-color);
+      background-color: #0F1923;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       height: 36px;
       display: flex;
       align-items: center;
@@ -110,24 +110,26 @@
       font-size: 11px;
       font-weight: 600;
       font-family: var(--font-outfit);
-      color: var(--text-sub);
+      color: rgba(255,255,255,0.55);
     }
 
     .ticker-label {
       margin-right: 6px;
-      color: var(--text-color);
+      color: rgba(255,255,255,0.9);
+      font-weight: 700;
     }
 
     .ticker-value {
       margin-right: 6px;
+      color: rgba(255,255,255,0.85);
     }
 
     .ticker-change {
       font-weight: 700;
     }
 
-    .ticker-change.up { color: var(--neon-green); }
-    .ticker-change.down { color: var(--neon-red); }
+    .ticker-change.up { color: #00E5A0; }
+    .ticker-change.down { color: #FF6B6B; }
 
     @keyframes tickerLoop {
       0% { transform: translate3d(0, 0, 0); }
