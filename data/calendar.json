@@ -1,21 +1,9 @@
 {
-  "updated_at": "2026-06-04T18:37:39+09:00",
-  "range_from": "2026-05-28",
-  "range_to": "2026-08-27",
-  "count": 26,
+  "updated_at": "2026-06-05T07:59:03+09:00",
+  "range_from": "2026-05-29",
+  "range_to": "2026-08-28",
+  "count": 25,
   "events": [
-    {
-      "id": "bok_2026-05-28",
-      "name": "한국은행 기준금리 결정",
-      "country": "KR",
-      "date": "2026-05-28",
-      "datetime": "2026-05-28 10:00",
-      "importance": 3,
-      "previous": 2.5,
-      "forecast": 2.25,
-      "actual": null,
-      "type": "economic"
-    },
     {
       "id": "cpi_2026-05-29",
       "name": "CPI 물가지수",
