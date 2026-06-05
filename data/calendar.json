@@ -1,21 +1,9 @@
 {
-  "updated_at": "2026-06-05T07:59:03+09:00",
-  "range_from": "2026-05-29",
-  "range_to": "2026-08-28",
-  "count": 25,
+  "updated_at": "2026-06-06T07:48:17+09:00",
+  "range_from": "2026-05-30",
+  "range_to": "2026-08-29",
+  "count": 24,
   "events": [
-    {
-      "id": "cpi_2026-05-29",
-      "name": "CPI 물가지수",
-      "country": "US",
-      "date": "2026-05-29",
-      "datetime": "2026-05-29 21:30",
-      "importance": 3,
-      "previous": 2.8,
-      "forecast": 2.7,
-      "actual": null,
-      "type": "economic"
-    },
     {
       "id": "ism_2026-06-01",
       "name": "ISM 제조업 PMI",
