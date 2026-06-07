@@ -14,8 +14,8 @@ from datetime import datetime, timedelta, timezone, date
 
 KST    = timezone(timedelta(hours=9))
 TODAY  = datetime.now(KST).date()
-PAST   = TODAY - timedelta(days=7)   # 7일 전 이벤트도 포함 (실적 발표 확인용)
-CUTOFF = TODAY + timedelta(weeks=12)
+PAST   = date(TODAY.year, 1, 1)       # 올해 1월 1일부터
+CUTOFF = date(TODAY.year, 12, 31)     # 올해 12월 31일까지
 OUTPUT = os.path.join(os.path.dirname(__file__), '..', 'data', 'calendar.json')
 
 # ── 회사명 사전 (ticker.info 호출 없이 사용) ─────────────────────────────────
@@ -83,7 +83,7 @@ def fetch_earnings():
 
         try:
             tk = yf.Ticker(sym)
-            df = tk.earnings_dates   # HTTP 호출 최소화 (info 호출 없음)
+            df = tk.get_earnings_dates(limit=16)  # 과거 4분기 + 미래 4분기 커버
 
             if df is None or df.empty:
                 delay(0.5, 1.5)
