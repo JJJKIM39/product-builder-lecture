@@ -28,7 +28,7 @@ jobs:
 
       - name: 🤖 테마 분석 실행
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python crawler/themes.py
 
       - name: 💾 themes.json 커밋 & 푸시

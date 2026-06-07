@@ -5,19 +5,20 @@ GitHub Actions에서 매일 장 마감 후 실행됩니다. (평일 16:30 KST)
 
 흐름:
   1. yfinance로 국내 주요 종목 + 코스피/코스닥 지수 수집
-  2. Claude API에 데이터 주입 → 테마 분석 JSON 생성
+  2. Gemini API에 데이터 주입 → 테마 분석 JSON 생성
   3. data/themes.json 으로 저장 → 홈 대시보드 themeRankList에 렌더링
 """
 
 import os, json
+import google.generativeai as genai
 from datetime import datetime
-from anthropic import Anthropic
 
 KST_OFFSET = 9  # UTC+9
 OUTPUT = os.path.join(os.path.dirname(__file__), '..', 'data', 'themes.json')
 
-# ── Claude 클라이언트 ────────────────────────────────────────────────
-client = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY", ""))
+# ── Gemini 클라이언트 ────────────────────────────────────────────────
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY", ""))
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 # ── 분석 대상 종목 (실제 운영 시 상위 50개 크롤링 데이터로 대체) ──────
 TARGET_STOCKS = {
