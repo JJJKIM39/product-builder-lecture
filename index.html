@@ -496,6 +496,114 @@
       text-shadow: 0 0 8px rgba(49, 130, 246, 0.2);
     }
 
+    /* ── 공포탐욕지수 카드 ── */
+    .fng-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 22px 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .fng-main {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .fng-score-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .fng-score {
+      font-family: var(--font-outfit);
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1;
+      transition: color 0.4s;
+    }
+    .fng-score-sub {
+      font-size: 16px;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+    .fng-label-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .fng-label-badge {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--grey-light);
+      width: fit-content;
+      transition: background 0.4s, color 0.4s;
+    }
+    .fng-desc {
+      font-size: 12px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+    /* 게이지 */
+    .fng-gauge-wrap { display: flex; flex-direction: column; gap: 6px; }
+    .fng-gauge-track {
+      height: 10px;
+      background: linear-gradient(90deg, #FF3B30 0%, #F59F00 40%, #F59F00 60%, #12B76A 100%);
+      border-radius: 6px;
+      position: relative;
+    }
+    .fng-gauge-fill { display: none; }
+    .fng-gauge-thumb {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 18px;
+      height: 18px;
+      background: var(--card-bg);
+      border: 3px solid var(--text-color);
+      border-radius: 50%;
+      transition: left 0.6s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .fng-gauge-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+    /* 비교 칩 */
+    .fng-history-row {
+      display: flex;
+      gap: 10px;
+    }
+    .fng-hist-chip {
+      flex: 1;
+      background: var(--grey-light);
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: center;
+    }
+    .fng-hist-label {
+      font-size: 11px;
+      color: var(--text-sub);
+      font-weight: 600;
+    }
+    .fng-hist-val {
+      font-size: 16px;
+      font-weight: 700;
+      font-family: var(--font-outfit);
+      color: var(--text-color);
+    }
+
     /* X-AI Signals System */
     .signal-timeline {
       display: flex;
@@ -3342,22 +3450,48 @@
           <div class="section-header">
             <div>
               <div class="section-title">시장 공포 &amp; 탐욕 지수</div>
-              <div class="section-sub">0 = 극단적 공포 · 100 = 극단적 탐욕 (Alternative.me 실시간)</div>
+              <div class="section-sub">0 = 극단적 공포 · 100 = 극단적 탐욕 · Alternative.me 실시간</div>
             </div>
             <span class="section-tag-pill" style="background:rgba(49,130,246,0.15);color:var(--toss-blue);">LIVE</span>
           </div>
-          <div class="sentiment-card" style="padding:16px 18px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-              <span style="font-size:13px;color:var(--text-sub);" id="fngLabel">로딩 중…</span>
-              <span style="font-size:20px;font-weight:700;color:var(--text-color);" id="fngValue">—</span>
+          <div class="fng-card">
+            <!-- 메인 수치 -->
+            <div class="fng-main">
+              <div class="fng-score-wrap">
+                <div class="fng-score" id="fngValue">—</div>
+                <div class="fng-score-sub">/ 100</div>
+              </div>
+              <div class="fng-label-wrap">
+                <div class="fng-label-badge" id="fngLabel">로딩 중</div>
+                <div class="fng-desc" id="fngDesc">시장 데이터를 불러오는 중입니다</div>
+              </div>
             </div>
-            <div class="gauge-wrapper">
-              <div class="gauge-fill" id="fngGauge" style="width:0%;"></div>
+            <!-- 게이지 -->
+            <div class="fng-gauge-wrap">
+              <div class="fng-gauge-track">
+                <div class="fng-gauge-fill" id="fngGauge" style="width:0%"></div>
+                <div class="fng-gauge-thumb" id="fngThumb" style="left:0%"></div>
+              </div>
+              <div class="fng-gauge-labels">
+                <span>극단적 공포</span>
+                <span>중립</span>
+                <span>극단적 탐욕</span>
+              </div>
             </div>
-            <div class="gauge-labels">
-              <span>극단적 공포</span>
-              <span>중립</span>
-              <span>극단적 탐욕</span>
+            <!-- 비교 칩 -->
+            <div class="fng-history-row">
+              <div class="fng-hist-chip">
+                <div class="fng-hist-label">어제</div>
+                <div class="fng-hist-val" id="fngYesterday">—</div>
+              </div>
+              <div class="fng-hist-chip">
+                <div class="fng-hist-label">지난주</div>
+                <div class="fng-hist-val" id="fngLastWeek">—</div>
+              </div>
+              <div class="fng-hist-chip">
+                <div class="fng-hist-label">지난달</div>
+                <div class="fng-hist-val" id="fngLastMonth">—</div>
+              </div>
             </div>
           </div>
         </section>
@@ -6628,29 +6762,64 @@
     // ── 공포탐욕지수 (Alternative.me) ─────────────────────────
     async function loadFearGreed() {
       try {
-        const res = await fetch('https://api.alternative.me/fng/?limit=1');
+        // limit=32: 오늘 + 어제(1) + 지난주(7) + 지난달(30) 커버
+        const res = await fetch('https://api.alternative.me/fng/?limit=32');
         if (!res.ok) throw new Error('FnG API 오류');
         const data = await res.json();
-        const val = parseInt(data.data[0].value);
-        const cls = data.data[0].value_classification;
+        const list = data.data; // 최신순 배열
+
         const KO = { 'Extreme Fear':'극단적 공포', 'Fear':'공포', 'Neutral':'중립', 'Greed':'탐욕', 'Extreme Greed':'극단적 탐욕' };
-        const label = KO[cls] || cls;
-        const color = val <= 25 ? 'var(--neon-red)' : val <= 45 ? '#F59F00' : val <= 55 ? 'var(--text-sub)' : val <= 75 ? 'var(--neon-green)' : 'var(--neon-green)';
+        const DESC = {
+          'Extreme Fear': '투자자들이 극도로 두려워하고 있어요. 과거엔 매수 기회가 되기도 했습니다.',
+          'Fear': '시장에 두려움이 퍼져 있어요. 변동성이 높을 수 있습니다.',
+          'Neutral': '시장이 균형을 찾고 있어요. 방향성을 확인하세요.',
+          'Greed': '탐욕이 시장을 주도하고 있어요. 과열 신호를 주의하세요.',
+          'Extreme Greed': '시장이 극단적으로 과열됐어요. 조정 가능성을 염두에 두세요.'
+        };
 
-        const valEl = document.getElementById('fngValue');
-        const lblEl = document.getElementById('fngLabel');
-        const gaugeEl = document.getElementById('fngGauge');
-        const statEl = document.getElementById('heroStat_fng');
-        const sentEl = document.getElementById('heroStat_sentiment');
+        function fngColor(v) {
+          return v <= 25 ? 'var(--neon-red)' : v <= 45 ? '#F59F00' : v <= 55 ? 'var(--text-sub)' : '#12B76A';
+        }
+        function fngBg(v) {
+          return v <= 25 ? 'rgba(255,59,48,0.12)' : v <= 45 ? 'rgba(245,159,0,0.12)' : v <= 55 ? 'var(--grey-light)' : 'rgba(18,183,106,0.12)';
+        }
 
-        if (valEl) { valEl.textContent = val; valEl.style.color = color; }
-        if (lblEl) { lblEl.textContent = label; lblEl.style.color = color; }
-        if (gaugeEl) { gaugeEl.style.width = val + '%'; gaugeEl.style.background = color; }
-        if (statEl) { statEl.textContent = val; statEl.style.color = color; }
-        if (sentEl) { sentEl.textContent = val; }
+        const cur  = parseInt(list[0].value);
+        const cls  = list[0].value_classification;
+        const yst  = list[1]  ? parseInt(list[1].value)  : null;
+        const week = list[7]  ? parseInt(list[7].value)  : null;
+        const mon  = list[30] ? parseInt(list[30].value) : null;
+
+        const color = fngColor(cur);
+
+        // 메인 수치
+        const valEl   = document.getElementById('fngValue');
+        const lblEl   = document.getElementById('fngLabel');
+        const descEl  = document.getElementById('fngDesc');
+        const thumbEl = document.getElementById('fngThumb');
+        const statEl  = document.getElementById('heroStat_fng');
+
+        if (valEl)  { valEl.textContent = cur; valEl.style.color = color; }
+        if (lblEl)  { lblEl.textContent = KO[cls] || cls; lblEl.style.background = fngBg(cur); lblEl.style.color = color; }
+        if (descEl) { descEl.textContent = DESC[cls] || ''; }
+        if (thumbEl){ thumbEl.style.left = cur + '%'; }
+        if (statEl) { statEl.textContent = cur; statEl.style.color = color; }
+
+        // 비교 칩
+        function setChip(id, v) {
+          const el = document.getElementById(id);
+          if (!el || v === null) return;
+          el.textContent = v;
+          el.style.color = fngColor(v);
+        }
+        setChip('fngYesterday', yst);
+        setChip('fngLastWeek', week);
+        setChip('fngLastMonth', mon);
 
       } catch(e) {
         console.warn('공포탐욕 로드 실패:', e);
+        const descEl = document.getElementById('fngDesc');
+        if (descEl) descEl.textContent = '데이터를 불러오지 못했습니다.';
       }
     }
 
