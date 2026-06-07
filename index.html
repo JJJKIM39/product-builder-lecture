@@ -3163,13 +3163,13 @@
   <!-- Sticky Glassmorphic Navigation -->
   <nav class="nav-bar">
     <div class="nav-container">
-      <a href="#terminal" class="nav-logo">
+      <a href="#home" class="nav-logo">
         <span>X</span>INVEST
       </a>
       <div style="display: flex; align-items: center; gap: 12px;">
         <div class="nav-links">
           <a href="#home" class="nav-link active" data-tab="home">홈</a>
-          <a href="#terminal" class="nav-link" data-tab="terminal">터미널</a>
+          <a href="#news" class="nav-link" data-tab="news">뉴스</a>
           <a href="#allocator" class="nav-link" data-tab="allocator">포트폴리오</a>
           <a href="#calendar" class="nav-link" data-tab="calendar">캘린더</a>
           <a href="#macro" class="nav-link" data-tab="macro">환율 · 거시</a>
@@ -3208,11 +3208,9 @@
       <span>홈</span>
     </a>
     <!-- Terminal -->
-    <a href="#terminal" class="tab-item" data-tab="terminal" id="tabBtn_terminal">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-      </svg>
-      <span>터미널</span>
+    <a href="#news" class="tab-item" data-tab="news" id="tabBtn_news">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+      <span>뉴스</span>
     </a>
     <!-- Portfolio -->
     <a href="#allocator" class="tab-item" data-tab="allocator" id="tabBtn_allocator">
@@ -3253,49 +3251,41 @@
       <!-- ─────── LEFT: Tickers + Quick Nav ─────── -->
       <aside class="dash-left">
 
-        <div class="dash-label">시장 현황</div>
-
-        <div class="dash-tickers">
-          <!-- Crypto -->
+        <div class="dash-label">글로벌 지수 <span style="font-size:10px;font-weight:400;color:var(--text-sub);">전일 기준</span></div>
+        <div class="dash-tickers" id="dashIndicesList">
           <div class="dash-ticker">
-            <div class="dash-ticker-l"><div class="dash-ticker-sym">BTC</div><div class="dash-ticker-sub">Bitcoin</div></div>
-            <div class="dash-ticker-r"><div class="dash-ticker-price" id="homePreview_BTC">$67,520</div><div class="dash-ticker-pct neu" id="dashPct_BTC">+0.00%</div></div>
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">KOSPI</div><div class="dash-ticker-sub">코스피</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="idx_KOSPI">—</div><div class="dash-ticker-pct neu" id="idxPct_KOSPI">—</div></div>
           </div>
           <div class="dash-ticker">
-            <div class="dash-ticker-l"><div class="dash-ticker-sym">ETH</div><div class="dash-ticker-sub">Ethereum</div></div>
-            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_ETH">$3,500</div><div class="dash-ticker-pct neu" id="dashPct_ETH">+0.00%</div></div>
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">KOSDAQ</div><div class="dash-ticker-sub">코스닥</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="idx_KOSDAQ">—</div><div class="dash-ticker-pct neu" id="idxPct_KOSDAQ">—</div></div>
           </div>
-
           <div class="dash-hr" style="margin:4px 0;"></div>
-
-          <!-- US Stocks -->
           <div class="dash-ticker">
-            <div class="dash-ticker-l"><div class="dash-ticker-sym">NVDA</div><div class="dash-ticker-sub">NVIDIA</div></div>
-            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_NVDA">$215.33</div><div class="dash-ticker-pct neu" id="dashPct_NVDA">+0.00%</div></div>
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">S&P500</div><div class="dash-ticker-sub">미국</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="idx_SP500">—</div><div class="dash-ticker-pct neu" id="idxPct_SP500">—</div></div>
           </div>
           <div class="dash-ticker">
-            <div class="dash-ticker-l"><div class="dash-ticker-sym">TSLA</div><div class="dash-ticker-sub">Tesla</div></div>
-            <div class="dash-ticker-r"><div class="dash-ticker-price" id="homePreview_TSLA">$433.59</div><div class="dash-ticker-pct neu" id="dashPct_TSLA">+0.00%</div></div>
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">NASDAQ</div><div class="dash-ticker-sub">미국</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="idx_NASDAQ">—</div><div class="dash-ticker-pct neu" id="idxPct_NASDAQ">—</div></div>
           </div>
           <div class="dash-ticker">
-            <div class="dash-ticker-l"><div class="dash-ticker-sym">AAPL</div><div class="dash-ticker-sub">Apple</div></div>
-            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_AAPL">$308.33</div><div class="dash-ticker-pct neu" id="dashPct_AAPL">+0.00%</div></div>
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">DOW</div><div class="dash-ticker-sub">다우존스</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="idx_DOW">—</div><div class="dash-ticker-pct neu" id="idxPct_DOW">—</div></div>
           </div>
-
           <div class="dash-hr" style="margin:4px 0;"></div>
-
-          <!-- Forex -->
           <div class="dash-ticker">
             <div class="dash-ticker-l"><div class="dash-ticker-sym">USD</div><div class="dash-ticker-sub">원/달러</div></div>
-            <div class="dash-ticker-r"><div class="dash-ticker-price" id="homePreview_USD">1,364원</div><div class="dash-ticker-pct neu" id="dashPct_USD">0.00%</div></div>
-          </div>
-          <div class="dash-ticker">
-            <div class="dash-ticker-l"><div class="dash-ticker-sym">EUR</div><div class="dash-ticker-sub">원/유로</div></div>
-            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_EUR">1,482원</div><div class="dash-ticker-pct neu" id="dashPct_EUR">0.00%</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="homePreview_USD">—원</div><div class="dash-ticker-pct neu" id="dashPct_USD">—</div></div>
           </div>
           <div class="dash-ticker">
             <div class="dash-ticker-l"><div class="dash-ticker-sym">JPY</div><div class="dash-ticker-sub">원/엔(100)</div></div>
-            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_JPY">868원</div><div class="dash-ticker-pct neu" id="dashPct_JPY">0.00%</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_JPY">—원</div><div class="dash-ticker-pct neu" id="dashPct_JPY">—</div></div>
+          </div>
+          <div class="dash-ticker">
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">EUR</div><div class="dash-ticker-sub">원/유로</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_EUR">—원</div><div class="dash-ticker-pct neu" id="dashPct_EUR">—</div></div>
           </div>
         </div>
 
@@ -3303,10 +3293,10 @@
 
         <div class="dash-label">바로가기</div>
         <nav class="dash-navs">
-          <a href="#terminal" class="dash-nav" data-tab="terminal">
+          <a href="#news" class="dash-nav" data-tab="news">
             <div class="dash-nav-icon" style="background:rgba(49,130,246,0.15);">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--toss-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>실시간 시장
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--toss-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg>
+            </div>금융 뉴스
           </a>
           <a href="#allocator" class="dash-nav" data-tab="allocator">
             <div class="dash-nav-icon" style="background:rgba(0,245,160,0.12);">
@@ -3338,12 +3328,8 @@
         <!-- Stats bar -->
         <div class="dash-stats">
           <div class="dash-stat-box">
-            <div class="dash-stat-val" id="heroStat_assets">5</div>
-            <div class="dash-stat-lbl">실시간 자산</div>
-          </div>
-          <div class="dash-stat-box">
-            <div class="dash-stat-val" id="heroStat_sentiment">64</div>
-            <div class="dash-stat-lbl">시장 분위기</div>
+            <div class="dash-stat-val" id="heroStat_fng">—</div>
+            <div class="dash-stat-lbl">공포탐욕지수</div>
           </div>
           <div class="dash-stat-box">
             <div class="dash-stat-val" id="homePreview_calCount">—</div>
@@ -3351,45 +3337,27 @@
           </div>
         </div>
 
-        <!-- 오늘 시장의 관심사 -->
+        <!-- 공포탐욕지수 -->
         <section>
           <div class="section-header">
             <div>
-              <div class="section-title">오늘 시장의 관심사</div>
-              <div class="section-sub">전일 대비 거래량이 폭증한 종목입니다</div>
+              <div class="section-title">시장 공포 &amp; 탐욕 지수</div>
+              <div class="section-sub">0 = 극단적 공포 · 100 = 극단적 탐욕 (Alternative.me 실시간)</div>
             </div>
-            <span class="section-tag-pill hot">HOT</span>
+            <span class="section-tag-pill" style="background:rgba(49,130,246,0.15);color:var(--toss-blue);">LIVE</span>
           </div>
-          <div class="surge-scroller" id="volumeSurgeScroller"></div>
-        </section>
-
-        <!-- 기술적 분석 요약 -->
-        <section>
-          <div class="section-header">
-            <div>
-              <div class="section-title">기술적 분석 요약</div>
-              <div class="section-sub">이동평균선 + 오실레이터 종합 신호 · 탭으로 봉 단위 전환</div>
+          <div class="sentiment-card" style="padding:16px 18px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <span style="font-size:13px;color:var(--text-sub);" id="fngLabel">로딩 중…</span>
+              <span style="font-size:20px;font-weight:700;color:var(--text-color);" id="fngValue">—</span>
             </div>
-            <span class="section-tag-pill" style="background:rgba(49,130,246,0.15);color:var(--toss-blue);">SIGNAL</span>
-          </div>
-          <div class="tech-summary-card">
-            <div class="tech-tab-bar">
-              <button class="tech-tab-btn active" data-tf="5m"  onclick="switchTechTab('5m')">5분봉</button>
-              <button class="tech-tab-btn"        data-tf="1h"  onclick="switchTechTab('1h')">1시간봉</button>
-              <button class="tech-tab-btn"        data-tf="1d"  onclick="switchTechTab('1d')">일봉</button>
+            <div class="gauge-wrapper">
+              <div class="gauge-fill" id="fngGauge" style="width:0%;"></div>
             </div>
-            <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
-              <table class="tech-table" style="min-width:380px;">
-                <thead>
-                  <tr>
-                    <th>자산</th>
-                    <th class="hide-mobile">이동평균 (MA)</th>
-                    <th class="hide-mobile">오실레이터</th>
-                    <th>종합 신호</th>
-                  </tr>
-                </thead>
-                <tbody id="techSummaryBody"></tbody>
-              </table>
+            <div class="gauge-labels">
+              <span>극단적 공포</span>
+              <span>중립</span>
+              <span>극단적 탐욕</span>
             </div>
           </div>
         </section>
@@ -3465,96 +3433,19 @@
     </div>
     <!-- /view-home -->
 
-    <div class="page-view" id="view-terminal">
-    <!-- Welcome Header -->
-    <header style="padding: 8px 8px; margin-bottom: -4px;">
-      <div>
-        <h1>투자 터미널</h1>
-        <p>글로벌 마켓 실시간 시세 연동 대시보드</p>
-      </div>
-    </header>
-
-    <!-- 1. Real-Time Terminal Card -->
-    <div class="card" id="terminalCard">
-      <div class="card-title">
-        <span>실시간 시세 & 오더북</span>
-      </div>
-      <div class="card-subtitle">선택된 주요 글로벌 자산의 라이브 틱 차트와 호가 분포도입니다.</div>
-      
-      <!-- Selection of charts -->
-      <div class="asset-selector" id="terminalAssetSelector">
-        <button class="asset-tab active" data-asset="TSLA">TSLA</button>
-        <button class="asset-tab" data-asset="NVDA">NVDA</button>
-        <button class="asset-tab" data-asset="AAPL">AAPL</button>
-        <button class="asset-tab" data-asset="BTC">BTC</button>
-        <button class="asset-tab" data-asset="ETH">ETH</button>
-      </div>
-
-      <!-- Pro Mode Toggle Row -->
-      <div class="pro-mode-toggle-row">
-        <div class="pro-mode-label">📖 오더북은 <span>Pro Mode</span>에서 확인할 수 있어요</div>
-        <button class="pro-toggle-btn" id="proModeToggleBtn" onclick="toggleProMode()">오더북 보기</button>
-      </div>
-
-      <div class="terminal-grid" id="terminalGrid">
-        <!-- HTML5 Live Canvas Chart -->
-        <div class="chart-panel">
-          <div class="chart-header">
-            <div class="chart-asset-name" id="liveChartTitle">TSLA / USD</div>
-            <div class="chart-price-info">
-              <div class="chart-price" id="liveChartPrice">$433.59</div>
-              <div class="chart-pct up" id="liveChartPct">+1.45%</div>
-            </div>
-          </div>
-          
-          <canvas class="live-canvas" id="liveChartCanvas"></canvas>
-          
-          <div class="chart-footer">
-            <span>LIVE TICK DATA</span>
-            <span id="chartUpdateTime">REAL-TIME</span>
-          </div>
+    <div class="page-view" id="view-news">
+      <header style="padding:8px 8px;margin-bottom:-4px;">
+        <div>
+          <h1>금융 뉴스</h1>
+          <p>네이버 금융 · 실시간 주요 경제 뉴스</p>
         </div>
-
-        <!-- Real-Time Order Book (Pro Mode — hidden by default) -->
-        <div class="order-book-panel hidden" id="orderBookPanel">
-          <div class="book-title">Order Book (Depth)</div>
-          
-          <!-- Asks -->
-          <div class="book-row" id="askRow4"><div class="book-depth-bar ask" style="width: 40%;"></div><span class="book-price ask" id="askPrice4">434.40</span><span class="book-size" id="askSize4">1,402</span></div>
-          <div class="book-row" id="askRow3"><div class="book-depth-bar ask" style="width: 75%;"></div><span class="book-price ask" id="askPrice3">434.20</span><span class="book-size" id="askSize3">2,851</span></div>
-          <div class="book-row" id="askRow2"><div class="book-depth-bar ask" style="width: 25%;"></div><span class="book-price ask" id="askPrice2">434.00</span><span class="book-size" id="askSize2">812</span></div>
-          <div class="book-row" id="askRow1"><div class="book-depth-bar ask" style="width: 90%;"></div><span class="book-price ask" id="askPrice1">433.80</span><span class="book-size" id="askSize1">3,490</span></div>
-          
-          <!-- Spread -->
-          <div class="book-spread" id="bookSpread">SPREAD: 0.21 (0.05%)</div>
-          
-          <!-- Bids -->
-          <div class="book-row" id="bidRow1"><div class="book-depth-bar bid" style="width: 85%;"></div><span class="book-price bid" id="bidPrice1">433.59</span><span class="book-size" id="bidSize1">2,990</span></div>
-          <div class="book-row" id="bidRow2"><div class="book-depth-bar bid" style="width: 30%;"></div><span class="book-price bid" id="bidPrice2">433.30</span><span class="book-size" id="bidSize2">1,120</span></div>
-          <div class="book-row" id="bidRow3"><div class="book-depth-bar bid" style="width: 60%;"></div><span class="book-price bid" id="bidPrice3">433.00</span><span class="book-size" id="bidSize3">2,201</span></div>
-          <div class="book-row" id="bidRow4"><div class="book-depth-bar bid" style="width: 15%;"></div><span class="book-price bid" id="bidPrice4">432.80</span><span class="book-size" id="bidSize4">501</span></div>
-        </div>
+      </header>
+      <div class="card">
+        <div class="card-title"><span>실시간 금융 뉴스</span><span style="font-size:11px;font-weight:600;color:var(--text-sub);background:var(--grey-light);padding:4px 8px;border-radius:6px;" id="newsUpdateTime">로딩 중…</span></div>
+        <div class="card-subtitle">네이버 금융 주요 뉴스입니다.</div>
+        <div id="newsFeed" style="display:flex;flex-direction:column;gap:0;"></div>
       </div>
-    </div>
-
-    <!-- 2. Market Sentiment Card -->
-    <div class="card sentiment-card">
-      <div class="card-title">
-        <span>시장 공포 & 탐욕 지수</span>
-        <span class="sentiment-value" id="sentimentLabel">탐욕 (64)</span>
-      </div>
-      <div class="card-subtitle">AI가 산출한 시장의 투심 분위기입니다. 수치가 클수록 매수세가 강력합니다.</div>
-      
-      <div class="gauge-wrapper">
-        <div class="gauge-fill" id="sentimentGauge" style="width: 64%;"></div>
-      </div>
-      <div class="gauge-labels">
-        <span>극단적 공포 (0)</span>
-        <span>중립</span>
-        <span>극단적 탐욕 (100)</span>
-      </div>
-    </div>
-    </div> <!-- /view-terminal -->
+    </div> <!-- /view-news -->
 
     <!-- 3. AI Signals Feed Card -->
     <!-- 3. Economic & Earnings Calendar -->
@@ -3848,7 +3739,7 @@
         <div class="card-title">
           <span>실시간 글로벌 외환 시황 (USD · JPY · EUR)</span>
         </div>
-        <div class="card-subtitle">외환 시장의 주요 통화쌍별 현재 원화(KRW) 기준 실제 실시간 환율 정보입니다.</div>
+        <div class="card-subtitle">실시간 환율 (ExchangeRate API)</div>
         
         <!-- Live Forex single column list -->
         <div class="forex-list">
@@ -4088,43 +3979,10 @@
     // Live Asset Simulator State Management
     const state = {
       theme: 'dark',
-      activeTerminalAsset: 'TSLA',
-      allocation: {
-        equity: 40,
-        crypto: 20,
-        gold: 15,
-        bond: 25
-      },
-      assets: {
-        TSLA: { name: 'TSLA / USD', price: 433.59, startPrice: 433.59, pct: 0, history: [], candles: [] },
-        NVDA: { name: 'NVDA / USD', price: 215.33, startPrice: 215.33, pct: 0, history: [], candles: [] },
-        AAPL: { name: 'AAPL / USD', price: 308.33, startPrice: 308.33, pct: 0, history: [], candles: [] },
-        BTC:  { name: 'BTC / USD',  price: 67520.00, startPrice: 67520.00, pct: 0, history: [], candles: [] },
-        ETH:  { name: 'ETH / USD',  price: 3500.00, startPrice: 3500.00, pct: 0, history: [], candles: [] }
-      },
-      forex: {
-        USD: { name: '원/달러', price: 1364.50, startPrice: 1364.50, prevPrice: 1364.50, pct: 0, change: 0, flag: '🇺🇸', code: 'USD / KRW' },
-        JPY: { name: '원/엔 (100엔)', price: 868.20, startPrice: 868.20, prevPrice: 868.20, pct: 0, change: 0, flag: '🇯🇵', code: '100 JPY / KRW' },
-        EUR: { name: '원/유로', price: 1482.40, startPrice: 1482.40, prevPrice: 1482.40, pct: 0, change: 0, flag: '🇪🇺', code: 'EUR / KRW' }
-      },
-      sentiment: 64,
-      forexInitialized: false,
-      cryptoInitialized: false,
+      allocation: { equity: 40, crypto: 20, gold: 15, bond: 25 },
       selectedThemeId: 'us-monthly-div'
     };
 
-    // ─────────────────────────────────────────────────────────
-    // Volume Surge data (demo — 실제 운영시 Polygon.io + KIS API 연동)
-    // Polygon: /v2/snapshot/locale/us/markets/stocks/tickers (volume vs prevDay)
-    // KIS:     /uapi/domestic-stock/v1/quotations/volume-rank
-    // ─────────────────────────────────────────────────────────
-    const VOLUME_SURGES = [
-      { ticker: 'NVDA',     name: '엔비디아',         region: 'US', price: 920.50,  changePct: 3.84,  volumeRatio: 4.2, reasonTag: '실적 발표 임박' },
-      { ticker: 'PLTR',     name: '팔란티어',         region: 'US', price: 42.18,   changePct: 8.21,  volumeRatio: 6.8, reasonTag: '신규 계약 체결' },
-      { ticker: 'SMCI',     name: '슈퍼마이크로',     region: 'US', price: 615.30,  changePct: -2.45, volumeRatio: 3.5, reasonTag: 'AI 서버 수요 급증' },
-      { ticker: '005930',   name: '삼성전자',         region: 'KR', price: 78500,   changePct: 2.13,  volumeRatio: 3.1, reasonTag: 'HBM3E 양산 시작' },
-      { ticker: '000660',   name: 'SK하이닉스',       region: 'KR', price: 215000,  changePct: 4.67,  volumeRatio: 5.4, reasonTag: '엔비디아 공급 확대' }
-    ];
 
     // ─────────────────────────────────────────────────────────
     // ETF Themes data (demo — 실제 운영시 FMP API 연동)
@@ -4187,33 +4045,6 @@
       }
     ];
 
-    // ─────────────────────────────────────────────────────────
-    // Technical Analysis Summary mock data
-    // (실제 운영: TradingView Widget API 또는 Taapi.io RSI/MA endpoint)
-    // ─────────────────────────────────────────────────────────
-    const TECH_SUMMARY_DATA = {
-      '5m': [
-        { ticker: 'BTC',   name: 'Bitcoin',    ma: { buy:7,  sell:4, neutral:1 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    },
-        { ticker: 'ETH',   name: 'Ethereum',   ma: { buy:9,  sell:2, neutral:1 }, osc: { buy:5, sell:2, neutral:4 }, summary: 'BUY'         },
-        { ticker: 'AAPL',  name: 'Apple',      ma: { buy:5,  sell:5, neutral:2 }, osc: { buy:2, sell:4, neutral:5 }, summary: 'NEUTRAL'    },
-        { ticker: 'TSLA',  name: 'Tesla',      ma: { buy:10, sell:1, neutral:1 }, osc: { buy:7, sell:1, neutral:3 }, summary: 'STRONG_BUY' },
-        { ticker: 'KOSPI', name: '코스피 200', ma: { buy:4,  sell:6, neutral:2 }, osc: { buy:2, sell:5, neutral:4 }, summary: 'SELL'       }
-      ],
-      '1h': [
-        { ticker: 'BTC',   name: 'Bitcoin',    ma: { buy:8,  sell:3, neutral:1 }, osc: { buy:6, sell:1, neutral:4 }, summary: 'BUY'         },
-        { ticker: 'ETH',   name: 'Ethereum',   ma: { buy:10, sell:1, neutral:1 }, osc: { buy:7, sell:1, neutral:3 }, summary: 'STRONG_BUY' },
-        { ticker: 'AAPL',  name: 'Apple',      ma: { buy:7,  sell:3, neutral:2 }, osc: { buy:4, sell:2, neutral:5 }, summary: 'BUY'         },
-        { ticker: 'TSLA',  name: 'Tesla',      ma: { buy:11, sell:0, neutral:1 }, osc: { buy:8, sell:0, neutral:3 }, summary: 'STRONG_BUY' },
-        { ticker: 'KOSPI', name: '코스피 200', ma: { buy:5,  sell:5, neutral:2 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    }
-      ],
-      '1d': [
-        { ticker: 'BTC',   name: 'Bitcoin',    ma: { buy:9,  sell:2, neutral:1 }, osc: { buy:5, sell:2, neutral:4 }, summary: 'BUY'         },
-        { ticker: 'ETH',   name: 'Ethereum',   ma: { buy:8,  sell:3, neutral:1 }, osc: { buy:4, sell:2, neutral:5 }, summary: 'BUY'         },
-        { ticker: 'AAPL',  name: 'Apple',      ma: { buy:6,  sell:4, neutral:2 }, osc: { buy:3, sell:3, neutral:5 }, summary: 'NEUTRAL'    },
-        { ticker: 'TSLA',  name: 'Tesla',      ma: { buy:10, sell:2, neutral:0 }, osc: { buy:6, sell:1, neutral:4 }, summary: 'BUY'         },
-        { ticker: 'KOSPI', name: '코스피 200', ma: { buy:3,  sell:7, neutral:2 }, osc: { buy:1, sell:6, neutral:4 }, summary: 'SELL'       }
-      ]
-    };
 
     // ─────────────────────────────────────────────────────────
     // Economic Calendar mock data
@@ -4246,25 +4077,11 @@
       { id:'us_michigan', date:'2026-05-30', time:'23:00', flag:'🇺🇸', name:'미시간대 소비심리 (확정)',     importance:2, prev:'67.4', forecast:'68.0', actual:null, actualDir:null }
     ];
 
-    // ─────────────────────────────────────────────────────────
-    // Theme Volume Rankings mock data
-    // (실제 운영: Polygon.io /grouped/locale/us/market/stocks + 섹터 분류 매핑)
-    // ─────────────────────────────────────────────────────────
-    const THEME_RANKINGS_DATA = [
-      { rank: 1, theme: 'AI 반도체',    avgChangePct: +4.28, tradingVol: '8.4조',  leaders: [{ ticker: 'NVDA', pct: +6.12 }, { ticker: 'AMD',  pct: +3.44 }] },
-      { rank: 2, theme: '레이어1 코인', avgChangePct: +6.85, tradingVol: '12.1조', leaders: [{ ticker: 'ETH',  pct: +8.20 }, { ticker: 'SOL',  pct: +5.50 }] },
-      { rank: 3, theme: '미국 월배당 ETF', avgChangePct: +0.42, tradingVol: '2.1조', leaders: [{ ticker: 'JEPI', pct: +0.65 }, { ticker: 'SCHD', pct: +0.18 }] },
-      { rank: 4, theme: '전기차',       avgChangePct: -1.24, tradingVol: '3.7조',  leaders: [{ ticker: 'TSLA', pct: -2.35 }, { ticker: 'RIVN', pct: -0.12 }] },
-      { rank: 5, theme: '글로벌 방산',  avgChangePct: +2.11, tradingVol: '1.8조',  leaders: [{ ticker: 'LMT',  pct: +3.22 }, { ticker: 'RTX',  pct: +1.00 }]
-      }
-    ];
 
     // Global Element Declarations (Late-bound on DOMContentLoaded to guarantee zero runtime NullPointer crashes)
     let themeToggle, sunIcon, moonIcon, toast;
-    let liveCanvas, ctx, liveChartTitle, liveChartPrice, liveChartPct;
     let reportCagr, reportMdd, reportSharpe, reportVol;
     let advisoryTitle, advisoryDesc, pieCanvas;
-    let chartResizeTimeout;
     let backtestAnimFrame = null;
     let btLineData = [];
     let btLineYears = 10;          // 현재 라인차트에 표시 중인 기간
@@ -4280,12 +4097,6 @@
       moonIcon = themeToggle.querySelector('.moon-icon');
       toast = document.getElementById('toast');
 
-      liveCanvas = document.getElementById('liveChartCanvas');
-      ctx = liveCanvas.getContext('2d');
-      liveChartTitle = document.getElementById('liveChartTitle');
-      liveChartPrice = document.getElementById('liveChartPrice');
-      liveChartPct = document.getElementById('liveChartPct');
-
       reportCagr = document.getElementById('report_cagr');
       reportMdd = document.getElementById('report_mdd');
       reportSharpe = document.getElementById('report_sharpe');
@@ -4295,40 +4106,7 @@
       advisoryDesc = document.getElementById('advisoryDesc');
       pieCanvas = document.getElementById('pieChartCanvas');
 
-      // 1. Prepopulate mock price history arrays (30 ticks) and candles (30 candles) backwards
-      Object.keys(state.assets).forEach(key => {
-        const currentPrice = state.assets[key].price;
-        state.assets[key].history.push(currentPrice);
-        
-        let p = currentPrice;
-        for (let i = 0; i < 29; i++) {
-          p = p * (1 - (Math.random() - 0.5) * 0.003);
-          state.assets[key].history.unshift(p);
-        }
-
-        // Generate 30 mock candles backwards starting from currentPrice
-        let basePrice = currentPrice;
-        const volatility = key === 'BTC' || key === 'ETH' ? 0.0015 : 0.003;
-        for (let i = 0; i < 30; i++) {
-          const open = basePrice * (1 + (Math.random() - 0.5) * volatility);
-          const close = basePrice;
-          const high = Math.max(open, close) * (1 + Math.random() * volatility * 0.5);
-          const low = Math.min(open, close) * (1 - Math.random() * volatility * 0.5);
-          const volume = Math.floor(1000 + Math.random() * 8000);
-          
-          state.assets[key].candles.unshift({ open, high, low, close, volume });
-          basePrice = open; // Go backward
-        }
-      });
-
-      // 2. Canvas setup
-      window.addEventListener('resize', () => {
-        clearTimeout(chartResizeTimeout);
-        chartResizeTimeout = setTimeout(resizeCanvas, 100);
-      });
-      resizeCanvas();
-
-      // 3. Setup Theme (Now safe as candles & resize are initialized)
+      // 1. Setup Theme
       setupTheme();
 
       // Connect upper navigation links directly to prevent hashchange event delay on some environments
@@ -4367,18 +4145,6 @@
         });
       });
 
-      // Connect tab selector buttons for live chart terminal
-      document.querySelectorAll('#terminalAssetSelector .asset-tab').forEach(tab => {
-        tab.addEventListener('click', (e) => {
-          document.querySelectorAll('#terminalAssetSelector .asset-tab').forEach(b => b.classList.remove('active'));
-          e.currentTarget.classList.add('active');
-          state.activeTerminalAsset = e.currentTarget.dataset.asset;
-          updateChartDetails();
-          renderChart();
-          updateOrderBook();
-        });
-      });
-
       // Bind Allocation Inputs (amount ↔ pct two-way sync)
       initAllocInputs();
 
@@ -4404,38 +4170,17 @@
         });
       }
 
-      // Fetch Real-time External Financial Market Data immediately on start
-      fetchRealtimeRatesAndCryptos();
-
-      // Start core live updates interval loop (every 1.5 seconds)
-      setInterval(tickLiveMarkets, 1500);
-
-      // Start AI signals simulated feed interval loop (every 9 seconds)
-      setInterval(tickAiSignals, 9000);
-
-      // Start actual external API synchronization loop (every 45 seconds)
-      setInterval(fetchRealtimeRatesAndCryptos, 45000);
-
       // Bind modal and navigation controls
       bindLayoutElements();
 
       // Initialize SPA Hash-Router
       initRouter();
 
-      // First layout draw
-      updateChartDetails();
-      updateOrderBook();
-      updateForexUI();
-      tickAiSignals();
-      updateHomePreviews();
-
       // Home page curation sections
-      renderVolumeSurges();
       renderThemeChips();
       renderEtfList();
 
       // Dashboard widgets
-      renderTechSummary();
       renderCalStrip();
       renderEcoCalendar();
       renderThemeRankings();
@@ -4445,58 +4190,19 @@
       initCommunity();
       initCalendar();
 
-      // Pro mode: chart takes full width by default (order book hidden)
-      const initGrid = document.getElementById('terminalGrid');
-      if (initGrid) initGrid.style.gridTemplateColumns = '1fr';
-
       // Initialize Allocation Backtester UI
       syncAllocUI();
       validateAlloc();
       drawPieChart();
       updateBacktestResults(false);
+
+      // Load real API data
+      loadForexRates();
+      loadFearGreed();
+      loadIndicesData();
+      loadNews();
     }
 
-    // Fetch REAL-TIME Rates and Cryptos from public APIs (No Keys, CORS free)
-    async function fetchRealtimeRatesAndCryptos() {
-      // 1. Fetch Real-time Exchange Rates
-      try {
-        const response = await fetch('https://open.er-api.com/v6/latest/USD');
-        if (response.ok) {
-          const data = await response.json();
-          const krw = data.rates.KRW;
-          const jpy = data.rates.JPY;
-          const eur = data.rates.EUR;
-          
-          if (krw && jpy && eur) {
-            const isFirst = !state.forexInitialized;
-            
-            // 원달러
-            state.forex.USD.price = krw;
-            // 100엔당 원화 (krw/jpy * 100)
-            state.forex.JPY.price = (krw / jpy) * 100;
-            // 원유로 (krw/eur)
-            state.forex.EUR.price = krw / eur;
-            
-            if (isFirst) {
-              // 최초 진입 시 하루의 사실적인 등락을 위해 startPrice를 살짝 오프셋(예: -0.15% ~ +0.15%)을 주어 그럴싸한 변동률을 연출
-              state.forex.USD.startPrice = state.forex.USD.price * (1 - (Math.random() - 0.5) * 0.003);
-              state.forex.JPY.startPrice = state.forex.JPY.price * (1 - (Math.random() - 0.5) * 0.003);
-              state.forex.EUR.startPrice = state.forex.EUR.price * (1 - (Math.random() - 0.5) * 0.003);
-              state.forexInitialized = true;
-            }
-            
-            updateForexUI();
-            console.log('실시간 외환 API 동기화 성공');
-          }
-        }
-      } catch (err) {
-        console.warn('외환 API 동기화 실패 (로컬 하이브리드 보정기 작동):', err);
-      }
-
-      // 2. Fetch Real-time Stocks (Fallback Hybrid simulator logic)
-      // Yahoo finance 429 및 Twelve Data key 제한 우회를 위하여
-      // 최신 실시간 시장 시가와 근접하게 하이브리드로 정기 보정하여 사용합니다.
-    }
 
     // ─── Binance WebSocket — Real-time BTC/ETH streaming ───────────────────────
     // SPA Router Engine to support dedicated page switching
@@ -4507,7 +4213,7 @@
 
     function handleRouting() {
       let hash = window.location.hash.replace('#', '');
-      const validTabs = ['home', 'terminal', 'allocator', 'calendar', 'macro', 'community'];
+      const validTabs = ['home', 'news', 'allocator', 'calendar', 'macro', 'community'];
 
       if (!hash || !validTabs.includes(hash)) {
         window.location.hash = '#home';
@@ -4549,10 +4255,6 @@
       // 3. Reset scroll position to top for immersive multi-page experience
       window.scrollTo(0, 0);
       
-      // 4. Force high DPI canvas recalculation to prevent stretching when terminal view is display: block
-      if (tabId === 'terminal') {
-        setTimeout(resizeCanvas, 50);
-      }
     }
 
     // Bind layout theme and modal overlay controls
@@ -4598,207 +4300,9 @@
         sunIcon.style.display = 'none';
         moonIcon.style.display = 'block';
       }
-      renderChart();
       drawPieChart();
     }
 
-    // Adjust high DPI canvas resolution
-    function resizeCanvas() {
-      if (!liveCanvas || !liveCanvas.parentNode) return;
-      const parent = liveCanvas.parentNode;
-      const rect = parent.getBoundingClientRect();
-      const width = rect && rect.width ? rect.width - 28 : 300; // Safe default width if layout is pending
-      
-      liveCanvas.width = Math.max(10, width) * window.devicePixelRatio;
-      liveCanvas.height = 120 * window.devicePixelRatio;
-      liveCanvas.style.width = Math.max(10, width) + 'px';
-      liveCanvas.style.height = '120px';
-      
-      if (ctx) {
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-      }
-      renderChart();
-    }
-
-    // Tick Markets Simulator Algorithm (1.5 seconds intervals)
-    function tickLiveMarkets() {
-      // 1. Tick prices and update candles for all assets (Gaussian random walk fluctuation)
-      Object.keys(state.assets).forEach(key => {
-        const asset = state.assets[key];
-        const volatility = key === 'BTC' || key === 'ETH' ? 0.0015 : 0.003;
-        const delta = (Math.random() - 0.5) * 2 * volatility;
-        
-        const oldPrice = asset.price;
-        asset.price = Math.max(0.01, asset.price * (1 + delta));
-        asset.history.push(asset.price);
-        if (asset.history.length > 40) {
-          asset.history.shift();
-        }
-
-        // Live update candles (1.5s as 1-candle session for visual dynamic beauty)
-        const open = oldPrice;
-        const close = asset.price;
-        const high = Math.max(open, close) * (1 + Math.random() * volatility * 0.4);
-        const low = Math.min(open, close) * (1 - Math.random() * volatility * 0.4);
-        const volume = Math.floor(1000 + Math.random() * 8000);
-
-        asset.candles.push({ open, high, low, close, volume });
-        if (asset.candles.length > 30) {
-          asset.candles.shift();
-        }
-        
-        // Dynamic simulated session tracking
-        asset.pct = ((asset.price - asset.startPrice) / asset.startPrice) * 100;
-      });
-
-      // 2. Tick prices for Forex Exchange Rates
-      Object.keys(state.forex).forEach(key => {
-        const curr = state.forex[key];
-        curr.prevPrice = curr.price;
-        const delta = (Math.random() - 0.5) * 2 * 0.0004;
-        curr.price = Math.max(0.01, curr.price * (1 + delta));
-        curr.change = curr.price - curr.prevPrice; // Real-time absolute change in won
-        curr.pct = ((curr.price - curr.startPrice) / curr.startPrice) * 100;
-      });
-
-      // 3. Randomly tick market sentiment indices
-      state.sentiment = Math.max(5, Math.min(95, state.sentiment + Math.floor((Math.random() - 0.49) * 3)));
-      const sentimentGauge = document.getElementById('sentimentGauge');
-      const sentimentLabel = document.getElementById('sentimentLabel');
-      
-      sentimentGauge.style.width = state.sentiment + '%';
-      if (state.sentiment >= 75) {
-        sentimentLabel.textContent = `극단적 탐욕 (${state.sentiment})`;
-        sentimentLabel.style.color = 'var(--neon-green)';
-      } else if (state.sentiment >= 55) {
-        sentimentLabel.textContent = `탐욕 (${state.sentiment})`;
-        sentimentLabel.style.color = 'var(--toss-blue)';
-      } else if (state.sentiment >= 45) {
-        sentimentLabel.textContent = `중립 (${state.sentiment})`;
-        sentimentLabel.style.color = 'var(--text-sub)';
-      } else if (state.sentiment >= 25) {
-        sentimentLabel.textContent = `공포 (${state.sentiment})`;
-        sentimentLabel.style.color = '#F59F00';
-      } else {
-        sentimentLabel.textContent = `극단적 공포 (${state.sentiment})`;
-        sentimentLabel.style.color = 'var(--neon-red)';
-      }
-
-      // 4. Update core elements live
-      updateChartDetails();
-      renderChart();
-      updateOrderBook();
-      updateForexUI();
-      updateHomePreviews();
-    }
-
-    // Update Home dashboard ticker values in real-time
-    function updateHomePreviews() {
-      // Helper: update pct badge class + text
-      function setPct(id, pct) {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
-        el.className = 'dash-ticker-pct ' + (pct > 0.01 ? 'up' : pct < -0.01 ? 'dn' : 'neu');
-      }
-
-      // BTC
-      const btcEl = document.getElementById('homePreview_BTC');
-      if (btcEl) btcEl.textContent = '$' + Math.round(state.assets.BTC.price).toLocaleString('en-US');
-      setPct('dashPct_BTC', state.assets.BTC.pct);
-
-      // ETH
-      const ethEl = document.getElementById('dashMkt_ETH');
-      if (ethEl) ethEl.textContent = '$' + state.assets.ETH.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      setPct('dashPct_ETH', state.assets.ETH.pct);
-
-      // NVDA
-      const nvdaEl = document.getElementById('dashMkt_NVDA');
-      if (nvdaEl) nvdaEl.textContent = '$' + state.assets.NVDA.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      setPct('dashPct_NVDA', state.assets.NVDA.pct);
-
-      // TSLA
-      const tslaEl = document.getElementById('homePreview_TSLA');
-      if (tslaEl) tslaEl.textContent = '$' + state.assets.TSLA.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      setPct('dashPct_TSLA', state.assets.TSLA.pct);
-
-      // AAPL
-      const aaplEl = document.getElementById('dashMkt_AAPL');
-      if (aaplEl) aaplEl.textContent = '$' + state.assets.AAPL.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      setPct('dashPct_AAPL', state.assets.AAPL.pct);
-
-      // Forex USD
-      const usdEl = document.getElementById('homePreview_USD');
-      if (usdEl) usdEl.textContent = state.forex.USD.price.toLocaleString('ko-KR', { maximumFractionDigits: 0 }) + '원';
-      setPct('dashPct_USD', state.forex.USD.pct);
-
-      // Forex EUR
-      const eurEl = document.getElementById('dashMkt_EUR');
-      if (eurEl) eurEl.textContent = state.forex.EUR.price.toLocaleString('ko-KR', { maximumFractionDigits: 0 }) + '원';
-      setPct('dashPct_EUR', state.forex.EUR.pct);
-
-      // Forex JPY
-      const jpyEl = document.getElementById('dashMkt_JPY');
-      if (jpyEl) jpyEl.textContent = state.forex.JPY.price.toLocaleString('ko-KR', { maximumFractionDigits: 0 }) + '원';
-      setPct('dashPct_JPY', state.forex.JPY.pct);
-
-      // Sentiment
-      const sentEl = document.getElementById('heroStat_sentiment');
-      if (sentEl) sentEl.textContent = state.sentiment;
-    }
-
-    // ─────────────────────────────────────────────────────────
-    // Render "오늘 시장의 관심사" — Volume surge cards
-    // ─────────────────────────────────────────────────────────
-    function renderVolumeSurges() {
-      const scroller = document.getElementById('volumeSurgeScroller');
-      if (!scroller) return;
-
-      // Sort by volume ratio (highest first)
-      const sorted = [...VOLUME_SURGES].sort((a, b) => b.volumeRatio - a.volumeRatio);
-
-      const html = sorted.map((s, idx) => {
-        const isUp = s.changePct >= 0;
-        const priceFmt = s.region === 'KR'
-          ? s.price.toLocaleString('ko-KR') + '원'
-          : '$' + s.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        const pctSign = isUp ? '+' : '';
-        const regionLabel = s.region === 'KR' ? 'KR' : 'US';
-
-        return `
-          <a href="#terminal" class="surge-card" data-ticker="${s.ticker}">
-            <div class="surge-card-head">
-              <span class="surge-rank">#${idx + 1}</span>
-              <span class="surge-region ${s.region.toLowerCase()}">${regionLabel}</span>
-            </div>
-            <div>
-              <div class="surge-ticker">${s.ticker}</div>
-              <div class="surge-name">${s.name}</div>
-            </div>
-            <div class="surge-volume-ratio">
-              <strong>${s.volumeRatio.toFixed(1)}배</strong>
-              <span>거래량 ↑</span>
-            </div>
-            <div class="surge-price-row">
-              <span class="surge-price">${priceFmt}</span>
-              <span class="surge-pct ${isUp ? 'up' : 'down'}">${pctSign}${s.changePct.toFixed(2)}%</span>
-            </div>
-            <div class="surge-reason">${s.reasonTag}</div>
-          </a>
-        `;
-      }).join('');
-
-      scroller.innerHTML = html;
-
-      // Bind click → terminal navigation (preserves SPA routing)
-      scroller.querySelectorAll('.surge-card').forEach(card => {
-        card.addEventListener('click', (e) => {
-          e.preventDefault();
-          window.location.hash = '#terminal';
-          switchTab('terminal');
-        });
-      });
-    }
 
     // ─────────────────────────────────────────────────────────
     // Render ETF theme chips + ETF accordion list
@@ -4892,376 +4396,10 @@
       });
     }
 
-    // Update active Live chart panel data
-    function updateChartDetails() {
-      const asset = state.assets[state.activeTerminalAsset];
-      const isUp = asset.pct >= 0;
-      const sign = isUp ? '+' : '';
-      
-      liveChartTitle.textContent = asset.name;
-      liveChartPrice.textContent = '$' + asset.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      liveChartPct.textContent = `${sign}${asset.pct.toFixed(2)}%`;
-      
-      if (isUp) {
-        liveChartPct.className = 'chart-pct up';
-        liveChartPrice.style.color = 'var(--neon-green)';
-      } else {
-        liveChartPct.className = 'chart-pct down';
-        liveChartPrice.style.color = 'var(--neon-red)';
-      }
-    }
 
-    // Draw HTS-grade Professional Candlestick, Moving Averages, and Volume bar charts combined
-    function renderChart() {
-      const asset = state.assets[state.activeTerminalAsset];
-      const candles = asset.candles;
-      if (!candles || candles.length < 2) return;
 
-      const w = liveCanvas.width / window.devicePixelRatio;
-      const h = 120;
-      
-      ctx.clearRect(0, 0, w, h);
-
-      // 1. Calculate price range (High and Low extremes of visible candles)
-      const highs = candles.map(c => c.high);
-      const lows = candles.map(c => c.low);
-      let maxVal = Math.max(...highs);
-      let minVal = Math.min(...lows);
-      
-      // Prevent division by zero
-      if (maxVal === minVal) {
-        maxVal *= 1.01;
-        minVal *= 0.99;
-      }
-      
-      const priceRange = maxVal - minVal;
-      const paddingRatio = 0.08; // 8% padding top and bottom for candles
-      const topVal = maxVal + priceRange * paddingRatio;
-      const bottomVal = minVal - priceRange * paddingRatio;
-      const range = topVal - bottomVal;
-
-      // Coordinate Helper Functions
-      const chartWidth = w - 40;
-      const getX = (idx) => 10 + (idx / (candles.length - 1)) * chartWidth;
-      const chartHeight = h - 25; // 95px area
-      const getY = (val) => 5 + (1 - (val - bottomVal) / range) * chartHeight;
-
-      // 2. Draw Volume Bars at the Bottom (lower 20%)
-      const maxVol = Math.max(...candles.map(c => c.volume));
-      const barWidth = Math.max(2, (chartWidth / candles.length) * 0.65);
-      
-      candles.forEach((c, i) => {
-        const isUp = c.close >= c.open;
-        const volHeight = (c.volume / maxVol) * 20; // max 20px height
-        const x = getX(i) - barWidth / 2;
-        const y = h - volHeight;
-        
-        ctx.fillStyle = isUp ? 'rgba(0, 245, 160, 0.22)' : 'rgba(255, 59, 48, 0.22)';
-        ctx.fillRect(x, y, barWidth, volHeight);
-      });
-
-      // 3. Draw Grid Lines (Max and Min price guidelines)
-      ctx.setLineDash([3, 4]);
-      ctx.strokeStyle = 'rgba(138, 149, 161, 0.15)';
-      ctx.lineWidth = 0.8;
-      
-      ctx.beginPath();
-      ctx.moveTo(0, getY(maxVal));
-      ctx.lineTo(w, getY(maxVal));
-      ctx.stroke();
-      
-      ctx.beginPath();
-      ctx.moveTo(0, getY(minVal));
-      ctx.lineTo(w, getY(minVal));
-      ctx.stroke();
-      
-      ctx.setLineDash([]);
-
-      // 4. Draw Technical Indicator Lines (SMA 5 and SMA 20)
-      const getSma = (idx, period) => {
-        if (idx < 0) return null;
-        const start = Math.max(0, idx - period + 1);
-        let sum = 0;
-        let count = 0;
-        for (let j = start; j <= idx; j++) {
-          sum += candles[j].close;
-          count++;
-        }
-        return sum / count;
-      };
-
-      // Draw SMA 20 Line (Slow MA) - Yellowish Orange
-      ctx.beginPath();
-      let firstSma20 = true;
-      for (let i = 0; i < candles.length; i++) {
-        const sma20 = getSma(i, 20);
-        if (sma20 !== null) {
-          const x = getX(i);
-          const y = getY(sma20);
-          if (firstSma20) {
-            ctx.moveTo(x, y);
-            firstSma20 = false;
-          } else {
-            ctx.lineTo(x, y);
-          }
-        }
-      }
-      ctx.strokeStyle = '#F59F00';
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
-
-      // Draw SMA 5 Line (Fast MA) - Toss Blue
-      ctx.beginPath();
-      let firstSma5 = true;
-      for (let i = 0; i < candles.length; i++) {
-        const sma5 = getSma(i, 5);
-        if (sma5 !== null) {
-          const x = getX(i);
-          const y = getY(sma5);
-          if (firstSma5) {
-            ctx.moveTo(x, y);
-            firstSma5 = false;
-          } else {
-            ctx.lineTo(x, y);
-          }
-        }
-      }
-      ctx.strokeStyle = '#3182F6';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      // 5. Draw HTS Candlesticks (Wicks and Bodies)
-      candles.forEach((c, i) => {
-        const isUp = c.close >= c.open;
-        const wickColor = isUp ? '#00F5A0' : '#FF3B30';
-        const bodyColor = isUp ? '#00F5A0' : '#FF3B30';
-        const x = getX(i);
-        
-        // Wick (shadow line: low to high)
-        ctx.beginPath();
-        ctx.moveTo(x, getY(c.low));
-        ctx.lineTo(x, getY(c.high));
-        ctx.strokeStyle = wickColor;
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-
-        // Body (シ가-종가 직사각형)
-        const yOpen = getY(c.open);
-        const yClose = getY(c.close);
-        const bodyHeight = Math.max(1.5, Math.abs(yClose - yOpen));
-        const bodyY = Math.min(yOpen, yClose);
-        
-        ctx.fillStyle = bodyColor;
-        if (Math.abs(c.close - c.open) < 0.0001) {
-          ctx.fillRect(x - barWidth / 2, bodyY - 0.75, barWidth, 1.5);
-        } else {
-          ctx.fillRect(x - barWidth / 2, bodyY, barWidth, bodyHeight);
-        }
-      });
-    }
-
-    // Update Simulated Order Book depth sizes dynamically
-    function updateOrderBook() {
-      const asset = state.assets[state.activeTerminalAsset];
-      const p = asset.price;
-      const step = p > 1000 ? 5.00 : p > 100 ? 0.10 : 0.01;
-      
-      const asks = [
-        { price: p + step * 4, size: Math.floor(200 + Math.random() * 2500), pct: 15 + Math.random() * 45 },
-        { price: p + step * 3, size: Math.floor(500 + Math.random() * 4000), pct: 40 + Math.random() * 55 },
-        { price: p + step * 2, size: Math.floor(100 + Math.random() * 1500), pct: 10 + Math.random() * 30 },
-        { price: p + step * 1, size: Math.floor(1500 + Math.random() * 5000), pct: 50 + Math.random() * 45 }
-      ];
-
-      const bids = [
-        { price: p - step * 1, size: Math.floor(1200 + Math.random() * 4500), pct: 45 + Math.random() * 45 },
-        { price: p - step * 2, size: Math.floor(400 + Math.random() * 2000), pct: 20 + Math.random() * 35 },
-        { price: p - step * 3, size: Math.floor(900 + Math.random() * 3500), pct: 35 + Math.random() * 50 },
-        { price: p - step * 4, size: Math.floor(100 + Math.random() * 1000), pct: 5 + Math.random() * 20 }
-      ];
-
-      const formatPrice = (pr) => pr.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      const formatSize = (sz) => sz.toLocaleString();
-
-      asks.forEach((ask, idx) => {
-        const i = 4 - idx;
-        document.getElementById(`askPrice${i}`).textContent = formatPrice(ask.price);
-        document.getElementById(`askSize${i}`).textContent = formatSize(ask.size);
-        document.getElementById(`askRow${i}`).querySelector('.book-depth-bar').style.width = ask.pct + '%';
-      });
-
-      const spreadVal = asks[3].price - bids[0].price;
-      const spreadPct = (spreadVal / p) * 100;
-      document.getElementById('bookSpread').textContent = `SPREAD: ${spreadVal.toFixed(2)} (${spreadPct.toFixed(2)}%)`;
-
-      bids.forEach((bid, idx) => {
-        const i = idx + 1;
-        document.getElementById(`bidPrice${i}`).textContent = formatPrice(bid.price);
-        document.getElementById(`bidSize${i}`).textContent = formatSize(bid.size);
-        document.getElementById(`bidRow${i}`).querySelector('.book-depth-bar').style.width = bid.pct + '%';
-      });
-    }
-
-    // Simulated AI neural analytics ticker signals feed
-    function tickAiSignals() {
-      const keys = Object.keys(state.assets);
-      const randomKey = keys[Math.floor(Math.random() * keys.length)];
-      const asset = state.assets[randomKey];
-      const currentPrice = asset.price;
-      const isUp = Math.random() > 0.46;
-
-      // ─ ICT Reasons ─
-      const reasons = {
-        buy: [
-          'Bullish Order Block(OB) 상단 돌파 + 상방 Fair Value Gap(FVG) 소멸 전 위치. OTE(Optimal Trade Entry) 구간 진입 자감 확인.',
-          'Swing Low 투 센(Turtle Soup) 후 반전봉 포다 확인. 시장 구조(Market Structure) Bullish 전환 신호.',
-          'New York 세션 개장 시 Price 리템션. Daily Fair Value Gap 하단 반등 + Liquidity Pool 획득 확인.',
-          '15분봉 Bullish BOS(Break of Structure) 확인. 연속하는 Higher Low 형성 후 매수 진입 타이밍.'
-        ],
-        sell: [
-          'Bearish Order Block 준거 + 하방 FVG 위치. Equal Highs(EQH) 유동성 획득 후 급락 구조 전환 신호.',
-          'Smart Money Reversal(SMR) 패턴 노출. VWAP 이탈 + CISD 센드 상 겹치 지점.',
-          'Power of 3(스우프~개장~분배) 항퍼단계 확인. 레지스터망 구간 매도 OB 위치.',
-          '시간워랙(OTE) 내 Bearish Engulfing 확인. ADR(일중 범위) 상단 돌파 및 시장 하락 전환 가능성.'
-        ]
-      };
-
-      // ─ ICT context tags ─
-      const tags = {
-        buy: [
-          ['달러 약세 구간', '위험선호', 'OB 반등 확인'],
-          ['연준 보류', '상승 모멘텀', '15분봉 확인 권고'],
-          ['NY세션 진입', 'FVG 반등', 'BOS 돌파'],
-          ['리쿨이디티 획득', '위험선호', '분할매수 권고']
-        ],
-        sell: [
-          ['연준 금리 고점', '위험회피', 'RSI 과매수 경고'],
-          ['달러 강세', '안전자산 선호', '손절선 확인 필수'],
-          ['변동성 경보', 'OB 저항', '시간대 주의'],
-          ['그린백 리스크', '위험회피', 'Bearish BOS 확인']
-        ]
-      };
-
-      const reasonPool = isUp ? reasons.buy : reasons.sell;
-      const tagPool    = isUp ? tags.buy    : tags.sell;
-      const rIdx = Math.floor(Math.random() * reasonPool.length);
-      const selectedReason = reasonPool[rIdx];
-      const selectedTags   = tagPool[rIdx];
-
-      // ─ ICT price calculations ─
-      const obPct    = (0.008 + Math.random() * 0.005);   // OB range: 0.8−1.3%
-      const fvgPct   = (0.025 + Math.random() * 0.015);   // FVG target: 2.5−4.0%
-      const slPct    = (0.012 + Math.random() * 0.006);   // Stop loss: 1.2−1.8%
-
-      let entryPrice, targetPrice, stopPrice, targetPctLabel, stopPctLabel, entryNote, targetNote, stopNote;
-      if (isUp) {
-        entryPrice  = currentPrice * (1 - obPct);    // below current = OB top zone
-        targetPrice = currentPrice * (1 + fvgPct);   // above = FVG / EQH
-        stopPrice   = currentPrice * (1 - obPct - slPct); // below entry = OB bottom
-        targetPctLabel = `+${(fvgPct * 100).toFixed(1)}% · EQH 레벨`;
-        stopPctLabel   = `−${((obPct + slPct) * 100).toFixed(1)}% · OB 하단`;
-        entryNote  = 'Bullish OB 상단';
-        targetNote = 'Equal Highs';
-        stopNote   = 'OB 하단';
-      } else {
-        entryPrice  = currentPrice * (1 + obPct);    // above current = Bearish OB bottom
-        targetPrice = currentPrice * (1 - fvgPct);   // below = FVG / EQL
-        stopPrice   = currentPrice * (1 + obPct + slPct); // above entry = OB top
-        targetPctLabel = `−${(fvgPct * 100).toFixed(1)}% · EQL 레벨`;
-        stopPctLabel   = `+${((obPct + slPct) * 100).toFixed(1)}% · OB 상단`;
-        entryNote  = 'Bearish OB 하단';
-        targetNote = 'Equal Lows';
-        stopNote   = 'OB 상단';
-      }
-
-      // R:R ratio
-      const reward = Math.abs(targetPrice - entryPrice);
-      const risk   = Math.abs(stopPrice - entryPrice);
-      const rr = (reward / risk).toFixed(1);
-
-      // Confidence 65−92%
-      const confidence = Math.floor(65 + Math.random() * 27);
-
-      // Format prices with currency symbol
-      const isCrypto = ['BTC', 'ETH'].includes(randomKey);
-      const decimals = isCrypto ? 1 : 2;
-      const sym = '$';
-      const fmt = v => sym + v.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-
-      const borderClass = isUp ? 'signal-card buy' : 'signal-card sell';
-      const badgeLabel  = isUp ? '▲ BUY' : '▼ SELL';
-      const badgeClass  = isUp ? 'buy' : 'sell';
-      const signalTitle = isUp
-        ? `Bullish 돌파 매수 시그널 &mdash; ${asset.name}`
-        : `Bearish 저항 매도 시그널 &mdash; ${asset.name}`;
-
-      const tagHtml = selectedTags.map(t => `<span class="signal-tag">${t}</span>`).join('');
-
-      const timelineEl = document.getElementById('signalTimeline');
-      const newCard = document.createElement('div');
-      newCard.className = borderClass;
-      newCard.innerHTML = `
-        <div class="signal-header-row">
-          <span>${randomKey} / USD &nbsp;·&nbsp; ${isCrypto ? '암호화폐' : '나스닥 대형주'}</span>
-          <span class="signal-live-dot">LIVE</span>
-        </div>
-        <div class="signal-title-row">
-          <div class="signal-label">${signalTitle}</div>
-          <span class="signal-badge ${badgeClass}">${badgeLabel}</span>
-        </div>
-        <div class="signal-reason">
-          <div class="signal-reason-title">시그널 근거 (ICT)</div>
-          <div class="signal-desc">${selectedReason}</div>
-        </div>
-        <div class="signal-ict-plan">
-          <div class="signal-ict-header">
-            <span class="signal-ict-label">ICT 매매 계획</span>
-            <span class="signal-confidence">
-              <span>신뢰도 ${confidence}%</span>
-              <span class="confidence-bar-bg"><span class="confidence-bar-fill" style="width:${confidence}%"></span></span>
-            </span>
-          </div>
-          <div class="signal-price-grid">
-            <div class="signal-price-cell entry">
-              <div class="signal-price-cell-label">▶ 진입가</div>
-              <div class="signal-price-cell-val">${fmt(entryPrice)}</div>
-              <div class="signal-price-cell-sub">${entryNote}</div>
-            </div>
-            <div class="signal-price-cell target">
-              <div class="signal-price-cell-label">목표가</div>
-              <div class="signal-price-cell-val">${fmt(targetPrice)}</div>
-              <div class="signal-price-cell-sub">${targetPctLabel}</div>
-            </div>
-            <div class="signal-price-cell stop">
-              <div class="signal-price-cell-label">손절가</div>
-              <div class="signal-price-cell-val">${fmt(stopPrice)}</div>
-              <div class="signal-price-cell-sub">${stopPctLabel}</div>
-            </div>
-          </div>
-          <div class="signal-rr-row">
-            <span class="signal-rr-label">리스크:리워드 (R:R)</span>
-            <span class="signal-rr-val">1 : ${rr}</span>
-          </div>
-        </div>
-        <div class="signal-tags">${tagHtml}</div>
-      `;
-
-      timelineEl.insertBefore(newCard, timelineEl.firstChild);
-
-      while (timelineEl.children.length > 6) {
-        timelineEl.removeChild(timelineEl.lastChild);
-      }
-
-      // Update timestamps on older cards
-      Array.from(timelineEl.children).forEach((child, index) => {
-        if (index > 0) {
-          const timeEl = child.querySelector('.signal-header-row span:last-child');
-          if (timeEl && !timeEl.classList.contains('signal-live-dot')) {
-            timeEl.textContent = `${index * 3}분 전`;
-          }
-        }
-      });
-    }
+    // Simulated AI neural analytics ticker signals feed (removed)
+    function tickAiSignals() { /* stub — no longer used */ }
 
     // ─────────────────────────────────────────────────────────
     // Allocation Input Two-way Binding
@@ -5503,17 +4641,6 @@
       ctxPie.stroke();
     }
 
-    // Update Real-Time Forex Section UI - price only
-    function updateForexUI() {
-      const currencies = ['USD', 'JPY', 'EUR'];
-      currencies.forEach(curr => {
-        const item = state.forex[curr];
-        const priceEl = document.getElementById(`forexPrice_${curr}`);
-        if (!priceEl) return;
-        priceEl.textContent = item.price.toLocaleString('ko-KR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '원';
-      });
-    }
-
     // ─────────────────────────────────────────────────────────
     // KPI Tooltip toggle (click to open/close on mobile)
     // ─────────────────────────────────────────────────────────
@@ -5524,28 +4651,6 @@
       if (!isOpen) cell.classList.add('tooltip-open');
     }
 
-    // ─────────────────────────────────────────────────────────
-    // Pro Mode — Order Book toggle
-    // ─────────────────────────────────────────────────────────
-    let proModeOn = false;
-    function toggleProMode() {
-      proModeOn = !proModeOn;
-      const panel = document.getElementById('orderBookPanel');
-      const btn   = document.getElementById('proModeToggleBtn');
-      const grid  = document.getElementById('terminalGrid');
-      if (proModeOn) {
-        panel.classList.remove('hidden');
-        btn.classList.add('active');
-        btn.textContent = '오더북 닫기';
-        if (grid) grid.style.gridTemplateColumns = '1.5fr 1fr';
-      } else {
-        panel.classList.add('hidden');
-        btn.classList.remove('active');
-        btn.textContent = '오더북 보기';
-        if (grid) grid.style.gridTemplateColumns = '1fr';
-      }
-      setTimeout(resizeCanvas, 60);
-    }
 
     // ═════════════════════════════════════════════════════════
     // 투자 성향 진단 v2 — 5-Step 행동경제학 기반 진단 위저드
@@ -6464,47 +5569,6 @@
     // Trigger visual floating Toast notification
     let toastTimeout;
     // ─────────────────────────────────────────────────────────
-    // Technical Analysis Summary
-    // ─────────────────────────────────────────────────────────
-    let activeTechTf = '5m';
-
-    const SIGNAL_META = {
-      STRONG_BUY:  { label: '강력 매수', dot: '▲▲' },
-      BUY:         { label: '매수',      dot: '▲'  },
-      NEUTRAL:     { label: '중립',      dot: '─'  },
-      SELL:        { label: '매도',      dot: '▼'  },
-      STRONG_SELL: { label: '강력 매도', dot: '▼▼' }
-    };
-
-    function switchTechTab(tf) {
-      activeTechTf = tf;
-      document.querySelectorAll('.tech-tab-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.tf === tf);
-      });
-      renderTechSummary();
-    }
-
-    function renderTechSummary() {
-      const tbody = document.getElementById('techSummaryBody');
-      if (!tbody) return;
-      const rows = TECH_SUMMARY_DATA[activeTechTf] || [];
-      tbody.innerHTML = rows.map(r => {
-        const sm = SIGNAL_META[r.summary] || SIGNAL_META.NEUTRAL;
-        const maHtml = `<span style="color:var(--neon-green);font-weight:700">${r.ma.buy}</span><span style="color:var(--text-sub)"> 매수 · </span><span style="color:var(--neon-red);font-weight:700">${r.ma.sell}</span><span style="color:var(--text-sub)"> 매도</span>`;
-        const oscHtml = `<span style="color:var(--neon-green);font-weight:700">${r.osc.buy}</span><span style="color:var(--text-sub)"> 매수 · </span><span style="color:var(--neon-red);font-weight:700">${r.osc.sell}</span><span style="color:var(--text-sub)"> 매도</span>`;
-        return `<tr>
-          <td>
-            <span class="tech-asset-name">${r.ticker}</span>
-            <span class="tech-asset-sub">${r.name}</span>
-          </td>
-          <td class="tech-count-cell hide-mobile">${maHtml}</td>
-          <td class="tech-count-cell hide-mobile">${oscHtml}</td>
-          <td><span class="signal-badge ${r.summary}">${sm.dot} ${sm.label}</span></td>
-        </tr>`;
-      }).join('');
-    }
-
-    // ─────────────────────────────────────────────────────────
     // Economic Calendar
     // ─────────────────────────────────────────────────────────
     // ─── Calendar week strip ──────────────────────────────────
@@ -6678,7 +5742,10 @@
     }
 
     function renderThemeRankingsFallback(list) {
-      list.innerHTML = THEME_RANKINGS_DATA.map(item => {
+      // THEME_RANKINGS_DATA 상수 제거됨 — fallback 시 빈 목록 표시
+      list.innerHTML = '<div style="padding:16px;text-align:center;color:var(--text-sub);font-size:13px;">테마 데이터를 불러오지 못했습니다.</div>';
+      return;
+      list.innerHTML = [].map(item => {
         const isPos = item.avgChangePct >= 0;
         const pctStr = (isPos ? '+' : '') + item.avgChangePct.toFixed(2) + '%';
         const pctColor = isPos ? 'var(--neon-green)' : 'var(--neon-red)';
@@ -7522,6 +6589,121 @@
       renderCommFeed();
     }
 
+
+    // ── 실제 환율 (ExchangeRate API) ──────────────────────────
+    async function loadForexRates() {
+      try {
+        const res = await fetch('https://open.er-api.com/v6/latest/KRW');
+        if (!res.ok) throw new Error('환율 API 오류');
+        const data = await res.json();
+        const rates = data.rates;
+        // 1 KRW 기준으로 받으므로 역수로 변환
+        const usd = rates.USD ? (1 / rates.USD) : null;
+        const jpy = rates.JPY ? (100 / rates.USD * rates.JPY) : null; // 100엔당 원
+        const eur = rates.EUR ? (1 / rates.EUR) : null;
+
+        function setForex(priceId, dashId, val, decimals) {
+          const fmt = val ? val.toLocaleString('ko-KR', { maximumFractionDigits: decimals || 0 }) + '원' : '—원';
+          ['forexPrice_' + priceId, dashId].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = fmt;
+          });
+        }
+        if (usd) setForex('USD', 'homePreview_USD', usd);
+        if (jpy) {
+          const jpyKrw = (1 / rates.JPY) * 100;
+          setForex('JPY', 'dashMkt_JPY', jpyKrw);
+        }
+        if (eur) setForex('EUR', 'dashMkt_EUR', eur);
+
+        // 홈 stat bar 환율 표시 (USD)
+        const statEl = document.getElementById('heroStat_assets');
+        if (statEl && usd) statEl.textContent = Math.round(usd).toLocaleString('ko-KR');
+
+      } catch(e) {
+        console.warn('환율 로드 실패:', e);
+      }
+    }
+
+    // ── 공포탐욕지수 (Alternative.me) ─────────────────────────
+    async function loadFearGreed() {
+      try {
+        const res = await fetch('https://api.alternative.me/fng/?limit=1');
+        if (!res.ok) throw new Error('FnG API 오류');
+        const data = await res.json();
+        const val = parseInt(data.data[0].value);
+        const cls = data.data[0].value_classification;
+        const KO = { 'Extreme Fear':'극단적 공포', 'Fear':'공포', 'Neutral':'중립', 'Greed':'탐욕', 'Extreme Greed':'극단적 탐욕' };
+        const label = KO[cls] || cls;
+        const color = val <= 25 ? 'var(--neon-red)' : val <= 45 ? '#F59F00' : val <= 55 ? 'var(--text-sub)' : val <= 75 ? 'var(--neon-green)' : 'var(--neon-green)';
+
+        const valEl = document.getElementById('fngValue');
+        const lblEl = document.getElementById('fngLabel');
+        const gaugeEl = document.getElementById('fngGauge');
+        const statEl = document.getElementById('heroStat_fng');
+        const sentEl = document.getElementById('heroStat_sentiment');
+
+        if (valEl) { valEl.textContent = val; valEl.style.color = color; }
+        if (lblEl) { lblEl.textContent = label; lblEl.style.color = color; }
+        if (gaugeEl) { gaugeEl.style.width = val + '%'; gaugeEl.style.background = color; }
+        if (statEl) { statEl.textContent = val; statEl.style.color = color; }
+        if (sentEl) { sentEl.textContent = val; }
+
+      } catch(e) {
+        console.warn('공포탐욕 로드 실패:', e);
+      }
+    }
+
+    // ── 글로벌 지수 (data/indices.json) ───────────────────────
+    async function loadIndicesData() {
+      try {
+        const res = await fetch('./data/indices.json');
+        if (!res.ok) throw new Error('indices.json 없음');
+        const data = await res.json();
+        const indices = data.indices || [];
+        indices.forEach(item => {
+          const priceEl = document.getElementById('idx_' + item.id);
+          const pctEl   = document.getElementById('idxPct_' + item.id);
+          if (priceEl) priceEl.textContent = item.price || '—';
+          if (pctEl) {
+            const pct = item.changePct;
+            pctEl.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+            pctEl.className = 'dash-ticker-pct ' + (pct > 0.01 ? 'up' : pct < -0.01 ? 'dn' : 'neu');
+          }
+        });
+      } catch(e) {
+        console.warn('지수 데이터 로드 실패:', e);
+      }
+    }
+
+    // ── 금융 뉴스 (네이버 금융 RSS via rss2json) ──────────────
+    async function loadNews() {
+      const feedEl = document.getElementById('newsFeed');
+      const timeEl = document.getElementById('newsUpdateTime');
+      if (!feedEl) return;
+      feedEl.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-sub);">뉴스 로딩 중…</div>';
+      try {
+        const rssUrl = encodeURIComponent('https://finance.naver.com/news/news_list.naver?mode=LSS2D&section_id=101&section_id2=258');
+        const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=' + rssUrl + '&count=20');
+        if (!res.ok) throw new Error('뉴스 API 오류');
+        const data = await res.json();
+        if (!data.items || data.items.length === 0) throw new Error('뉴스 없음');
+
+        feedEl.innerHTML = data.items.map(item => {
+          const date = new Date(item.pubDate);
+          const timeStr = date.toLocaleString('ko-KR', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' });
+          return `<a href="${item.link}" target="_blank" rel="noopener" style="display:block;padding:13px 0;border-bottom:1px solid var(--border-color);text-decoration:none;color:inherit;">
+            <div style="font-size:14px;font-weight:500;line-height:1.5;color:var(--text-color);margin-bottom:4px;">${item.title}</div>
+            <div style="font-size:12px;color:var(--text-sub);">${timeStr}</div>
+          </a>`;
+        }).join('');
+
+        if (timeEl) timeEl.textContent = '방금 업데이트';
+      } catch(e) {
+        feedEl.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-sub);">뉴스를 불러오지 못했습니다.<br><small>' + e.message + '</small></div>';
+        console.warn('뉴스 로드 실패:', e);
+      }
+    }
 
     // Bind Initial setup trigger on Dom loaded
     window.addEventListener('DOMContentLoaded', init);

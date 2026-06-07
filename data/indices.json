@@ -1,0 +1,11 @@
+{
+  "date": "2026-06-07",
+  "note": "평일 장 마감 후 자동 업데이트됩니다",
+  "indices": [
+    { "id": "KOSPI",  "name": "코스피",  "price": "—", "changePct": 0 },
+    { "id": "KOSDAQ", "name": "코스닥",  "price": "—", "changePct": 0 },
+    { "id": "SP500",  "name": "S&P500",  "price": "—", "changePct": 0 },
+    { "id": "NASDAQ", "name": "나스닥",  "price": "—", "changePct": 0 },
+    { "id": "DOW",    "name": "다우존스","price": "—", "changePct": 0 }
+  ]
+}

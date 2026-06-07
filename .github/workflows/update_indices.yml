@@ -1,0 +1,31 @@
+name: 글로벌 지수 데이터 업데이트
+
+on:
+  schedule:
+    - cron: '0 8 * * 1-5'   # 평일 17:00 KST (= 08:00 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-indices:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: crawler/requirements.txt
+      - run: pip install -r crawler/requirements.txt
+      - name: 지수 데이터 수집
+        run: python crawler/indices.py
+      - name: 커밋 & 푸시
+        run: |
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add data/indices.json
+          git diff --staged --quiet && echo "변경 없음" || \
+          git commit -m "chore: 지수 데이터 자동 업데이트 $(TZ='Asia/Seoul' date +'%Y-%m-%d %H:%M KST')" && \
+          git push
