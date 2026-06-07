@@ -2998,6 +2998,161 @@
       font-size: 12px; font-weight: 700; color: var(--toss-blue);
       margin-bottom: 8px; padding: 4px 0;
     }
+
+    /* ═══════════════════════════════════════════════════════
+       HOME DASHBOARD — 3-Column Full-Screen Layout
+       Left 210px │ Center flex-1 │ Right 264px
+    ═══════════════════════════════════════════════════════ */
+    body.on-home .app-container {
+      max-width: none;
+      padding: 0;
+      gap: 0;
+    }
+    body.on-home #view-home.active {
+      flex-direction: row;
+      height: calc(100dvh - 60px);
+      overflow: hidden;
+      gap: 0;
+      animation: none;
+    }
+
+    /* Column base */
+    .dash-left, .dash-center, .dash-right {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .dash-left {
+      width: 210px;
+      flex-shrink: 0;
+      gap: 14px;
+      padding: 18px 12px 32px 14px;
+      border-right: 1px solid var(--border-color);
+      background: var(--card-bg);
+    }
+    .dash-center {
+      flex: 1;
+      min-width: 0;
+      gap: 22px;
+      padding: 20px 24px 40px 22px;
+      background: var(--bg-color);
+    }
+    .dash-right {
+      width: 264px;
+      flex-shrink: 0;
+      gap: 14px;
+      padding: 18px 14px 32px 12px;
+      border-left: 1px solid var(--border-color);
+      background: var(--card-bg);
+    }
+
+    /* Panel label */
+    .dash-label {
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    .dash-hr { height: 1px; background: var(--border-color); flex-shrink: 0; }
+
+    /* Market Tickers */
+    .dash-tickers { display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+    .dash-ticker {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 7px 8px;
+      border-radius: 9px;
+      cursor: default;
+      transition: background 0.14s;
+      min-width: 0;
+    }
+    .dash-ticker:hover { background: var(--grey-light); }
+    .dash-ticker-l { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .dash-ticker-sym {
+      font-size: 12px; font-weight: 800; font-family: var(--font-outfit);
+      color: var(--text-color); letter-spacing: -0.2px;
+    }
+    .dash-ticker-sub { font-size: 9.5px; color: var(--text-sub); }
+    .dash-ticker-r { text-align: right; display: flex; flex-direction: column; gap: 1px; flex-shrink: 0; }
+    .dash-ticker-price {
+      font-size: 12px; font-weight: 700; font-family: var(--font-outfit); color: var(--text-color);
+    }
+    .dash-ticker-pct { font-size: 10px; font-weight: 700; }
+    .dash-ticker-pct.up  { color: var(--neon-green); }
+    .dash-ticker-pct.dn  { color: var(--neon-red); }
+    .dash-ticker-pct.neu { color: var(--text-sub); }
+
+    /* Quick Nav */
+    .dash-navs { display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; }
+    .dash-nav {
+      display: flex; align-items: center; gap: 9px; padding: 8px 9px;
+      border-radius: 10px; text-decoration: none; color: var(--text-sub);
+      font-size: 12.5px; font-weight: 700;
+      transition: background 0.14s, color 0.14s; white-space: nowrap;
+    }
+    .dash-nav:hover { background: var(--grey-light); color: var(--text-color); }
+    .dash-nav-icon {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    /* Stats Bar */
+    .dash-stats { display: flex; gap: 10px; flex-shrink: 0; }
+    .dash-stat-box {
+      flex: 1; min-width: 0;
+      background: var(--card-bg); border: 1px solid var(--border-color);
+      border-radius: 12px; padding: 12px 14px;
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .dash-stat-val {
+      font-size: 22px; font-weight: 800; font-family: var(--font-outfit);
+      color: var(--toss-blue); letter-spacing: -0.5px; line-height: 1;
+    }
+    .dash-stat-lbl {
+      font-size: 10.5px; color: var(--text-sub); font-weight: 600;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* Upcoming Events */
+    .dash-upcoming-list { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
+    .dash-upcoming-item {
+      background: var(--bg-color); border: 1px solid var(--border-color);
+      border-radius: 10px; padding: 10px 12px;
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .dash-upcoming-date { font-size: 10px; font-weight: 700; color: var(--text-sub); font-family: var(--font-outfit); }
+    .dash-upcoming-name { font-size: 12.5px; font-weight: 700; color: var(--text-color); line-height: 1.3; }
+    .dash-upcoming-tag {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 10px; font-weight: 700; padding: 2px 7px;
+      border-radius: 5px; margin-top: 1px; width: fit-content;
+    }
+    .dash-upcoming-empty { font-size: 12px; color: var(--text-sub); text-align: center; padding: 16px 0; }
+
+    /* Right ETF section tweaks */
+    .dash-right .theme-chip-scroller {
+      padding: 0; gap: 5px; flex-wrap: wrap; flex-direction: row; overflow-x: visible;
+    }
+    .dash-right .etf-data-source { font-size: 10px; color: var(--text-sub); opacity: .65; padding: 6px 0; }
+
+    /* Responsive */
+    @media (max-width: 1160px) { .dash-right { width: 230px; } }
+    @media (max-width: 960px)  { .dash-right { display: none; } .dash-left { width: 178px; } }
+    @media (max-width: 700px) {
+      body.on-home #view-home.active {
+        flex-direction: column; height: auto; overflow: visible; gap: 20px;
+      }
+      body.on-home .app-container { padding: 16px 14px 90px 14px; }
+      .dash-left, .dash-right { display: none; }
+      .dash-center { padding: 0; height: auto; overflow: visible; gap: 20px; }
+    }
   </style>
   <meta name="google-adsense-account" content="ca-pub-9832973303458105">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9832973303458105"
@@ -3095,283 +3250,218 @@
 
     <!-- ─────────── HOME (Landing Page) ─────────── -->
     <div class="page-view active" id="view-home">
-      <!-- Hero Section -->
-      <section class="hero-section">
-        <div class="hero-badge">
-          <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--neon-green);box-shadow:0 0 6px var(--neon-green);animation:pulse 2s infinite;"></span>
-          실시간 글로벌 마켓 데이터 연동 중
-        </div>
-        <h1 class="hero-title">
-          데이터로 시장을 읽고,<br>
-          <span class="hero-title-accent">포트폴리오로 전략을 완성하다</span>
-        </h1>
-        <div class="hero-divider"></div>
-        <p class="hero-sub">단순한 차트 리딩을 넘어 지금 시장의 주도 테마를 발굴하고, 과거 데이터로 검증된 나만의 투자 포트폴리오를 구성해 보세요.</p>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="hero-stat-val" id="heroStat_assets">5</span>
-            <span class="hero-stat-label">실시간 자산</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-val" id="heroStat_signals">0</span>
-            <span class="hero-stat-label">AI 시그널</span>
-          </div>
-          <div class="hero-stat">
-            <span class="hero-stat-val" id="heroStat_sentiment">64</span>
-            <span class="hero-stat-label">시장 분위기</span>
-          </div>
-        </div>
-      </section>
+      <!-- ─────── LEFT: Tickers + Quick Nav ─────── -->
+      <aside class="dash-left">
 
-      <!-- ─────────── 3-Column Feature Blocks ─────────── -->
-      <div class="feature-blocks">
-        <div class="feature-block-card">
-          <div class="feature-block-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--toss-blue)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          </div>
-          <div class="feature-block-title">실시간 시장 큐레이션</div>
-          <p class="feature-block-desc">단순 거래량이 아닌, 당일 전일 대비 거래량 폭증 종목과 글로벌 주도 테마를 실시간으로 캐치합니다.</p>
-        </div>
-        <div class="feature-block-card">
-          <div class="feature-block-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-          </div>
-          <div class="feature-block-title">글로벌 테마 & ETF 매핑</div>
-          <p class="feature-block-desc">복잡한 티커를 몰라도 괜찮습니다. #AI반도체, #미국월배당 등 키워드 기반으로 묶인 핵심 ETF를 탐색하세요.</p>
-        </div>
-        <div class="feature-block-card">
-          <div class="feature-block-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59F00" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          </div>
-          <div class="feature-block-title">포트폴리오 백테스터</div>
-          <p class="feature-block-desc">내가 담은 종목들의 자산 비중을 조절하고, 과거 데이터 기반의 시뮬레이션을 통해 리스크를 검증하세요.</p>
-        </div>
-      </div>
+        <div class="dash-label">시장 현황</div>
 
-      <!-- ─────────── Volume Surge: "오늘 시장의 관심사" ─────────── -->
-      <section>
-        <div class="section-header">
-          <div>
-            <div class="section-title">오늘 시장의 관심사</div>
-            <div class="section-sub">전일 대비 거래량이 폭증한 종목입니다</div>
+        <div class="dash-tickers">
+          <!-- Crypto -->
+          <div class="dash-ticker">
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">BTC</div><div class="dash-ticker-sub">Bitcoin</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="homePreview_BTC">$67,520</div><div class="dash-ticker-pct neu" id="dashPct_BTC">+0.00%</div></div>
           </div>
-          <span class="section-tag-pill hot">HOT</span>
-        </div>
-        <div class="surge-scroller" id="volumeSurgeScroller">
-          <!-- Cards injected by renderVolumeSurges() -->
-        </div>
-      </section>
+          <div class="dash-ticker">
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">ETH</div><div class="dash-ticker-sub">Ethereum</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_ETH">$3,500</div><div class="dash-ticker-pct neu" id="dashPct_ETH">+0.00%</div></div>
+          </div>
 
-      <!-- ─────────── Technical Analysis Summary ─────────── -->
-      <section>
-        <div class="section-header">
-          <div>
-            <div class="section-title">기술적 분석 요약</div>
-            <div class="section-sub">이동평균선 + 오실레이터 종합 신호 · 탭으로 봉 단위 전환</div>
-          </div>
-          <span class="section-tag-pill" style="background:rgba(49,130,246,0.15);color:var(--toss-blue);">SIGNAL</span>
-        </div>
-        <div class="tech-summary-card">
-          <div class="tech-tab-bar">
-            <button class="tech-tab-btn active" data-tf="5m"  onclick="switchTechTab('5m')">5분봉</button>
-            <button class="tech-tab-btn"        data-tf="1h"  onclick="switchTechTab('1h')">1시간봉</button>
-            <button class="tech-tab-btn"        data-tf="1d"  onclick="switchTechTab('1d')">일봉</button>
-          </div>
-          <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
-            <table class="tech-table" style="min-width:380px;">
-              <thead>
-                <tr>
-                  <th>자산</th>
-                  <th class="hide-mobile">이동평균 (MA)</th>
-                  <th class="hide-mobile">오실레이터</th>
-                  <th>종합 신호</th>
-                </tr>
-              </thead>
-              <tbody id="techSummaryBody"><!-- renderTechSummary() --></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+          <div class="dash-hr" style="margin:4px 0;"></div>
 
-      <!-- ─────────── Theme Volume Rankings ─────────── -->
-      <section>
-        <div class="section-header">
-          <div>
-            <div class="section-title">테마별 거래대금 순위</div>
-            <div class="section-sub">돈이 몰리는 섹터와 대장주를 한눈에</div>
+          <!-- US Stocks -->
+          <div class="dash-ticker">
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">NVDA</div><div class="dash-ticker-sub">NVIDIA</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_NVDA">$215.33</div><div class="dash-ticker-pct neu" id="dashPct_NVDA">+0.00%</div></div>
           </div>
-          <span class="section-tag-pill" style="background:rgba(0,245,160,0.1);color:var(--neon-green);">FLOW</span>
-        </div>
-        <div class="theme-rank-list" id="themeRankList"><!-- renderThemeRankings() --></div>
-      </section>
+          <div class="dash-ticker">
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">TSLA</div><div class="dash-ticker-sub">Tesla</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="homePreview_TSLA">$433.59</div><div class="dash-ticker-pct neu" id="dashPct_TSLA">+0.00%</div></div>
+          </div>
+          <div class="dash-ticker">
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">AAPL</div><div class="dash-ticker-sub">Apple</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_AAPL">$308.33</div><div class="dash-ticker-pct neu" id="dashPct_AAPL">+0.00%</div></div>
+          </div>
 
-      <!-- ─────────── Economic Calendar ─────────── -->
-      <section>
-        <div class="section-header">
-          <div>
-            <div class="section-title">경제 지표 캘린더</div>
-            <div class="section-sub">별 3개 지표를 탭하면 시장 영향 가이드가 펼쳐집니다</div>
-          </div>
-          <span class="section-tag-pill" style="background:rgba(255,112,67,0.12);color:#FF7043;">MACRO</span>
-        </div>
-        <!-- 날짜 스트립 -->
-        <div class="cal-strip-wrap">
-          <div class="cal-strip-nav">
-            <button class="cal-nav-btn" onclick="shiftCalWeek(-1)">← 이전</button>
-            <span class="cal-week-label" id="calWeekLabel">—</span>
-            <button class="cal-nav-btn" onclick="shiftCalWeek(1)">다음 →</button>
-          </div>
-          <div class="cal-strip" id="calStrip"><!-- renderCalStrip() --></div>
-        </div>
-        <div class="eco-calendar-card">
-          <div class="eco-header-row">
-            <span class="eco-col-label">시간</span>
-            <span class="eco-col-label">국</span>
-            <span class="eco-col-label">지표명</span>
-            <span class="eco-col-label">중요도</span>
-            <span class="eco-col-label hide-m" style="text-align:right">이전</span>
-            <span class="eco-col-label hide-m" style="text-align:right">예상</span>
-            <span class="eco-col-label" style="text-align:right">발표</span>
-          </div>
-          <div id="ecoCalendarBody"><!-- renderEcoCalendar() --></div>
-        </div>
-      </section>
+          <div class="dash-hr" style="margin:4px 0;"></div>
 
-      <!-- ─────────── ETF Theme Curation: "테마로 골라보는 ETF" ─────────── -->
-      <section>
-        <div class="section-header">
-          <div>
-            <div class="section-title">테마로 골라보는 ETF</div>
-            <div class="section-sub">티커를 몰라도 OK. 관심있는 주제로 시작하세요</div>
+          <!-- Forex -->
+          <div class="dash-ticker">
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">USD</div><div class="dash-ticker-sub">원/달러</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="homePreview_USD">1,364원</div><div class="dash-ticker-pct neu" id="dashPct_USD">0.00%</div></div>
           </div>
-          <span class="section-tag-pill curated">초보 추천</span>
+          <div class="dash-ticker">
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">EUR</div><div class="dash-ticker-sub">원/유로</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_EUR">1,482원</div><div class="dash-ticker-pct neu" id="dashPct_EUR">0.00%</div></div>
+          </div>
+          <div class="dash-ticker">
+            <div class="dash-ticker-l"><div class="dash-ticker-sym">JPY</div><div class="dash-ticker-sub">원/엔(100)</div></div>
+            <div class="dash-ticker-r"><div class="dash-ticker-price" id="dashMkt_JPY">868원</div><div class="dash-ticker-pct neu" id="dashPct_JPY">0.00%</div></div>
+          </div>
         </div>
-        <div class="theme-chip-scroller" id="themeChipScroller">
-          <!-- Chips injected by renderThemeChips() -->
+
+        <div class="dash-hr"></div>
+
+        <div class="dash-label">바로가기</div>
+        <nav class="dash-navs">
+          <a href="#terminal" class="dash-nav" data-tab="terminal">
+            <div class="dash-nav-icon" style="background:rgba(49,130,246,0.15);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--toss-blue)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>실시간 시장
+          </a>
+          <a href="#allocator" class="dash-nav" data-tab="allocator">
+            <div class="dash-nav-icon" style="background:rgba(0,245,160,0.12);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--neon-green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>포트폴리오
+          </a>
+          <a href="#calendar" class="dash-nav" data-tab="calendar">
+            <div class="dash-nav-icon" style="background:rgba(59,130,246,0.12);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>경제 캘린더
+          </a>
+          <a href="#macro" class="dash-nav" data-tab="macro">
+            <div class="dash-nav-icon" style="background:rgba(144,155,176,0.15);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--grey-dark)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>환율 · 거시
+          </a>
+          <a href="#community" class="dash-nav" data-tab="community">
+            <div class="dash-nav-icon" style="background:rgba(245,158,11,0.12);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>커뮤니티
+          </a>
+        </nav>
+
+      </aside>
+
+      <!-- ─────── CENTER: Main Content ─────── -->
+      <main class="dash-center">
+
+        <!-- Stats bar -->
+        <div class="dash-stats">
+          <div class="dash-stat-box">
+            <div class="dash-stat-val" id="heroStat_assets">5</div>
+            <div class="dash-stat-lbl">실시간 자산</div>
+          </div>
+          <div class="dash-stat-box">
+            <div class="dash-stat-val" id="heroStat_sentiment">64</div>
+            <div class="dash-stat-lbl">시장 분위기</div>
+          </div>
+          <div class="dash-stat-box">
+            <div class="dash-stat-val" id="homePreview_calCount">—</div>
+            <div class="dash-stat-lbl">이번 주 이벤트</div>
+          </div>
         </div>
-        <div class="theme-desc-banner" id="themeDescBanner">
-          관심있는 해시태그를 선택해보세요.
+
+        <!-- 오늘 시장의 관심사 -->
+        <section>
+          <div class="section-header">
+            <div>
+              <div class="section-title">오늘 시장의 관심사</div>
+              <div class="section-sub">전일 대비 거래량이 폭증한 종목입니다</div>
+            </div>
+            <span class="section-tag-pill hot">HOT</span>
+          </div>
+          <div class="surge-scroller" id="volumeSurgeScroller"></div>
+        </section>
+
+        <!-- 기술적 분석 요약 -->
+        <section>
+          <div class="section-header">
+            <div>
+              <div class="section-title">기술적 분석 요약</div>
+              <div class="section-sub">이동평균선 + 오실레이터 종합 신호 · 탭으로 봉 단위 전환</div>
+            </div>
+            <span class="section-tag-pill" style="background:rgba(49,130,246,0.15);color:var(--toss-blue);">SIGNAL</span>
+          </div>
+          <div class="tech-summary-card">
+            <div class="tech-tab-bar">
+              <button class="tech-tab-btn active" data-tf="5m"  onclick="switchTechTab('5m')">5분봉</button>
+              <button class="tech-tab-btn"        data-tf="1h"  onclick="switchTechTab('1h')">1시간봉</button>
+              <button class="tech-tab-btn"        data-tf="1d"  onclick="switchTechTab('1d')">일봉</button>
+            </div>
+            <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+              <table class="tech-table" style="min-width:380px;">
+                <thead>
+                  <tr>
+                    <th>자산</th>
+                    <th class="hide-mobile">이동평균 (MA)</th>
+                    <th class="hide-mobile">오실레이터</th>
+                    <th>종합 신호</th>
+                  </tr>
+                </thead>
+                <tbody id="techSummaryBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 경제 지표 캘린더 -->
+        <section>
+          <div class="section-header">
+            <div>
+              <div class="section-title">경제 지표 캘린더</div>
+              <div class="section-sub">별 3개 지표를 탭하면 시장 영향 가이드가 펼쳐집니다</div>
+            </div>
+            <span class="section-tag-pill" style="background:rgba(255,112,67,0.12);color:#FF7043;">MACRO</span>
+          </div>
+          <div class="cal-strip-wrap">
+            <div class="cal-strip-nav">
+              <button class="cal-nav-btn" onclick="shiftCalWeek(-1)">← 이전</button>
+              <span class="cal-week-label" id="calWeekLabel">—</span>
+              <button class="cal-nav-btn" onclick="shiftCalWeek(1)">다음 →</button>
+            </div>
+            <div class="cal-strip" id="calStrip"></div>
+          </div>
+          <div class="eco-calendar-card">
+            <div class="eco-header-row">
+              <span class="eco-col-label">시간</span>
+              <span class="eco-col-label">국</span>
+              <span class="eco-col-label">지표명</span>
+              <span class="eco-col-label">중요도</span>
+              <span class="eco-col-label hide-m" style="text-align:right">이전</span>
+              <span class="eco-col-label hide-m" style="text-align:right">예상</span>
+              <span class="eco-col-label" style="text-align:right">발표</span>
+            </div>
+            <div id="ecoCalendarBody"></div>
+          </div>
+        </section>
+
+        <!-- 테마별 거래대금 -->
+        <section>
+          <div class="section-header">
+            <div>
+              <div class="section-title">테마별 거래대금 순위</div>
+              <div class="section-sub">돈이 몰리는 섹터와 대장주를 한눈에</div>
+            </div>
+            <span class="section-tag-pill" style="background:rgba(0,245,160,0.1);color:var(--neon-green);">FLOW</span>
+          </div>
+          <div class="theme-rank-list" id="themeRankList"></div>
+        </section>
+
+      </main>
+
+      <!-- ─────── RIGHT: Upcoming Events + ETF ─────── -->
+      <aside class="dash-right">
+
+        <div class="dash-label">다가오는 주요 일정</div>
+        <div class="dash-upcoming-list" id="dashUpcomingList">
+          <div class="dash-upcoming-empty">캘린더 데이터 로딩 중…</div>
         </div>
-        <div class="etf-list" id="etfList">
-          <!-- ETF items injected by renderEtfList() -->
-        </div>
-        <div class="etf-data-source">데이터 출처: FMP · Polygon · 한국투자증권 (데모 시뮬레이션)</div>
-      </section>
 
-      <!-- Category Card Grid -->
-      <div class="category-grid">
-        <!-- Card 1: Terminal -->
-        <a href="#terminal" class="category-card" data-tab="terminal">
-          <div class="category-card-head">
-            <div class="category-card-icon" style="background: linear-gradient(135deg, #3182F6, #1B64DA);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-              </svg>
-            </div>
-            <span class="category-card-tag">LIVE</span>
-          </div>
-          <h3 class="category-card-title">실시간 시장</h3>
-          <p class="category-card-desc">캔들차트와 오더북으로 글로벌 자산의 흐름을 한눈에.</p>
-          <div class="category-card-preview">
-            <div class="preview-row">
-              <span class="preview-label">TSLA</span>
-              <span class="preview-val" id="homePreview_TSLA">$433.59</span>
-            </div>
-            <div class="preview-row">
-              <span class="preview-label">BTC</span>
-              <span class="preview-val" id="homePreview_BTC">$67,520</span>
-            </div>
-          </div>
-          <div class="category-card-cta">시장 보러가기 →</div>
-        </a>
+        <div class="dash-hr"></div>
 
-        <!-- Card 2: Portfolio -->
-        <a href="#allocator" class="category-card" data-tab="allocator">
-          <div class="category-card-head">
-            <div class="category-card-icon" style="background: linear-gradient(135deg, #00F5A0, #00B47A);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-              </svg>
-            </div>
-            <span class="category-card-tag" style="background: rgba(0, 245, 160, 0.15); color: var(--neon-green);">MPT</span>
-          </div>
-          <h3 class="category-card-title">내 포트폴리오 짜기</h3>
-          <p class="category-card-desc">주식·코인·금·채권 비중을 정하면 10년치 백테스트가 즉시.</p>
-          <div class="category-card-preview">
-            <div class="preview-row">
-              <span class="preview-label">예상 수익률</span>
-              <span class="preview-val" style="color: var(--neon-green);">+12.4% / 년</span>
-            </div>
-            <div class="preview-row">
-              <span class="preview-label">최악의 해</span>
-              <span class="preview-val" style="color: var(--neon-red);">-8.5%</span>
-            </div>
-          </div>
-          <div class="category-card-cta">포트폴리오 만들기 →</div>
-        </a>
+        <div class="dash-label">테마로 골라보는 ETF</div>
+        <div class="theme-chip-scroller" id="themeChipScroller"></div>
+        <div class="theme-desc-banner" id="themeDescBanner">관심있는 해시태그를 선택해보세요.</div>
+        <div class="etf-list" id="etfList"></div>
+        <div class="etf-data-source">데이터 출처: FMP · Polygon (데모)</div>
 
-        <!-- Card 3: Calendar -->
-        <a href="#calendar" class="category-card" data-tab="calendar">
-          <div class="category-card-head">
-            <div class="category-card-icon" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-            </div>
-            <span class="category-card-tag" style="background: rgba(59,130,246,0.15); color: #3B82F6;">일정</span>
-          </div>
-          <h3 class="category-card-title">경제 캘린더</h3>
-          <p class="category-card-desc">FOMC · CPI · 기업 실적 발표 일정을 한눈에.</p>
-          <div class="category-card-preview">
-            <div class="preview-row">
-              <span class="preview-label">이번 주 이벤트</span>
-              <span class="preview-val" id="homePreview_calCount">-</span>
-            </div>
-            <div class="preview-row">
-              <span class="preview-label">다음 주요 일정</span>
-              <span class="preview-val" id="homePreview_calNext">-</span>
-            </div>
-          </div>
-          <div class="category-card-cta">캘린더 보기 →</div>
-        </a>
+      </aside>
 
-        <!-- Card 4: Forex & Macro -->
-        <a href="#macro" class="category-card" data-tab="macro">
-          <div class="category-card-head">
-            <div class="category-card-icon" style="background: linear-gradient(135deg, #909BB0, #6B7684);">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-            </div>
-            <span class="category-card-tag" style="background: rgba(144, 155, 176, 0.15); color: var(--text-sub);">FX</span>
-          </div>
-          <h3 class="category-card-title">환율 · 거시지표</h3>
-          <p class="category-card-desc">원/달러 환율부터 연준 금리, CPI까지 거시 흐름 한눈에.</p>
-          <div class="category-card-preview">
-            <div class="preview-row">
-              <span class="preview-label">USD/KRW</span>
-              <span class="preview-val" id="homePreview_USD">1,364원</span>
-            </div>
-            <div class="preview-row">
-              <span class="preview-label">Fed 금리</span>
-              <span class="preview-val">5.50%</span>
-            </div>
-          </div>
-          <div class="category-card-cta">환율 보기 →</div>
-        </a>
-      </div>
+      <!-- JS 호환용 숨김 요소 -->
+      <div style="display:none" id="signalTimeline"></div>
+      <span style="display:none" id="homePreview_calNext"></span>
+      <span style="display:none" id="heroStat_signals">0</span>
 
-      <!-- Quick Start Banner -->
-      <div class="quick-start-banner">
-        <div class="quick-start-icon" style="display:none"></div>
-        <div class="quick-start-text">
-          <div class="quick-start-title">처음이세요? 포트폴리오부터 시작해보세요</div>
-          <div class="quick-start-sub">슬라이더로 자산 비중을 정하면 자동으로 백테스트가 돌아갑니다.</div>
-        </div>
-        <a href="#allocator" class="quick-start-btn" data-tab="allocator">시작 →</a>
-      </div>
     </div>
     <!-- /view-home -->
 
@@ -4428,6 +4518,9 @@
     }
 
     function switchTab(tabId) {
+      // Toggle dashboard body class (expands container to full-width for home)
+      document.body.classList.toggle('on-home', tabId === 'home');
+
       // 1. Hide all page views and show the active page view
       document.querySelectorAll('.page-view').forEach(view => {
         view.classList.remove('active');
@@ -4599,47 +4692,59 @@
       updateHomePreviews();
     }
 
-    // Update Home landing-page preview values in real-time
+    // Update Home dashboard ticker values in real-time
     function updateHomePreviews() {
+      // Helper: update pct badge class + text
+      function setPct(id, pct) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+        el.className = 'dash-ticker-pct ' + (pct > 0.01 ? 'up' : pct < -0.01 ? 'dn' : 'neu');
+      }
+
+      // BTC
+      const btcEl = document.getElementById('homePreview_BTC');
+      if (btcEl) btcEl.textContent = '$' + Math.round(state.assets.BTC.price).toLocaleString('en-US');
+      setPct('dashPct_BTC', state.assets.BTC.pct);
+
+      // ETH
+      const ethEl = document.getElementById('dashMkt_ETH');
+      if (ethEl) ethEl.textContent = '$' + state.assets.ETH.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      setPct('dashPct_ETH', state.assets.ETH.pct);
+
+      // NVDA
+      const nvdaEl = document.getElementById('dashMkt_NVDA');
+      if (nvdaEl) nvdaEl.textContent = '$' + state.assets.NVDA.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      setPct('dashPct_NVDA', state.assets.NVDA.pct);
+
+      // TSLA
       const tslaEl = document.getElementById('homePreview_TSLA');
-      const btcEl  = document.getElementById('homePreview_BTC');
-      const usdEl  = document.getElementById('homePreview_USD');
+      if (tslaEl) tslaEl.textContent = '$' + state.assets.TSLA.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      setPct('dashPct_TSLA', state.assets.TSLA.pct);
+
+      // AAPL
+      const aaplEl = document.getElementById('dashMkt_AAPL');
+      if (aaplEl) aaplEl.textContent = '$' + state.assets.AAPL.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      setPct('dashPct_AAPL', state.assets.AAPL.pct);
+
+      // Forex USD
+      const usdEl = document.getElementById('homePreview_USD');
+      if (usdEl) usdEl.textContent = state.forex.USD.price.toLocaleString('ko-KR', { maximumFractionDigits: 0 }) + '원';
+      setPct('dashPct_USD', state.forex.USD.pct);
+
+      // Forex EUR
+      const eurEl = document.getElementById('dashMkt_EUR');
+      if (eurEl) eurEl.textContent = state.forex.EUR.price.toLocaleString('ko-KR', { maximumFractionDigits: 0 }) + '원';
+      setPct('dashPct_EUR', state.forex.EUR.pct);
+
+      // Forex JPY
+      const jpyEl = document.getElementById('dashMkt_JPY');
+      if (jpyEl) jpyEl.textContent = state.forex.JPY.price.toLocaleString('ko-KR', { maximumFractionDigits: 0 }) + '원';
+      setPct('dashPct_JPY', state.forex.JPY.pct);
+
+      // Sentiment
       const sentEl = document.getElementById('heroStat_sentiment');
-      const sigCountEl = document.getElementById('homePreview_signalCount');
-      const sigLastEl  = document.getElementById('homePreview_signalLast');
-      const heroSigEl  = document.getElementById('heroStat_signals');
-
-      if (tslaEl) {
-        tslaEl.textContent = '$' + state.assets.TSLA.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        tslaEl.style.color = state.assets.TSLA.pct >= 0 ? 'var(--neon-green)' : 'var(--neon-red)';
-      }
-      if (btcEl) {
-        btcEl.textContent = '$' + Math.round(state.assets.BTC.price).toLocaleString('en-US');
-        btcEl.style.color = state.assets.BTC.pct >= 0 ? 'var(--neon-green)' : 'var(--neon-red)';
-      }
-      if (usdEl) {
-        usdEl.textContent = state.forex.USD.price.toLocaleString('ko-KR', { maximumFractionDigits: 0 }) + '원';
-      }
       if (sentEl) sentEl.textContent = state.sentiment;
-
-      // Signal count + most recent label (read from DOM since signals are rendered as cards)
-      const timelineEl = document.getElementById('signalTimeline');
-      if (timelineEl) {
-        const count = timelineEl.children.length;
-        if (sigCountEl) sigCountEl.textContent = count + '건';
-        if (heroSigEl)  heroSigEl.textContent  = count;
-        const firstCard = timelineEl.firstElementChild;
-        if (firstCard && sigLastEl) {
-          const headerText = firstCard.querySelector('.signal-header-row span:first-child');
-          const badge = firstCard.querySelector('.signal-badge');
-          if (headerText && badge) {
-            const symbol = headerText.textContent.split('/')[0].trim();
-            const action = badge.textContent.includes('BUY') ? 'BUY' : 'SELL';
-            sigLastEl.textContent = `${symbol} ${action}`;
-            sigLastEl.style.color = action === 'BUY' ? 'var(--neon-green)' : 'var(--neon-red)';
-          }
-        }
-      }
     }
 
     // ─────────────────────────────────────────────────────────
@@ -6966,8 +7071,9 @@
         setTimeout(() => selectCalDate(todayStr2), 50);
       }
 
-      // 다음 주요 일정 섹션 렌더
+      // 다음 주요 일정 섹션 렌더 (캘린더 페이지 + 홈 대시보드)
       renderUpcoming();
+      renderDashUpcoming();
     }
 
     function bindCalendarControls() {
@@ -7244,6 +7350,42 @@
         nextEl.textContent = next ? (next.name.length > 10 ? next.name.slice(0,10)+'…' : next.name) : '-';
       }
     }
+    // ── 홈 대시보드 우측 패널: 다가오는 주요 이벤트 ──────────────
+    function renderDashUpcoming() {
+      const el = document.getElementById('dashUpcomingList');
+      if (!el) return;
+
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const flags = { US: '🇺🇸', KR: '🇰🇷', EU: '🇪🇺', JP: '🇯🇵' };
+      const impTag = {
+        3: { label: '🔴 HIGH', bg: 'rgba(255,82,82,0.12)', color: '#FF5252' },
+        2: { label: '🟡 MED',  bg: 'rgba(255,214,0,0.12)', color: '#FFD600' },
+        1: { label: '⚪ LOW',  bg: 'rgba(138,149,161,0.15)', color: 'var(--text-sub)' },
+      };
+
+      const upcoming = calState.events
+        .filter(ev => (ev.date || ev.datetime || '').slice(0, 10) >= todayStr)
+        .sort((a, b) => ((a.date||a.datetime||'') < (b.date||b.datetime||'') ? -1 : 1))
+        .slice(0, 6);
+
+      if (!upcoming.length) {
+        el.innerHTML = '<div class="dash-upcoming-empty">예정된 주요 이벤트가 없어요.</div>';
+        return;
+      }
+
+      el.innerHTML = upcoming.map(ev => {
+        const d = (ev.date || ev.datetime || '').slice(0, 10);
+        const [, m, day] = d.split('-');
+        const tag = impTag[ev.importance] || impTag[1];
+        const flag = flags[ev.country] || '';
+        return `<div class="dash-upcoming-item">
+          <div class="dash-upcoming-date">${parseInt(m)}월 ${parseInt(day)}일 ${flag}</div>
+          <div class="dash-upcoming-name">${ev.name}</div>
+          <div class="dash-upcoming-tag" style="background:${tag.bg};color:${tag.color};">${tag.label}</div>
+        </div>`;
+      }).join('');
+    }
+
     function renderUpcoming() {
       // 캘린더 페이지 하단 "다음 주요 일정" — 항상 오늘 이후 최대 8개 표시
       const wrap = document.getElementById('calUpcomingWrap');
