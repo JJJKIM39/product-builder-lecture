@@ -6625,9 +6625,59 @@
     // ─────────────────────────────────────────────────────────
     // Theme Volume Rankings
     // ─────────────────────────────────────────────────────────
-    function renderThemeRankings() {
+    // ── 테마 랭킹: data/themes.json(AI 분석) 우선, 없으면 하드코딩 폴백 ──
+    async function renderThemeRankings() {
       const list = document.getElementById('themeRankList');
       if (!list) return;
+
+      try {
+        const resp = await fetch('./data/themes.json');
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data.themeRankList && data.themeRankList.length > 0) {
+            renderThemeRankingsFromAI(list, data);
+            return;
+          }
+        }
+      } catch(e) { /* 네트워크 실패 → 폴백 */ }
+
+      // 폴백: 하드코딩 데이터
+      renderThemeRankingsFallback(list);
+    }
+
+    function renderThemeRankingsFromAI(list, data) {
+      const impDot = s => s >= 4 ? '🔴' : s >= 3 ? '🟡' : '🟢';
+      list.innerHTML = data.themeRankList.map((item, idx) => {
+        const rank = idx + 1;
+        const rankClass = rank <= 3 ? 'top' : '';
+        const stocksHtml = item.stocks.map(s => {
+          const isPos = s.change_rate.startsWith('+');
+          const color = isPos ? 'var(--neon-green)' : 'var(--neon-red)';
+          const roleLabel = s.role === '대장주' ? '👑 ' : '';
+          return `<span class="theme-leader-badge">${roleLabel}${s.stock_name} <span style="color:${color}">${s.change_rate}</span></span>`;
+        }).join('');
+        return `<div class="theme-rank-card">
+          <div class="theme-rank-num ${rankClass}">${rank}</div>
+          <div style="flex:1;min-width:0;">
+            <div class="theme-rank-name">${item.theme_name}</div>
+            <div class="theme-rank-meta" style="flex-direction:column;gap:4px;">
+              <div style="font-size:11px;color:var(--text-sub);line-height:1.5;">${item.reason}</div>
+              <div class="theme-leaders">${stocksHtml}</div>
+            </div>
+          </div>
+          <div class="theme-rank-right" style="flex-shrink:0;">
+            <div style="font-size:18px;line-height:1;">${impDot(item.strength_score)}</div>
+            <div class="theme-vol-amount">강도 ${item.strength_score}/5</div>
+          </div>
+        </div>`;
+      }).join('');
+
+      // 마켓 요약 업데이트 (섹션 서브타이틀)
+      const sub = list.closest('section')?.querySelector('.section-sub');
+      if (sub && data.market_summary) sub.textContent = data.market_summary;
+    }
+
+    function renderThemeRankingsFallback(list) {
       list.innerHTML = THEME_RANKINGS_DATA.map(item => {
         const isPos = item.avgChangePct >= 0;
         const pctStr = (isPos ? '+' : '') + item.avgChangePct.toFixed(2) + '%';
