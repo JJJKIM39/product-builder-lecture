@@ -5710,7 +5710,7 @@
     let calSelectedDate = '';  // YYYY-MM-DD
 
     function getWeekDates(offset) {
-      const now = new Date('2026-05-28');
+      const now = new Date();
       // Get Monday of current week
       const dow = now.getDay() === 0 ? 6 : now.getDay() - 1; // Mon=0
       const monday = new Date(now);
@@ -5732,7 +5732,7 @@
       if (!strip) return;
       const days = getWeekDates(calWeekOffset);
       const DAY_NAMES = ['MON','TUE','WED','THU','FRI','SAT','SUN'];
-      const todayStr = '2026-05-28';
+      const todayStr = new Date().toISOString().slice(0, 10);
       if (!calSelectedDate) calSelectedDate = todayStr;
 
       if (label) {
@@ -5744,7 +5744,9 @@
 
       strip.innerHTML = days.map((d, i) => {
         const ds = dateToStr(d);
-        const events = ECO_CALENDAR_DATA.filter(e => e.date === ds);
+        const evPool = (typeof calState !== 'undefined' && calState.events && calState.events.length > 0)
+          ? calState.events : ECO_CALENDAR_DATA;
+        const events = evPool.filter(e => (e.date || e.datetime || '').slice(0,10) === ds);
         const highCount = events.filter(e => e.importance === 3).length;
         const medCount  = events.filter(e => e.importance === 2).length;
         const isToday   = ds === todayStr;
@@ -5776,12 +5778,32 @@
     function renderEcoCalendar() {
       const container = document.getElementById('ecoCalendarBody');
       if (!container) return;
-      const targetDate = calSelectedDate || '2026-05-28';
-      const sorted = ECO_CALENDAR_DATA
+      const targetDate = calSelectedDate || new Date().toISOString().slice(0, 10);
+
+      // calState.events(실제 데이터) 우선, 없으면 ECO_CALENDAR_DATA 폴백
+      const evSrc = (typeof calState !== 'undefined' && calState.events && calState.events.length > 0)
+        ? calState.events.filter(e => e.type === 'economic').map(e => ({
+            id: e.id,
+            date: (e.date || e.datetime || '').slice(0, 10),
+            time: e.datetime ? e.datetime.slice(11, 16) : '--:--',
+            flag: { US:'🇺🇸', KR:'🇰🇷', EU:'🇪🇺', JP:'🇯🇵' }[e.country] || '🌐',
+            name: e.name,
+            importance: e.importance || 2,
+            prev: e.previous != null ? String(e.previous) : '--',
+            forecast: e.forecast != null ? String(e.forecast) : '--',
+            actual: e.actual != null ? String(e.actual) : null,
+            actualDir: e.actual != null && e.previous != null
+              ? (parseFloat(e.actual) >= parseFloat(e.previous) ? 'up' : 'down')
+              : null,
+            guide: e.guide || null
+          }))
+        : ECO_CALENDAR_DATA;
+
+      const sorted = evSrc
         .filter(e => e.date === targetDate)
         .sort((a, b) => {
-          const ta = parseInt(a.time.replace(':', ''), 10);
-          const tb = parseInt(b.time.replace(':', ''), 10);
+          const ta = parseInt((a.time || '0000').replace(':', ''), 10);
+          const tb = parseInt((b.time || '0000').replace(':', ''), 10);
           return ta - tb;
         });
       if (sorted.length === 0) {
