@@ -5747,7 +5747,7 @@
         const evPool = (typeof calState !== 'undefined' && calState.events && calState.events.length > 0)
           ? calState.events : ECO_CALENDAR_DATA;
         const events = evPool.filter(e => (e.date || e.datetime || '').slice(0,10) === ds);
-        const highCount = events.filter(e => e.importance === 3).length;
+        const highCount = events.filter(e => e.importance === 3 || e.type === 'earnings').length;
         const medCount  = events.filter(e => e.importance === 2).length;
         const isToday   = ds === todayStr;
         const isActive  = ds === calSelectedDate;
@@ -6347,6 +6347,11 @@
       // 다음 주요 일정 섹션 렌더 (캘린더 페이지 + 홈 대시보드)
       renderUpcoming();
       renderDashUpcoming();
+
+      // 홈 캘린더 스트립 재렌더 (데이터 로드 완료 후)
+      calSelectedDate = new Date().toISOString().slice(0, 10);
+      renderCalStrip();
+      renderEcoCalendar();
     }
 
     function bindCalendarControls() {
