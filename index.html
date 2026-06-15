@@ -6566,8 +6566,13 @@
     }
 
     window.selectCalDate = function(dateStr) {
+      // 홈 스트립 업데이트
+      calSelectedDate = dateStr;
+      renderCalStrip();
+      renderEcoCalendar();
+
+      // 메인 캘린더 업데이트
       calState.selected = dateStr;
-      // re-render to show selection
       if (calState.view === 'month') renderMonthView();
       renderDayDetail(dateStr);
     };
