@@ -139,14 +139,14 @@ FIXED_ECONOMIC_SCHEDULE = [
     {"id":"fomc_2026-12-09","name":"FOMC 금리 결정","country":"US","date":"2026-12-09","datetime":"2026-12-09 04:00","importance":3,"previous":None,"forecast":None,"actual":None},
 
     # ── 2026 CPI 물가지수 ──────────────────────────────
-    {"id":"cpi_2026-05-29","name":"CPI 물가지수","country":"US","date":"2026-05-29","datetime":"2026-05-29 21:30","importance":3,"previous":2.8,"forecast":2.7,"actual":None},
-    {"id":"cpi_2026-06-11","name":"CPI 물가지수","country":"US","date":"2026-06-11","datetime":"2026-06-11 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
+    # CPI 발표일 = 데이터 기준월 다음달 (BLS 공식 일정, 2026 검증 완료)
+    {"id":"cpi_2026-06-10","name":"CPI 물가지수","country":"US","date":"2026-06-10","datetime":"2026-06-10 21:30","importance":3,"previous":2.8,"forecast":None,"actual":None},
     {"id":"cpi_2026-07-14","name":"CPI 물가지수","country":"US","date":"2026-07-14","datetime":"2026-07-14 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"cpi_2026-08-12","name":"CPI 물가지수","country":"US","date":"2026-08-12","datetime":"2026-08-12 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
-    {"id":"cpi_2026-09-10","name":"CPI 물가지수","country":"US","date":"2026-09-10","datetime":"2026-09-10 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
+    {"id":"cpi_2026-09-11","name":"CPI 물가지수","country":"US","date":"2026-09-11","datetime":"2026-09-11 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"cpi_2026-10-14","name":"CPI 물가지수","country":"US","date":"2026-10-14","datetime":"2026-10-14 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
-    {"id":"cpi_2026-11-12","name":"CPI 물가지수","country":"US","date":"2026-11-12","datetime":"2026-11-12 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
-    {"id":"cpi_2026-12-09","name":"CPI 물가지수","country":"US","date":"2026-12-09","datetime":"2026-12-09 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
+    {"id":"cpi_2026-11-10","name":"CPI 물가지수","country":"US","date":"2026-11-10","datetime":"2026-11-10 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
+    {"id":"cpi_2026-12-10","name":"CPI 물가지수","country":"US","date":"2026-12-10","datetime":"2026-12-10 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
 
     # ── 2026 비농업고용 NFP ────────────────────────────
     {"id":"nfp_2026-06-05","name":"비농업고용(NFP)","country":"US","date":"2026-06-05","datetime":"2026-06-05 21:30","importance":3,"previous":180000,"forecast":None,"actual":None},
@@ -157,14 +157,17 @@ FIXED_ECONOMIC_SCHEDULE = [
     {"id":"nfp_2026-11-06","name":"비농업고용(NFP)","country":"US","date":"2026-11-06","datetime":"2026-11-06 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"nfp_2026-12-04","name":"비농업고용(NFP)","country":"US","date":"2026-12-04","datetime":"2026-12-04 21:30","importance":3,"previous":None,"forecast":None,"actual":None},
 
-    # ── 2026 PPI 생산자물가 ───────────────────────────
+    # ── 2026 PPI 생산자물가 (BLS 공식 일정, CPI와 별도 — 2026 검증 완료) ──
     {"id":"ppi_2026-06-11","name":"PPI 생산자물가","country":"US","date":"2026-06-11","datetime":"2026-06-11 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
-    {"id":"ppi_2026-07-14","name":"PPI 생산자물가","country":"US","date":"2026-07-14","datetime":"2026-07-14 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
-    {"id":"ppi_2026-08-12","name":"PPI 생산자물가","country":"US","date":"2026-08-12","datetime":"2026-08-12 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
+    {"id":"ppi_2026-07-15","name":"PPI 생산자물가","country":"US","date":"2026-07-15","datetime":"2026-07-15 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
+    {"id":"ppi_2026-08-13","name":"PPI 생산자물가","country":"US","date":"2026-08-13","datetime":"2026-08-13 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
     {"id":"ppi_2026-09-10","name":"PPI 생산자물가","country":"US","date":"2026-09-10","datetime":"2026-09-10 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
+    {"id":"ppi_2026-10-15","name":"PPI 생산자물가","country":"US","date":"2026-10-15","datetime":"2026-10-15 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
+    {"id":"ppi_2026-11-13","name":"PPI 생산자물가","country":"US","date":"2026-11-13","datetime":"2026-11-13 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
+    {"id":"ppi_2026-12-15","name":"PPI 생산자물가","country":"US","date":"2026-12-15","datetime":"2026-12-15 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
 
     # ── 2026 소매판매 ──────────────────────────────────
-    {"id":"retail_2026-06-16","name":"소매판매","country":"US","date":"2026-06-16","datetime":"2026-06-16 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
+    {"id":"retail_2026-06-17","name":"소매판매","country":"US","date":"2026-06-17","datetime":"2026-06-17 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
     {"id":"retail_2026-07-16","name":"소매판매","country":"US","date":"2026-07-16","datetime":"2026-07-16 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
     {"id":"retail_2026-08-14","name":"소매판매","country":"US","date":"2026-08-14","datetime":"2026-08-14 21:30","importance":2,"previous":None,"forecast":None,"actual":None},
 
@@ -185,7 +188,7 @@ FIXED_ECONOMIC_SCHEDULE = [
     {"id":"bok_2026-11-26","name":"한국은행 기준금리 결정","country":"KR","date":"2026-11-26","datetime":"2026-11-26 10:00","importance":3,"previous":None,"forecast":None,"actual":None},
 
     # ── ECB 기준금리 결정 ──────────────────────────────
-    {"id":"ecb_2026-06-04","name":"ECB 기준금리 결정","country":"EU","date":"2026-06-04","datetime":"2026-06-04 21:15","importance":3,"previous":1.75,"forecast":1.5,"actual":None},
+    {"id":"ecb_2026-06-11","name":"ECB 기준금리 결정","country":"EU","date":"2026-06-11","datetime":"2026-06-11 21:15","importance":3,"previous":1.75,"forecast":1.5,"actual":None},
     {"id":"ecb_2026-07-23","name":"ECB 기준금리 결정","country":"EU","date":"2026-07-23","datetime":"2026-07-23 21:15","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"ecb_2026-09-10","name":"ECB 기준금리 결정","country":"EU","date":"2026-09-10","datetime":"2026-09-10 21:15","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"ecb_2026-10-29","name":"ECB 기준금리 결정","country":"EU","date":"2026-10-29","datetime":"2026-10-29 21:15","importance":3,"previous":None,"forecast":None,"actual":None},
@@ -193,7 +196,7 @@ FIXED_ECONOMIC_SCHEDULE = [
 
     # ── BOJ 금리 결정 ──────────────────────────────────
     {"id":"boj_2026-06-16","name":"BOJ 금리 결정","country":"JP","date":"2026-06-16","datetime":"2026-06-16 12:00","importance":3,"previous":0.75,"forecast":0.75,"actual":None},
-    {"id":"boj_2026-07-30","name":"BOJ 금리 결정","country":"JP","date":"2026-07-30","datetime":"2026-07-30 12:00","importance":3,"previous":None,"forecast":None,"actual":None},
+    {"id":"boj_2026-07-31","name":"BOJ 금리 결정","country":"JP","date":"2026-07-31","datetime":"2026-07-31 12:00","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"boj_2026-09-18","name":"BOJ 금리 결정","country":"JP","date":"2026-09-18","datetime":"2026-09-18 12:00","importance":3,"previous":None,"forecast":None,"actual":None},
 ]
 

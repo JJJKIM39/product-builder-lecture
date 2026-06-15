@@ -2,7 +2,7 @@
   "updated_at": "2026-06-15T19:05:28+09:00",
   "range_from": "2026-01-01",
   "range_to": "2026-12-31",
-  "count": 183,
+  "count": 185,
   "events": [
     {
       "id": "earn_JPM_2026-01-13",
@@ -1010,18 +1010,6 @@
       "type": "economic"
     },
     {
-      "id": "cpi_2026-05-29",
-      "name": "CPI 물가지수",
-      "country": "US",
-      "date": "2026-05-29",
-      "datetime": "2026-05-29 21:30",
-      "importance": 3,
-      "previous": 2.8,
-      "forecast": 2.7,
-      "actual": null,
-      "type": "economic"
-    },
-    {
       "id": "ism_2026-06-01",
       "name": "ISM 제조업 PMI",
       "country": "US",
@@ -1043,18 +1031,6 @@
       "timing": "TBD",
       "eps_estimate": 2.4,
       "eps_actual": 2.44
-    },
-    {
-      "id": "ecb_2026-06-04",
-      "name": "ECB 기준금리 결정",
-      "country": "EU",
-      "date": "2026-06-04",
-      "datetime": "2026-06-04 21:15",
-      "importance": 3,
-      "previous": 1.75,
-      "forecast": 1.5,
-      "actual": null,
-      "type": "economic"
     },
     {
       "id": "nfp_2026-06-05",
@@ -1080,6 +1056,18 @@
       "eps_actual": 2.11
     },
     {
+      "id": "cpi_2026-06-10",
+      "name": "CPI 물가지수",
+      "country": "US",
+      "date": "2026-06-10",
+      "datetime": "2026-06-10 21:30",
+      "importance": 3,
+      "previous": 2.8,
+      "forecast": null,
+      "actual": null,
+      "type": "economic"
+    },
+    {
       "id": "earn_ADBE_2026-06-11",
       "type": "earnings",
       "ticker": "ADBE",
@@ -1091,14 +1079,14 @@
       "eps_actual": 5.96
     },
     {
-      "id": "cpi_2026-06-11",
-      "name": "CPI 물가지수",
-      "country": "US",
+      "id": "ecb_2026-06-11",
+      "name": "ECB 기준금리 결정",
+      "country": "EU",
       "date": "2026-06-11",
-      "datetime": "2026-06-11 21:30",
+      "datetime": "2026-06-11 21:15",
       "importance": 3,
-      "previous": null,
-      "forecast": null,
+      "previous": 1.75,
+      "forecast": 1.5,
       "actual": null,
       "type": "economic"
     },
@@ -1127,18 +1115,6 @@
       "type": "economic"
     },
     {
-      "id": "retail_2026-06-16",
-      "name": "소매판매",
-      "country": "US",
-      "date": "2026-06-16",
-      "datetime": "2026-06-16 21:30",
-      "importance": 2,
-      "previous": null,
-      "forecast": null,
-      "actual": null,
-      "type": "economic"
-    },
-    {
       "id": "fomc_2026-06-17",
       "name": "FOMC 금리 결정",
       "country": "US",
@@ -1146,6 +1122,18 @@
       "datetime": "2026-06-17 04:00",
       "importance": 3,
       "previous": 4.0,
+      "forecast": null,
+      "actual": null,
+      "type": "economic"
+    },
+    {
+      "id": "retail_2026-06-17",
+      "name": "소매판매",
+      "country": "US",
+      "date": "2026-06-17",
+      "datetime": "2026-06-17 21:30",
+      "importance": 2,
+      "previous": null,
       "forecast": null,
       "actual": null,
       "type": "economic"
@@ -1255,11 +1243,11 @@
       "type": "economic"
     },
     {
-      "id": "ppi_2026-07-14",
+      "id": "ppi_2026-07-15",
       "name": "PPI 생산자물가",
       "country": "US",
-      "date": "2026-07-14",
-      "datetime": "2026-07-14 21:30",
+      "date": "2026-07-15",
+      "datetime": "2026-07-15 21:30",
       "importance": 2,
       "previous": null,
       "forecast": null,
@@ -1545,18 +1533,6 @@
       "eps_actual": null
     },
     {
-      "id": "boj_2026-07-30",
-      "name": "BOJ 금리 결정",
-      "country": "JP",
-      "date": "2026-07-30",
-      "datetime": "2026-07-30 12:00",
-      "importance": 3,
-      "previous": null,
-      "forecast": null,
-      "actual": null,
-      "type": "economic"
-    },
-    {
       "id": "earn_XOM_2026-07-31",
       "type": "earnings",
       "ticker": "XOM",
@@ -1577,6 +1553,18 @@
       "timing": "TBD",
       "eps_estimate": 6129.74,
       "eps_actual": null
+    },
+    {
+      "id": "boj_2026-07-31",
+      "name": "BOJ 금리 결정",
+      "country": "JP",
+      "date": "2026-07-31",
+      "datetime": "2026-07-31 12:00",
+      "importance": 3,
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "type": "economic"
     },
     {
       "id": "earn_PLTR_2026-08-03",
@@ -1725,18 +1713,6 @@
       "type": "economic"
     },
     {
-      "id": "ppi_2026-08-12",
-      "name": "PPI 생산자물가",
-      "country": "US",
-      "date": "2026-08-12",
-      "datetime": "2026-08-12 21:30",
-      "importance": 2,
-      "previous": null,
-      "forecast": null,
-      "actual": null,
-      "type": "economic"
-    },
-    {
       "id": "earn_003550_2026-08-13",
       "type": "earnings",
       "ticker": "003550",
@@ -1746,6 +1722,18 @@
       "timing": "TBD",
       "eps_estimate": 2050.0,
       "eps_actual": null
+    },
+    {
+      "id": "ppi_2026-08-13",
+      "name": "PPI 생산자물가",
+      "country": "US",
+      "date": "2026-08-13",
+      "datetime": "2026-08-13 21:30",
+      "importance": 2,
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "type": "economic"
     },
     {
       "id": "retail_2026-08-14",
@@ -1862,24 +1850,24 @@
       "type": "economic"
     },
     {
-      "id": "cpi_2026-09-10",
-      "name": "CPI 물가지수",
-      "country": "US",
-      "date": "2026-09-10",
-      "datetime": "2026-09-10 21:30",
-      "importance": 3,
-      "previous": null,
-      "forecast": null,
-      "actual": null,
-      "type": "economic"
-    },
-    {
       "id": "ppi_2026-09-10",
       "name": "PPI 생산자물가",
       "country": "US",
       "date": "2026-09-10",
       "datetime": "2026-09-10 21:30",
       "importance": 2,
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "type": "economic"
+    },
+    {
+      "id": "cpi_2026-09-11",
+      "name": "CPI 물가지수",
+      "country": "US",
+      "date": "2026-09-11",
+      "datetime": "2026-09-11 21:30",
+      "importance": 3,
       "previous": null,
       "forecast": null,
       "actual": null,
@@ -1958,6 +1946,18 @@
       "type": "economic"
     },
     {
+      "id": "ppi_2026-10-15",
+      "name": "PPI 생산자물가",
+      "country": "US",
+      "date": "2026-10-15",
+      "datetime": "2026-10-15 21:30",
+      "importance": 2,
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "type": "economic"
+    },
+    {
       "id": "fomc_2026-10-28",
       "name": "FOMC 금리 결정",
       "country": "US",
@@ -1994,12 +1994,24 @@
       "type": "economic"
     },
     {
-      "id": "cpi_2026-11-12",
+      "id": "cpi_2026-11-10",
       "name": "CPI 물가지수",
       "country": "US",
-      "date": "2026-11-12",
-      "datetime": "2026-11-12 21:30",
+      "date": "2026-11-10",
+      "datetime": "2026-11-10 21:30",
       "importance": 3,
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "type": "economic"
+    },
+    {
+      "id": "ppi_2026-11-13",
+      "name": "PPI 생산자물가",
+      "country": "US",
+      "date": "2026-11-13",
+      "datetime": "2026-11-13 21:30",
+      "importance": 2,
       "previous": null,
       "forecast": null,
       "actual": null,
@@ -2042,12 +2054,24 @@
       "type": "economic"
     },
     {
-      "id": "cpi_2026-12-09",
+      "id": "cpi_2026-12-10",
       "name": "CPI 물가지수",
       "country": "US",
-      "date": "2026-12-09",
-      "datetime": "2026-12-09 21:30",
+      "date": "2026-12-10",
+      "datetime": "2026-12-10 21:30",
       "importance": 3,
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "type": "economic"
+    },
+    {
+      "id": "ppi_2026-12-15",
+      "name": "PPI 생산자물가",
+      "country": "US",
+      "date": "2026-12-15",
+      "datetime": "2026-12-15 21:30",
+      "importance": 2,
       "previous": null,
       "forecast": null,
       "actual": null,
