@@ -132,7 +132,7 @@ FIXED_ECONOMIC_SCHEDULE = [
     {"id":"fomc_2026-01-28","name":"FOMC 금리 결정","country":"US","date":"2026-01-28","datetime":"2026-01-28 04:00","importance":3,"previous":4.25,"forecast":4.25,"actual":4.25},
     {"id":"fomc_2026-03-18","name":"FOMC 금리 결정","country":"US","date":"2026-03-18","datetime":"2026-03-18 04:00","importance":3,"previous":4.25,"forecast":4.0,"actual":4.0},
     {"id":"fomc_2026-04-29","name":"FOMC 금리 결정","country":"US","date":"2026-04-29","datetime":"2026-04-29 04:00","importance":3,"previous":4.0,"forecast":4.0,"actual":4.0},
-    {"id":"fomc_2026-06-10","name":"FOMC 금리 결정","country":"US","date":"2026-06-10","datetime":"2026-06-10 04:00","importance":3,"previous":4.0,"forecast":None,"actual":None},
+    {"id":"fomc_2026-06-17","name":"FOMC 금리 결정","country":"US","date":"2026-06-17","datetime":"2026-06-17 04:00","importance":3,"previous":4.0,"forecast":None,"actual":None},
     {"id":"fomc_2026-07-29","name":"FOMC 금리 결정","country":"US","date":"2026-07-29","datetime":"2026-07-29 04:00","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"fomc_2026-09-16","name":"FOMC 금리 결정","country":"US","date":"2026-09-16","datetime":"2026-09-16 04:00","importance":3,"previous":None,"forecast":None,"actual":None},
     {"id":"fomc_2026-10-28","name":"FOMC 금리 결정","country":"US","date":"2026-10-28","datetime":"2026-10-28 04:00","importance":3,"previous":None,"forecast":None,"actual":None},

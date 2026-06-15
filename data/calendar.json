@@ -1080,18 +1080,6 @@
       "eps_actual": 2.11
     },
     {
-      "id": "fomc_2026-06-10",
-      "name": "FOMC 금리 결정",
-      "country": "US",
-      "date": "2026-06-10",
-      "datetime": "2026-06-10 04:00",
-      "importance": 3,
-      "previous": 4.0,
-      "forecast": null,
-      "actual": null,
-      "type": "economic"
-    },
-    {
       "id": "earn_ADBE_2026-06-11",
       "type": "earnings",
       "ticker": "ADBE",
@@ -1146,6 +1134,18 @@
       "datetime": "2026-06-16 21:30",
       "importance": 2,
       "previous": null,
+      "forecast": null,
+      "actual": null,
+      "type": "economic"
+    },
+    {
+      "id": "fomc_2026-06-17",
+      "name": "FOMC 금리 결정",
+      "country": "US",
+      "date": "2026-06-17",
+      "datetime": "2026-06-17 04:00",
+      "importance": 3,
+      "previous": 4.0,
       "forecast": null,
       "actual": null,
       "type": "economic"
