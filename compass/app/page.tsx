@@ -43,10 +43,7 @@ function QuizCard({
       </div>
       <h3 className="mt-4 font-serif text-lg font-bold text-ink">{title}</h3>
       <p className="mt-1.5 text-sm leading-relaxed text-sub">{tagline}</p>
-      <p
-        className="mt-4 text-sm font-semibold transition-transform duration-150 group-hover:translate-x-0.5"
-        style={{ color: meta.color }}
-      >
+      <p className="mt-4 text-sm font-semibold text-indigo transition-transform duration-150 group-hover:translate-x-0.5">
         검사 시작하기 →
       </p>
     </Link>
@@ -72,7 +69,7 @@ export default function HomePage() {
         </p>
         <Link
           href="/quiz/energy-type"
-          className="mx-auto mt-6 flex h-12 w-full max-w-xs items-center justify-center rounded-xl bg-cobalt px-6 text-base font-semibold text-white transition-colors hover:bg-cobalt-dark"
+          className="mx-auto mt-6 flex h-12 w-full max-w-xs items-center justify-center rounded-xl bg-ink px-6 text-base font-semibold text-white transition-colors hover:bg-black"
         >
           3분 만에 내 유형 알아보기
         </Link>

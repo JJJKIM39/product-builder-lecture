@@ -13,7 +13,7 @@ const config: Config = {
         card: "#FFFFFF",
         line: "#E8E6E1",
         ink: "#171717",
-        cobalt: { DEFAULT: "#2B3CF3", dark: "#1F2CC7" },
+        indigo: { DEFAULT: "#3451B2", dark: "#283E8F" },
         sage: "#7A9B7E",
         sub: "#6F6E69",
       },

@@ -5,11 +5,9 @@ import { Toast, useToast } from "./Toast";
 export default function ShareButton({
   title,
   text,
-  accent,
 }: {
   title: string;
   text: string;
-  accent: string;
 }) {
   const { message, show } = useToast();
 
@@ -35,8 +33,7 @@ export default function ShareButton({
     <>
       <button
         onClick={handleShare}
-        className="w-full rounded-xl px-6 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90 active:opacity-80"
-        style={{ backgroundColor: accent }}
+        className="w-full rounded-xl bg-ink px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-black active:opacity-80"
       >
         결과 공유하기
       </button>

@@ -31,7 +31,7 @@ export default function QuizRunner({ quiz }: { quiz: Quiz }) {
   const total = questions.length;
   const step = Math.min(picks.length, total - 1);
   const question = questions[step];
-  const accent = quiz.category === "practical" ? "#7A9B7E" : "#2B3CF3";
+  const accent = quiz.category === "practical" ? "#7A9B7E" : "#3451B2";
   const progress = (picks.length / total) * 100;
 
   function select(type: string) {
