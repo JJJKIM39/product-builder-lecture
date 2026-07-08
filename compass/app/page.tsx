@@ -97,8 +97,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 정식 검사 — 준비 중 */}
+      {/* 실용 진단 */}
       <section className="mb-10">
+        <h2 className="mb-3 font-serif text-base font-bold text-ink">
+          다음 결정을 돕는 실용 진단
+        </h2>
+        <div className="flex flex-col gap-4">
+          {practical.map((q) => (
+            <QuizCard
+              key={q.slug}
+              slug={q.slug}
+              title={q.title}
+              tagline={q.tagline}
+              minutes={q.minutes}
+              questionCount={q.questions.length}
+              category={q.category as "practical"}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* 정식 검사 — 준비 중 */}
+      <section className="mb-14">
         <h2 className="mb-3 font-serif text-base font-bold text-ink">
           제대로 받아보는 정식 검사
         </h2>
@@ -118,26 +138,6 @@ export default function HomePage() {
             심리학계에서 가장 널리 검증된 5요인 성격 모델 기반의 정식 검사를
             준비하고 있어요.
           </p>
-        </div>
-      </section>
-
-      {/* 실용 진단 */}
-      <section className="mb-14">
-        <h2 className="mb-3 font-serif text-base font-bold text-ink">
-          다음 결정을 돕는 실용 진단
-        </h2>
-        <div className="flex flex-col gap-4">
-          {practical.map((q) => (
-            <QuizCard
-              key={q.slug}
-              slug={q.slug}
-              title={q.title}
-              tagline={q.tagline}
-              minutes={q.minutes}
-              questionCount={q.questions.length}
-              category={q.category as "practical"}
-            />
-          ))}
         </div>
       </section>
 
