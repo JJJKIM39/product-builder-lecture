@@ -23,7 +23,7 @@ export default function PremiumCta() {
       </p>
       <button
         onClick={() => show("결제 기능을 준비 중이에요. 조금만 기다려 주세요!")}
-        className="mt-5 w-full rounded-xl bg-coral px-6 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90 active:opacity-80"
+        className="mt-5 w-full rounded-xl bg-cobalt px-6 py-3.5 text-base font-semibold text-white transition-colors hover:bg-cobalt-dark active:opacity-80"
       >
         상세 리포트 받기 · ₩4,900
       </button>

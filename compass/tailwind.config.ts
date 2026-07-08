@@ -9,16 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ivory: "#FBF7F0",
+        ivory: "#FAFAF8",
         card: "#FFFFFF",
-        line: "#E7E2D6",
-        ink: "#1B2A4A",
-        coral: "#E8604C",
+        line: "#E8E6E1",
+        ink: "#171717",
+        cobalt: { DEFAULT: "#2B3CF3", dark: "#1F2CC7" },
         sage: "#7A9B7E",
-        sub: "#8B8B8F",
+        sub: "#6F6E69",
       },
       fontFamily: {
-        serif: ["var(--font-serif)", "Noto Serif KR", "serif"],
+        serif: ["MaruBuri", "serif"],
         sans: [
           "Pretendard Variable",
           "Pretendard",
@@ -28,6 +28,7 @@ const config: Config = {
           "Apple SD Gothic Neo",
           "sans-serif",
         ],
+        instrument: ["var(--font-instrument)", "Georgia", "serif"],
       },
     },
   },

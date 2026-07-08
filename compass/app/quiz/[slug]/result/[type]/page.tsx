@@ -167,7 +167,7 @@ export default function ResultPage({ params }: Props) {
         <ShareButton
           title={`${quiz.title} — 나는 ${result.name}`}
           text={`나의 ${quiz.title} 결과는 "${result.name}". 당신의 유형도 확인해 보세요.`}
-          accent={isPractical ? "#7A9B7E" : "#E8604C"}
+          accent={isPractical ? "#7A9B7E" : "#2B3CF3"}
         />
         <Link
           href={`/quiz/${quiz.slug}`}

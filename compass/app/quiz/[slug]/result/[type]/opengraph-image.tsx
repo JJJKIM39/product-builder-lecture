@@ -12,8 +12,16 @@ export function generateStaticParams() {
   );
 }
 
-/** 한글 렌더링을 위해 필요한 글자만 서브셋으로 받아온다 (Google Fonts css2 text 파라미터). */
+/** 마루 부리 Bold (네이버 공식 CDN). 실패 시 Google Fonts 세리프 서브셋으로 폴백. */
 async function loadKoreanFont(text: string): Promise<ArrayBuffer | null> {
+  try {
+    const res = await fetch(
+      "https://hangeul.pstatic.net/hangeul_static/webfont/MaruBuri/MaruBuri-Bold.ttf"
+    );
+    if (res.ok) return await res.arrayBuffer();
+  } catch {
+    // 아래 폴백으로 진행
+  }
   try {
     const cssUrl = `https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700&text=${encodeURIComponent(text)}`;
     const css = await fetch(cssUrl).then((r) => r.text());
@@ -35,7 +43,7 @@ export default async function OgImage({
 
   const title = quiz?.title ?? "나침반";
   const name = result?.name ?? "자기이해 검사";
-  const color = result?.color ?? "#1B2A4A";
+  const color = result?.color ?? "#171717";
 
   const textForSubset = `${title}${name}나침반 COMPASS 검사 결과나의 유형`;
   const fontData = await loadKoreanFont(textForSubset);
@@ -48,9 +56,9 @@ export default async function OgImage({
           height: "100%",
           display: "flex",
           alignItems: "center",
-          backgroundColor: "#FBF7F0",
+          backgroundColor: "#FAFAF8",
           padding: "0 80px",
-          fontFamily: "NotoSerifKR, serif",
+          fontFamily: "MaruBuri, serif",
         }}
       >
         {/* 결과 다이얼 링 */}
@@ -91,14 +99,14 @@ export default async function OgImage({
             marginLeft: 72,
           }}
         >
-          <div style={{ display: "flex", fontSize: 26, color: "#8B8B8F" }}>
+          <div style={{ display: "flex", fontSize: 26, color: "#6F6E69" }}>
             나침반 COMPASS
           </div>
           <div
             style={{
               display: "flex",
               fontSize: 40,
-              color: "#1B2A4A",
+              color: "#171717",
               marginTop: 18,
             }}
           >
@@ -109,7 +117,7 @@ export default async function OgImage({
               display: "flex",
               fontSize: 76,
               fontWeight: 700,
-              color: "#1B2A4A",
+              color: "#171717",
               marginTop: 10,
             }}
           >
@@ -133,7 +141,7 @@ export default async function OgImage({
       fonts: fontData
         ? [
             {
-              name: "NotoSerifKR",
+              name: "MaruBuri",
               data: fontData,
               weight: 700 as const,
               style: "normal" as const,

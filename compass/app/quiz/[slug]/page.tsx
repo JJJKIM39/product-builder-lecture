@@ -30,10 +30,10 @@ function CheckIcon() {
       fill="none"
       aria-hidden="true"
     >
-      <circle cx="10" cy="10" r="9" stroke="#E8604C" strokeWidth="1.5" />
+      <circle cx="10" cy="10" r="9" stroke="#2B3CF3" strokeWidth="1.5" />
       <path
         d="M6 10.5l2.5 2.5L14 7.5"
-        stroke="#E8604C"
+        stroke="#2B3CF3"
         strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -101,7 +101,7 @@ export default function QuizIntroPage({ params }: Props) {
         </p>
         <Link
           href={`/quiz/${quiz.slug}/start`}
-          className="block w-full rounded-xl bg-coral px-6 py-4 text-center text-base font-semibold text-white transition-opacity hover:opacity-90 active:opacity-80"
+          className="block w-full rounded-xl bg-cobalt px-6 py-4 text-center text-base font-semibold text-white transition-colors hover:bg-cobalt-dark active:opacity-80"
         >
           검사 시작하기
         </Link>

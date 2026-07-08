@@ -72,7 +72,7 @@ export default function HomePage() {
         </p>
         <Link
           href="/quiz/energy-type"
-          className="mx-auto mt-6 flex h-12 w-full max-w-xs items-center justify-center rounded-xl bg-coral px-6 text-base font-semibold text-white transition-colors hover:bg-[#D34F3D]"
+          className="mx-auto mt-6 flex h-12 w-full max-w-xs items-center justify-center rounded-xl bg-cobalt px-6 text-base font-semibold text-white transition-colors hover:bg-cobalt-dark"
         >
           3분 만에 내 유형 알아보기
         </Link>

@@ -4,7 +4,11 @@
 import { readdirSync, renameSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
-const OUT_DIR = new URL("../out", import.meta.url).pathname;
+// 기본 export 경로는 out/. NEXT_DIST_DIR 지정 시 export가 해당 폴더로 직접 떨어진다.
+const OUT_DIR = new URL(
+  `../${process.env.NEXT_DIST_DIR || "out"}`,
+  import.meta.url
+).pathname;
 
 function walk(dir, cb) {
   for (const entry of readdirSync(dir)) {

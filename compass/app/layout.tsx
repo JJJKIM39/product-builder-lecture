@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Noto_Serif_KR } from "next/font/google";
+import { Instrument_Serif } from "next/font/google";
 import Link from "next/link";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const serif = Noto_Serif_KR({
-  weight: ["600", "700", "900"],
+// 영문 로고타입·진행 표시 숫자용
+const instrument = Instrument_Serif({
+  weight: "400",
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-instrument",
 });
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko" className={serif.variable}>
+    <html lang="ko" className={instrument.variable}>
       <body className="font-sans">
         <header className="border-b border-line bg-ivory/80 backdrop-blur-sm sticky top-0 z-10">
           <div className="mx-auto flex h-14 max-w-[720px] items-center justify-between px-5">
@@ -39,7 +40,7 @@ export default function RootLayout({
               <span className="font-serif text-lg font-bold text-ink">
                 나침반
               </span>
-              <span className="text-xs font-medium tracking-wide text-sub">
+              <span className="font-instrument text-sm tracking-wide text-sub">
                 COMPASS
               </span>
             </Link>

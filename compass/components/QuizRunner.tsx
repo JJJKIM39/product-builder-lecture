@@ -31,7 +31,7 @@ export default function QuizRunner({ quiz }: { quiz: Quiz }) {
   const total = questions.length;
   const step = Math.min(picks.length, total - 1);
   const question = questions[step];
-  const accent = quiz.category === "practical" ? "#7A9B7E" : "#E8604C";
+  const accent = quiz.category === "practical" ? "#7A9B7E" : "#2B3CF3";
   const progress = (picks.length / total) * 100;
 
   function select(type: string) {
@@ -57,7 +57,7 @@ export default function QuizRunner({ quiz }: { quiz: Quiz }) {
       <div className="mb-8">
         <div className="mb-2 flex items-center justify-between text-xs font-medium text-sub">
           <span>{quiz.title}</span>
-          <span>
+          <span className="font-instrument text-sm">
             Q{step + 1} <span className="text-sub/60">/ {total}</span>
           </span>
         </div>
