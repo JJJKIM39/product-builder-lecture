@@ -11,6 +11,20 @@ export interface QuizQuestion {
   options: QuizOption[];
 }
 
+/** 유료 리포트 섹션의 노출 수준 */
+export type ReportVisibility = "free" | "partial" | "locked";
+
+export interface ReportSection {
+  /** 섹션 제목 */
+  title: string;
+  /** 목차·미리보기에 쓰이는 한 줄 설명 */
+  summary: string;
+  /** 본문 (현재는 placeholder — 다음 작업에서 유형별 실제 내용으로 교체) */
+  body: string;
+  /** free=전체 공개, partial=앞부분만, locked=잠금(더미) */
+  visibility: ReportVisibility;
+}
+
 export interface QuizResult {
   /** 유형명 */
   name: string;
@@ -28,6 +42,8 @@ export interface QuizResult {
   fit: string;
   /** 성장 포인트 한 줄 */
   growthTip: string;
+  /** 유료 리포트 미리보기 (실용 진단 전용) */
+  reportPreview?: ReportSection[];
 }
 
 export interface Quiz {

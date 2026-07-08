@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AdSlot from "@/components/AdSlot";
-import PremiumCta from "@/components/PremiumCta";
+import ReportPreview from "@/components/ReportPreview";
 import ResultDial from "@/components/ResultDial";
 import SaveResult from "@/components/SaveResult";
 import ShareButton from "@/components/ShareButton";
@@ -176,10 +176,12 @@ export default function ResultPage({ params }: Props) {
         </Link>
       </div>
 
-      {/* 수익화 영역 — 캐주얼은 광고, 실용 진단은 프리미엄 CTA (광고 금지) */}
+      {/* 수익화 영역 — 캐주얼은 광고, 실용 진단은 유료 리포트 미리보기 (광고 금지) */}
       <div className="mt-10">
         {isPractical ? (
-          <PremiumCta />
+          result.reportPreview && (
+            <ReportPreview sections={result.reportPreview} />
+          )
         ) : (
           <div className="border-t border-line pt-8">
             <AdSlot />
