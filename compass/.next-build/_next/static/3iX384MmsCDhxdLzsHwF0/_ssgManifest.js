@@ -1,1 +1,0 @@
-self.__SSG_MANIFEST=new Set(["\u002Fquiz\u002F[slug]","\u002Fquiz\u002F[slug]\u002Fresult\u002F[type]","\u002Fquiz\u002F[slug]\u002Fresult\u002F[type]\u002Fopengraph-image","\u002Fquiz\u002F[slug]\u002Fstart"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
