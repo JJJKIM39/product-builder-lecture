@@ -1,0 +1,7 @@
+# Cloudflare Workers 정적 자산 업로드에서 제외 (배포용 정적 파일만 남긴다)
+.git
+.github
+.claude
+coinbot
+compass
+wrangler.jsonc
