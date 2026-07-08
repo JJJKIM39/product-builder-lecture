@@ -64,8 +64,7 @@ export default function HomePage() {
           다음 선택을 쉽게 만듭니다.
         </h1>
         <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-sub">
-          성격검사부터 투자성향테스트까지 — 무료 심리테스트로 가볍게 시작해서,
-          실용 진단으로 다음 결정을 준비하세요.
+          3분이면 충분해요. 나를 아는 만큼, 선택이 쉬워집니다.
         </p>
         <Link
           href="/quiz/energy-type"
@@ -146,6 +145,12 @@ export default function HomePage() {
       <div className="border-t border-line pt-8">
         <AdSlot />
       </div>
+
+      {/* SEO 소개 문단 */}
+      <p className="mt-10 text-[13px] leading-relaxed text-sub">
+        나침반은 성격검사, 투자성향테스트 등 자기이해를 돕는 무료 심리테스트를
+        제공합니다.
+      </p>
     </div>
   );
 }
