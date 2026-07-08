@@ -36,12 +36,16 @@ export default function RootLayout({
       <body className="font-sans">
         <header className="border-b border-line bg-ivory/80 backdrop-blur-sm sticky top-0 z-10">
           <div className="mx-auto flex h-14 max-w-[720px] items-center justify-between px-5">
-            <Link href="/" className="flex items-baseline gap-1.5">
-              <span className="font-serif text-lg font-bold text-ink">
-                나침반
-              </span>
-              <span className="font-instrument text-sm tracking-wide text-sub">
-                COMPASS
+            <Link href="/" className="flex items-center gap-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/icon.svg" alt="" width={22} height={22} />
+              <span className="flex items-baseline gap-1.5">
+                <span className="font-serif text-lg font-bold text-ink">
+                  나침반
+                </span>
+                <span className="font-instrument text-sm tracking-wide text-sub">
+                  COMPASS
+                </span>
               </span>
             </Link>
             <nav className="flex items-center gap-5 text-sm text-ink/70">
