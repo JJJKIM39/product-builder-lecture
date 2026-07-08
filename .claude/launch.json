@@ -1,0 +1,18 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "runroute",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "npx serve -l ${PORT:-3000} ."],
+      "autoPort": true
+    },
+    {
+      "name": "compass",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd compass && npm run dev -- -p ${PORT:-3100}"],
+      "port": 3100,
+      "autoPort": true
+    }
+  ]
+}

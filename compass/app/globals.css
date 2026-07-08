@@ -1,0 +1,57 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #fbf7f0;
+  color: #1b2a4a;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 질문 전환 */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.35s ease-out both;
+}
+
+/* 결과 다이얼 채움 */
+@keyframes dial-fill {
+  from {
+    stroke-dashoffset: var(--dial-circumference);
+  }
+  to {
+    stroke-dashoffset: var(--dial-offset);
+  }
+}
+
+.dial-arc {
+  animation: dial-fill 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+/* 토스트 */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-toast {
+  animation: toast-in 0.25s ease-out both;
+}
